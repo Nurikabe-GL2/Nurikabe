@@ -15,12 +15,14 @@ public class Main {
     public static void main(String[] args) {
         LOGGER.debug("Démarrage");
 
+        // Démarre JavaFX
         Platform.startup(() -> {
             try {
+                //Charge le menu principal, le type de la variable est le type du nœud racine
                 final Parent root = FXMLLoader.load(Utils.getResource(Main.class, "view/MenuPrincipal.fxml"));
 
-                final Scene scene = new Scene(root);
-                final Stage stage = new Stage();
+                final Scene scene = new Scene(root); //Le conteneur de noeud racine
+                final Stage stage = new Stage(); //La fenêtre
                 stage.setScene(scene);
                 stage.show();
 
