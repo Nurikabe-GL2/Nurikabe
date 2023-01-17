@@ -72,12 +72,12 @@
                                        <children>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-1-begin.gif" />
+                                                <Image url="@../media/starting-1-begin.gif" />
                                              </image>
                                           </ImageView>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-1-end.gif" />
+                                                <Image url="@../media/starting-1-end.gif" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -96,12 +96,12 @@
                                        <children>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-2-begin.gif" />
+                                                <Image url="@../media/starting-2-begin.gif" />
                                              </image>
                                           </ImageView>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-2-end.gif" />
+                                                <Image url="@../media/starting-2-end.gif" />
                                              </image>
                                           </ImageView>
                                        </children>
