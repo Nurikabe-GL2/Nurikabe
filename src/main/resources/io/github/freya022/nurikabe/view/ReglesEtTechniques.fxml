@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <Button mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Retour" />
+            <Label text="Règles &amp; techniques">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <TabPane tabClosingPolicy="ALL_TABS">
+         <tabs>
+            <Tab closable="false" text="Règles">
+               <content>
+                  <ScrollPane fitToWidth="true">
+                     <content>
+                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
+                           <children>
+                              <Label text="Règles">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Following the footsteps of Sudoku, Kakuro and other Number Logic puzzles, Nurikabe is one more family of easy to learn addictive logic puzzles which were invented in Japan. Using pure logic and requiring no math to solve, these fascinating puzzles offer endless fun and intellectual entertainment to puzzle fans of all skills and ages.&#10;&#10;Nurikabe is an island-forming puzzle. Unlike other logic puzzles, Nurikabe are solved by partitioning between clues with walls according to the rules so that all islands are isolated and there is a continuous path to all walls.&#10;&#10;Nurikabe puzzles come in many sizes and range from very easy to extremely difficult taking anything from five minutes to several hours to solve. However, make one mistake and you’ll find yourself stuck later on as you get closer to the solution..." wrapText="true" />
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Techniques">
+               <content>
+                  <ScrollPane fitToWidth="true">
+                     <content>
+                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
+                           <children>
+                              <Label text="Techniques">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <VBox>
+                                 <children>
+                                    <Label maxWidth="1.7976931348623157E308" text="Starting techniques" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label maxWidth="1.7976931348623157E308" text="1. Island of 1" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Since this is an island with a single square we can surround it with walls by shading the horizontally and vertically adjacent squares." wrapText="true" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@starting-1-begin.gif" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@starting-1-end.gif" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label maxWidth="1.7976931348623157E308" text="2. Clues separated by one square" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="According to Nurikabe rules, all clues must be partitioned from each other with walls. Therefore when two clues are in the same row or column and separated by one square, the square in between must be a wall." wrapText="true" />
+                                    <HBox spacing="20.0">
+                                       <children>
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@starting-2-begin.gif" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@starting-2-end.gif" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</VBox>

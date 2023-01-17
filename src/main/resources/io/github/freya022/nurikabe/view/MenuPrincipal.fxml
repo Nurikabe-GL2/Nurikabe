@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: lightgrey;">
+         <children>
+            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Retour" />
+            <Label text="Menu principal">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <AnchorPane VBox.vgrow="ALWAYS">
+         <children>
+            <Label alignment="CENTER" layoutX="252.0" layoutY="42.0" text="Nurikabe">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" layoutY="126.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Jouer">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Règles &amp; techniques">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Paramètres">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Quitter">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
