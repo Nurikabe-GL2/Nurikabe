@@ -5,14 +5,18 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+<VBox prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #152247;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: lightgrey;">
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #455685; -fx-border-color: #455685;">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Retour" />
-            <Label text="Facile: Nurikabe Classique 6x6">
+            <Button mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Retour" textFill="WHITE">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Lucida Sans Typewriter Bold" size="12.0" />
+               </font></Button>
+            <Label text="Facile : Nurikabe Classique 6x6" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="14.0" />
                </font>
             </Label>
          </children>
@@ -20,22 +24,25 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <SplitPane dividerPositions="0.33" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.33" style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
          <items>
-            <TabPane maxHeight="1.7976931348623157E308" tabClosingPolicy="ALL_TABS">
+            <TabPane maxHeight="1.7976931348623157E308" style="-fx-background-color: #152247;" tabClosingPolicy="ALL_TABS">
               <tabs>
                 <Tab closable="false" text="Règles">
                      <content>
-                        <ScrollPane fitToWidth="true">
+                        <ScrollPane fitToWidth="true" style="-fx-background-color: #152247;">
                            <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
+                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: #152247;">
                                  <children>
-                                    <Label text="Règles">
+                                    <Label text="Règles" textFill="#8fc6ff">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="Lucida Sans Typewriter Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Following the footsteps of Sudoku, Kakuro and other Number Logic puzzles, Nurikabe is one more family of easy to learn addictive logic puzzles which were invented in Japan. Using pure logic and requiring no math to solve, these fascinating puzzles offer endless fun and intellectual entertainment to puzzle fans of all skills and ages.&#10;&#10;Nurikabe is an island-forming puzzle. Unlike other logic puzzles, Nurikabe are solved by partitioning between clues with walls according to the rules so that all islands are isolated and there is a continuous path to all walls.&#10;&#10;Nurikabe puzzles come in many sizes and range from very easy to extremely difficult taking anything from five minutes to several hours to solve. However, make one mistake and you’ll find yourself stuck later on as you get closer to the solution..." wrapText="true" />
+                                    <Label text=" Après le Sudoku, le Kakuro et d'autres puzzles de logique numérique, le Nurikabe est une autre famille de puzzles de logique facile à apprendre et addictive qui a été inventée au Japon. Utilisant la logique pure et ne nécessitant pas de mathématiques pour être résolus, ces puzzles fascinants offrent un plaisir sans fin et un divertissement intellectuel aux amateurs de puzzles de toutes les compétences et de tous les âges.&#10;&#10; Nurikabe est un puzzle qui forme une île. Contrairement aux autres puzzles logiques, les Nurikabe sont résolus en cloisonnant les indices avec des murs selon les règles de sorte que toutes les îles soient isolées et qu'il y ait un chemin continu vers tous les murs.&#10;&#10; Les énigmes de Nurikabe existent en plusieurs tailles et vont de très faciles à extrêmement difficiles, prenant de cinq minutes à plusieurs heures à résoudre. Cependant, faites une seule erreur et vous vous retrouverez bloqué plus tard alors que vous vous rapprochez de la solution...&#10;&#10; Si vous aimez le Sudoku, le Kakuro et les autres casse-tête logiques, vous aimerez aussi Conceptis Nurikabe !" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
+                                       <font>
+                                          <Font name="Lucida Sans Typewriter Regular" size="10.0" />
+                                       </font></Label>
                                  </children>
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -51,34 +58,34 @@
                            <content>
                               <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
                                  <children>
-                                    <Label text="Techniques">
+                                    <Label text="Techniques" textFill="#8fc6ff">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="Lucida Sans Typewriter Bold" size="18.0" />
                                        </font>
                                     </Label>
                                     <VBox>
                                        <children>
-                                          <Label maxWidth="1.7976931348623157E308" text="Starting techniques" textAlignment="CENTER" wrapText="true">
+                                          <Label maxWidth="1.7976931348623157E308" text="Techniques Basiques" textAlignment="CENTER" textFill="#8fc6ff" wrapText="true">
                                              <font>
-                                                <Font name="System Bold" size="14.0" />
+                                                <Font name="Lucida Sans Typewriter Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <Label maxWidth="1.7976931348623157E308" text="1. Island of 1" textAlignment="CENTER" wrapText="true">
+                                          <Label maxWidth="1.7976931348623157E308" text="1. Island of 1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label text="Since this is an island with a single square we can surround it with walls by shading the horizontally and vertically adjacent squares." wrapText="true" />
+                                          <Label text="Since this is an island with a single square we can surround it with walls by shading the horizontally and vertically adjacent squares." textFill="WHITE" wrapText="true" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-1-begin.gif" />
+                                                      <Image url="@starting-1-begin.gif" />
                                                    </image>
                                                 </ImageView>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-1-end.gif" />
+                                                      <Image url="@starting-1-end.gif" />
                                                    </image>
                                                 </ImageView>
                                              </children>
@@ -87,22 +94,22 @@
                                     </VBox>
                                     <VBox>
                                        <children>
-                                          <Label maxWidth="1.7976931348623157E308" text="2. Clues separated by one square" textAlignment="CENTER" wrapText="true">
+                                          <Label maxWidth="1.7976931348623157E308" text="2. Clues separated by one square" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label text="According to Nurikabe rules, all clues must be partitioned from each other with walls. Therefore when two clues are in the same row or column and separated by one square, the square in between must be a wall." wrapText="true" />
+                                          <Label text="According to Nurikabe rules, all clues must be partitioned from each other with walls. Therefore when two clues are in the same row or column and separated by one square, the square in between must be a wall." textFill="WHITE" wrapText="true" />
                                           <HBox spacing="20.0">
                                              <children>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-2-begin.gif" />
+                                                      <Image url="@starting-2-begin.gif" />
                                                    </image>
                                                 </ImageView>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-2-end.gif" />
+                                                      <Image url="@starting-2-end.gif" />
                                                    </image>
                                                 </ImageView>
                                              </children>
@@ -124,7 +131,7 @@
                            <content>
                               <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
                                  <children>
-                                    <Label text="Technique applicable">
+                                    <Label text="Technique applicable" textFill="#8fc6ff">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -146,12 +153,12 @@
                                              <children>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-1-begin.gif" />
+                                                      <Image url="@starting-1-begin.gif" />
                                                    </image>
                                                 </ImageView>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../media/starting-1-end.gif" />
+                                                      <Image url="@starting-1-end.gif" />
                                                    </image>
                                                 </ImageView>
                                              </children>
@@ -170,59 +177,62 @@
             </TabPane>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: rgb(225, 225, 225);">
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #152247;">
                      <children>
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/undo.png" />
+                                    <Image url="@../img/undo.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/redo.png" />
+                                    <Image url="@../img/redo.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/key.png" />
+                                    <Image url="@../img/key.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/location.png" />
+                                    <Image url="@../img/location.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Hypothèse">
+                        <Button mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Hypothèse" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/fork.png" />
+                                    <Image url="@../img/fork.png" />
                                  </image>
                               </ImageView>
                            </graphic>
+                           <font>
+                              <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                           </font>
                         </Button>
-                        <Pane HBox.hgrow="ALWAYS" />
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Button">
+                        <Pane style="-fx-background-color: #152247;" HBox.hgrow="ALWAYS" />
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/restart.png" />
+                                    <Image url="@../img/restart.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -232,20 +242,23 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <Pane VBox.vgrow="ALWAYS" />
-                  <VBox alignment="TOP_CENTER" spacing="5.0">
+                  <Pane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS" />
+                  <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #152247;">
                      <children>
                         <HBox alignment="CENTER">
                            <children>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../media/timer.png" />
+                                    <Image url="@../img/timer.png" />
                                  </image>
                               </ImageView>
-                              <Label text="00:00:00.00" />
+                              <Label text="00:00:00.00" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lucida Sans Typewriter Regular" size="12.0" />
+                                 </font></Label>
                            </children>
                         </HBox>
-                        <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="210.0">
+                        <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="210.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -286,7 +299,7 @@
                                  <children>
                                     <Label alignment="CENTER" text="2">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -295,7 +308,7 @@
                                  <children>
                                     <Label alignment="CENTER" text="6">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -304,7 +317,7 @@
                                  <children>
                                     <Label alignment="CENTER" text="3">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -313,7 +326,7 @@
                                  <children>
                                     <Label alignment="CENTER" text="1">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -322,7 +335,7 @@
                                  <children>
                                     <Label alignment="CENTER" text="5">
                                        <font>
-                                          <Font name="System Bold" size="14.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -331,10 +344,14 @@
                         </GridPane>
                      </children>
                   </VBox>
-                  <Pane VBox.vgrow="ALWAYS" />
+                  <Pane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </items>
       </SplitPane>
    </children>
+   <stylesheets>
+      <URL value="@../css/style.css" />
+      <URL value="@../css/ScrollPane.css" />
+   </stylesheets>
 </VBox>

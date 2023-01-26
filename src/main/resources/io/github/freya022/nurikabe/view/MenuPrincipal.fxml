@@ -2,16 +2,23 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.net.URL?>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: lightgrey;">
+      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #455685;">
          <children>
-            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: rgb(166, 166, 255);" text="Retour" />
-            <Label text="Menu principal">
+            <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Retour" textFill="WHITE">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Lucida Sans Typewriter Bold" size="12.0" />
+               </font></Button>
+            <Label text="Menu principal" textFill="WHITE">
+               <font>
+                  <Font name="Lucida Sans Typewriter Regular" size="14.0" />
                </font>
             </Label>
          </children>
@@ -19,31 +26,42 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <AnchorPane VBox.vgrow="ALWAYS">
+      <AnchorPane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" layoutX="252.0" layoutY="42.0" text="Nurikabe">
+            <Label text="Projet de L3 Informatique" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Lucida Sans Typewriter Oblique" size="10.0" />
                </font>
             </Label>
-            <VBox alignment="CENTER" layoutY="126.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <ImageView fitHeight="66.0" fitWidth="280.0" layoutX="160.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER" layoutY="126.0" spacing="10.0" style="-fx-background-color: #152247;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Jouer">
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="174.0" style="-fx-background-color: #4882bd;" text="Jouer" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="174.0" style="-fx-background-color: #4882bd;" text="Règles &amp; Techniques" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Règles &amp; techniques">
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="174.0" style="-fx-background-color: #4882bd;" text="Paramètres" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Paramètres">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefWidth="150.0" style="-fx-background-color: rgb(166, 166, 255);" text="Quitter">
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="174.0" style="-fx-background-color: #4882bd;" text="Quitter" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -53,4 +71,8 @@
          </children>
       </AnchorPane>
    </children>
+   <stylesheets>
+      <URL value="@../css/style.css" />
+      <URL value="@../css/ScrollPane.css" />
+   </stylesheets>
 </VBox>
