@@ -7,25 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #152247;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #152247;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #455685;">
+      <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Retour" textFill="WHITE">
-               <font>
-                  <Font name="Lucida Sans Typewriter Bold" size="12.0" />
-               </font></Button>
-            <Label text="Règles &amp; techniques" textFill="WHITE">
-               <font>
-                  <Font name="Lucida Sans Typewriter Regular" size="14.0" />
-               </font>
-            </Label>
+            <Button id="returnButton" mnemonicParsing="false" text="Retour" />
+            <Label id="titleText" text="Menu principal" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TabPane style="-fx-background-color: #152247;" tabClosingPolicy="ALL_TABS">
+      <TabPane style="-fx-background-color: #152247;" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
          <tabs>
             <Tab closable="false" text="Règles">
                <content>
@@ -35,13 +28,10 @@
                            <children>
                               <Label text="Règles" textFill="#8fc6ff">
                                  <font>
-                                    <Font name="Lucida Sans Typewriter Bold" size="18.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="321.0" prefWidth="572.0" text="  Après le Sudoku, le Kakuro et d'autres puzzles de logique numérique, le Nurikabe est une autre famille de puzzles de logique facile à apprendre et addictive qui a été inventée au Japon. Utilisant la logique pure et ne nécessitant pas de mathématiques pour être résolus, ces puzzles fascinants offrent un plaisir sans fin et un divertissement intellectuel aux amateurs de puzzles de toutes les compétences et de tous les âges.&#10;&#10;  Nurikabe est un puzzle qui forme une île. Contrairement aux autres puzzles logiques, le Nurikabe se résout en cloisonnant des nombres avec des murs selon les règles de afin que toutes les îles soient isolées et qu'il y ait un chemin continu contenant tous les murs.&#10;&#10;  Les puzzles Nurikabe sont disponibles en plusieurs tailles et vont de facile à difficile, prenant de cinq minutes à plusieurs heures à résoudre. Cependant, faites une seule erreur et vous vous retrouverez bloqué plus tard à mesure que vous vous rapprocherez de la solution...&#10;&#10;  Si vous aimez le Sudoku, le Kakuro et les autres casse-tête logiques, vous aimerez aussi Conceptis Nurikabe !&#10;&#10;   Chaque puzzle se compose d'une grille contenant des nombres à divers endroits. Le but est de créer des îlots en cloisonnant ces nombres avec des murs. Pour cela, il faut suivre plusieurs règles du jeu : &#10;    - Chaque île contient exactement un nombre.&#10;    - Le nombre de cases dans chaque île est égal à la valeur du nombre.&#10;    - Toutes les îles sont isolées les unes des autres horizontalement et verticalement.&#10;    - Il n'y a pas de zones murales de 2x2 ou plus.&#10;    - Une fois complétés, tous les murs forment un chemin continu." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true">
-                                 <font>
-                                    <Font name="Lucida Sans Typewriter Regular" size="11.0" />
-                                 </font></Label>
+                              <Label text="  Après le Sudoku, le Kakuro et d'autres puzzles de logique numérique, le Nurikabe est une autre famille de puzzles de logique facile à apprendre et addictive qui a été inventée au Japon. Utilisant la logique pure et ne nécessitant pas de mathématiques pour être résolus, ces puzzles fascinants offrent un plaisir sans fin et un divertissement intellectuel aux amateurs de puzzles de toutes les compétences et de tous les âges.&#10;&#10;  Nurikabe est un puzzle qui forme une île. Contrairement aux autres puzzles logiques, le Nurikabe se résout en cloisonnant des nombres avec des murs selon les règles de afin que toutes les îles soient isolées et qu'il y ait un chemin continu contenant tous les murs.&#10;&#10;  Les puzzles Nurikabe sont disponibles en plusieurs tailles et vont de facile à difficile, prenant de cinq minutes à plusieurs heures à résoudre. Cependant, faites une seule erreur et vous vous retrouverez bloqué plus tard à mesure que vous vous rapprocherez de la solution...&#10;&#10;  Si vous aimez le Sudoku, le Kakuro et les autres casse-tête logiques, vous aimerez aussi Conceptis Nurikabe !&#10;&#10;   Chaque puzzle se compose d'une grille contenant des nombres à divers endroits. Le but est de créer des îlots en cloisonnant ces nombres avec des murs. Pour cela, il faut suivre plusieurs règles du jeu : &#10;    - Chaque île contient exactement un nombre.&#10;    - Le nombre de cases dans chaque île est égal à la valeur du nombre.&#10;    - Toutes les îles sont isolées les unes des autres horizontalement et verticalement.&#10;    - Il n'y a pas de zones murales de 2x2 ou plus.&#10;    - Une fois complétés, tous les murs forment un chemin continu." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -82,12 +72,12 @@
                                        <children>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-1-begin.gif" />
+                                                <Image url="@../img/starting-1-begin.gif" />
                                              </image>
                                           </ImageView>
                                           <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@starting-1-end.gif" />
+                                                <Image url="@../img/starting-1-end.gif" />
                                              </image>
                                           </ImageView>
                                        </children>

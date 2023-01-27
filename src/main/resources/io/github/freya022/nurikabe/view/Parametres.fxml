@@ -7,17 +7,10 @@
 <?import java.net.URL?>
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #455685;">
+      <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Retour" textFill="WHITE">
-               <font>
-                  <Font name="Lucida Sans Typewriter Bold" size="12.0" />
-               </font></Button>
-            <Label text="Paramètres" textFill="WHITE">
-               <font>
-                  <Font name="Lucida Sans Typewriter Regular" size="14.0" />
-               </font>
-            </Label>
+            <Button id="returnButton" mnemonicParsing="false" text="Retour"/>
+            <Label id="titleText" text="Menu principal" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

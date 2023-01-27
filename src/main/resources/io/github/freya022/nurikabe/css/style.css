@@ -1,5 +1,21 @@
 * {
-   -fx-font-family: Lucida Sans;
+   -fx-font-family: Lucida Sans; /* Police inexistante */
+}
+
+.mainButtonBox Button {
+    -fx-font-size: 18px;
+}
+
+.mainButtonBox Button {
+    -fx-background-color: #4882bd;
+}
+
+.mainButtonBox Button:hover {
+    -fx-background-color: #5892cd;
+}
+
+#puzzlesTilePane > Label {
+    -fx-text-fill: white;
 }
 
 .line {
