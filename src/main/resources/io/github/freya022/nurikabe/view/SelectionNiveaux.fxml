@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
@@ -23,12 +23,18 @@
                   <Label text="Modes de jeu :" textFill="WHITE" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" selected="true" style="-fx-background-color: #455685;" text="Classique" textFill="WHITE">
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" style="-fx-background-color: #455685;" text="Classique" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #4882bd;" text="Aventure" textFill="WHITE" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #4882bd;" text="Contre la montre" textFill="WHITE" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Aventure" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Contre la montre" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
                      </children>
                   </HBox>
                </children>
@@ -38,10 +44,22 @@
                   <Label text="Difficulté :" textFill="WHITE" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #4882bd;" text="Tout" textFill="WHITE" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" selected="true" style="-fx-background-color: #455685;" text="Facile" textFill="WHITE" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #4882bd;" text="Moyen" textFill="WHITE" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="110.0" style="-fx-background-color: #4882bd;" text="Difficile" textFill="WHITE" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Tout" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" style="-fx-background-color: #455685;" text="Facile" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Moyen" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Difficile" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
                      </children>
                   </HBox>
                </children>

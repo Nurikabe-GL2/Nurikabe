@@ -5,34 +5,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button id="returnButton" mnemonicParsing="false" text="Retour"/>
+            <Button id="returnButton" mnemonicParsing="false" text="Retour" />
             <Label id="titleText" text="Menu principal" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <VBox alignment="TOP_CENTER" style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
                   <Label alignment="CENTER" text="Paramètres du Nurikabe" textFill="#8fc6ff">
                      <font>
-                        <Font name="Lucida Sans Unicode" size="24.0" />
+                        <Font name="Lucida Sans Unicode" size="28.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="312.0" text="Les paramètres sont sauvegardés automatiquement" textFill="WHITE">
-                     <font>
-                        <Font name="Lucida Sans Typewriter Oblique" size="11.0" />
-                     </font>
-                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="312.0" text="Les paramètres sont sauvegardés automatiquement" textFill="WHITE" />
                </children>
             </VBox>
-            <Pane VBox.vgrow="ALWAYS" />
             <GridPane alignment="TOP_CENTER" hgap="5.0" style="-fx-background-color: #152247;">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="50.0" />
@@ -51,39 +46,60 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Couleur du remplissage :" textFill="WHITE" GridPane.rowIndex="1" />
+                  <Label text="Couleur du remplissage :" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                   <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <ToggleButton mnemonicParsing="false" selected="true" style="-fx-background-color: #FFFFFF;" text="Blanc" />
+                        <ToggleButton mnemonicParsing="false" selected="true" style="-fx-background-color: #FFFFFF;" text="Blanc">
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
                         <ToggleButton mnemonicParsing="false" style="-fx-background-color: #000000;" text="Noir" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="remplissage" />
-                           </toggleGroup></ToggleButton>
+                           </toggleGroup>
+                           <font>
+                              <Font size="14.0" />
+                           </font></ToggleButton>
                      </children>
                   </HBox>
-                  <Label prefWidth="161.0" text="Paramètres généraux" textFill="#8fc6ff" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+                  <Label text="Paramètres généraux" textFill="#8fc6ff" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                      <font>
-                        <Font name="Lucida Sans Typewriter Bold" size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <Separator GridPane.columnSpan="2" GridPane.rowIndex="6" />
                   <Label text="Auto-complétion des coups évidents" textFill="#8fc6ff" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                      <font>
-                        <Font name="Lucida Sans Typewriter Bold" size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                   <CheckBox contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <CheckBox contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Label text="Îles de 1 :" textFill="WHITE" GridPane.rowIndex="8" />
-                  <Label text="Cases adjacentes :" textFill="WHITE" GridPane.rowIndex="9" />
+                  <Label text="Îles de 1 :" textFill="WHITE" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label text="Cases adjacentes :" textFill="WHITE" GridPane.rowIndex="9">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                   <CheckBox contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" selected="true" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Numérotation dans les chemins fermés :" textFill="WHITE" GridPane.rowIndex="4" />
-                  <Label text="Afficher les cases erronées :" textFill="WHITE" GridPane.rowIndex="5" />
+                  <Label text="Numérotation dans les chemins fermés :" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label text="Afficher les cases erronées :" textFill="WHITE" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                   <CheckBox contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Separator GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <Label text="Aides visuelles" textFill="#8fc6ff" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <font>
-                        <Font name="Lucida Sans Typewriter Bold" size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>

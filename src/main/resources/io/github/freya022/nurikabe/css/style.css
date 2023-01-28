@@ -14,7 +14,7 @@
     -fx-background-color: #5892cd;
 }
 
-#puzzlesTilePane > Label {
+#puzzlesTilePane Label {
     -fx-text-fill: white;
 }
 
@@ -38,6 +38,7 @@ TabPane .tab {
 
 TabPane .tab-label {
    -fx-text-fill: #e0f0ff;
+   -fx-font-size: 13px;
 }
 
 TabPane .tab:selected {
