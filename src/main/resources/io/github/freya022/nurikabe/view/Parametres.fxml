@@ -10,7 +10,7 @@
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
             <Button id="returnButton" mnemonicParsing="false" text="Retour" />
-            <Label id="titleText" text="Menu principal" />
+            <Label id="titleText" text="Paramètres" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
