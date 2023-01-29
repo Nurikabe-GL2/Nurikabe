@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
@@ -18,75 +16,6 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <TabPane tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS">
-         <tabs>
-            <Tab closable="false" text="Règles">
-               <content>
-                  <ScrollPane fitToWidth="true">
-                     <content>
-                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
-                           <children>
-                              <Label styleClass="tabContentMainLabel" text="Règles" />
-                              <Label styleClass="rulesLabel" text="  Après le Sudoku, le Kakuro et d'autres puzzles de logique numérique, le Nurikabe est une autre famille de puzzles de logique facile à apprendre et addictive qui a été inventée au Japon. Utilisant la logique pure et ne nécessitant pas de mathématiques pour être résolus, ces puzzles fascinants offrent un plaisir sans fin et un divertissement intellectuel aux amateurs de puzzles de toutes les compétences et de tous les âges.&#10;&#10;  Nurikabe est un puzzle qui forme une île. Contrairement aux autres puzzles logiques, le Nurikabe se résout en cloisonnant des nombres avec des murs selon les règles de afin que toutes les îles soient isolées et qu'il y ait un chemin continu contenant tous les murs.&#10;&#10;  Les puzzles Nurikabe sont disponibles en plusieurs tailles et vont de facile à difficile, prenant de cinq minutes à plusieurs heures à résoudre. Cependant, faites une seule erreur et vous vous retrouverez bloqué plus tard à mesure que vous vous rapprocherez de la solution...&#10;&#10;  Si vous aimez le Sudoku, le Kakuro et les autres casse-tête logiques, vous aimerez aussi Conceptis Nurikabe !&#10;&#10;   Chaque puzzle se compose d'une grille contenant des nombres à divers endroits. Le but est de créer des îlots en cloisonnant ces nombres avec des murs. Pour cela, il faut suivre plusieurs règles du jeu : &#10;    - Chaque île contient exactement un nombre.&#10;    - Le nombre de cases dans chaque île est égal à la valeur du nombre.&#10;    - Toutes les îles sont isolées les unes des autres horizontalement et verticalement.&#10;    - Il n'y a pas de zones murales de 2x2 ou plus.&#10;    - Une fois complétés, tous les murs forment un chemin continu." textAlignment="JUSTIFY" wrapText="true">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-            <Tab closable="false" text="Techniques">
-               <content>
-                  <ScrollPane fitToWidth="true">
-                     <content>
-                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
-                           <children>
-                              <Label styleClass="tabContentMainLabel" text="Techniques">
-                                 <font>
-                                    <Font name="Lucida Sans Typewriter Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <VBox>
-                                 <children>
-                                    <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
-                                    <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
-                                    <Label styleClass="tipLabel" text="Puisqu'il s'agit d'une île avec un seul carré, elle peut être entourée de murs par les carrés adjacents horizontalement et verticalement." wrapText="true" />
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/starting-1-begin.gif" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/starting-1-end.gif" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-         </tabs>
-      </TabPane>
+      <fx:include source="_ReglesEtTechniques.fxml" />
    </children>
-   <stylesheets>
-      <URL value="@../css/ScrollPane.css" />
-      <URL value="@../css/TabPane.css" />
-      <URL value="@../css/ReglesEtTechniques.css" />
-   </stylesheets>
 </VBox>
