@@ -1,0 +1,20 @@
+#contentBox {
+    -fx-background-color: #152247;
+}
+
+#contentBox Button, #projectLabel {
+    -fx-text-fill: white;
+}
+
+#contentBox Button {
+    -fx-background-color: #4882bd;
+    -fx-font-size: 18px;
+}
+
+#contentBox Button:hover {
+    -fx-background-color: #5892cd;
+}
+
+#projectLabel {
+    -fx-font-size: 11px;
+}

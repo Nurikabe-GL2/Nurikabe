@@ -5,20 +5,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button id="returnButton" mnemonicParsing="false" text="Retour"/>
+            <Button id="returnButton" mnemonicParsing="false" text="Retour" />
             <Label id="titleText" text="Menu principal" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <VBox alignment="CENTER" style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
+      <VBox id="contentBox" alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
             <Pane VBox.vgrow="ALWAYS" />
             <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
@@ -27,36 +26,16 @@
                </image>
             </ImageView>
             <Pane VBox.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #152247;" styleClass="mainButtonBox">
+            <VBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Jouer" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Règles &amp; Techniques" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Paramètres" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Quitter" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Jouer" />
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Règles &amp; Techniques" />
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Paramètres" />
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Quitter" />
                </children>
             </VBox>
             <Pane VBox.vgrow="ALWAYS" />
-            <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="Projet de L3 Informatique" textFill="WHITE">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
+            <Label id="projectLabel" alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" text="Projet de L3 Informatique" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -66,5 +45,6 @@
    <stylesheets>
       <URL value="@../css/style.css" />
       <URL value="@../css/ScrollPane.css" />
+      <URL value="@../css/MenuPrincipal.css" />
    </stylesheets>
 </VBox>
