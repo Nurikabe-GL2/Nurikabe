@@ -1,3 +1,7 @@
+ScrollPane .viewport {
+ -fx-background-color: #152247;
+}
+
 /****************************************************************
  
   ScrollBar Skin  
