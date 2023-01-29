@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<VBox prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #152247;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
@@ -17,159 +16,14 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <SplitPane dividerPositions="0.33" style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
+      <SplitPane id="contentBox" dividerPositions="0.33" VBox.vgrow="ALWAYS">
          <items>
-            <TabPane maxHeight="1.7976931348623157E308" style="-fx-background-color: #152247;" tabClosingPolicy="ALL_TABS">
-              <tabs>
-                <Tab closable="false" text="Règles">
-                     <content>
-                        <ScrollPane fitToWidth="true" style="-fx-background-color: #152247;">
-                           <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0" style="-fx-background-color: #152247;">
-                                 <children>
-                                    <Label text="Règles" textFill="#8fc6ff">
-                                       <font>
-                                          <Font name="Lucida Sans Typewriter Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text=" Après le Sudoku, le Kakuro et d'autres puzzles de logique numérique, le Nurikabe est une autre famille de puzzles de logique facile à apprendre et addictive qui a été inventée au Japon. Utilisant la logique pure et ne nécessitant pas de mathématiques pour être résolus, ces puzzles fascinants offrent un plaisir sans fin et un divertissement intellectuel aux amateurs de puzzles de toutes les compétences et de tous les âges.&#10;&#10; Nurikabe est un puzzle qui forme une île. Contrairement aux autres puzzles logiques, les Nurikabe sont résolus en cloisonnant les indices avec des murs selon les règles de sorte que toutes les îles soient isolées et qu'il y ait un chemin continu vers tous les murs.&#10;&#10; Les énigmes de Nurikabe existent en plusieurs tailles et vont de très faciles à extrêmement difficiles, prenant de cinq minutes à plusieurs heures à résoudre. Cependant, faites une seule erreur et vous vous retrouverez bloqué plus tard alors que vous vous rapprochez de la solution...&#10;&#10; Si vous aimez le Sudoku, le Kakuro et les autres casse-tête logiques, vous aimerez aussi Conceptis Nurikabe !" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-                <Tab closable="false" text="Techniques">
-                     <content>
-                        <ScrollPane fitToWidth="true">
-                           <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
-                                 <children>
-                                    <Label text="Techniques" textFill="#8fc6ff">
-                                       <font>
-                                          <Font name="Lucida Sans Typewriter Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" text="Techniques Basiques" textAlignment="CENTER" textFill="#8fc6ff" wrapText="true">
-                                             <font>
-                                                <Font name="Lucida Sans Typewriter Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label maxWidth="1.7976931348623157E308" text="1. Island of 1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="Since this is an island with a single square we can surround it with walls by shading the horizontally and vertically adjacent squares." textFill="WHITE" wrapText="true" />
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-1-begin.gif" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-1-end.gif" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" text="2. Clues separated by one square" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="According to Nurikabe rules, all clues must be partitioned from each other with walls. Therefore when two clues are in the same row or column and separated by one square, the square in between must be a wall." textFill="WHITE" wrapText="true" />
-                                          <HBox spacing="20.0">
-                                             <children>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-2-begin.gif" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-2-end.gif" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Aide">
-                     <content>
-                        <ScrollPane fitToWidth="true">
-                           <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
-                                 <children>
-                                    <Label text="Technique applicable" textFill="#8fc6ff">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" text="Techniques Basiques" textAlignment="CENTER" textFill="#8fc6ff" wrapText="true">
-                                             <font>
-                                                <Font name="Lucida Sans Typewriter Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label maxWidth="1.7976931348623157E308" text="1. Island of 1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label text="Since this is an island with a single square we can surround it with walls by shading the horizontally and vertically adjacent squares." textFill="WHITE" wrapText="true" />
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-1-begin.gif" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../img/starting-1-end.gif" />
-                                                   </image>
-                                                </ImageView>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </content></Tab>
-              </tabs>
-            </TabPane>
+            <fx:include source="_ReglesEtTechniques.fxml" />
             <VBox alignment="TOP_CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #152247;">
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -178,7 +32,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -187,7 +41,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -196,7 +50,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button">
+                        <Button contentDisplay="GRAPHIC_ONLY" disable="true" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -205,7 +59,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Hypothèse" textFill="WHITE">
+                        <Button mnemonicParsing="false" styleClass="gameButton" text="Hypothèse">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -213,12 +67,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                           <font>
-                              <Font name="Lucida Sans Typewriter Regular" size="12.0" />
-                           </font>
                         </Button>
-                        <Pane style="-fx-background-color: #152247;" HBox.hgrow="ALWAYS" />
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" style="-fx-background-color: #4882bd;" text="Button" textFill="WHITE">
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -232,8 +83,8 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <Pane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS" />
-                  <VBox alignment="TOP_CENTER" spacing="5.0" style="-fx-background-color: #152247;">
+                  <Pane VBox.vgrow="ALWAYS" />
+                  <VBox alignment="TOP_CENTER" fillWidth="false" spacing="5.0">
                      <children>
                         <HBox alignment="CENTER">
                            <children>
@@ -242,28 +93,25 @@
                                     <Image url="@../img/timer.png" />
                                  </image>
                               </ImageView>
-                              <Label text="00:00:00.00" textFill="WHITE">
-                                 <font>
-                                    <Font name="Lucida Sans Typewriter Regular" size="12.0" />
-                                 </font></Label>
+                              <Label id="timerLabel" text="00:00:00.00" />
                            </children>
                         </HBox>
-                        <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="210.0" prefWidth="210.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">
+                        <GridPane gridLinesVisible="true" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints prefWidth="25.0" />
+                              <ColumnConstraints prefWidth="25.0" />
+                              <ColumnConstraints prefWidth="25.0" />
+                              <ColumnConstraints prefWidth="25.0" />
+                              <ColumnConstraints prefWidth="25.0" />
+                              <ColumnConstraints prefWidth="25.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints prefHeight="25.0" />
+                              <RowConstraints prefHeight="25.0" />
+                              <RowConstraints prefHeight="25.0" />
+                              <RowConstraints prefHeight="25.0" />
+                              <RowConstraints prefHeight="25.0" />
+                              <RowConstraints prefHeight="25.0" />
                            </rowConstraints>
                            <children>
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" />
@@ -285,56 +133,36 @@
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.rowIndex="1" />
-                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="numberHintPane" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                  <children>
-                                    <Label alignment="CENTER" text="2">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <Label text="2" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="numberHintPane" GridPane.columnIndex="5" GridPane.rowIndex="4">
                                  <children>
-                                    <Label alignment="CENTER" text="6">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <Label text="6" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="numberHintPane" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
-                                    <Label alignment="CENTER" text="3">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <Label text="3" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="numberHintPane" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <Label alignment="CENTER" text="1">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <Label text="1" />
                                  </children>
                               </StackPane>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2">
+                              <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="numberHintPane" GridPane.rowIndex="2">
                                  <children>
-                                    <Label alignment="CENTER" text="5">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
+                                    <Label text="5" />
                                  </children>
                               </StackPane>
                            </children>
                         </GridPane>
                      </children>
                   </VBox>
-                  <Pane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS" />
+                  <Pane VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </items>
@@ -343,5 +171,6 @@
    <stylesheets>
       <URL value="@../css/style.css" />
       <URL value="@../css/ScrollPane.css" />
+      <URL value="@../css/Plateau.css" />
    </stylesheets>
 </VBox>
