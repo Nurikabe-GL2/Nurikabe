@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import java.lang.String?>
 <?import java.net.URL?>
 <VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,55 +17,45 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <AnchorPane style="-fx-background-color: #152247;" VBox.vgrow="ALWAYS">
+      <VBox id="contentBox" alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
          <children>
-            <VBox alignment="TOP_CENTER" layoutY="10.0" style="-fx-background-color: #152247;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox alignment="TOP_CENTER">
                <children>
-                  <Label text="Modes de jeu :" textFill="WHITE" />
+                  <Label styleClass="parameterLabel" text="Modes de jeu :" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" style="-fx-background-color: #455685;" text="Classique" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Aventure" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Contre la montre" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" text="Classique">
+                           <styleClass>
+                              <String fx:value="gamemodeButton" />
+                              <String fx:value="selectedButton" />
+                           </styleClass></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="gamemodeButton" text="Aventure" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="gamemodeButton" text="Contre la montre" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" layoutY="63.0" style="-fx-background-color: #152247;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox alignment="TOP_CENTER">
                <children>
-                  <Label text="Difficulté :" textFill="WHITE" />
+                  <Label styleClass="parameterLabel" text="Difficulté :" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Tout" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" style="-fx-background-color: #455685;" text="Facile" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Moyen" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" style="-fx-background-color: #4882bd;" text="Difficile" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Tout" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" text="Facile">
+                           <styleClass>
+                              <String fx:value="difficultyButton" />
+                              <String fx:value="selectedButton" />
+                           </styleClass></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Moyen" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Difficile" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <ScrollPane fitToWidth="true" layoutY="116.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="116.0">
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
                <content>
                   <TilePane id="puzzlesTilePane" hgap="10.0" vgap="10.0">
                      <children>
@@ -154,7 +145,7 @@
                                     </StackPane>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 1 (6x6)" textFill="WHITE" />
+                              <Label text="Facile : Puzzle 1 (6x6)" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -207,7 +198,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 2 (6x6)" textFill="WHITE" />
+                              <Label text="Facile : Puzzle 2 (6x6)" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -286,7 +277,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 3 (6x6)" textFill="WHITE" />
+                              <Label text="Facile : Puzzle 3 (6x6)" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -375,7 +366,7 @@
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="5" />
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 4 (6x6)" textFill="WHITE" />
+                              <Label text="Facile : Puzzle 4 (6x6)" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -658,10 +649,11 @@
                </content>
             </ScrollPane>
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
    <stylesheets>
       <URL value="@../css/ScrollPane.css" />
       <URL value="@../css/style.css" />
+      <URL value="@../css/SelectionNiveaux.css" />
    </stylesheets>
 </VBox>
