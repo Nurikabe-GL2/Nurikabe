@@ -7,7 +7,7 @@
     -fx-text-fill: white;
 }
 
-#timerLabel {
+#timerLabel, #scoreLabel {
     -fx-text-fill: white;
 }
 

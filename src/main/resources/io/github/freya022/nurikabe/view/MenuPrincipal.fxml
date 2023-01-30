@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
@@ -29,7 +29,12 @@
             <VBox alignment="CENTER" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Jouer" />
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Règles &amp; Techniques" />
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Règles" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Techniques" />
+                     </children>
+                  </HBox>
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Paramètres" />
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" text="Quitter" />
                </children>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
+         <children>
+            <Button id="returnButton" mnemonicParsing="false" text="Retour" />
+            <Label id="titleText" text="Techniques" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <ScrollPane fitToWidth="true" stylesheets="@../css/_ReglesEtTechniques.css" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label styleClass="tabContentMainLabel" text="Techniques">
+                     <font>
+                        <Font name="Lucida Sans Typewriter Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox>
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
+                        <Label styleClass="tipLabel" text="Puisqu'il s'agit d'une île avec un seul carré, elle peut être entourée de murs par les carrés adjacents horizontalement et verticalement." wrapText="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/starting-1-begin.gif" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/starting-1-end.gif" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
