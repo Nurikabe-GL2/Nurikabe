@@ -7,9 +7,9 @@ public class Logging {
     private static final StackWalker WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     /**
-     * Returns the {@link Logger} for the current class.
+     * Retourne le {@link Logger} pour la classe qui appelle cette méthode.
      *
-     * @return the Logger for the class calling this method
+     * @return Le Logger pour la classe qui appelle cette méthode
      *
      * @see #getLogger(Class)
      */
@@ -18,9 +18,9 @@ public class Logging {
     }
 
     /**
-     * Returns the {@link Logger} for the given class.
+     * Retourne le {@link Logger} pour la classe donnée.
      *
-     * @return the Logger for the given class
+     * @return le Logger pour la classe donnée
      *
      * @see #getLogger()
      */

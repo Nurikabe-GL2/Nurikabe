@@ -4,14 +4,14 @@ import java.net.URL;
 
 public class Utils {
     /**
-     * Returns the URL of the specified resource, relative to the given class.
+     * Retourne l'URL de la resource spécifiée, l'URL est relative à la classe donnée en paramètre.
      *
-     * @param currentClass The class this method is being called from
-     * @param url          The URL string relative to the given class
+     * @param currentClass La classe qui appelle cette méthode
+     * @param url          L'URL de la resource demandée
      *
-     * @return the URL to the requested resource
+     * @return L'URL de la resource.
      *
-     * @throws IllegalArgumentException If the resource does not exist
+     * @throws IllegalArgumentException Si la resource n'existe pas
      */
     public static URL getResource(Class<?> currentClass, String url) {
         final URL resource = currentClass.getResource(url);
