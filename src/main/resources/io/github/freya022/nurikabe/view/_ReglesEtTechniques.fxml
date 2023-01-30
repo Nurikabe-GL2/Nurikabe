@@ -2,12 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<TabPane prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@../css/ScrollPane.css" />
       <URL value="@../css/TabPane.css" />
@@ -34,24 +33,47 @@
             <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
-            <Label styleClass="tabContentMainLabel" text="Techniques">
-               <font>
-                  <Font name="Lucida Sans Typewriter Bold" size="18.0" />
-               </font>
-            </Label>
-            <VBox>
-               <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
-               <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
-               <Label styleClass="tipLabel" text="Puisqu'il s'agit d'une île avec un seul carré, elle peut être entourée de murs par les carrés adjacents horizontalement et verticalement." wrapText="true" />
-               <HBox spacing="10.0">
-                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../img/starting-1-begin.gif" />
-                  </ImageView>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@../img/starting-1-end.gif" />
-                  </ImageView>
-               </HBox>
-            </VBox>
+            <children>
+               <Label styleClass="tabContentMainLabel" text="Techniques">
+                  <font>
+                     <Font name="Lucida Sans Typewriter Bold" size="18.0" />
+                  </font>
+               </Label>
+               <VBox>
+                  <children>
+                     <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
+                     <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
+                     <Label styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
+                     <ImageView fitHeight="125.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../img/1_ile_de_un.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+               <VBox>
+                  <children>
+                     <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="2. Indices séparés par une case blanche" textAlignment="CENTER" wrapText="true" />
+                     <Label styleClass="tipLabel" text="Tous les indices doivent être séparés les uns des autres par des murs. Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case, la case intermédiaire doit être un mur." wrapText="true" />
+                     <ImageView fitHeight="125.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../img/2_indices_separes.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+               <VBox>
+                  <children>
+                     <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="3. Indices adjacents en diagonale" textAlignment="CENTER" wrapText="true" />
+                     <Label styleClass="tipLabel" text="Similaire à la technique précédente, quand deux indices sont adjacents en diagonales, il faut mettre des murs à toutes les cases touchants les deux indices." wrapText="true" />
+                     <ImageView fitHeight="125.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../img/3_adjacence_diagonale.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </VBox>
+            </children>
          </VBox>
       </ScrollPane>
    </Tab>
