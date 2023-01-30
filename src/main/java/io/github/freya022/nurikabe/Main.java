@@ -1,8 +1,8 @@
 package io.github.freya022.nurikabe;
 
+import io.github.freya022.nurikabe.controller.MenuPrincipalController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -18,15 +18,18 @@ public class Main {
         // Démarre JavaFX
         Platform.startup(() -> {
             try {
-                //Charge le menu principal, le type de la variable est le type du nœud racine
-                final Parent root = FXMLLoader.load(Utils.getResource(Main.class, "view/MenuPrincipal.fxml"));
+                //Charge le menu principal, le contrôleur étend le type du nœud racine
+                final MenuPrincipalController controller = new MenuPrincipalController();
+                final FXMLLoader loader = new FXMLLoader();
+                loader.setController(controller);
+                loader.setRoot(controller);
+                loader.setLocation(Utils.getResource(Main.class, "view/MenuPrincipal.fxml"));
+                loader.load();
 
-                final Scene scene = new Scene(root); //Le conteneur de noeud racine
+                final Scene scene = new Scene(controller); //Le conteneur de noeud racine
                 final Stage stage = new Stage(); //La fenêtre
                 stage.setScene(scene);
                 stage.show();
-
-                LOGGER.info("Menu principal affiché");
             } catch (IOException e) {
                 LOGGER.error("An exception occurred while constructing the main menu", e);
             }
