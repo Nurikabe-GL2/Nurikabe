@@ -1,5 +1,9 @@
 package io.github.freya022.nurikabe;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+
+import java.io.IOException;
 import java.net.URL;
 
 public class Utils {
@@ -19,5 +23,27 @@ public class Utils {
             throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
 
         return resource;
+    }
+
+    /**
+     * Charge le fichier FXML avec le nom donné, avec le contrôleur donné.
+     *
+     * <p>Le fichier devra être dans le package {@code view}.
+     *
+     * @param controller Le contrôleur de cette interface
+     * @param name       Le nom du fichier FXML, sans le {@code .fxml}
+     * @param <T>        Type du contrôleur
+     *
+     * @return Retourne le contrôleur donné en premier paramètre
+     *
+     * @throws IOException Si le chargement de l'interface à une erreur
+     */
+    public static <T extends Parent> T loadFxml(T controller, String name) throws IOException {
+        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "view/" + name + ".fxml"));
+        loader.setController(controller);
+        loader.setRoot(controller);
+        loader.load();
+
+        return controller;
     }
 }
