@@ -41,9 +41,15 @@ public class MenuPrincipalController extends VBox {
     }
 
     @FXML
-    private void onRulesAction(ActionEvent event) {
-        LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
+    private void onRulesAction(ActionEvent event) throws IOException {
+         final ReglesController controller = Utils.loadFxml(
+                new ReglesController(stage, stage.getScene()),
+                "Regles"
+        );
+        stage.setScene(new Scene(controller));
     }
+    
+    
 
     @FXML
     private void onSettingsAction(ActionEvent event) {
@@ -52,6 +58,6 @@ public class MenuPrincipalController extends VBox {
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
-        LOGGER.info("Menu principal chargé");
+        LOGGER.info("Menu principal chargé");       
     }
 }
