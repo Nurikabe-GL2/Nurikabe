@@ -114,3 +114,6 @@ fabric.properties
 
 .idea
 target
+
+#macOS
+.DS_Store
