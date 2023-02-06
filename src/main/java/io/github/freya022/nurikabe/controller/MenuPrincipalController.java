@@ -24,6 +24,7 @@ public class MenuPrincipalController extends VBox {
     @FXML
     private void onExitAction(ActionEvent event) {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
+    
     }
 
     @FXML
@@ -36,8 +37,13 @@ public class MenuPrincipalController extends VBox {
     }
 
     @FXML
-    private void onPlayAction(ActionEvent event) {
-        LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
+    private void onPlayAction(ActionEvent event) throws IOException {
+        final JouerController controller = Utils.loadFxml(
+                new JouerController(stage, stage.getScene()),
+                "SelectionNiveaux"
+        );
+        stage.setScene(new Scene(controller));
+
     }
 
     @FXML
@@ -56,6 +62,6 @@ public class MenuPrincipalController extends VBox {
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
-        LOGGER.info("Menu principal chargé");
+        LOGGER.info("Menu principal chargé");       
     }
 }
