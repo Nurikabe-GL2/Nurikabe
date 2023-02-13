@@ -17,11 +17,12 @@ public class Main {
         // Démarre JavaFX
         Platform.startup(() -> {
             try {
+                final Stage stage = new Stage(); //La fenêtre
+
                 //Charge le menu principal, le contrôleur étend le type du nœud racine
-                final var controller = Utils.loadFxml(new MenuPrincipalController(), "MenuPrincipal");
+                final var controller = Utils.loadFxml(new MenuPrincipalController(stage), "MenuPrincipal");
 
                 final Scene scene = new Scene(controller); //Le conteneur de noeud racine
-                final Stage stage = new Stage(); //La fenêtre
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
