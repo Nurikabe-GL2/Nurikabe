@@ -48,8 +48,6 @@ public class MenuPrincipalController extends VBox {
         );
         stage.setScene(new Scene(controller));
     }
-    
-    
 
     @FXML
     private void onSettingsAction(ActionEvent event) {
