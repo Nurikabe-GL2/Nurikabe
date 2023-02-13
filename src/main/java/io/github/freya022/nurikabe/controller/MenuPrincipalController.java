@@ -43,7 +43,6 @@ public class MenuPrincipalController extends VBox {
                 "SelectionNiveaux"
         );
         stage.setScene(new Scene(controller));
-
     }
 
     @FXML
@@ -62,6 +61,6 @@ public class MenuPrincipalController extends VBox {
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
-        LOGGER.info("Menu principal chargé");       
+        LOGGER.info("Menu principal chargé");
     }
 }
