@@ -1,6 +1,6 @@
-package io.github.freya022.nurikabe;
+package io.github.nurikabe;
 
-import io.github.freya022.nurikabe.controller.MenuPrincipalController;
+import io.github.nurikabe.controller.MenuPrincipalController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

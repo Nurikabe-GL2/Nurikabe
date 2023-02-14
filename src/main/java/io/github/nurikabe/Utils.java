@@ -1,4 +1,4 @@
-package io.github.freya022.nurikabe;
+package io.github.nurikabe;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

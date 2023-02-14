@@ -1,4 +1,4 @@
-package io.github.freya022.nurikabe;
+package io.github.nurikabe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

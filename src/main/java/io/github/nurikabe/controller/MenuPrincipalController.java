@@ -1,7 +1,7 @@
-package io.github.freya022.nurikabe.controller;
+package io.github.nurikabe.controller;
 
-import io.github.freya022.nurikabe.Logging;
-import io.github.freya022.nurikabe.Utils;
+import io.github.nurikabe.Logging;
+import io.github.nurikabe.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
