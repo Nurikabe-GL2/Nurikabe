@@ -39,7 +39,7 @@ public class Utils {
      * @throws IOException Si le chargement de l'interface à une erreur
      */
     public static <T extends Parent> T loadFxml(T controller, String name) throws IOException {
-        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "view/" + name + ".fxml"));
+        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
         loader.setController(controller);
         loader.setRoot(controller);
         loader.load();
