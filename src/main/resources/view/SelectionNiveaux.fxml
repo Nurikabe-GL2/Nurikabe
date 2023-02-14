@@ -27,13 +27,16 @@
                   <Label styleClass="parameterLabel" text="Modes de jeu :" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" text="Classique">
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" selected="true" text="Classique">
                            <styleClass>
                               <String fx:value="gamemodeButton" />
                               <String fx:value="selectedButton" />
-                           </styleClass></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="gamemodeButton" text="Aventure" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="gamemodeButton" text="Contre la montre" />
+                           </styleClass>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="groupeMode" />
+                           </toggleGroup></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" styleClass="gamemodeButton" text="Aventure" toggleGroup="$groupeMode" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" styleClass="gamemodeButton" text="Contre la montre" toggleGroup="$groupeMode" />
                      </children>
                   </HBox>
                </children>
@@ -43,14 +46,17 @@
                   <Label styleClass="parameterLabel" text="Difficulté :" />
                   <HBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Tout" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" selected="true" text="Facile">
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" styleClass="difficultyButton" text="Tout">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="groupeDifficulte" />
+                           </toggleGroup></ToggleButton>
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" selected="true" text="Facile" toggleGroup="$groupeDifficulte">
                            <styleClass>
                               <String fx:value="difficultyButton" />
                               <String fx:value="selectedButton" />
                            </styleClass></ToggleButton>
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Moyen" />
-                        <ToggleButton mnemonicParsing="false" prefWidth="125.0" styleClass="difficultyButton" text="Difficile" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" styleClass="difficultyButton" text="Moyen" toggleGroup="$groupeDifficulte" />
+                        <ToggleButton mnemonicParsing="false" prefWidth="135.0" styleClass="difficultyButton" text="Difficile" toggleGroup="$groupeDifficulte" />
                      </children>
                   </HBox>
                </children>
