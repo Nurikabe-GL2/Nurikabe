@@ -1,4 +1,4 @@
-public class Main {
+public class Main-undo-redo {
     
 
     public static void main(String[] args) {
