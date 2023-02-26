@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.backend;
 
 public enum Difficulty {
     EASY,

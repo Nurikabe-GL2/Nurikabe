@@ -1,9 +1,9 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.Difficulty;
 import io.github.nurikabe.FXUtils;
-import io.github.nurikabe.GameMode;
 import io.github.nurikabe.Logging;
+import io.github.nurikabe.backend.Difficulty;
+import io.github.nurikabe.backend.GameMode;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
