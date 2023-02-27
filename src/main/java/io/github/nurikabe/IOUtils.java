@@ -10,15 +10,15 @@ import java.nio.file.Path;
 
 @SuppressWarnings("resource")
 public class IOUtils {
-    public static final Path rootPath;
+    public static final Path ROOT_PATH;
 
     static {
         try {
             final var classesRootPath = Path.of(IOUtils.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             if (Files.isDirectory(classesRootPath)) {
-                rootPath = classesRootPath;
+                ROOT_PATH = classesRootPath;
             } else {
-                rootPath = FileSystems.newFileSystem(classesRootPath).getPath("/");
+                ROOT_PATH = FileSystems.newFileSystem(classesRootPath).getPath("/");
             }
         } catch (URISyntaxException | IOException e) {
             throw new RuntimeException(e);
