@@ -16,6 +16,7 @@ public class Levels {
     private static final Path GAME_DATA_PATH = IOUtils.ROOT_PATH.resolve("game_data");
 
     public static final List<Level> LEVELS = readGameDataDirectory("levels", p -> Level.fromPath(SaveContext.CLASSIC, p));
+    public static final List<Adventure> ADVENTURES = readGameDataDirectory("adventures", Adventure::fromPath);
 
     @NotNull
     private static <T> List<T> readGameDataDirectory(@NotNull String subdirectory, ThrowingFunction<Path, T> mappingFunction) {
