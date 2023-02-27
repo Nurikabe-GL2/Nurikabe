@@ -1,5 +1,6 @@
 package io.github.nurikabe.backend.level;
 
+import io.github.nurikabe.IOUtils;
 import io.github.nurikabe.Utils;
 import io.github.nurikabe.backend.Difficulty;
 import io.github.nurikabe.backend.serialization.SaveContext;
@@ -70,7 +71,7 @@ public class Level implements SerializableLevel {
 
     @NotNull
     public static Level fromPath(@NotNull SaveContext saveContext, @NotNull Path levelPath) throws IOException {
-        return fromData(saveContext, levelPath.getFileName().toString() /* TODO remove extension */, Files.newInputStream(levelPath));
+        return fromData(saveContext, IOUtils.getFileNameNoExtensions(levelPath), Files.newInputStream(levelPath));
     }
 
     @NotNull
