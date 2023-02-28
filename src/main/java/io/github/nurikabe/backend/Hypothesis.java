@@ -51,7 +51,10 @@ public class Hypothesis implements IHypothesis {
 
     @Override
     public void touch(int col, int row) {
+        redoStack.clear();
+        undoStack.add(new Move(col, row));
 
+        forwardMove(col, row);
     }
 
     @Override
@@ -74,11 +77,13 @@ public class Hypothesis implements IHypothesis {
     private void forwardMove(int col, int row) {
         final Tile currentTile = tiles.get(col, row);
         tiles.set(col, row, getNextTile(currentTile));
+        nurikabe.fireEvents(l -> l.onTileChange(col, row));
     }
 
     private void backwardMove(int col, int row) {
         final Tile currentTile = tiles.get(col, row);
         tiles.set(col, row, getPreviousTile(currentTile));
+        nurikabe.fireEvents(l -> l.onTileChange(col, row));
     }
 
     @NotNull

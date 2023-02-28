@@ -18,6 +18,14 @@ public class Nurikabe implements IHypothesis {
 
     private Nurikabe(Level level) {
         this.level = level;
+
+        listeners.add(new NurikabeListener() {
+            @Override
+            public void onTileChange(int col, int row) { save(); }
+
+            @Override
+            public void onHypothesisChange() { save(); }
+        });
     }
 
     /**
@@ -110,7 +118,7 @@ public class Nurikabe implements IHypothesis {
     public static Nurikabe fromSavedLevel(Level level) {
         final Nurikabe nurikabe = new Nurikabe(level);
         //TODO chargement sauvegarde
-//        nurikabe.hypotheses.push();
+//        nurikabe.hypotheses.push(...);
 
         return nurikabe;
     }
