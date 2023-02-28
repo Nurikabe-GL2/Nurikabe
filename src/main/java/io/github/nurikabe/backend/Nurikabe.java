@@ -1,6 +1,7 @@
 package io.github.nurikabe.backend;
 
 import io.github.nurikabe.backend.level.Level;
+import io.github.nurikabe.backend.serialization.Saves;
 import io.github.nurikabe.backend.tile.MutableTiles;
 import org.jetbrains.annotations.NotNull;
 
@@ -98,12 +99,12 @@ public class Nurikabe implements IHypothesis {
     }
 
     public int check() {
-        //TODO Renvoyer le nombre de cases différentes par rapport à la solution, voir Level#getSolution
+        //TODO Renvoyer le nombre de cases différentes de l'hypothèse courante, par rapport à la solution, voir Level#getSolution
         throw new UnsupportedOperationException();
     }
 
     private void save() {
-        //TODO
+        Saves.save(this);
     }
 
     public static Nurikabe fromNewLevel(Level level) {
@@ -117,8 +118,7 @@ public class Nurikabe implements IHypothesis {
 
     public static Nurikabe fromSavedLevel(Level level) {
         final Nurikabe nurikabe = new Nurikabe(level);
-        //TODO chargement sauvegarde
-//        nurikabe.hypotheses.push(...);
+        nurikabe.hypotheses.push(Saves.load(nurikabe));
 
         return nurikabe;
     }
