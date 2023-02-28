@@ -10,6 +10,9 @@ public interface Tiles {
     int getHeight();
 
     @NotNull
+    List<Tile> asList();
+
+    @NotNull
     Tile get(int col, int row);
 
     @NotNull

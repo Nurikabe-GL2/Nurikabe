@@ -1,8 +1,10 @@
 package io.github.nurikabe.backend.tile;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,13 @@ class TilesImpl implements MutableTiles {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    @NotNull
+    @Override
+    @UnmodifiableView
+    public List<Tile> asList() {
+        return Collections.unmodifiableList(tiles);
     }
 
     @NotNull
