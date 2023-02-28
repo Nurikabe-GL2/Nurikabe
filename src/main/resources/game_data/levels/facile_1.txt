@@ -1,0 +1,11 @@
+Puzzle 1
+EASY
+6 8
+b b b b n b
+n n 5 n n b
+n 1 n 2 n b
+n n n b n 4
+5 b n n n n
+b n 2 n 1 n
+b n b n n 3
+b n n n b b
