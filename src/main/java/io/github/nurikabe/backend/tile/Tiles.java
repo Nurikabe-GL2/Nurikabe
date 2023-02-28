@@ -1,6 +1,7 @@
 package io.github.nurikabe.backend.tile;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ public interface Tiles {
     int getHeight();
 
     @NotNull
+    @UnmodifiableView
     List<Tile> asList();
 
     @NotNull
