@@ -29,6 +29,15 @@ public class Nurikabe implements IHypothesis {
         });
     }
 
+    public Level getLevel() {
+        return level;
+    }
+
+    /** <b>Test only</b> */
+    public Stack<Hypothesis> getHypotheses() {
+        return hypotheses;
+    }
+
     /**
      * @return The current hypothesis
      */
@@ -88,6 +97,7 @@ public class Nurikabe implements IHypothesis {
     public void cancelHypothesis() {
         //TODO Retirer l'hypothèse courante de la pile
         // Envoyer un event comme quoi l'hypothèse à changé, avec Nurikabe#fireEvent
+        // Test avec NurikabeTest#cancelHypothesis
     }
 
     public void acceptHypothesis() {
@@ -96,10 +106,12 @@ public class Nurikabe implements IHypothesis {
         // Puis retirer une autre hypothèse
         // Puis rajouter l'hypothèse gardée de côté
         // Envoyer un event comme quoi l'hypothèse à changé, avec Nurikabe#fireEvent
+        // Test avec NurikabeTest#acceptHypothesis
     }
 
     public int check() {
         //TODO Renvoyer le nombre de cases différentes de l'hypothèse courante, par rapport à la solution, voir Level#getSolution
+        // Vérifier avec NurikabeTest#check
         throw new UnsupportedOperationException();
     }
 

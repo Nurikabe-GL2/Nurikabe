@@ -14,6 +14,7 @@ public class Saves {
         //TODO Construire un objet JSON, contenant une propriété stockant les hypothèses ainsi que leur contenu (cases, undo, redo)
         // Obtenir le BufferedWriter, voir Level#getSaveWriter (puisque Level implémente SerializableLevel)
         // Puis écrire cet objet JSON avec Gson#toJson(JsonObject, Writer)
+        // Tester avec NurikabeTest#save
     }
 
     @NotNull
@@ -21,6 +22,7 @@ public class Saves {
         //TODO Obtenir le BufferedWriter, voir Level#getSaveReader (puisque Level implémente SerializableLevel)
         // Lire le JsonObject avec Gson#fromJson(Reader, JsonObject.class)
         // Lire les hypothèses et reconstruire les objets avec les données
+        // Tester avec NurikabeTest#save
         throw new UnsupportedOperationException();
     }
 
