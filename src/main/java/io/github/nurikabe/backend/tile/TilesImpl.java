@@ -50,8 +50,14 @@ class TilesImpl implements MutableTiles {
 
     @NotNull
     @Override
-    public MutableTiles extractNumbers() {
-        return new TilesImpl(width, height, tiles.stream().filter(t -> t instanceof NumberTile).collect(Collectors.toList()));
+    public MutableTiles extractNumbers(TileColor startColor) {
+        return new TilesImpl(width, height, tiles.stream().map(t -> {
+            if (t instanceof NumberTile) {
+                return t;
+            } else {
+                return new NormalTile(startColor);
+            }
+        }).collect(Collectors.toList()));
     }
 
     @Override

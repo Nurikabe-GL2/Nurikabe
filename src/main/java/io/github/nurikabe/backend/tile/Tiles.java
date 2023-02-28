@@ -16,7 +16,7 @@ public interface Tiles {
     MutableTiles copy();
 
     @NotNull
-    MutableTiles extractNumbers();
+    MutableTiles extractNumbers(TileColor startColor);
 
     @NotNull
     static Tiles fromLines(int width, int height, List<String> lines) {
