@@ -1,9 +1,9 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.Difficulty;
 import io.github.nurikabe.FXUtils;
+import io.github.nurikabe.GameMode;
 import io.github.nurikabe.Logging;
-import io.github.nurikabe.backend.Difficulty;
-import io.github.nurikabe.backend.GameMode;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -49,8 +49,8 @@ public class SelectionNiveauxController extends VBox {
         FXUtils.singleItemToggleGroup(difficultyGroup);
 
         gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(GameMode::fromToggle));
-
         gameModeProperty.addListener(x -> refreshLevels());
+
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
             setNewDifficulties((Node) newToggle);
             refreshLevels();
@@ -75,8 +75,6 @@ public class SelectionNiveauxController extends VBox {
     private void refreshLevels() {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
-
-        //TODO
 
         puzzlesTilePane.getChildren().addAll(/* TODO */);
     }
