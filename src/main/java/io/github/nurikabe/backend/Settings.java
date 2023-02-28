@@ -86,4 +86,8 @@ public class Settings {
         }
         return settings;
     }
+
+    public static void reset() {
+        settings = new Settings();
+    }
 }
