@@ -15,11 +15,11 @@
             <Pane VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onPlayAction" prefHeight="40.0" prefWidth="250.0" text="Afficher" />
+                  <Button mnemonicParsing="false" onAction="#displayAction" prefHeight="40.0" prefWidth="250.0" text="Afficher" />
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onRulesAction" prefHeight="40.0" prefWidth="120.0" text="Undo" />
-                        <Button mnemonicParsing="false" onAction="#onMethodsAction" prefHeight="40.0" prefWidth="120.0" text="Redo" />
+                        <Button mnemonicParsing="false" onAction="#undoAction" prefHeight="40.0" prefWidth="120.0" text="Undo" />
+                        <Button mnemonicParsing="false" onAction="#redoAction" prefHeight="40.0" prefWidth="120.0" text="Redo" />
                      </children>
                   </HBox>
                </children>

@@ -13,18 +13,12 @@ import org.slf4j.Logger;
 import java.io.IOException;
 
 // extends VBox car c'est la racine du menu principal
-public class MenuPrincipalController extends VBox {
+public class undoRedoController extends VBox {
     private static final Logger LOGGER = Logging.getLogger();
     private final Stage stage;
 
-    public MenuPrincipalController(Stage stage) {
+    public undoRedoController(Stage stage) {
         this.stage = stage;
-    }
-
-    @FXML
-    private void onExitAction(ActionEvent event) {
-        LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
-    
     }
 
     @FXML
@@ -61,6 +55,6 @@ public class MenuPrincipalController extends VBox {
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
-        LOGGER.info("Menu principal chargé");
+        LOGGER.info("undo-redo chargé");
     }
 }

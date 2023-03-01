@@ -6,11 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class JouerController extends VBox {
+public class ReglesController extends VBox {
     private final Stage stage;
     private final Scene scenePrecedente;
 
-    public JouerController(Stage stage, Scene scenePrecedente) {
+    public ReglesController(Stage stage, Scene scenePrecedente) {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
     }
