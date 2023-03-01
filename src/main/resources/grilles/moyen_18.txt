@@ -1,0 +1,16 @@
+10 14
+b b b n n n n n b 2
+b b 6 n b b b n n n
+n n n 7 b n n n b n
+n b n b b n 7 b b b
+n b n n n n n n n b
+n b n b n b n b n b
+n b n b n 2 n b n n
+n b n b 4 n 4 b n 1 
+n b 7 n n n n n n n
+n n n b b n 4 b n 5
+b b b 6 n 2 n b n b
+n n n n n b n b n b
+n b b 3 n n n n n b
+n n n n b 4 b b n b
+[]
