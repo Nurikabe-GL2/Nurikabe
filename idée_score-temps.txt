@@ -1,0 +1,25 @@
+- : une idée
+| : à choisir entre plusieurs
+
+
+~~~ TEMPS ~~~
+    -| le mettre avec la grille de jeu
+     |
+     | le mettre seleument au choix de niveaux
+
+    -
+    -
+    -
+
+~~~ SCORE ~~~
+    -| 1 score de base pour toute les grilles, qui diminue selon un temps donné (selon la difficulté)
+     |
+     | score de base dépendant de la taille de la grille et de la difficulté
+
+    - diminue si :  - le temps est supérieur à une valeur qui dépend de la difficulté
+                    - si on utilise une aide
+
+    -
+    -
+    -
+    -
