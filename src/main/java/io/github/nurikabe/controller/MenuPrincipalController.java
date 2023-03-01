@@ -24,7 +24,7 @@ public class MenuPrincipalController extends VBox {
     @FXML
     private void onExitAction(ActionEvent event) {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
-    
+    	this.stage.close();
     }
 
     @FXML
