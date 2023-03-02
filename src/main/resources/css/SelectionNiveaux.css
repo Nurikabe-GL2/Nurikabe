@@ -13,7 +13,7 @@
     -fx-font-size: 14px;
 }
 
-ToggleButton:selected {
-    -fx-background-color: #455685 !important;
+.selectedButton {
+    -fx-background-color: #455685;
     -fx-font-weight: bold;
 }

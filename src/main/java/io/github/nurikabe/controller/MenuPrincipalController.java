@@ -24,7 +24,7 @@ public class MenuPrincipalController extends VBox {
     @FXML
     private void onExitAction(ActionEvent event) {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
-    	this.stage.close();
+        stage.close();
     }
 
     @FXML
@@ -38,19 +38,20 @@ public class MenuPrincipalController extends VBox {
 
     @FXML
     private void onPlayAction(ActionEvent event) throws IOException {
-        final SelectionNiveauxController controller = Utils.loadFxml(
-                new SelectionNiveauxController(stage, stage.getScene()),
+       final JouerController controller = Utils.loadFxml(
+                new JouerController(stage, stage.getScene()),
                 "SelectionNiveaux"
         );
         stage.setScene(new Scene(controller));
+         //PlateauController p=new PlateauController(stage);
+        return;
     }
 
     @FXML
     private void onRulesAction(ActionEvent event) throws IOException {
          final ReglesController controller = Utils.loadFxml(
                 new ReglesController(stage, stage.getScene()),
-                "Regles"
-        );
+                "Regles");
         stage.setScene(new Scene(controller));
     }
 
