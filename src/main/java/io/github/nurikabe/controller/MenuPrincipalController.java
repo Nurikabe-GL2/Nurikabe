@@ -38,12 +38,12 @@ public class MenuPrincipalController extends VBox {
 
     @FXML
     private void onPlayAction(ActionEvent event) throws IOException {
-       final JouerController controller = Utils.loadFxml(
+      /* final JouerController controller = Utils.loadFxml(
                 new JouerController(stage, stage.getScene()),
                 "SelectionNiveaux"
         );
-        stage.setScene(new Scene(controller));
-         //PlateauController p=new PlateauController(stage);
+        stage.setScene(new Scene(controller)); */
+        PlateauController p=new PlateauController(stage);
         return;
     }
 

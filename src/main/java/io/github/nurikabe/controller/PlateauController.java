@@ -1,7 +1,6 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.Grille;
-import io.github.nurikabe.Case;
+import io.github.nurikabe.*;
 import java.io.*;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Utils;
@@ -32,6 +31,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.File; 
 import java.net.URL;
+import javafx.stage.Window;
 
 
 // extends VBox car c'est la racine du menu principal
@@ -44,41 +44,16 @@ public class PlateauController extends VBox {
 
     public PlateauController(Stage s){
             stage=s;
-            GridPane grid = new GridPane();
-            //System.out.println("Working Directory = " + System.getProperty("user.dir"));
             niveau=new Grille("src/main/resources/niveaux/moyen_10.txt");
-            System.out.println(niveau.get_largeur());
-            for(int i=0;i<niveau.get_largeur();i++){
-                for(int j=0;j<niveau.get_hauteur();j++){
-                     
-                    Case une_case= new Case(niveau.etat_case(i,j), i, j, 50, 50, niveau, stage);
-                    /*  
-                      Button button = new Button();
-                      button.setPrefSize(50, 50);
-                      button.setOnAction(new EventHandler<ActionEvent>()
-                        {            
-                            @Override
-                            public void handle(ActionEvent event)
-                            {
-                                if(button.getGraphic()==null)button.setGraphic(create_image("img/noir1.png", 35, 35));
-                                else button.setGraphic(null);
-                                System.out.println("clicked\n");
-                            }
 
-                        }); 
-                    */
-                    
-                    //System.out.println("classe : "+une_case.get_button().getClass());
-                    GridPane.setRowIndex(une_case.get_button(), i);
-                    GridPane.setColumnIndex(une_case.get_button(), j);
-                    grid.getChildren().addAll(une_case.get_button());
-                }
-            }
-
-            g.getChildren().add(grid);
+            g.getChildren().add(niveau.get_grillegraphique());
             
-            Scene scene = new Scene(g, 500, 500);
-
+            Scene scene = new Scene(g, niveau.get_hauteur()*50, niveau.get_largeur()*50);
+           
+           // Window window = scene.getWindow();
+           // window.setX(300);
+           // window.setY(0);
+            
             stage.setTitle("Grille Nurikabe");
             stage.setScene(scene);
             stage.show();
@@ -91,15 +66,6 @@ public class PlateauController extends VBox {
              };   
 
     }
-
-    public static ImageView create_image(String name, int x, int y){
-            Image image = new Image(name);
-            ImageView view = new ImageView(image);
-            view.setPreserveRatio(false);
-            view.setFitWidth(x);
-            view.setFitHeight(y);
-            return view;
-    }  
 
     public int victoire_partie(){
         return niveau.get_etatpartie();
