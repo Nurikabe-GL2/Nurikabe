@@ -15,3 +15,13 @@
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
+
+.casenoire {
+    -fx-background-color:black;
+    -fx-border-color:black;
+  }
+  
+  .caseblanche {
+    -fx-border-color:black;
+  }
+  
