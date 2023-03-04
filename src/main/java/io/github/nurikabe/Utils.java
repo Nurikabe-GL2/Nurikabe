@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class Utils {
@@ -19,6 +20,14 @@ public class Utils {
      */
     public static URL getResource(Class<?> currentClass, String url) {
         final URL resource = currentClass.getResource(url);
+        if (resource == null)
+            throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
+
+        return resource;
+    }
+
+    public static InputStream getResourceAsStream(Class<?> currentClass, String url) {
+        final var resource = currentClass.getResourceAsStream(url);
         if (resource == null)
             throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
 
