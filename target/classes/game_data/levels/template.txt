@@ -1,0 +1,4 @@
+<name>
+<difficulty>
+<width> <height>
+<solution as a 2D grid, 1 spacing>

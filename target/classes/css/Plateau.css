@@ -1,0 +1,27 @@
+#contentBox {
+    -fx-background-color: #152247;
+}
+
+.gameButton {
+    -fx-background-color: #4882bd;
+    -fx-text-fill: white;
+}
+
+#timerLabel, #scoreLabel {
+    -fx-text-fill: white;
+}
+
+.numberHintPane {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.casenoire {
+    -fx-background-color:black;
+    -fx-border-color:black;
+  }
+  
+  .caseblanche {
+    -fx-border-color:black;
+  }
+  

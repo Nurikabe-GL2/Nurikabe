@@ -35,15 +35,47 @@ import javafx.scene.image.ImageView;
 import java.io.File; 
 import java.net.URL;
 
-
+/**
+ * Classe public représentant une grille
+ */
 public class Grille {
 
     //String grille[][];
+
+    /**
+     * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
+     */
     ArrayList<ArrayList<Case>> grille=new ArrayList<ArrayList<Case>>();
+    
+    /**
+     * variable d'instance représentant la solution de la grille
+     */
     String grille_solution[][];
-    int largeur, hauteur, etat_partie=0;
+    
+    /**
+     * la largeur de la grille
+     */
+    int largeur; 
+    
+    /**
+     * la hauteur de la grille
+     */
+    int hauteur;
+    
+    /**
+     * l'état de la partie de base à 0
+     */
+    int etat_partie=0;
+    
+    /**
+     * un gridPane représentant la grille
+     */
     GridPane grille_graphique;
 
+    /**
+     * Le construteur de la grille
+     * @param name le nom de la grille
+     */
     public Grille(String name){
         grille_graphique = new GridPane();
         grille_graphique.getStylesheets().add("/css/Plateau.css");
@@ -52,6 +84,10 @@ public class Grille {
 
     }
 
+    /**
+     * Méthode public qui s'occupe de chargé la grille
+     * @param name le nom de la grille
+     */
     public void charger_grille(String name){
       try {
         FileInputStream fichier = new FileInputStream(name);
@@ -91,6 +127,9 @@ public class Grille {
       }
     }
 
+    /**
+     * Méthode qui test si la grille est fini
+     */
     public void victoire(){
         int count=0;
           for (int i = 0; i < largeur; i++) {
@@ -121,6 +160,12 @@ public class Grille {
     
     }
 
+    /**
+     * Méthode qui compte le nombre de case autour de la grille 
+     * @param x la coordonné x de la case
+     * @param y la coordonné y de la case
+     * @return le nombre de case
+     */
     public int verifier_cases_autour(int x, int y){
         int count=0;
         //si la case est en haut à gauche
@@ -165,10 +210,19 @@ public class Grille {
         return count;
     }
 
+    /**
+     * méthode public qui renvoie l'état de la case
+     * @param x la coordonné x de la case
+     * @param y la coordonné y de la case
+     * @return l'état de la case sous forme de chaine de caractère
+     */
     public String etat_case(int x, int y){
         return grille.get(x).get(y).get_case();
     }
 
+    /**
+     * méthode public qui affiche la grille
+     */
     public void afficher_grille(){
          for (int i = 0; i < largeur; i++) {
                 for (int j = 0; j < hauteur; j++) {
@@ -178,18 +232,34 @@ public class Grille {
             }
     }
 
+    /**
+     * getter de la largeur de la grille
+     * @return la largeur de la grille
+     */
     public int get_largeur(){
         return largeur;
     }
 
+    /**
+     * getter de la hauteur de la grille
+     * @return la hauteur de la grille
+     */
     public int get_hauteur(){
         return hauteur;
     }
 
+    /**
+     * getter de l'état de la partie
+     * @return l'état de la partie sous forme d'entier
+     */
     public int get_etatpartie(){
         return etat_partie;
     }
 
+    /**
+     * getter de la partie graphique de la grille
+     * @return un gridPane
+     */
     public GridPane get_grillegraphique(){
         return this.grille_graphique;
     }
