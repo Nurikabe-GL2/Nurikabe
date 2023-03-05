@@ -1,6 +1,5 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.controller.PlateauController;
 import io.github.nurikabe.FXUtils;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Difficulty;

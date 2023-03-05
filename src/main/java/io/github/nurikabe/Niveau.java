@@ -1,46 +1,27 @@
 package io.github.nurikabe;
 
-import io.github.nurikabe.*;
-import javax.swing.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.awt.*;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.io.*;
-import io.github.nurikabe.Logging;
-import io.github.nurikabe.Utils;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
+//import org.slf4j.Logger;
 import java.util.ArrayList;
-import java.io.IOException;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
+
+
 import java.util.Scanner;
-import javafx.scene.shape.Line; 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.File; 
-import java.net.URL;
+
 
 /**
  * Classe public représentant une grille
  */
-public class Grille {
+public class Niveau {
 
     //String grille[][];
+
+    /**
+     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
+     */
+    //private static final Logger LOGGER = Logging.getLogger();
 
     /**
      * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
@@ -73,15 +54,26 @@ public class Grille {
     GridPane grille_graphique;
 
     /**
+     * La pile servant au bouton undo
+     */
+    private final Pile undoStack;
+    
+    /**
+     * La pile servant au bouton redo
+     */
+    private final Pile redoStack;
+
+    /**
      * Le construteur de la grille
      * @param name le nom de la grille
      */
-    public Grille(String name){
+    public Niveau(String name){
         grille_graphique = new GridPane();
         grille_graphique.getStylesheets().add("/css/Plateau.css");
         charger_grille(name);
+        this.undoStack = new Pile();
+        this.redoStack = new Pile();
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
     }
 
     /**
@@ -96,6 +88,9 @@ public class Grille {
         this.largeur = lecture.nextInt();
         grille_solution=new String[largeur][hauteur];
         
+
+       
+
         for(int i=0; i<largeur ; i++){
             grille.add(new ArrayList<Case>());
         }
@@ -117,10 +112,10 @@ public class Grille {
             //System.out.println(grille.get(i).get(j).get_pane()!=null);
             GridPane.setRowIndex(grille.get(i).get(j).get_pane(), i);
             GridPane.setColumnIndex(grille.get(i).get(j).get_pane(), j);
+
             grille_graphique.getChildren().addAll(grille.get(i).get(j).get_pane());
-       
+            //lecture.close();
          }
-      
       }
       }catch (Exception e){
         System.out.println("erreur lors de la lecture de la grille : "+e);
@@ -150,8 +145,7 @@ public class Grille {
             
             if(etat_case(i,j).equals(".")==true){
 
-                //à faire
-                ;
+                //à faire;
             }
 
         }
@@ -263,5 +257,48 @@ public class Grille {
     public GridPane get_grillegraphique(){
         return this.grille_graphique;
     }
+    
 
+    /**
+     * Méthode appelé par les handlers de undo et redo pour pop un coup le joué un coup et le mettre dans la pile correcte
+     * @param a_pop la pile qui possède le coup à joué, c'est elle qui sera pop
+     * @param a_push la pile qui recevra le nouveau coup, c'est elle qui sera push
+     * @param nb_clique le nombre de clique à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
+     */
+    private void coup(Pile a_pop, Pile a_push, int nb_clique){
+        
+        Coup coup_pris = new Coup(-1,-1);
+
+        coup_pris=a_pop.pop();
+
+        if(coup_pris.get_x()!=-1)
+        {
+            for(int i=0;i<nb_clique;i++)
+                grille.get(coup_pris.get_x()).get(coup_pris.get_y()).action_clic(true);
+        }
+
+        a_push.push(coup_pris);
+    }
+
+    /**
+     * Le handler associé au bouton précédent 
+     */
+    public EventHandler<MouseEvent> handlerUndo = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent e) {
+            //LOGGER.info("undo cliqué");
+            coup(undoStack, redoStack,2);
+        }
+    };
+
+    /**
+     * Le handler associé au bouton suivant 
+     */
+    public EventHandler<MouseEvent> handlerRedo = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent e) {
+            //LOGGER.info("redo cliqué");
+            coup(redoStack, undoStack,1);
+        }
+    };
 }

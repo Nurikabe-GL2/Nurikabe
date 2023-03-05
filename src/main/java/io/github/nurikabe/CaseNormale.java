@@ -1,10 +1,6 @@
 package io.github.nurikabe;
 
-import io.github.nurikabe.Case;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import java.lang.*;
-import javafx.stage.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 
@@ -26,7 +22,7 @@ public class CaseNormale extends Case{
     /**
      * variable d'instance représentant la grille de la case
      */
-    Grille grid;
+    Niveau grid;
 
     /**
      * le constructeur de la classe CaseNormale 
@@ -36,7 +32,7 @@ public class CaseNormale extends Case{
      * @param L la largeur de la case 
      * @param grid la grille de la case
      */
-    public CaseNormale(int x, int y, int l, int L, Grille grid){
+    public CaseNormale(int x, int y, int l, int L, Niveau grid){
     
       super(x, y,0);
       this.etat=0;
@@ -47,16 +43,18 @@ public class CaseNormale extends Case{
 
       pane.setOnMouseClicked(e -> {
         System.out.println("cliqued");
-          action_clic();
+          action_clic(false);
       });
     }
 
     /**
      * méthode gérant la réaction de la case au clique, elle s'occupe de changé l'état de la case de façon cyclique et vérifie si la grille est fini
+     * @param appel boolean pour savoir si la méthode est appelé par une autre méthode tel que undo et reod, si c'est le cas, alors le coup ne sera pas push
+     * @param undoStack 
      */
     @Override
-    public void action_clic(){
-      
+    public void action_clic(boolean appel){
+      Coup jouer = new Coup(this.x, this.y);
       //si la case contient un point
        if(etat==2){
          
@@ -83,6 +81,10 @@ public class CaseNormale extends Case{
           etat=1;
         
         }
+
+        if(!appel)
+          undoStack.push(jouer);
+
 
     }
 

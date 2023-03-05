@@ -1,10 +1,7 @@
 package io.github.nurikabe;
 
-import io.github.nurikabe.Case;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import java.lang.*;
-import javafx.stage.*;
 
 
 
@@ -48,7 +45,7 @@ public class CaseNombre extends Case{
      * ici elle ne fait rien
      */
     @Override
-    public void action_clic(){
+    public void action_clic(boolean appel){
       System.out.println("rien faire");
     }
 

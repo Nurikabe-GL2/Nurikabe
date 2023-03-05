@@ -1,7 +1,8 @@
+/home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Pile.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/FXUtils.java
+/home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Coup.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Logging.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/controller/SelectionNiveauxController.java
-/home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Grille.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/ThrowingFunction.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Main.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Case.java
@@ -14,5 +15,6 @@
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/controller/JouerController.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/IOUtils.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/controller/ReglesController.java
+/home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/Niveau.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/controller/PlateauController.java
 /home/ubuntu/Documents/nurikabe2/Nurikabe/src/main/java/io/github/nurikabe/GameMode.java

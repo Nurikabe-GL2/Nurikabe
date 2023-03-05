@@ -1,4 +1,3 @@
-io/github/nurikabe/Grille.class
 io/github/nurikabe/controller/MenuPrincipalController.class
 io/github/nurikabe/Case.class
 io/github/nurikabe/controller/JouerController.class
@@ -7,9 +6,7 @@ io/github/nurikabe/Utils.class
 io/github/nurikabe/IOUtils.class
 io/github/nurikabe/Logging.class
 io/github/nurikabe/CaseNombre.class
-io/github/nurikabe/controller/PlateauController.class
 io/github/nurikabe/controller/SelectionNiveauxController.class
-io/github/nurikabe/controller/PlateauController$1.class
 io/github/nurikabe/GameMode.class
 io/github/nurikabe/CaseNormale.class
 io/github/nurikabe/Main.class
