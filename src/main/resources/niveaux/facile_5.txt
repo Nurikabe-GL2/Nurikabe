@@ -1,0 +1,10 @@
+6 8
+n n b b b b
+n 4 n n n 5
+n b b n 2 n
+n n b n b n
+3 n n n n n
+b b n b 3 n
+n n n b n 2
+b 2 n n n b
+[]

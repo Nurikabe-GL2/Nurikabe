@@ -1,0 +1,17 @@
+TabPane .tab-header-background {
+    -fx-background-color: #253257;
+}
+
+TabPane .tab {
+    -fx-background-insets: 0 1 0 1;
+    -fx-background-color: #354267;
+}
+
+TabPane .tab-label {
+    -fx-text-fill: #e0f0ff;
+    -fx-font-size: 13px;
+}
+
+TabPane .tab:selected {
+    -fx-background-color: #152247;
+}

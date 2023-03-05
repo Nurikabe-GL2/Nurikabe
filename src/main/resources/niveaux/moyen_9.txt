@@ -1,0 +1,13 @@
+8 11
+b b b b b 9 n 7
+b n n n n n n b
+b n b 2 n b b b
+b n n n 2 n b n
+n n b n b n b n
+b n b 3 n n n n
+b n n n 2 b n b
+b 4 n b n n n b
+n n n b b n 4 b
+n b 6 b n n n n
+n n n n n b b 3
+[]

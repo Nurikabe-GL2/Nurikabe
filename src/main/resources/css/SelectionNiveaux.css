@@ -1,0 +1,19 @@
+#contentBox {
+    -fx-background-color: #152247;
+}
+
+.parameterLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.gamemodeButton, .difficultyButton {
+    -fx-background-color: #4882bd;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+ToggleButton:selected {
+    -fx-background-color: #455685 !important;
+    -fx-font-weight: bold;
+}
