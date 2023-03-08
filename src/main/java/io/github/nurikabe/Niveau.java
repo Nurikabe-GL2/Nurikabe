@@ -243,7 +243,7 @@ public class Niveau implements Serializable {
           // Create a label with the message
           Label messageLabel = new Label("Niveau complété !");
 
-          
+
           // Create a VBox to hold the label and button HBox
           VBox vbox = new VBox(10);
           vbox.getChildren().addAll(messageLabel);
@@ -349,6 +349,10 @@ public class Niveau implements Serializable {
         }
     };
 
+    /**
+     * Getter du stack Undo
+     * @return une pile
+     */
     public Pile recupUndo() {
         return pileUndo;
     }
