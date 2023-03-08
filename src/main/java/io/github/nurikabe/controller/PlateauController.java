@@ -54,7 +54,7 @@ public class PlateauController extends VBox {
             niveau=new Niveau("src/main/resources/niveaux/moyen_10.txt");
 
 
-            chrono.debut();
+
 
 
         //Création des boutons undo redo
@@ -99,11 +99,6 @@ public class PlateauController extends VBox {
                 } 
              };
 
-
-         // fin du chrono
-        chrono.fin();
-        long tempsEcoule = chrono.getTempsEcoule();
-        System.out.println("Temps écoulé : " + tempsEcoule + " ms");
 
     }
 
