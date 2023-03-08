@@ -31,9 +31,9 @@ public abstract class Case {
    //new Button();
 
    /**
-    * Le construteur de la classe Case
-    * @param x coordonnée x de la case
-    * @param y coordonnée y de la case
+    * Construteur de la classe Case
+    * @param x la coordonnée x de la case
+    * @param y la coordonnée y de la case
     * @param type le type de la case (soit noire, soit blanche, soit un chiffre)
     */
    public Case(int x, int y, int type) {

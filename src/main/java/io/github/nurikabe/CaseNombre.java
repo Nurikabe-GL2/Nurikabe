@@ -1,69 +1,75 @@
+/**
+ * Fichier CaseNombre.java héritant du fichier Case.java pour représenter les cases à nombres
+ * @author Lazare Maclouf
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
+// Importation des librairies javaFX
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-
-
 /**
- * La classe CaseNombre héritant de la classe abstraite Case 
+ * La classe CaseNombre hérite de la classe abstraite Case et représente les cases qui contiennent un nombre 
  */
-public class CaseNombre extends Case{
+public class CaseNombre extends Case {
+   /**
+    * Variable d'instance représentant le nombre de la case
+    */
+   int nombre;
 
-    /**
-     * variable d'instance représentant le nombre de la case
-     */
-    int nombre;
+   /**
+    * Le panneau de la case
+    */
+   StackPane panneau;
 
-    /**
-     * le pane de la case
-     */
-    StackPane pane;
-
-    /**
-     * Constructeur de la classe Nombre
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
-     * @param l la longeur de la case 
-     * @param L la largeur de la case 
-     * @param nombre le nombre de la case
-     */
-    public CaseNombre(int x, int y, int l, int L, int nombre){
-      
+   /**
+    * Constructeur de la classe CaseNombre
+    * @param x la coordonnée x de la case
+    * @param y la coordonnée y de la case
+    * @param l la largeur de la case 
+    * @param L la longueur de la case 
+    * @param nombre le nombre de la case
+    */
+   public CaseNombre(int x, int y, int l, int L, int nombre){
       super(x, y,1);
-      this.nombre=nombre;
-      pane = new StackPane();
+      this.nombre = nombre;
+      panneau = new StackPane();
       Text nb = new Text(Integer.toString(nombre));
-      pane.getChildren().add(nb); 
-      pane.getStyleClass().add("caseblanche");
-      pane.setPrefSize(l, L);
+      panneau.getChildren().add(nb); 
+      panneau.getStyleClass().add("caseblanche");
+      panneau.setPrefSize(l, L);
 
     }
 
-    /**
-     * Méthode qui défini le comportement de la case en cas de clique,
-     * ici elle ne fait rien
-     */
-    @Override
-    public void action_clic(boolean appel){
-      System.out.println("rien faire");
-    }
+   /**
+    * Méthode qui définit la réaction de la case quand on clique dessus
+    * @param appel Inutile dans ce cas, car cliquer sur une case à nombre ne fait rien
+    * @override
+    */
+   @Override
+   public void actionClic(boolean appel){
+      System.out.println("Ne rien faire");
+   }
 
-    /**
-     * getter renvoyant le contenue de la case sous forme de chaine de caractère
-     * @return le contenue de la case
-     */
-    @Override
-    public String get_case(){
+   /**
+    * Méthode recupCase qui renvoie le nombre de la case sous forme de chaine de caractère
+    * @return le nombre de la case
+    * @override
+    */
+   @Override
+   public String recupCase() {
       return Integer.toString(nombre);
-    }
+   }
 
-    /**
-     * Getter renvoyant le pane de la case
-     *  @return le pane de la case
-     */
-    @Override
-    public StackPane get_pane(){
-      return pane;
-    }
+
+   /**
+    * Méthode recupPanneau qui renvoie le panneau de la case
+    * @return le panneau de la case
+    */
+   @Override
+   public StackPane recupPanneau() {
+      return panneau;
+   }
 }
