@@ -1,3 +1,4 @@
+
 #contentBox {
     -fx-background-color: #152247;
 }
@@ -13,7 +14,7 @@
     -fx-font-size: 14px;
 }
 
-.selectedButton {
-    -fx-background-color: #455685;
+ToggleButton:selected {
+    -fx-background-color: #455685 !important;
     -fx-font-weight: bold;
 }

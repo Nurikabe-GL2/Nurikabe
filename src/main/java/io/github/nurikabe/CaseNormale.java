@@ -82,8 +82,8 @@ public class CaseNormale extends Case{
         
         }
 
-        if(!appel)
-          undoStack.push(jouer);
+        /*if(!appel)
+          undoStack.push(jouer);*/
 
 
     }
