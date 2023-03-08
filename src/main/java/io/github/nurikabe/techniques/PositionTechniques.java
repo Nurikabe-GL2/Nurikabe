@@ -1,6 +1,9 @@
-package main.java.io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques;
 
-import java.util.ArrayList;
+import io.github.nurikabe.Coup;
+
+import java.util.List;
+
 /**
  * Classe représentant une liste de position donnée par la ou les techniques applicables
  */
