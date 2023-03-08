@@ -50,8 +50,8 @@
               </rowConstraints>
                <children>
                   <Label styleClass="parameterCategoryLabel" text="Paramètres généraux" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
-                  <Label styleClass="parameterLabel" text="Départ sur grille noire :" GridPane.rowIndex="1" />
-                  <CheckBox id="cochableRemplirCases" fx:id="cochableRemplirCases" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onRemplirCasesAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label styleClass="parameterLabel" text="Départ sur grille noire :" GridPane.rowIndex="1"/>
+                  <CheckBox id="cochableRemplirNoir" fx:id="cochableCheminFerme1" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onCheminFermeAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Separator GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <Label styleClass="parameterCategoryLabel" text="Aides visuelles" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <Label styleClass="parameterLabel" text="Numérotation dans les chemins fermés :" GridPane.rowIndex="4" />
