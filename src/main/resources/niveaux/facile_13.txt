@@ -1,0 +1,12 @@
+7 10
+b n 2 b n n n
+b n n n 4 b n
+3 n 2 b n b n
+n n n n n b n
+n b b 4 n n n
+n b n n 3 b n
+n n 1 n n b n
+1 n n 4 n n n
+n n b b b n 2
+b 2 n n n n b
+[]
