@@ -44,6 +44,7 @@ public class CaseNormale extends Case{
       pane.setOnMouseClicked(e -> {
         System.out.println("cliqued");
           action_clic(false);
+          grid.getUndo().push(new Coup(x,y));
       });
     }
 
@@ -62,7 +63,6 @@ public class CaseNormale extends Case{
           pane.getStyleClass().remove(0);
           pane.getStyleClass().add(0, "caseblanche");
           etat=0;
-       
         }
       //si la case est noire
         else if(etat==1){
