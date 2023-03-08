@@ -1,86 +1,89 @@
+/**
+ * Fichier Niveau.java représentant les grilles
+ * @author celui qui a fait la classe doit s'ajouter ici
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
-import java.io.FileInputStream;
 //import org.slf4j.Logger;
+// Importation des librairies javaFX
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
-
-
 import java.util.Scanner;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
 
-
 /**
- * Classe public représentant une grille
+ * Classe Niveau pour représenter une grille
  */
 public class Niveau {
+   //String grille[][];
 
-    //String grille[][];
+   /**
+    * Initialisation du logger pour générer des messages durant l'exécution suite à des évènements
+    */
+   //private static final Logger LOGGER = Logging.getLogger();
 
-    /**
-     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
-     */
-    //private static final Logger LOGGER = Logging.getLogger();
+   /**
+    * Variable d'instance qui représente le contenu de la grille sous forme d'une ArrayList
+    */
+   ArrayList<ArrayList<Case>> grille = new ArrayList<ArrayList<Case>>();
+    
+   /**
+    * Variable d'instance représentant la solution de la grille
+    */
+   String grille_solution[][];
+    
+   /**
+    * Variable d'instance représentant la largeur de la grille
+    */
+   int largeur; 
+    
+   /**
+    * Variable d'instance représentant la hauteur de la grille
+    */
+   int hauteur;
+    
+   /**
+    * Variable d'instance représentant l'état de la partie (par défaut égal à 0)
+    */
+   int etat_partie = 0;
+    
+   /**
+    * Variable d'instance grille_graphique représentant la grille graphique
+    */
+   GridPane grille_graphique;
 
-    /**
-     * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
-     */
-    ArrayList<ArrayList<Case>> grille=new ArrayList<ArrayList<Case>>();
+   /**
+    * Variable d'instance représentant la pile servant au bouton Undo
+    */
+   private final Pile pileUndo;
     
-    /**
-     * variable d'instance représentant la solution de la grille
-     */
-    String grille_solution[][];
-    
-    /**
-     * la largeur de la grille
-     */
-    int largeur; 
-    
-    /**
-     * la hauteur de la grille
-     */
-    int hauteur;
-    
-    /**
-     * l'état de la partie de base à 0
-     */
-    int etat_partie=0;
-    
-    /**
-     * un gridPane représentant la grille
-     */
-    GridPane grille_graphique;
+   /**
+    * Variable d'instance représentant la pile servant au bouton Redo
+    */
+   private final Pile pileRedo;
 
-    /**
-     * La pile servant au bouton undo
-     */
-    private final Pile undoStack;
-    
-    /**
-     * La pile servant au bouton redo
-     */
-    private final Pile redoStack;
+   /**
+    * Construteur de la classe Niveau
+    * @param nomGrille le nom de la grille
+    */
+   public Niveau(String nomGrille){
+      grille_graphique = new GridPane();
+      grille_graphique.getStylesheets().add("/css/Plateau.css");
+      chargerGrille(nomGrille);
+      this.pileUndo = new Pile();
+      this.pileRedo = new Pile();
+      //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+   }
 
-    /**
-     * Le construteur de la grille
-     * @param name le nom de la grille
-     */
-    public Niveau(String name){
-        grille_graphique = new GridPane();
-        grille_graphique.getStylesheets().add("/css/Plateau.css");
-        charger_grille(name);
-        this.undoStack = new Pile();
-        this.redoStack = new Pile();
-        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-    }
-
-    /**
-     * Méthode public qui s'occupe de chargé la grille
-     * @param name le nom de la grille
-     */
-    public void charger_grille(String name){
+   /**
+    * Méthode chargerGrille qui s'occupe de charger la grille
+    * @param nomGrille le nom de la grille
+    */
+   public void chargerGrille(String name) {
       try {
         FileInputStream fichier = new FileInputStream(name);
         Scanner lecture = new Scanner(fichier);
