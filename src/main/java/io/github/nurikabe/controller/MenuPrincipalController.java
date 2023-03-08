@@ -99,8 +99,12 @@ public class MenuPrincipalController extends VBox {
      * @throws IOException le type d'éxception que peut générer la méthode
      */
     @FXML
-    private void onSettingsAction(ActionEvent event) {
+    private void onSettingsAction(ActionEvent event) throws IOException {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
+        final ParametresController controller = Utils.loadFxml(
+                new ParametresController(stage, stage.getScene()),
+                "Parametres");
+        stage.setScene(new Scene(controller));
     }
 
     /**
