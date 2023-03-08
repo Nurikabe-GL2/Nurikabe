@@ -155,7 +155,7 @@ public class Niveau {
     }
 
     /**
-     * Méthode qui compte le nombre de case autour de la grille 
+     * Méthode qui compte le nombre de case autour de la case 
      * @param x la coordonné x de la case
      * @param y la coordonné y de la case
      * @return le nombre de case
@@ -302,6 +302,10 @@ public class Niveau {
         }
     };
 
+    /**
+     * Getter du stack Undo
+     * @return une pile 
+     */
     public Pile getUndo()
     {
         return undoStack;
