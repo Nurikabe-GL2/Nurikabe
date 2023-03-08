@@ -1,14 +1,12 @@
 package io.github.nurikabe;
 
-import java.io.FileInputStream;
-//import org.slf4j.Logger;
-import java.util.ArrayList;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent; 
 
 
 /**
@@ -74,6 +72,10 @@ public class Niveau {
         this.undoStack = new Pile();
         this.redoStack = new Pile();
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+    }
+
+    public ArrayList<ArrayList<Case>> getGrille() {
+        return grille;
     }
 
     /**

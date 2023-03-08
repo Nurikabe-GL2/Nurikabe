@@ -1,12 +1,10 @@
 package io.github.nurikabe.techniques;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.text.Position;
-
 import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Classe public représentant les différentes techniques
  */
@@ -25,7 +23,7 @@ public class IleDeUn implements Technique {
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
-                if(grille.get(i).get(j).get_case().equals("1"))
+                if(grille.etat_case(i, j).equals("1"))
                 {
                     List<Coup> liste = new ArrayList<>();
 
