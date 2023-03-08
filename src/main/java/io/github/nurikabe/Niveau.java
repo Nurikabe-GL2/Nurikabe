@@ -64,6 +64,11 @@ public class Niveau {
     private final Pile redoStack;
 
     /**
+     * le chronometre servant à calculer la durée de la partie
+     */
+    private final Chronometre chrono = new Chronometre();
+
+    /**
      * Le construteur de la grille
      * @param name le nom de la grille
      */
