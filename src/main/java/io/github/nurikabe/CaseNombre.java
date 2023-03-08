@@ -38,6 +38,11 @@ public class CaseNombre extends Case{
       pane.getStyleClass().add("caseblanche");
       pane.setPrefSize(l, L);
 
+        pane.setOnMouseClicked(e -> {
+            System.out.println("cliqued");
+            action_clic(false);
+        });
+
     }
 
     /**
@@ -47,6 +52,26 @@ public class CaseNombre extends Case{
     @Override
     public void action_clic(boolean appel){
       System.out.println("rien faire");
+
+      Coup jouer = new Coup(this.x, this.y);
+
+      if(pane.getOnMouseDragOver(Coup)){
+          pane.getStyleClass().add(0, "caseviolet");
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     /**
