@@ -1,46 +1,59 @@
+/**
+ * Fichier Pile.java représentant une pile pour les coups joués
+ * @author celui qui a fait la classe doit s'ajouter ici
+ */
+
+// Package GitHub
 package io.github.nurikabe;
+
+// Importation des librairies javaFX
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-
+/**
+ * Classe Pile qui permet de manipuler les coups joués
+ */
 public class Pile {
-    private final Stack<Coup> Pile;
+   private final Stack<Coup> pile;
 
-    Pile(){
-        Pile = new Stack<>();
-    }
+   /**
+    * Constructeur de la classe Pile
+    */
+   Pile() {
+        pile = new Stack<>();
+   }
 
-    /**
-     * Méthode permettant de push un élément dans la pile local
-     * @param temp l'élément à push
-     */
-    public void push(Coup temp) {
-        this.Pile.push(temp);
-    }
+   /**
+    * Méthode empiler permettant d'empiler un coup joué dans la pile locale
+    * @param coup le coup à empiler
+    */
+   public void empiler(Coup coup) {
+      this.pile.push(coup);
+   }
 
-    /**
-     * Méthode permettant de pop un élément dans la pile local
-     * @param temp l'élément à pop
-     */
-    public Coup pop() {
-        return this.Pile.pop();
-    }
+   /**
+    * Méthode depiler permettant de dépiler un coup joué dans la pile locale
+    * @return le coup dépilé
+    */
+   public Coup depiler() {
+      return this.pile.pop();
+   }
 
-    /**
-     * Méthode pour échanger un coup entre 2 pile et renvoyant le coup en question
-     * La pile appelante se verra retiré son premier élément pour l'insérer dans la pile passé en paramètre
-     * @param autre_pile la pile ou mettre le coup
-     * @return Coup le coup en question 
-     * @throws EmptyStackException si la pile appelante est vide
-     */
-    public Coup echange_pile(Pile autre_pile) throws EmptyStackException{
-        Coup temp = new Coup(-1,-1);
-        try {
-            temp= this.pop();
-            autre_pile.push(temp);
-        } catch (Exception e) {
-            System.out.println("erreur lors du pop sur une pile, cette dernière est peut-être vide");
-        }
-        return temp;
-    }
+   /**
+    * Méthode echangePile pour échanger un coup entre 2 piles et renvoie le coup en question
+    * La pile appelée aura son premier coup retiré pour l'insérer dans la pile passée en paramètre
+    * @param autrePile la pile où empiler le coup
+    * @return le coup à échanger 
+    * @throws EmptyStackException si la pile appelée est vide
+    */
+   public Coup echangePile(Pile autrePile) throws EmptyStackException{
+      Coup coup = new Coup(-1,-1);
+      try {
+         coup = this.depiler();
+         autrePile.empiler(coup);
+      } catch (Exception e) {
+         System.out.println("Erreur lors du dépilement sur une pile, cette dernière est peut-être vide");
+      }
+      return coup;
+   }
 }
