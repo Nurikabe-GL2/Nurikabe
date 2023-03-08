@@ -301,4 +301,9 @@ public class Niveau {
             coup(redoStack, undoStack,1);
         }
     };
+
+    public Pile getUndo()
+    {
+        return undoStack;
+    }
 }
