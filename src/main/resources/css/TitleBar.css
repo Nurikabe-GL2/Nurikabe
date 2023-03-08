@@ -1,0 +1,20 @@
+#titleBar Label, #titleBar Button {
+    -fx-text-fill: white;
+}
+
+#titleBar {
+    -fx-background-color: #455685;
+}
+
+#returnButton {
+    -fx-background-color: #4882bd;
+    -fx-font-size: 14px;
+}
+
+#returnButton:hover {
+    -fx-background-color: #5892cd;
+}
+
+#titleText {
+    -fx-font-size: 16px;
+}

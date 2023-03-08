@@ -1,0 +1,7 @@
+<largeur> <hauteur>
+<liste des cases de la grille remplie> : 
+n = noir
+b = blanc
+<un chiffre>
+
+

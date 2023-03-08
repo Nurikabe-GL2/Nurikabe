@@ -1,0 +1,26 @@
+#contentBox {
+    -fx-background-color: #152247;
+}
+
+#mainLabel {
+    -fx-font-size: 28px;
+    -fx-text-fill: #8fc6ff;
+}
+
+#noticeLabel {
+    -fx-text-fill: white;
+}
+
+ToggleButton {
+    -fx-font-size: 14px;
+}
+
+.parameterCategoryLabel {
+    -fx-text-fill: #8fc6ff;
+    -fx-font-size: 18px;
+}
+
+.parameterLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
