@@ -1,6 +1,5 @@
 package io.github.nurikabe;
 
-import java.io.FileInputStream;
 //import org.slf4j.Logger;
 import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
@@ -9,12 +8,14 @@ import javafx.scene.layout.GridPane;
 import java.util.Scanner;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
+import javafx.stage.Stage;
+import java.io.*;
 
 
 /**
  * Classe public représentant une grille
  */
-public class Niveau {
+public class Niveau implements Serializable{
 
     //String grille[][];
 
@@ -44,11 +45,6 @@ public class Niveau {
     int hauteur;
     
     /**
-     * l'état de la partie de base à 0
-     */
-    int etat_partie=0;
-    
-    /**
      * un gridPane représentant la grille
      */
     GridPane grille_graphique;
@@ -63,14 +59,20 @@ public class Niveau {
      */
     private final Pile redoStack;
 
+    Stage stage;
+
+    String nom_niveau;
+
     /**
      * Le construteur de la grille
      * @param name le nom de la grille
      */
-    public Niveau(String name){
+    public Niveau(Stage stage, String nom_niveau){
+        this.stage=stage;
+        this.nom_niveau=nom_niveau;
         grille_graphique = new GridPane();
         grille_graphique.getStylesheets().add("/css/Plateau.css");
-        charger_grille(name);
+        charger_grille(get_niveau(nom_niveau));
         this.undoStack = new Pile();
         this.redoStack = new Pile();
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
@@ -82,44 +84,103 @@ public class Niveau {
      */
     public void charger_grille(String name){
       try {
-        FileInputStream fichier = new FileInputStream(name);
-        Scanner lecture = new Scanner(fichier);
-        this.hauteur = lecture.nextInt();
-        this.largeur = lecture.nextInt();
-        grille_solution=new String[largeur][hauteur];
-        
+        charger_grille_solution(name);
 
-       
+        if(charger_niveau("niveau1")==0){
 
-        for(int i=0; i<largeur ; i++){
-            grille.add(new ArrayList<Case>());
-        }
+                for(int i=0; i<largeur ; i++){
+                    grille.add(new ArrayList<Case>());
+                }
 
-      for (int i = 0; i < largeur; i++) {
-        
-         for (int j = 0; j < hauteur; j++) {
-           
-            grille_solution[i][j] = lecture.next();
-            
-            
-            //Case une_case;
-        
-            if(grille_solution[i][j].equals("b")||grille_solution[i][j].equals("n")){
-                 grille.get(i).add(new CaseNormale(i, j, 50, 50, this));
+                for (int i = 0; i < largeur; i++) {
+                    
+                    for (int j = 0; j < hauteur; j++) {
+                        
+                        //Case une_case;
+                    
+                        if(grille_solution[i][j].equals("b")||grille_solution[i][j].equals("n")){
+                            grille.get(i).add(new CaseNormale(i, j, 50, 50, this));
+                            if(grille_solution[i][j].equals("b"))grille_solution[i][j]=".";
+                        }
+                        else grille.get(i).add(new CaseNombre(i, j, 50, 50, Integer.parseInt(grille_solution[i][j])));
+
+                        //System.out.println(grille.get(i).get(j).get_pane()!=null);
+                        GridPane.setRowIndex(grille.get(i).get(j).get_pane(), i);
+                        GridPane.setColumnIndex(grille.get(i).get(j).get_pane(), j);
+
+                        grille_graphique.getChildren().addAll(grille.get(i).get(j).get_pane());
+                        //lecture.close();
+                    }
+                }
             }
-            else grille.get(i).add(new CaseNombre(i, j, 50, 50, Integer.parseInt(grille_solution[i][j])));
-
-            //System.out.println(grille.get(i).get(j).get_pane()!=null);
-            GridPane.setRowIndex(grille.get(i).get(j).get_pane(), i);
-            GridPane.setColumnIndex(grille.get(i).get(j).get_pane(), j);
-
-            grille_graphique.getChildren().addAll(grille.get(i).get(j).get_pane());
-            //lecture.close();
-         }
-      }
+            else {
+          /*      for (int i = 0; i < largeur; i++) {
+                    
+                    for (int j = 0; j < hauteur; j++) {
+                        
+                        grille.get(i).get(j);
+                        
+                    }
+                } */;
+            }
       }catch (Exception e){
         System.out.println("erreur lors de la lecture de la grille : "+e);
       }
+    }
+
+    public void sauvegarder_niveau(){
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        try { 
+            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
+            sauv.createNewFile();
+            ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
+            oos.writeObject(this.grille);
+        } catch (Exception e){
+            System.out.println(e);
+        } 
+        
+    }
+
+    public int charger_niveau(String nom_niveau){
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        try { 
+            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
+            if(sauv.createNewFile()==false){
+                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
+                this.grille=(ArrayList)ois.readObject();
+                return 1;
+            }
+            else return 0;
+        } catch (Exception e){
+            System.out.println(e);
+            return 0;
+        } 
+        
+    }
+
+    public void charger_grille_solution(String name){
+        try {
+
+            FileInputStream fichier = new FileInputStream(name);
+            Scanner lecture = new Scanner(fichier);
+            this.hauteur = lecture.nextInt();
+            this.largeur = lecture.nextInt();
+            grille_solution=new String[largeur][hauteur];
+           
+            if(charger_niveau("niveau1")==0){
+    
+                    for (int i = 0; i < largeur; i++) {
+                        
+                        for (int j = 0; j < hauteur; j++) {
+                        
+                            grille_solution[i][j] = lecture.next();
+                            
+                        }
+                    }
+                }
+          }catch (Exception e){
+            System.out.println("erreur lors de la lecture de la grille : "+e);
+          }
     }
 
     /**
@@ -129,27 +190,13 @@ public class Niveau {
         int count=0;
           for (int i = 0; i < largeur; i++) {
                 for (int j = 0; j < hauteur; j++) {
-                    if(grille_solution[i][j] == grille.get(i).get(j).get_case())count++;
+                    if(grille_solution[i][j].equals(grille.get(i).get(j).get_case())==true)count++;
                 }
             }
             System.out.println("count : "+count+"\n l*L : "+largeur*hauteur);
       if(count==(largeur*hauteur)){
-        etat_partie=1;
+        stage.close();
         System.out.println("PARTIE GAGNEE !!!!");
-      }
-      else etat_partie=0;
-    
-      for(int i=0; i<largeur; i++){
-
-        for(int j=0; j<hauteur; j++){
-            
-            if(etat_case(i,j).equals(".")==true){
-
-                //à faire;
-            }
-
-        }
-
       }
     
     }
@@ -241,15 +288,6 @@ public class Niveau {
     public int get_hauteur(){
         return hauteur;
     }
-
-    /**
-     * getter de l'état de la partie
-     * @return l'état de la partie sous forme d'entier
-     */
-    public int get_etatpartie(){
-        return etat_partie;
-    }
-
     /**
      * getter de la partie graphique de la grille
      * @return un gridPane
@@ -305,5 +343,15 @@ public class Niveau {
     public Pile getUndo()
     {
         return undoStack;
+    }
+
+
+    public String get_niveau(String nom_niveau){
+        switch(nom_niveau){
+            case "niveau1": return "src/main/resources/niveaux/facile_01.txt";
+                            //break;
+            default : return "";
+                        //break;
+        }
     }
 }

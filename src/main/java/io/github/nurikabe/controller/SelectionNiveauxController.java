@@ -145,6 +145,6 @@ public class SelectionNiveauxController extends VBox {
      */
     @FXML
     private void niveau1(ActionEvent event) {
-       PlateauController p=new PlateauController(stage);
+       PlateauController p=new PlateauController(stage, "niveau1");
     }
 }

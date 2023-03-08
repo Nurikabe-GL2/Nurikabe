@@ -1,12 +1,13 @@
 package io.github.nurikabe;
 
 import javafx.scene.layout.*;
+import java.io.*;
 
 
 /**
  * Classe abstraite représentant une case
  */
-public abstract class Case {
+public abstract class Case implements Serializable{
 
     /**
      * coordonnée x de la case

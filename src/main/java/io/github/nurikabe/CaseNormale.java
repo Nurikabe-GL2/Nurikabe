@@ -45,6 +45,9 @@ public class CaseNormale extends Case{
         System.out.println("cliqued");
           action_clic(false);
           grid.getUndo().push(new Coup(x,y));
+          grid.sauvegarder_niveau();
+          grid.victoire();
+          
       });
     }
 

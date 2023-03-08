@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
+import java.io.*;
+import java.util.ArrayList;
 
 
 
@@ -43,9 +45,9 @@ public class PlateauController extends VBox {
      * Le constructeur de la classe PlateauController
      * @param s le stage courant
      */
-    public PlateauController(Stage s){
+    public PlateauController(Stage s, String nom_niveau){
             stage=s;
-            niveau=new Niveau("src/main/resources/niveaux/moyen_10.txt");
+            niveau=new Niveau(stage, "niveau1");
 
         //Création des boutons undo redo
         Button undo = new Button("undo");
@@ -91,11 +93,4 @@ public class PlateauController extends VBox {
 
     }
 
-    /**
-     * Méthode public qui renvoie un entier en fonction de l'état de la partie
-     * @return l'état de la partie
-     */
-    public int victoire_partie(){
-        return niveau.get_etatpartie();
-    }
 }
