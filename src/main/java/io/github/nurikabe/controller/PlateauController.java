@@ -10,8 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.HBox;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent; 
-
+import javafx.scene.input.MouseEvent;
+import io.github.nurikabe.Chronometre;
 
 
 /**
@@ -40,12 +40,22 @@ public class PlateauController extends VBox {
     Group g = new Group();
 
     /**
+     * instanciation du chronometre
+     */
+    Chronometre chrono = new Chronometre();
+
+
+    /**
      * Le constructeur de la classe PlateauController
      * @param s le stage courant
      */
     public PlateauController(Stage s){
             stage=s;
             niveau=new Niveau("src/main/resources/niveaux/moyen_10.txt");
+
+
+            chrono.debut();
+
 
         //Création des boutons undo redo
         Button undo = new Button("undo");
@@ -87,7 +97,13 @@ public class PlateauController extends VBox {
                 public void handle(MouseEvent e) { 
                    System.out.println("Hello World"); 
                 } 
-             };   
+             };
+
+
+         // fin du chrono
+        chrono.fin();
+        long tempsEcoule = chrono.getTempsEcoule();
+        System.out.println("Temps écoulé : " + tempsEcoule + " ms");
 
     }
 
