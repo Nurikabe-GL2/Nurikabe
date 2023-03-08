@@ -1,63 +1,69 @@
+/**
+ * Fichier Case.java contenant la classe Case pour représenter une case de la grille Nurikabe
+ * @author Lazare Maclouf
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
+// Importation des librairies javaFX
 import javafx.scene.layout.*;
-
 
 /**
  * Classe abstraite représentant une case
  */
 public abstract class Case {
+   /**
+    * Coordonnée x de la case
+    */
+   int x;
 
-    /**
-     * coordonnée x de la case
-     */
-    int x;
+   /**
+    * Coordonnée y de la case
+    */
+   int y;
 
-    /**
-     * coordonnée y de la case
-     */
-    int y;
+   /**
+    * Le type de la case
+    */
+   int type;
 
-    /**
-     * le type de la case
-     */
-    int type;
+   //new Button();
 
-    //new Button();
+   /**
+    * Le construteur de la classe Case
+    * @param x coordonnée x de la case
+    * @param y coordonnée y de la case
+    * @param type le type de la case (soit noire, soit blanche, soit un chiffre)
+    */
+   public Case(int x, int y, int type) {
+      this.x = x;
+      this.y = y;
+      this.type = type;
+   } 
 
-    /**
-     * Le construteur de la classe Case
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
-     */
-    public Case(int x, int y, int type){
-      this.x=x;
-      this.y=y;
-      this.type=type;
-    } 
-
-    /**
-     *  prototype de la méthode qui défini la réaction de la case quand on clique dessus 
-     * @param b
-     */
-    public abstract void action_clic(boolean b);
+   /**
+    * Méthode abstraite qui définit la réaction de la case quand on clique dessus
+    * @param b False si la case est normale, True si la case est un nombre
+    */
+   public abstract void actionClic(boolean b);
     
     /**
-     * getter renvoyant le type de la case ici 1 car c'est un nombre
+     * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
      */
-    public int get_type(){
+   public int recupType() {
       return type;
-    }
+   }
     
-    /**
-     * getter qui renvoie le contenue de la case sous forme de chaine de caractère
-     * @return le contenue de la case
-     */
-    public abstract String get_case();
+   /**
+    * Méthode recupCase qui renvoie le contenu de la case sous forme de chaine de caractère
+    * @return le contenu de la case
+    */
+   public abstract String recupCase();
     
-    /**
-     * getter qui renvoie le pane de la case
-     * @return le pane de la case
-     */
-    public abstract StackPane get_pane();
+   /**
+    * Méthode recupPanneau qui renvoie le panneau de la case
+    * @return le panneau de la case
+    */
+   public abstract StackPane recupPanneau();
 }
