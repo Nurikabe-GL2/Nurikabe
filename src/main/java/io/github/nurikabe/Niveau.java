@@ -28,6 +28,8 @@ public class Niveau implements Serializable{
      * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
      */
     ArrayList<ArrayList<Case>> grille=new ArrayList<ArrayList<Case>>();
+
+    ArrayList<ArrayList<CaseGraphique>> grille_graphique=new ArrayList<ArrayList<CaseGraphique>>();
     
     /**
      * variable d'instance représentant la solution de la grille
@@ -47,17 +49,19 @@ public class Niveau implements Serializable{
     /**
      * un gridPane représentant la grille
      */
-    GridPane grille_graphique;
+    GridPane gridpane;
+
+    Sauvegarde sauvegarde;
 
     /**
      * La pile servant au bouton undo
      */
-    private final Pile undoStack;
+    private Pile undoStack;
     
     /**
      * La pile servant au bouton redo
      */
-    private final Pile redoStack;
+    private Pile redoStack;
 
     Stage stage;
 
@@ -70,12 +74,12 @@ public class Niveau implements Serializable{
     public Niveau(Stage stage, String nom_niveau){
         this.stage=stage;
         this.nom_niveau=nom_niveau;
-        grille_graphique = new GridPane();
-        grille_graphique.getStylesheets().add("/css/Plateau.css");
-        charger_grille(get_niveau(nom_niveau));
+        this.sauvegarde=new Sauvegarde();
+        this.gridpane = new GridPane();
         this.undoStack = new Pile();
         this.redoStack = new Pile();
-        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        gridpane.getStylesheets().add("/css/Plateau.css");
+        charger_grille(get_niveau(nom_niveau));
     }
 
     /**
@@ -85,11 +89,19 @@ public class Niveau implements Serializable{
     public void charger_grille(String name){
       try {
         charger_grille_solution(name);
+        
+        for (int i = 0; i < largeur; i++) {
+                    
+            for (int j = 0; j < hauteur; j++) {
+                System.out.println(grille_solution[i][j]==null);
+            }
+        }
 
         if(charger_niveau("niveau1")==0){
 
                 for(int i=0; i<largeur ; i++){
                     grille.add(new ArrayList<Case>());
+                    grille_graphique.add(new ArrayList<CaseGraphique>());
                 }
 
                 for (int i = 0; i < largeur; i++) {
@@ -99,29 +111,40 @@ public class Niveau implements Serializable{
                         //Case une_case;
                     
                         if(grille_solution[i][j].equals("b")||grille_solution[i][j].equals("n")){
-                            grille.get(i).add(new CaseNormale(i, j, 50, 50, this));
+                            grille.get(i).add(new CaseNormale(i, j));
                             if(grille_solution[i][j].equals("b"))grille_solution[i][j]=".";
                         }
-                        else grille.get(i).add(new CaseNombre(i, j, 50, 50, Integer.parseInt(grille_solution[i][j])));
+                        else grille.get(i).add(new CaseNombre(i, j, Integer.parseInt(grille_solution[i][j])));
 
+                        grille_graphique.get(i).add(new CaseGraphique(i, j, 50, 50, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                        GridPane.setRowIndex(grille.get(i).get(j).get_pane(), i);
-                        GridPane.setColumnIndex(grille.get(i).get(j).get_pane(), j);
+                        GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
+                        GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
 
-                        grille_graphique.getChildren().addAll(grille.get(i).get(j).get_pane());
+                        gridpane.getChildren().addAll(grille_graphique.get(i).get(j).get_pane());
                         //lecture.close();
                     }
                 }
             }
             else {
-          /*      for (int i = 0; i < largeur; i++) {
+                for(int i=0; i<largeur ; i++){
+                    grille_graphique.add(new ArrayList<CaseGraphique>());
+                }
+
+                for (int i = 0; i < largeur; i++) {
                     
                     for (int j = 0; j < hauteur; j++) {
-                        
-                        grille.get(i).get(j);
-                        
+
+                        grille_graphique.get(i).add(new CaseGraphique(i, j, 50, 50, this));
+                        //System.out.println(grille.get(i).get(j).get_pane()!=null);
+                        GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
+                        GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
+
+                        gridpane.getChildren().addAll(grille_graphique.get(i).get(j).get_pane());
+                
                     }
-                } */;
+                
+                }
             }
       }catch (Exception e){
         System.out.println("erreur lors de la lecture de la grille : "+e);
@@ -134,7 +157,10 @@ public class Niveau implements Serializable{
             File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
-            oos.writeObject(this.grille);
+            sauvegarde.setGrille(grille);
+            sauvegarde.setRedoPile(redoStack);
+            sauvegarde.setUndoPile(undoStack);
+            oos.writeObject(this.sauvegarde);
         } catch (Exception e){
             System.out.println(e);
         } 
@@ -146,8 +172,13 @@ public class Niveau implements Serializable{
         try { 
             File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
             if(sauv.createNewFile()==false){
+                System.out.println("fichier existe deja");
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
-                this.grille=(ArrayList)ois.readObject();
+                sauvegarde=(Sauvegarde)ois.readObject();
+                grille=sauvegarde.get_grille();
+                undoStack=sauvegarde.get_undo_pile();
+                redoStack=sauvegarde.get_redo_pile();
+                System.out.println(this.grille==null);
                 return 1;
             }
             else return 0;
@@ -166,8 +197,6 @@ public class Niveau implements Serializable{
             this.hauteur = lecture.nextInt();
             this.largeur = lecture.nextInt();
             grille_solution=new String[largeur][hauteur];
-           
-            if(charger_niveau("niveau1")==0){
     
                     for (int i = 0; i < largeur; i++) {
                         
@@ -177,8 +206,8 @@ public class Niveau implements Serializable{
                             
                         }
                     }
-                }
-          }catch (Exception e){
+
+            }catch (Exception e){
             System.out.println("erreur lors de la lecture de la grille : "+e);
           }
     }
@@ -190,7 +219,7 @@ public class Niveau implements Serializable{
         int count=0;
           for (int i = 0; i < largeur; i++) {
                 for (int j = 0; j < hauteur; j++) {
-                    if(grille_solution[i][j].equals(grille.get(i).get(j).get_case())==true)count++;
+                    if(grille_solution[i][j].equals(grille.get(i).get(j).get_cont_case())==true)count++;
                 }
             }
             System.out.println("count : "+count+"\n l*L : "+largeur*hauteur);
@@ -199,6 +228,10 @@ public class Niveau implements Serializable{
         System.out.println("PARTIE GAGNEE !!!!");
       }
     
+    }
+
+    public Case get_case(int x, int y){
+        return grille.get(x).get(y);
     }
 
     /**
@@ -258,7 +291,7 @@ public class Niveau implements Serializable{
      * @return l'état de la case sous forme de chaine de caractère
      */
     public String etat_case(int x, int y){
-        return grille.get(x).get(y).get_case();
+        return grille.get(x).get(y).get_cont_case();
     }
 
     /**
@@ -267,7 +300,7 @@ public class Niveau implements Serializable{
     public void afficher_grille(){
          for (int i = 0; i < largeur; i++) {
                 for (int j = 0; j < hauteur; j++) {
-                    System.out.print(grille.get(i).get(j).get_case());
+                    System.out.print(grille.get(i).get(j).get_cont_case());
                 }
                 System.out.println("");
             }
@@ -293,13 +326,13 @@ public class Niveau implements Serializable{
      * @return un gridPane
      */
     public GridPane get_grillegraphique(){
-        return this.grille_graphique;
+        return this.gridpane;
     }
     
 
     /**
      * Méthode appelé par les handlers de undo et redo pour pop un coup le joué un coup et le mettre dans la pile correcte
-     * @param a_pop la pile qui possède le coup à joué, c'est elle qui sera pop
+     * @param a_pop la pile qui possède le coup à jouer, c'est elle qui sera pop
      * @param a_push la pile qui recevra le nouveau coup, c'est elle qui sera push
      * @param nb_clique le nombre de clique à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
      */
@@ -312,7 +345,7 @@ public class Niveau implements Serializable{
         if(coup_pris.get_x()!=-1)
         {
             for(int i=0;i<nb_clique;i++)
-                grille.get(coup_pris.get_x()).get(coup_pris.get_y()).action_clic(true);
+                grille_graphique.get(coup_pris.get_x()).get(coup_pris.get_y()).action_clic();
         }
 
         a_push.push(coup_pris);

@@ -1,9 +1,10 @@
 package io.github.nurikabe;
+import java.io.Serializable;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 
-public class Pile {
+public class Pile implements Serializable{
     private final Stack<Coup> Pile;
 
     Pile(){
