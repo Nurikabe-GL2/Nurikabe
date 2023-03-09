@@ -8,9 +8,7 @@ public class Logging {
 
     /**
      * Retourne le {@link Logger} pour la classe qui appelle cette méthode.
-     *
      * @return Le Logger pour la classe qui appelle cette méthode
-     *
      * @see #getLogger(Class)
      */
     public static Logger getLogger() {
@@ -19,9 +17,7 @@ public class Logging {
 
     /**
      * Retourne le {@link Logger} pour la classe donnée.
-     *
      * @return le Logger pour la classe donnée
-     *
      * @see #getLogger()
      */
     public static Logger getLogger(Class<?> currentClass) {

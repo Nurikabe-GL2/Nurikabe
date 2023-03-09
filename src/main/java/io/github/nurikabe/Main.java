@@ -7,10 +7,20 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-
+/**
+ * Classe principal du jeu
+ */
 public class Main {
+    
+    /**
+     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
+     */
     private static final Logger LOGGER = Logging.getLogger();
 
+    /**
+     * méthode de lancement de la classe main
+     * @param args les arguments d'entrée
+     */
     public static void main(String[] args) {
         LOGGER.debug("Démarrage");
 

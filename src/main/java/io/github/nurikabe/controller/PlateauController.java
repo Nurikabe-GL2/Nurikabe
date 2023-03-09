@@ -1,63 +1,89 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.*;
-import java.io.*;
-import io.github.nurikabe.Logging;
-import io.github.nurikabe.Utils;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import io.github.nurikabe.Niveau;
+//import io.github.nurikabe.Logging;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import java.util.ArrayList;
-import java.io.IOException;
-import javafx.application.Application;
+//import org.slf4j.Logger;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import java.util.Random;
-import java.util.Scanner;
-import javafx.scene.shape.Line; 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.File; 
-import java.net.URL;
-import javafx.stage.Window;
+import java.io.*;
+import java.util.ArrayList;
 
 
-// extends VBox car c'est la racine du menu principal
+
+/**
+ * La classe public implémentant le controller du plateau héritant de VBox qui est la racine du menu principal
+ */
 public class PlateauController extends VBox {
 
-    private static final Logger LOGGER = Logging.getLogger();
+    /**
+     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
+     */
+    //private static final Logger LOGGER = Logging.getLogger();
+    
+    /**
+     * Variable d'instance privé qui implémente le stage courant
+     */
     Stage stage;
-    Grille niveau;
+    
+    /**
+     * Variable d'instance représentant la grille qui sera chargé
+     */
+    Niveau niveau;
+
+    /**
+     * Variable d'instance représentant le groupe d'objet qui sera chargé
+     */
     Group g = new Group();
 
-    public PlateauController(Stage s){
+    /**
+     * Le constructeur de la classe PlateauController
+     * @param s le stage courant
+     */
+    public PlateauController(Stage s, String nom_niveau){
             stage=s;
-            niveau=new Grille("src/main/resources/niveaux/moyen_10.txt");
+            niveau=new Niveau(stage, "niveau1");
 
-            g.getChildren().add(niveau.get_grillegraphique());
+        //Création des boutons undo redo
+        Button undo = new Button("undo");
+        Button redo = new Button("redo");
+
+        //ajout des handlers
+        undo.setOnMouseClicked(niveau.handlerUndo);
+        redo.setOnMouseClicked(niveau.handlerRedo);
+
+        HBox horiBox = new HBox();
+        VBox vertiBox = new VBox();
+        //ajout dans la fenêtre
+        horiBox.getChildren().add(undo);
+        horiBox.getChildren().add(redo);
+   
+        vertiBox.getChildren().add(horiBox);
+
+            //ajout dans le groupe de la grille qui sera chargé par la scène
             
-            Scene scene = new Scene(g, niveau.get_hauteur()*50, niveau.get_largeur()*50);
+            g.getChildren().add(niveau.get_grillegraphique());
+            vertiBox.getChildren().add(g);
+            //création de la scène
+            Scene scene = new Scene(vertiBox, niveau.get_hauteur()*50, niveau.get_largeur()*51.5);
            
            // Window window = scene.getWindow();
            // window.setX(300);
            // window.setY(0);
             
+           
             stage.setTitle("Grille Nurikabe");
             stage.setScene(scene);
             stage.show();
             
+            /**
+             * initialisation d'un gestionnair d'évènement qui gérera la souris
+             */
             EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
                 @Override 
                 public void handle(MouseEvent e) { 
@@ -67,8 +93,4 @@ public class PlateauController extends VBox {
 
     }
 
-    public int victoire_partie(){
-        return niveau.get_etatpartie();
-    } 
-    
 }

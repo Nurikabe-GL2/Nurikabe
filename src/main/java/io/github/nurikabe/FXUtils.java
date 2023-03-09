@@ -4,7 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
-
+/**
+ * Classe représentant FXUtils 
+ */
 public class FXUtils {
     public static void singleItemToggleGroup(ToggleGroup group) {
         for (Toggle toggle : group.getToggles()) {
