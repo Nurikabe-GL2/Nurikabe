@@ -355,7 +355,7 @@ public class Niveau implements Serializable{
 
     public String get_niveau(String nom_niveau){
         switch(nom_niveau){
-            case "niveau1": return "src/main/resources/niveaux/facile_01.txt";
+            case "niveau1": return "src/main/resources/niveaux/facile_03.txt";
                             //break;
             default : return "";
                         //break;

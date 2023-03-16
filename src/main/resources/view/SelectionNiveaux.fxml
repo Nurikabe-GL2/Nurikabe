@@ -115,7 +115,7 @@
                                           <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                                           <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                        <children>
-                                          <Button layoutX="-54.0" layoutY="-49.0" mnemonicParsing="false" prefHeight="98.0" prefWidth="111.0" onAction="#niveau1"/>
+                                          <Button layoutX="-54.0" layoutY="-49.0" mnemonicParsing="false" onAction="#niveau1" opacity="0.0" prefHeight="98.0" prefWidth="111.0" />
                                        </children>
                                     </Pane>
                                           <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -167,7 +167,7 @@
                                           </StackPane>
                                        </children>
                                     </GridPane>
-                              <Label text="Facile : Puzzle 1 (6x6)" />
+                              <Label text="Puzzle 1" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -220,7 +220,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 2 (6x6)" />
+                              <Label text="Puzzle 2" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -299,7 +299,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 3 (6x6)" />
+                              <Label text="Puzzle 3" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -322,12 +322,8 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.rowIndex="4" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="1" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="5" GridPane.rowIndex="5" />
@@ -337,7 +333,6 @@
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.rowIndex="5" />
                                     <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                        <children>
@@ -384,11 +379,9 @@
                                        </font>
                                     </Label>
                                     <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="3" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="4" />
-                                    <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="5" />
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 4 (6x6)" />
+                              <Label text="Puzzle 4" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -446,7 +439,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 5 (6x6)" />
+                              <Label text="Puzzle 5" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -544,7 +537,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 6 (6x6)" />
+                              <Label text="Puzzle 6" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -599,7 +592,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 7 (6x6)" />
+                              <Label text="Puzzle 7" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER">
@@ -660,7 +653,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Label text="Facile : Puzzle 8 (6x6)" />
+                              <Label text="Puzzle 8" />
                            </children>
                         </VBox>
                      </children>

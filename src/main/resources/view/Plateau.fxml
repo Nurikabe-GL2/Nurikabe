@@ -23,7 +23,7 @@
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button id="returnButton" mnemonicParsing="false" text="Retour" />
+            <Button id="returnButton" mnemonicParsing="false" text="Retour" onAction="#onBackAction" />
             <Label id="titleText" text="Facile : Nurikabe Classique 6x6" />
          </children>
          <padding>
