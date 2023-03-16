@@ -3,7 +3,7 @@ package io.github.nurikabe;
 //import org.slf4j.Logger;
 import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
-
+import javafx.scene.control.*;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
@@ -67,6 +67,8 @@ public class Niveau implements Serializable{
 
     String nom_niveau;
 
+    Button undoB, redoB;
+
     /**
      * Le construteur de la grille
      * @param name le nom de la grille
@@ -93,7 +95,7 @@ public class Niveau implements Serializable{
         for (int i = 0; i < largeur; i++) {
                     
             for (int j = 0; j < hauteur; j++) {
-                System.out.println(grille_solution[i][j]==null);
+                //System.out.println(grille_solution[i][j]==null);
             }
         }
 
@@ -116,7 +118,7 @@ public class Niveau implements Serializable{
                         }
                         else grille.get(i).add(new CaseNombre(i, j, Integer.parseInt(grille_solution[i][j])));
 
-                        grille_graphique.get(i).add(new CaseGraphique(i, j, 50, 50, this));
+                        grille_graphique.get(i).add(new CaseGraphique(i, j, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
                         GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
                         GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
@@ -135,7 +137,7 @@ public class Niveau implements Serializable{
                     
                     for (int j = 0; j < hauteur; j++) {
 
-                        grille_graphique.get(i).add(new CaseGraphique(i, j, 50, 50, this));
+                        grille_graphique.get(i).add(new CaseGraphique(i, j, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
                         GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
                         GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
@@ -165,6 +167,14 @@ public class Niveau implements Serializable{
             System.out.println(e);
         } 
         
+    }
+
+    public void setRedoB(Button b){
+        redoB=b;
+    }
+
+    public void setUndoB(Button b){
+        undoB=b;
     }
 
     public int charger_niveau(String nom_niveau){
@@ -242,45 +252,6 @@ public class Niveau implements Serializable{
      */
     public int verifier_cases_autour(int x, int y){
         int count=0;
-        //si la case est en haut à gauche
-        if(x-1<0&&y+1==hauteur){
-            //if(etat_case(x))
-        }
-
-        //si la case est en bas à gauche
-        else if(x-1<0&&y-1<0){
-            
-        }
-
-        //si la case est en bas à droite
-        else if(x+1==largeur&&y-1<0){
-            
-        }
-        
-        //si la case est en haut à droite
-        else if(x+1==largeur&&y+1==hauteur){
-            
-        }
-
-        //si la case est sur la première ligne
-        else if(x+1<largeur&&x-1>=0&&y+1==hauteur){
-            
-        }
-
-        //si la case est sur la dernière ligne
-        else if(x+1<largeur&&x-1>=0&&y-1<0){
-            
-        }
-
-        //si la case est sur la première colonne
-        else if(x-1<0){
-            
-        }
-
-        //si la case est sur la dernière colonne
-        else if(x+1==largeur){
-            
-        }
         return count;
     }
 
@@ -358,6 +329,7 @@ public class Niveau implements Serializable{
         @Override
         public void handle(MouseEvent e) {
             //LOGGER.info("undo cliqué");
+            undoB.setStyle("-fx-background-color: #00008B");
             coup(undoStack, redoStack,2);
         }
     };
@@ -369,6 +341,8 @@ public class Niveau implements Serializable{
         @Override
         public void handle(MouseEvent e) {
             //LOGGER.info("redo cliqué");
+            //if(e.getEventType().getName().equals("MOUSE_RELEASED"))redoB.setStyle("-fx-background-color: #00008B");
+            redoB.setStyle("-fx-background-color: #00008B");
             coup(redoStack, undoStack,1);
         }
     };

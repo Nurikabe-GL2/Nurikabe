@@ -1,5 +1,6 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.FXUtils;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Difficulty;
@@ -17,6 +18,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
+import io.github.nurikabe.Utils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -145,6 +147,13 @@ public class SelectionNiveauxController extends VBox {
      */
     @FXML
     private void niveau1(ActionEvent event) {
-       PlateauController p=new PlateauController(stage, "niveau1");
+        try{
+            NiveauController c=new NiveauController(stage, stage.getScene(), "niveau1");
+        }catch(Exception e){
+            System.out.println(e);
+
+        }
+       
+       //PlateauController p=new PlateauController(stage, "niveau1");
     }
 }

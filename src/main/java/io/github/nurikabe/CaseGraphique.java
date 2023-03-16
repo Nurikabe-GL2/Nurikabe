@@ -53,16 +53,16 @@ public class CaseGraphique {
           });
       }
       if(this.type==0){
-        System.out.println("case blanche type==0");
+        //System.out.println("case blanche type==0");
         pane.getStyleClass().add("caseblanche");
      
       }
       else if(type==-1){
-        System.out.println("case blanche type==-1");
+        //System.out.println("case blanche type==-1");
         pane.getStyleClass().add(0, "casenoire");
       }
       else if(type==-2){
-        System.out.println("case blanche type==-2");
+        //System.out.println("case blanche type==-2");
         pane.getStyleClass().add("caseblanche");
         mettre_cercle(1);
       }
