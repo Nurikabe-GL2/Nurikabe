@@ -25,13 +25,13 @@ public class IndicesSeparerParCaseBlanche {
                     List<Coup> liste = new ArrayList<>();
 
                     if(estValideCaseNombreEspace(grille,i-2,j))
-                        liste.add(new Coup(i-2, j));
+                        liste.add(new Coup(i-1, j));
                     if(estValideCaseNombreEspace(grille,i+2,j))
-                        liste.add(new Coup(i+2, j));
+                        liste.add(new Coup(i+1, j));
                     if(estValideCaseNombreEspace(grille,i,j-2))
-                        liste.add(new Coup(i, j-2));
+                        liste.add(new Coup(i, j-1));
                     if(estValideCaseNombreEspace(grille,i,j+2))
-                        liste.add(new Coup(i, j+2));
+                        liste.add(new Coup(i, j+1));
                     if(!liste.isEmpty())
                         return new PositionTechniques(liste);
                 }

@@ -1,6 +1,6 @@
 package main.java.io.github.nurikabe.techniques;
 
-import io.github.nurikabe.CaseNombre;
+import io.github.nurikabe.CaseNormal;
 
 /**
  * Classe représentant la techniques de jeux pour une case Blanche isolé
@@ -47,4 +47,4 @@ public class CarreIsole implements Technique  {
         }
         return null;
     }
-}-
+}
