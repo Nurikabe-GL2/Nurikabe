@@ -17,11 +17,11 @@ public class ContinuiteDunMur implements Technique {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        int cpt = 0;
         for(int i=0;i<grille.get_hauteur();i++)
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
+                int cpt = 0;
                 if(grille.get_case(i, j) instanceof CaseNormale)
                 {
                     List<Coup> liste = new ArrayList<>();
