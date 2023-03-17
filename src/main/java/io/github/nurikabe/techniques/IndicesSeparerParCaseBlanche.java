@@ -1,11 +1,16 @@
-package main.java.io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.CaseNombre;
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.Niveau;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe représentant la techniques de jeux pour 2 cases de nombe séparer par un case blanche
  */
-public class IndicesSeparerParCaseBlanche {
+public class IndicesSeparerParCaseBlanche implements Technique {
     
     /**
      * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
@@ -20,7 +25,7 @@ public class IndicesSeparerParCaseBlanche {
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
-                if(grille.get(i).get(j).get_case() instanceof CaseNombre)
+                if(grille.get_case(i, j) instanceof CaseNombre)
                 {
                     List<Coup> liste = new ArrayList<>();
 

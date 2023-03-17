@@ -1,6 +1,11 @@
-package main.java.io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.CaseNormal;
+import io.github.nurikabe.CaseNormale;
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.Niveau;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe représentant la techniques de jeux pour une case Blanche isolé
@@ -20,21 +25,21 @@ public class CarreIsole implements Technique  {
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
-                if(grille.get(i).get(j).get_case() instanceof CaseNormal && grille.get(i).get(j).get_case().get_etat()=="b")
+                if(grille.get_case(i, j) instanceof CaseNormale && grille.get_case(i, j).get_cont_case().equals("b"))
                 {
                     List<Coup> liste = new ArrayList<>();
 
 		//test si la case de gauche de la case courante est valide ou que c'est une case noir
-                    if(estCoordonneeValide(grille,i-1,j)||grille.get(i-1).get(j).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i-1,j)|| grille.get_case(i - 1, j).get_cont_case().equals("n"))
                     {
                     	//test si la case de droite de la case courante est valide ou que c'est une case noir
-                    	if(estCoordonneeValide(grille,i+1,j)||grille.get(i+1).get(j).get_case().get_etat()=="n")
+                    	if(estCoordonneeValide(grille,i+1,j)|| grille.get_case(i + 1, j).get_cont_case().equals("n"))
                     	{
                     		//test si la case en bas de la case courante est valide ou que c'est une case noir
-                    		if(estCoordonneeValide(grille,i,j-1)||grille.get(i).get(j-1).get_case().get_etat()=="n")
+                    		if(estCoordonneeValide(grille,i,j-1)|| grille.get_case(i, j - 1).get_cont_case().equals("n"))
                     		{
                     			//test si la case en bas de la case courante est valide ou que c'est une case noir
-                    			if(estCoordonneeValide(grille,i,j+1)||grille.get(i).get(j+1).get_case().get_etat()=="n")
+                    			if(estCoordonneeValide(grille,i,j+1)|| grille.get_case(i, j + 1).get_cont_case().equals("n"))
                     				liste.add(new Coup(i,j));
                     		}
                     		

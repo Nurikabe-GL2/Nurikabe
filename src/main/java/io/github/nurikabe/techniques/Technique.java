@@ -40,10 +40,10 @@ public interface Technique {
     {
         if(estCoordonneeValide(grille, x, y))
             return false;
-        return(grille.getGrille().get(x).get(y) instanceof CaseNombre);
+        return(grille.get_case(x, y) instanceof CaseNombre);
     }
 
-    private static boolean estCoordonneeValide(Niveau grille, int x, int y) {
+    default boolean estCoordonneeValide(Niveau grille, int x, int y) {
         return x < 0 || y < 0 || y >= grille.get_hauteur() || x >= grille.get_largeur();
     }
 }

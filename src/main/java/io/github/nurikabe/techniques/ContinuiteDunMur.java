@@ -1,7 +1,11 @@
-package main.java.io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.CaseNormal;
+import io.github.nurikabe.CaseNormale;
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.Niveau;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //classe représentant la technique qui dit qu'il faut joindre deux murs si une case blanche est entre eux
 public class ContinuiteDunMur implements Technique {
@@ -13,29 +17,29 @@ public class ContinuiteDunMur implements Technique {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        int cpt;
-        for(int i=0;i<grille.get_hauteur();i++,cpt=0)
+        int cpt = 0;
+        for(int i=0;i<grille.get_hauteur();i++)
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
-                if(grille.get(i).get(j).get_case() instanceof CaseNormal)
+                if(grille.get_case(i, j) instanceof CaseNormale)
                 {
                     List<Coup> liste = new ArrayList<>();
                     
 		            //test si la case de gauche de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i-1,j)&&grille.get(i-1).get(j).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i-1,j)&& grille.get_case(i - 1, j).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case de droite de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i+1,j)&&grille.get(i+1).get(j).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i+1,j)&& grille.get_case(i + 1, j).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i,j-1)&&grille.get(i).get(j-1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i,j-1)&& grille.get_case(i, j - 1).get_cont_case().equals("n"))
                         cpt++;
 
                     //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i,j+1)&&grille.get(i).get(j+1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i,j+1)&& grille.get_case(i, j + 1).get_cont_case().equals("n"))
                         cpt++;
                     
                     //si elle possède éxactement 2 murs comme voisins alors la technique est valide pour cette case

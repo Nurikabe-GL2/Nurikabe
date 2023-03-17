@@ -1,6 +1,11 @@
-package main.java.io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.CaseNormal;
+import io.github.nurikabe.CaseNormale;
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.Niveau;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe représentant la technique du nurikabe, cette dernière implémente une méthode de la technique du même nom qui vérifie si une case blanche à 3 mur autour d'elle
@@ -14,46 +19,45 @@ public class EviterZoneMur implements Technique  {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        int cpt;
-        for(int i=0;i<grille.get_hauteur();i++,cpt=0)
+        for(int i=0;i<grille.get_hauteur();i++)
         {
             for(int j=0;j<grille.get_largeur();j++)
             {
-                if(grille.get(i).get(j).get_case() instanceof CaseNormal && grille.get(i).get(j).get_case().get_etat()=="b")
+                int cpt = 0;
+                if(grille.get_case(i, j) instanceof CaseNormale && grille.get_case(i, j).get_cont_case().equals("b"))
                 {
                     List<Coup> liste = new ArrayList<>();
                     
 		            //test si la case de gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i-1,j)&&grille.get(i-1).get(j).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i-1,j)&& grille.get_case(i - 1, j).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case de droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i+1,j)&&grille.get(i+1).get(j).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i+1,j)&& grille.get_case(i + 1, j).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case en bas de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i,j-1)&&grille.get(i).get(j-1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i,j-1)&& grille.get_case(i, j - 1).get_cont_case().equals("n"))
                         cpt++;
 
                     //test si la case en bas de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i,j+1)&&grille.get(i).get(j+1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i,j+1)&& grille.get_case(i, j + 1).get_cont_case().equals("n"))
                         cpt++;
-
                     
                     //test si la case en haut à gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i-1,j-1)&&grille.get(i-1).get(j-1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i-1,j-1)&& grille.get_case(i - 1, j - 1).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case en haut à droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i+1,j-1)&&grille.get(i+1).get(j-1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i+1,j-1)&& grille.get_case(i + 1, j - 1).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case en bas à gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i-1,j+1)&&grille.get(i-1).get(j+1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i-1,j+1)&& grille.get_case(i - 1, j + 1).get_cont_case().equals("n"))
                         cpt++;
                         
                     //test si la case en bas à droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,i+1,j+1)&&grille.get(i+1).get(j+1).get_case().get_etat()=="n")
+                    if(estCoordonneeValide(grille,i+1,j+1)&& grille.get_case(i + 1, j + 1).get_cont_case().equals("n"))
                         cpt++;
                 
                     if(cpt>=3)
