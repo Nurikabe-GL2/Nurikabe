@@ -47,7 +47,6 @@ public abstract class Case {
     * @param b False si la case est normale, True si la case est un nombre
     */
    public abstract void actionClic(boolean b);
-    
     /**
      * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
      */

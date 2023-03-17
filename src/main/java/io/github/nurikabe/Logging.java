@@ -1,5 +1,5 @@
 /**
- * Fichier IOUtils.java
+ * Fichier Logging.java
  */
 
 // Package GitHub

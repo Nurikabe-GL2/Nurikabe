@@ -1,10 +1,9 @@
+/* Feuille de style CSS pour le volet de défilement et pour la barre de défilement */
+
 ScrollPane .viewport {
  -fx-background-color: #152247;
 }
 
-/****************************************************************
-  ScrollBar Skin  
-****************************************************************/
 .scroll-bar{
  -fx-background-color: rgb(47, 47, 47);
 }

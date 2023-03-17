@@ -1,3 +1,5 @@
+/* Feuille de style CSS pour la barre de titre */
+
 #titleBar Label, #titleBar Button {
     -fx-text-fill: white;
 }
