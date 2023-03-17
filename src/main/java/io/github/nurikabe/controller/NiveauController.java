@@ -50,6 +50,7 @@ public class NiveauController extends VBox {
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
     public NiveauController(Stage stage, Scene scenePrecedente, String name) {
+
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
 
@@ -86,6 +87,7 @@ public class NiveauController extends VBox {
          niveau.setRedoB(buttonRedo);
 
          stage.setScene(new Scene(this));
+         
         }catch (Exception e){
           System.out.println(e);
         }

@@ -23,7 +23,7 @@
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
          <children>
-            <Button id="returnButton" mnemonicParsing="false" text="Retour" onAction="#onBackAction" />
+            <Button id="returnButton" mnemonicParsing="false" onAction="#onBackAction" text="Retour" />
             <Label id="titleText" text="Facile : Nurikabe Classique 6x6" />
          </children>
          <padding>
@@ -197,7 +197,18 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Pane HBox.hgrow="ALWAYS" />
+                        <Pane HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button layoutY="1.0" mnemonicParsing="false" styleClass="gameButton" text="Vérifier">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/help.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children></Pane>
                         <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

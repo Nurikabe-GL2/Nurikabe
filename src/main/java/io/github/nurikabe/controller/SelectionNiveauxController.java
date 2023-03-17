@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -61,6 +62,12 @@ public class SelectionNiveauxController extends VBox {
     @FXML
     private TilePane puzzlesTilePane;
 
+    @FXML
+    private VBox conteneurGridPane;
+
+    @FXML
+    private GridPane grilleStatique1;
+
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
@@ -82,9 +89,8 @@ public class SelectionNiveauxController extends VBox {
     }
 
     /**
-     * Méthode privé qui est appelé quand le controller est chargé
-     * Elle s'occupe ... euh Bordel j'en sais foutrement rien je la comprend pas trop désolé les gars
-     * Elle à l'air de s'occuper d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
+     * Méthode privée qui est appelée quand le controller est chargé
+     * Elle s'occupe d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
      * de mettre à jour la difficulté des niveau et de rafraichir les niveaux
      */
     @FXML
@@ -102,6 +108,8 @@ public class SelectionNiveauxController extends VBox {
 
         //Ajout des niveaux
         refreshLevels();
+
+        //conteneurGridPane.getChildren().add(grilleStatique1);
     }
 
     /**
@@ -153,7 +161,5 @@ public class SelectionNiveauxController extends VBox {
             System.out.println(e);
 
         }
-       
-       //PlateauController p=new PlateauController(stage, "niveau1");
     }
 }
