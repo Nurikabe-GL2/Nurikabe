@@ -375,7 +375,7 @@ public class Niveau implements Serializable {
         @Override
         public void handle(MouseEvent e) {
             LOGGER.info("reset cliqué");
-            //if(e.getEventType().getName().equals("MOUSE_RELEASED"))redoB.setStyle("-fx-background-color: #00008B");
+            charger_grille(get_niveau(nom_niveau));
             resetB.setStyle("-fx-background-color: #00008B");
         }
     };
