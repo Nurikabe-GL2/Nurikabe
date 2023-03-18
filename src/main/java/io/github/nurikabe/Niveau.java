@@ -83,7 +83,7 @@ public class Niveau implements Serializable {
    /**
     * Variables d'instances undoB et redo B
     */
-   Button undoB, redoB, resetB;
+   Button undoB, redoB, resetB, aideB;
 
    private boolean etat_partie=false;
 
@@ -199,6 +199,14 @@ public class Niveau implements Serializable {
      */
     public void setResetB(Button b){
         resetB=b;
+    }
+
+    /**
+     * Setter du bouton Aide
+     * @param b le bouton
+     */
+    public void setAideB(Button b){
+        aideB=b;
     }
 
     public int charger_niveau(String nom_niveau) throws Exception {
@@ -375,8 +383,17 @@ public class Niveau implements Serializable {
         @Override
         public void handle(MouseEvent e) {
             LOGGER.info("reset cliqué");
-            charger_grille(get_niveau(nom_niveau));
+            //charger_grille(get_niveau(nom_niveau));
             resetB.setStyle("-fx-background-color: #00008B");
+        }
+    };
+
+    public EventHandler<MouseEvent> handlerAide = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent e) {
+            LOGGER.info("aide cliqué");
+            //charger_grille(get_niveau(nom_niveau));
+            aideB.setStyle("-fx-background-color: #00008B");
         }
     };
 

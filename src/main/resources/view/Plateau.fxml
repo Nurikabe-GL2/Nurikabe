@@ -179,7 +179,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="gameButton" text="Aide">
+                        <Button fx:id="buttonAide" mnemonicParsing="false" styleClass="gameButton" text="Aide">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
