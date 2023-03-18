@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
 import java.io.*;
+import java.util.ArrayList;
+import javafx.scene.Node;
 
 /**
  * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
@@ -40,6 +42,8 @@ public class NiveauController extends VBox {
     @FXML private HBox timerAndLabelParent;
 
     @FXML private Label labelErreurs;
+
+    @FXML private Button buttonAide;
 
     /**
      * Le constructeur de la classe TechniquesController  
@@ -72,6 +76,16 @@ public class NiveauController extends VBox {
          buttonUndo.setOnMousePressed(niveau.handlerUndo);
          buttonRedo.setOnMousePressed(niveau.handlerRedo);
          buttonReset.setOnMousePressed(niveau.handlerReset);
+         buttonAide.setOnMousePressed(niveau.handlerAide);
+
+        //obtention du tab Aide
+         Node tab = (Node) root.lookup("#tabAide");
+         //System.out.println(tab);
+
+         TabPane onglet = (TabPane) root.lookup("#tabPane");
+         System.out.println(onglet);
+
+         niveau.setAide(buttonAide,tab);
 
          //mise en place des boutons
          niveau.setUndoB(buttonUndo);
@@ -84,6 +98,9 @@ public class NiveauController extends VBox {
 
          }
 
+
+         //envoie du tab Aide et le bouton aide au setter
+        
 
          stage.setScene(new Scene(this));
     }
