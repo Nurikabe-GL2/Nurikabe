@@ -8,6 +8,10 @@ package io.github.nurikabe;
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
 import javafx.stage.Modality;
+import org.slf4j.Logger;
+import java.util.ArrayList;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
@@ -79,7 +83,7 @@ public class Niveau implements Serializable {
    /**
     * Variables d'instances undoB et redo B
     */
-   Button undoB, redoB;
+   Button undoB, redoB, resetB;
 
    private boolean etat_partie=false;
 
@@ -173,13 +177,28 @@ public class Niveau implements Serializable {
         }
 
     }
-
+    /**
+     * Setter du bouton redo
+     * @param b le bouton
+     */
     public void setRedoB(Button b){
         redoB=b;
     }
 
+    /**
+     * Setter du bouton undo
+     * @param b le bouton
+     */
     public void setUndoB(Button b){
         undoB=b;
+    }
+
+    /**
+     * Setter du bouton Reset
+     * @param b le bouton
+     */
+    public void setResetB(Button b){
+        resetB=b;
     }
 
     public int charger_niveau(String nom_niveau) throws Exception {
@@ -346,6 +365,18 @@ public class Niveau implements Serializable {
         @Override
         public void handle(MouseEvent e) {
             coup(pileRedo, pileUndo, 1);
+        }
+    };
+
+    /**
+     * Le handler associé au bouton reset
+     */
+    public EventHandler<MouseEvent> handlerReset = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent e) {
+            LOGGER.info("reset cliqué");
+            //if(e.getEventType().getName().equals("MOUSE_RELEASED"))redoB.setStyle("-fx-background-color: #00008B");
+            resetB.setStyle("-fx-background-color: #00008B");
         }
     };
 

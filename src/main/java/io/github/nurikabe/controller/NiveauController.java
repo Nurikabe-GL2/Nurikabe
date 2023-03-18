@@ -68,9 +68,12 @@ public class NiveauController extends VBox {
          jeu_grille.setStyle("-fx-background-color: #C0C0C0;");
          gridPaneContainer.getChildren().add(jeu_grille);
 
+         //définition des handlers des boutons
          buttonUndo.setOnMousePressed(niveau.handlerUndo);
          buttonRedo.setOnMousePressed(niveau.handlerRedo);
+         buttonReset.setOnMousePressed(niveau.handlerReset);
 
+         //mise en place des boutons
          niveau.setUndoB(buttonUndo);
          niveau.setRedoB(buttonRedo);
 
