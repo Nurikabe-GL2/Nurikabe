@@ -16,13 +16,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
-import io.github.nurikabe.Utils;
+import org.slf4j.helpers.NOPMDCAdapter;
 
-import java.util.Arrays;
-import java.util.List;
+import io.github.nurikabe.Utils;
+import javafx.scene.text.Text;
+import javafx.scene.control.*;
+import javafx.geometry.Pos;
+
+import java.util.*;
+import java.io.*;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -62,12 +69,6 @@ public class SelectionNiveauxController extends VBox {
     @FXML
     private TilePane puzzlesTilePane;
 
-    @FXML
-    private VBox conteneurGridPane;
-
-    @FXML
-    private GridPane grilleStatique1;
-
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
@@ -102,14 +103,14 @@ public class SelectionNiveauxController extends VBox {
         gameModeProperty.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
+          
             setNewDifficulties((Node) newToggle);
             refreshLevels();
+            System.out.println(difficultyGroup.getSelectedToggle());
         });
 
         //Ajout des niveaux
         refreshLevels();
-
-        //conteneurGridPane.getChildren().add(grilleStatique1);
     }
 
     /**
@@ -118,7 +119,7 @@ public class SelectionNiveauxController extends VBox {
      */
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
-            case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
+          //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
             case "easyToggle" -> List.of(Difficulty.EASY);
             case "mediumToggle" -> List.of(Difficulty.MEDIUM);
             case "hardToggle" -> List.of(Difficulty.HARD);
@@ -135,8 +136,131 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
-        puzzlesTilePane.getChildren().addAll(/* TODO */);
+        List<Difficulty> liste_difficulte = new ArrayList<>(difficulties);
+        charger_niveaux_difficulte(liste_difficulte.get(0).getDisplayName());
     }
+
+    private String niveauToString(String difficulte, int num){
+        if(num<10)return "src/main/resources/niveaux/"+difficulte+"_"+"0"+num+".txt";
+        else return "src/main/resources/niveaux/"+difficulte+"_"+num+".txt";
+    }
+
+    private GridPane chargerNiveauGrilleMiniature(String name){
+    try{
+        FileInputStream fichier = new FileInputStream(name);
+        Scanner lecture = new Scanner(fichier);
+        int hauteur = lecture.nextInt();
+        int largeur = lecture.nextInt();
+        GridPane gridpane = new GridPane();;
+        gridpane.getStylesheets().add("/css/Plateau.css");
+        gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
+        //grille_solution=new String[largeur][hauteur];
+        String temp[][]=new String[largeur][hauteur];
+                for (int i = 0; i < largeur; i++) {
+                    
+                    for (int j = 0; j < hauteur; j++) {
+                    
+                        temp[i][j] = lecture.next();
+                        StackPane p=new StackPane();
+                        p.setPrefSize(20,20);
+                        p.getStyleClass().add("caseblanche");
+
+                        if(temp[i][j].equals("b")==false&&temp[i][j].equals("n")==false){
+                            Text nb = new Text(temp[i][j]);
+                            p.getChildren().add(nb); 
+                        }
+
+                        GridPane.setRowIndex(p, i);
+                        GridPane.setColumnIndex(p, j);
+                        gridpane.getChildren().addAll(p);
+                    }
+                }
+
+                return gridpane;
+
+        }catch (Exception e){
+        System.out.println("erreur lors de la lecture de la grille : "+e);
+        return null;
+      }
+    }
+
+    private void charger_niveaux_difficulte(String difficulte){
+
+        HBox hniveau=new HBox(3), hbutton;
+        if(difficulte.equals("facile")==true)hbutton=new HBox(90); 
+        else if(difficulte.equals("moyen")==true)hbutton=new HBox(120); 
+        else hbutton=new HBox(140); 
+        int indic=0;
+
+        puzzlesTilePane.getChildren().clear();
+        for(int i=1;i<21;i++){
+            
+            if(indic==3){
+                
+                VBox v=new VBox(10);
+                v.getChildren().add(hniveau);
+                v.getChildren().add(hbutton);
+                puzzlesTilePane.getChildren().add(v);
+                hniveau=new HBox(3);
+                if(difficulte.equals("facile")==true)hbutton=new HBox(90); 
+                else if(difficulte.equals("moyen")==true)hbutton=new HBox(120); 
+                else hbutton=new HBox(140); 
+                indic=0;
+            
+            }
+            
+            hniveau.getChildren().add(chargerNiveauGrilleMiniature(niveauToString(difficulte, i)));
+            Button b;
+            if(SelectionNiveauxController.niveau_complete("src/main/resources/sauvegarde/"+niveauToString(difficulte, i).substring(27)+gameModeProperty.get().toString())==1){
+                b=new Button("COMPLETE ");
+                b.setStyle("-fx-background-color: BLACK");
+            }
+
+            else b=new Button("NIVEAU "+i);
+            
+            hbutton.getChildren().add(b);
+            b.setAlignment(Pos.BOTTOM_LEFT);
+            b.setOnMouseClicked(MouseEvent -> {
+                System.out.println();
+                jouer(niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
+            });
+            indic++;
+        }
+
+        VBox v=new VBox(10);
+        v.getChildren().add(hniveau);
+        v.getChildren().add(hbutton);
+        puzzlesTilePane.getChildren().add(v);
+
+    }
+
+    public static int fichier_existe(String nom){
+        File fichier=new File(nom);
+        if(fichier.exists()  && !fichier.isDirectory())return 1;
+        return 0;
+    }
+
+    public static int niveau_complete(String nom){
+        try {
+        if(SelectionNiveauxController.fichier_existe(nom)==1){
+            FileInputStream niv = new FileInputStream(nom);
+            Scanner lire = new Scanner(niv); 
+            String res=lire.nextLine();
+            lire.close();
+            niv.close();
+            if(res.equals("NIVEAU_COMPLETE")==true){
+                System.out.println("niveau complete!");
+                return 1;
+            } 
+            return 0;
+        }
+        }catch(Exception e){
+            System.out.println("erreur : "+e);
+            return 0;
+        }
+        return 0;
+    }
+
     
     /**
      * Méthode privé qui est appelé quand le bouton retour est cliqué
@@ -148,15 +272,9 @@ public class SelectionNiveauxController extends VBox {
         stage.setScene(scenePrecedente);
     }
 
-    /**
-     * Méthode qui est appelé quand on clique sur la grille du niveau1 
-     * elle appele le controller du plateau qui va chargé la grille 
-     * @param event l'évènement qui a activé la méthode ici le clique
-     */
-    @FXML
-    private void niveau1(ActionEvent event) {
+    private void jouer(String nom_niveau) {
         try{
-            NiveauController c=new NiveauController(stage, stage.getScene(), "niveau1");
+            NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString());
         }catch(Exception e){
             System.out.println(e);
 

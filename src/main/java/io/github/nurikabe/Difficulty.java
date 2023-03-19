@@ -4,9 +4,9 @@ package io.github.nurikabe;
  * Énumération représentant la difficulté de la grille
  */
 public enum Difficulty {
-    EASY("Facile"),
-    MEDIUM("Moyen"),
-    HARD("Difficile");
+    EASY("facile"),
+    MEDIUM("moyen"),
+    HARD("difficile");
 
     /**
      * variable d'instance représentant le nom d'affichage de la difficulté

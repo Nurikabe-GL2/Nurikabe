@@ -1,6 +1,5 @@
 package io.github.nurikabe;
 
-//import org.slf4j.Logger;
 import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
@@ -10,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent; 
 import javafx.stage.Stage;
 import java.io.*;
+import java.util.*;
 
 
 /**
@@ -17,12 +17,9 @@ import java.io.*;
  */
 public class Niveau implements Serializable{
 
-    //String grille[][];
-
     /**
      * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
      */
-    //private static final Logger LOGGER = Logging.getLogger();
 
     /**
      * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
@@ -50,7 +47,7 @@ public class Niveau implements Serializable{
      * un gridPane représentant la grille
      */
     GridPane gridpane;
-
+    
     Sauvegarde sauvegarde;
 
     /**
@@ -65,7 +62,9 @@ public class Niveau implements Serializable{
 
     Stage stage;
 
-    String nom_niveau;
+    private String nom_niveau;
+
+    private String mode_jeu;
 
     Button undoB, redoB;
 
@@ -73,15 +72,16 @@ public class Niveau implements Serializable{
      * Le construteur de la grille
      * @param name le nom de la grille
      */
-    public Niveau(Stage stage, String nom_niveau){
+    public Niveau(Stage stage, String nom_niveau, String mode){
         this.stage=stage;
         this.nom_niveau=nom_niveau;
+        this.mode_jeu=mode;
         this.sauvegarde=new Sauvegarde();
         this.gridpane = new GridPane();
         this.undoStack = new Pile();
         this.redoStack = new Pile();
         gridpane.getStylesheets().add("/css/Plateau.css");
-        charger_grille(get_niveau(nom_niveau));
+        charger_grille(nom_niveau);
     }
 
     /**
@@ -91,15 +91,8 @@ public class Niveau implements Serializable{
     public void charger_grille(String name){
       try {
         charger_grille_solution(name);
-        
-        for (int i = 0; i < largeur; i++) {
-                    
-            for (int j = 0; j < hauteur; j++) {
-                //System.out.println(grille_solution[i][j]==null);
-            }
-        }
 
-        if(charger_niveau("niveau1")==0){
+        if(charger_niveau(nom_niveau)==0){
 
                 for(int i=0; i<largeur ; i++){
                     grille.add(new ArrayList<Case>());
@@ -112,9 +105,9 @@ public class Niveau implements Serializable{
                         
                         //Case une_case;
                     
-                        if(grille_solution[i][j].equals("b")||grille_solution[i][j].equals("n")){
+                        if(grille_solution[i][j].equals(".")||grille_solution[i][j].equals("n")){
                             grille.get(i).add(new CaseNormale(i, j));
-                            if(grille_solution[i][j].equals("b"))grille_solution[i][j]=".";
+                            //if(grille_solution[i][j].equals("."))grille_solution[i][j]=".";
                         }
                         else grille.get(i).add(new CaseNombre(i, j, Integer.parseInt(grille_solution[i][j])));
 
@@ -154,9 +147,10 @@ public class Niveau implements Serializable{
     }
 
     public void sauvegarder_niveau(){
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try { 
-            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
+            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
+            //System.out.println(nom_niveau+mode_jeu);
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
             sauvegarde.setGrille(grille);
@@ -178,9 +172,9 @@ public class Niveau implements Serializable{
     }
 
     public int charger_niveau(String nom_niveau){
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try { 
-            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau);
+            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
             if(sauv.createNewFile()==false){
                 System.out.println("fichier existe deja");
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
@@ -213,6 +207,7 @@ public class Niveau implements Serializable{
                         for (int j = 0; j < hauteur; j++) {
                         
                             grille_solution[i][j] = lecture.next();
+                            if(grille_solution[i][j].equals("b"))grille_solution[i][j]=".";
                             
                         }
                     }
@@ -234,9 +229,39 @@ public class Niveau implements Serializable{
             }
             System.out.println("count : "+count+"\n l*L : "+largeur*hauteur);
       if(count==(largeur*hauteur)){
-        stage.close();
+        try { 
+            File myFile = new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
+            myFile.delete(); 
+
+            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
+            //System.out.println(nom_niveau+mode_jeu);
+            if(sauv!=null){
+                sauv.write("NIVEAU_COMPLETE");
+                sauv.close();
+            }
+        } catch (Exception e){
+            System.out.println(e);
+        } 
+        //stage.close();
         System.out.println("PARTIE GAGNEE !!!!");
       }
+    }
+
+       /**
+     * Méthode statique qui test si la grille est fini
+     */
+    public static int verifier_grilles(String grille1[][], String grille2[][], int l, int h){
+        int count=0;
+          for (int i = 0; i < l; i++) {
+                for (int j = 0; j < h; j++) {
+                    if(grille1[i][j].equals(grille2[i][j])==true)count++;
+                }
+            }
+            System.out.println("count : "+count+"\n l*L : "+l*h);
+      if(count==(l*h)){
+        return 1;
+      }
+      return 0;
     
     }
 
@@ -352,13 +377,4 @@ public class Niveau implements Serializable{
         return undoStack;
     }
 
-
-    public String get_niveau(String nom_niveau){
-        switch(nom_niveau){
-            case "niveau1": return "src/main/resources/niveaux/facile_03.txt";
-                            //break;
-            default : return "";
-                        //break;
-        }
-    }
 }
