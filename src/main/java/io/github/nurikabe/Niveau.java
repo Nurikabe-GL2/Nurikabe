@@ -1,8 +1,9 @@
 package io.github.nurikabe;
 
 import java.util.ArrayList;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
@@ -10,6 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.*;
 import java.util.*;
+import javafx.scene.text.*;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 
 
 /**
@@ -67,6 +71,8 @@ public class Niveau implements Serializable{
     private String mode_jeu;
 
     Button undoB, redoB;
+
+    private boolean etat_partie=false;
 
     /**
      * Le construteur de la grille
@@ -242,7 +248,34 @@ public class Niveau implements Serializable{
         } catch (Exception e){
             System.out.println(e);
         } 
-        //stage.close();
+        etat_partie=true;
+
+          // Create a label with the message
+          Label messageLabel = new Label("Niveau complété !");
+        
+          // Create buttons
+          Button nextLevelButton = new Button("Niveau Suivant");
+          Button mainMenuButton = new Button("Retour");
+  
+          // Create an HBox to hold the buttons
+          HBox buttonBox = new HBox(10);
+          buttonBox.getChildren().addAll(nextLevelButton, mainMenuButton);
+          
+          // Create a VBox to hold the label and button HBox
+          VBox vbox = new VBox(10);
+          vbox.getChildren().addAll(messageLabel, buttonBox);
+          vbox.setPadding(new Insets(10));
+          
+          // Create the dialog box
+          Stage dialog = new Stage();
+          dialog.initModality(Modality.APPLICATION_MODAL);
+          dialog.initOwner(stage);
+          dialog.setScene(new Scene(vbox));
+          dialog.setTitle("Niveau Complété !");
+          
+          // Show the dialog box
+          dialog.show();
+
         System.out.println("PARTIE GAGNEE !!!!");
       }
     }
@@ -358,6 +391,10 @@ public class Niveau implements Serializable{
             coup(undoStack, redoStack,2);
         }
     };
+
+    public boolean get_etat_partie(){
+        return etat_partie;
+    }
 
     /**
      * Le handler associé au bouton suivant 

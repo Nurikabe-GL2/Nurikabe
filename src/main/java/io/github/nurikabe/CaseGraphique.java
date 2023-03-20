@@ -45,11 +45,12 @@ public class CaseGraphique {
       if(this.type<=0){
           pane.setOnMouseClicked(e -> {
             System.out.println("cliqued");
+            if(grid.get_etat_partie()!=true){
               action_clic();
               grid.getUndo().push(new Coup(x, y));
               grid.sauvegarder_niveau();
               grid.victoire();
-              
+            }
           });
       }
       if(this.type==0){

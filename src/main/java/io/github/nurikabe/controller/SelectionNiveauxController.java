@@ -1,6 +1,7 @@
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.controller.NiveauController;
+import io.github.nurikabe.NiveauCharger;
 import io.github.nurikabe.FXUtils;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Difficulty;
@@ -145,73 +146,33 @@ public class SelectionNiveauxController extends VBox {
         else return "src/main/resources/niveaux/"+difficulte+"_"+num+".txt";
     }
 
-    private GridPane chargerNiveauGrilleMiniature(String name){
-    try{
-        FileInputStream fichier = new FileInputStream(name);
-        Scanner lecture = new Scanner(fichier);
-        int hauteur = lecture.nextInt();
-        int largeur = lecture.nextInt();
-        GridPane gridpane = new GridPane();;
-        gridpane.getStylesheets().add("/css/Plateau.css");
-        gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
-        //grille_solution=new String[largeur][hauteur];
-        String temp[][]=new String[largeur][hauteur];
-                for (int i = 0; i < largeur; i++) {
-                    
-                    for (int j = 0; j < hauteur; j++) {
-                    
-                        temp[i][j] = lecture.next();
-                        StackPane p=new StackPane();
-                        p.setPrefSize(20,20);
-                        p.getStyleClass().add("caseblanche");
-
-                        if(temp[i][j].equals("b")==false&&temp[i][j].equals("n")==false){
-                            Text nb = new Text(temp[i][j]);
-                            p.getChildren().add(nb); 
-                        }
-
-                        GridPane.setRowIndex(p, i);
-                        GridPane.setColumnIndex(p, j);
-                        gridpane.getChildren().addAll(p);
-                    }
-                }
-
-                return gridpane;
-
-        }catch (Exception e){
-        System.out.println("erreur lors de la lecture de la grille : "+e);
-        return null;
-      }
-    }
-
     private void charger_niveaux_difficulte(String difficulte){
 
         HBox hniveau=new HBox(3), hbutton;
-        if(difficulte.equals("facile")==true)hbutton=new HBox(90); 
-        else if(difficulte.equals("moyen")==true)hbutton=new HBox(120); 
-        else hbutton=new HBox(140); 
-        int indic=0;
+        NiveauCharger n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, 1).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, 1));
+        hbutton=new HBox(n.get_espace_boutons());
+        int indic=0, ligne=0;
 
         puzzlesTilePane.getChildren().clear();
         for(int i=1;i<21;i++){
             
-            if(indic==3){
+            n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, i).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, i));
+            if(indic==5){
                 
                 VBox v=new VBox(10);
                 v.getChildren().add(hniveau);
                 v.getChildren().add(hbutton);
                 puzzlesTilePane.getChildren().add(v);
                 hniveau=new HBox(3);
-                if(difficulte.equals("facile")==true)hbutton=new HBox(90); 
-                else if(difficulte.equals("moyen")==true)hbutton=new HBox(120); 
-                else hbutton=new HBox(140); 
+                hbutton=new HBox(n.get_espace_boutons()); 
                 indic=0;
             
             }
             
-            hniveau.getChildren().add(chargerNiveauGrilleMiniature(niveauToString(difficulte, i)));
+            
+            hniveau.getChildren().add(n.get_gridpane());
             Button b;
-            if(SelectionNiveauxController.niveau_complete("src/main/resources/sauvegarde/"+niveauToString(difficulte, i).substring(27)+gameModeProperty.get().toString())==1){
+            if(n.get_complete()){
                 b=new Button("COMPLETE ");
                 b.setStyle("-fx-background-color: BLACK");
             }
@@ -232,33 +193,6 @@ public class SelectionNiveauxController extends VBox {
         v.getChildren().add(hbutton);
         puzzlesTilePane.getChildren().add(v);
 
-    }
-
-    public static int fichier_existe(String nom){
-        File fichier=new File(nom);
-        if(fichier.exists()  && !fichier.isDirectory())return 1;
-        return 0;
-    }
-
-    public static int niveau_complete(String nom){
-        try {
-        if(SelectionNiveauxController.fichier_existe(nom)==1){
-            FileInputStream niv = new FileInputStream(nom);
-            Scanner lire = new Scanner(niv); 
-            String res=lire.nextLine();
-            lire.close();
-            niv.close();
-            if(res.equals("NIVEAU_COMPLETE")==true){
-                System.out.println("niveau complete!");
-                return 1;
-            } 
-            return 0;
-        }
-        }catch(Exception e){
-            System.out.println("erreur : "+e);
-            return 0;
-        }
-        return 0;
     }
 
     
