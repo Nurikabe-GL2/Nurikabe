@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 
 import java.util.Scanner;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Techniques;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -401,8 +403,10 @@ public class Niveau implements Serializable {
         @Override
         public void handle(MouseEvent e) {
             LOGGER.info("aide cliqué");
-            //charger_grille(get_niveau(nom_niveau));
             aideB.setStyle("-fx-background-color: #00008B");
+
+            final PositionTechniques positionTechniques = Techniques.trouverTechnique(Niveau.this);
+            System.out.println(positionTechniques);
         }
     };
 
