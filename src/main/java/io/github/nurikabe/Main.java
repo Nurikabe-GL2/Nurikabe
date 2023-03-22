@@ -7,7 +7,6 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.MenuPrincipalController;
-import io.github.nurikabe.techniques.Techniques;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,13 +22,11 @@ public class Main {
     */
    private static final Logger LOGGER = Logging.getLogger();
 
-   /**
-    * Méthode main de lancement du jeu
-    * @param args les arguments d'entrée
-    */
-   public static void main(String[] args) {
-      Techniques.trouverTechnique(null);
-
+    /**
+     * Méthode main de lancement du jeu
+     * @param args les arguments d'entrée
+     */
+    public static void main(String[] args) {
         LOGGER.debug("Démarrage");
 
       // Démarre JavaFX
