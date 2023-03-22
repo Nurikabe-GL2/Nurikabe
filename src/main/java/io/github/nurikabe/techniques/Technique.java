@@ -13,16 +13,16 @@ public abstract class Technique {
 
     /**
      * Méthode pour tester si une case est valide ou non (indice valide et case blanche)
+     *
      * @param grille la grille courante
-     * @param x la coordonnée x
-     * @param y la coordonnée y
+     * @param x      la coordonnée x
+     * @param y      la coordonnée y
      * @return true si elle est valide ou false
      */
-    protected boolean estValide(Niveau grille,int x, int y)
-    {
-        if(estCoordonneeValide(grille, x, y))
+    protected boolean estValide(Niveau grille, int x, int y) {
+        if (estCoordonneeValide(grille, x, y))
             return false;
-        return(grille.etat_case(x, y).equals("b"));
+        return (grille.etat_case(x, y).equals("b"));
     }
 
     protected boolean estUnNombre(Niveau grille, int x, int y) {
@@ -36,11 +36,10 @@ public abstract class Technique {
         }
     }
 
-    protected boolean estValideCaseNombreEspace(Niveau grille,int x, int y)
-    {
-        if(estCoordonneeValide(grille, x, y))
+    protected boolean estValideCaseNombreEspace(Niveau grille, int x, int y) {
+        if (estCoordonneeValide(grille, x, y))
             return false;
-        return(grille.get_case(x, y) instanceof CaseNombre);
+        return (grille.get_case(x, y) instanceof CaseNombre);
     }
 
     protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
