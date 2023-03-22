@@ -1,0 +1,80 @@
+{
+  "demarrage_1": {
+    "nom": "Ile de 1",
+    "description": "Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux.",
+    "condition": "Avoir une île de 1.",
+    "cheminImage": "img/technique_demarrage/1_ile_de_un.png"
+  },
+  "demarrage_2": {
+    "nom": "Indices séparés par une case blanche",
+    "description": "Tous les indices doivent être séparés les uns des autres par des murs. Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case, la case intermédiaire doit être un mur.",
+    "condition": "2 indices séparés par une case blanche.",
+    "cheminImage": "img/technique_demarrage/2_indices_separes.png"
+  },
+  "demarrage_3": {
+    "nom": "Indices adjacents en diagonale",
+    "description": "Similaire à la technique précédente, quand deux indices sont adjacents en diagonales, il faut mettre des murs à toutes les cases touchants les deux indices.",
+    "condition": "2 indices adjacents en diagonales.",
+    "cheminImage": "img/technique_demarrage/3_adjacence_diagonale.png"
+  },
+  "basique_1": {
+    "nom": "Carré isolé par des murs",
+    "description": "Après avoir résolu les premières étapes en utilisant les techniques de départ décrites ci-dessus, le puzzle du diagramme de gauche ci-dessous comporte deux carrés ? en rouge. Comme ces carrés sont entourés de murs horizontalement et verticalement, ils ne peuvent pas appartenir à une île et doivent donc être ombrés pour faire partie du mur.",
+    "condition": "Carré blanc entouré de murs.",
+    "cheminImage": "img/technique_basique/1_carre_isole.png"
+  },
+  "basique_2": {
+    "nom": "Extension d’un mur",
+    "description": "Selon les règles du Nurikabe, tous les murs doivent former un seul chemin continu. Si on regarde le mur isolé dans le diagramme de gauche ci-dessous, la seule façon de le relier aux autres murs est de l'agrandir avec trois carrés sur sa droite, comme indiqué dans le diagramme de droite.",
+    "condition": "Mur isolé.",
+    "cheminImage": "img/technique_basique/2_extension_mur.png"
+  },
+  "basique_3": {
+    "nom": "Continuité d’un mur",
+    "description": "Dans le puzzle ci-dessous, si le carré ? en rouge fait partie d'une île, le mur du haut sera cloisonné. Par conséquent, pour maintenir la continuité du mur selon les règles du Nurikabe, ce carré doit faire partie d'un mur.",
+    "condition": "Carré blanc entre 2 murs.",
+    "cheminImage": "img/technique_basique/3_continuite_mur.png"
+  },
+  "basique_4": {
+    "nom": "Extension d’une île depuis un indice",
+    "description": "Dans de nombreux cas, la façon dont une île peut être agrandie directement à partir d'un indice est claire. Dans le schéma ci-dessous, l'île du 3 ne peut être agrandie que vers le haut et l'île du 7 ne peut être agrandie que vers la gauche. Nous allons marquer ces carrés avec des points pour montrer qu'ils font partie des îles respectives et ne peuvent pas faire partie d'un mur.",
+    "condition": "Chemin unique depuis un indice.",
+    "cheminImage": "img/technique_basique/4_extension_ile.png"
+  },
+  "basique_5": {
+    "nom": "Île extensible uniquement dans deux directions",
+    "description": "Dans certains cas, un îlot de 2 ou le dernier carré d'un îlot plus grand ne peut être agrandi que dans deux directions perpendiculaires. Dans ce cas, quelle que soit la direction dans laquelle l’extension de l'îlot aura lieu, le carré diagonal doit faire partie d'un mur comme indiqué dans le diagramme de droite ci-dessous.",
+    "condition": "Chemin possible dans 2 directions.",
+    "cheminImage": "img/technique_basique/5_ile_extensible_deux_directions.png"
+  },
+  "basique_6": {
+    "nom": "Extension de d’île cachée",
+    "description": "Parfois, une île est trop grande pour tenir dans une zone donnée. Dans l'énigme partiellement résolue ci-dessous, l'île de 12 ne peut pas tenir dans la zone du haut et doit donc s'étendre vers le bas, comme indiqué par un point dans le diagramme de droite. Notez que la case située à gauche de ce point ne peut appartenir à aucune île et qu'elle est donc ombragée pour faire partie d'un mur.",
+    "condition": "Chemin trop gros pour une zone.",
+    "cheminImage": "img/technique_basique/6_ile_trop_grande.png"
+  },
+  "basique_7": {
+    "nom": "Continuité de l’île",
+    "description": "La case marquée d'un point rouge dans le schéma de gauche ci-dessous doit faire partie d'un îlot pour éviter une surface de mur de 2x2. Cela signifie que la case située à sa gauche doit également faire partie de la même île et est donc également marquée d'un point. L'île de 3 est maintenant terminée et nous pouvons l'entourer d'un mur.",
+    "condition": "Probable surface 2x2 sur un probable chemin d’une île",
+    "cheminImage": "img/technique_basique/7_continuite_ile.png"
+  },
+  "basique_8": {
+    "nom": "Entourer une île terminée",
+    "description": "Dans l'énigme partiellement résolue ci-dessous, l'île de 3 a été complétée comme le montre la zone en surbrillance. Nous pouvons maintenant entourer cette île de murs adjacents horizontalement et verticalement, comme le montre l'image de droite.",
+    "condition": "Île complétée.",
+    "cheminImage": "img/technique_basique/8_ile_completee.png"
+  },
+  "basique_9": {
+    "nom": "Éviter une zone de mur de 2x2",
+    "description": "Selon les règles, il n'est pas permis d'avoir des murs de 2x2 ou plus. Par conséquent, le carré surligné ci-dessous ne peut pas faire partie du mur et est marqué d'un point indiquant qu'il appartient à l'une des îles.",
+    "condition": "Probable zone de mur de 2x2.",
+    "cheminImage": "img/technique_basique/9_zone_mur_2x2.png"
+  },
+  "basique_10": {
+    "nom": "Carré inaccessible",
+    "description": "Dans certains cas, une case ne peut appartenir à aucune île, tout simplement parce qu'aucun indice ne peut l' « atteindre ». Dans l'exemple ci-dessous, les deux cases ? en rouge sont trop éloignées des indices et ne peuvent faire partie d'aucune île. Elles sont donc ombragées pour indiquer qu'elles doivent faire partie d'un mur.",
+    "condition": "Carré inaccessible.",
+    "cheminImage": "img/technique_basique/10_carre_innaccessible.png"
+  }
+}

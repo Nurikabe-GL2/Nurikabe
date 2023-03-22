@@ -11,7 +11,11 @@ import java.util.List;
  * Classe représentant la techniques de jeux pour 2 cases de nombe séparer par un case blanche
  */
 public class IndicesSeparerParCaseBlanche extends Technique {
-    
+    @Override
+    protected String getIdentifiant() {
+        return "demarrage_2";
+    }
+
     /**
      * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
      * @param grille la grille en question

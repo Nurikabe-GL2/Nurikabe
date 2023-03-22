@@ -10,6 +10,11 @@ import java.util.List;
 
 //classe représentant la technique de continuité de l'ile, elle vérifie si une case vérifie la technique Éviter une zone de mur 2x2 et test si il y'a une case blanche entre cette dernière et une ile
 public class ContinuiteDeLile extends Technique{
+    @Override
+    protected String getIdentifiant() {
+        return "basique_7";
+    }
+
     /**
      * Méthode de parcours de la grille, elle vérifie si une case vérifie la technique Éviter une zone de mur 2x2 et test si il y'a une case blanche entre cette dernière et une ile
      * @param grille la grille en question

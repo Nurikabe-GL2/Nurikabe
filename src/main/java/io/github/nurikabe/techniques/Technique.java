@@ -8,16 +8,29 @@ import org.jetbrains.annotations.Nullable;
  * Interface des différentes techniques de jeu
  */
 public abstract class Technique {
+    /**
+     * Retourne l'identifiant de la technique.
+     *
+     * <p>Cet identifiant est utilisé afin de retrouver le nom, la description, la condition d'activation,
+     * ainsi que l'illustration à partir de celui-ci, en lisant le fichier {@code Techniques.json}
+     */
+    protected abstract String getIdentifiant();
+
+    /**
+     * Teste si la technique est applicable, si elle l'est, la position de la technique est retournée, sinon, {@code null} est retourné.
+     *
+     * @return La position de la technique si applicable, {@code null} sinon.
+     */
     @Nullable
     public abstract PositionTechniques tester(Niveau grille);
 
     /**
-     * Méthode pour tester si une case est valide ou non (indice valide et case blanche)
+     * Teste si une case est valide ou non (indice valide et case blanche)
      *
      * @param grille la grille courante
      * @param x      la coordonnée x
      * @param y      la coordonnée y
-     * @return true si elle est valide ou false
+     * @return {@code true} si elle est valide
      */
     protected boolean estValide(Niveau grille, int x, int y) {
         if (estCoordonneeValide(grille, x, y))

@@ -9,6 +9,11 @@ import java.util.List;
 
 //classe représentant la technique qui dit qu'il faut joindre deux murs si une case blanche est entre eux
 public class ContinuiteDunMur extends Technique {
+    @Override
+    protected String getIdentifiant() {
+        return "basique_3";
+    }
+
     /**
      * Méthode de parcours de la grille, elle vérifie qu'une case blanche possède éxactement 2 murs autour d'elle (sans les diagonales) et si c'est le cas elle renvoie une liste avec la position de cette case
      * @param grille la grille en question

@@ -9,7 +9,11 @@ import java.util.List;
  * Classe public représentant les différentes techniques
  */
 public class IleDeUn extends Technique {
-    
+    @Override
+    protected String getIdentifiant() {
+        return "demarrage_1";
+    }
+
     /**
      * La techniques recherche les cases de nombres avec le chiffre un,
      * Et retourne la position du dit un
