@@ -44,6 +44,8 @@ public class NiveauController extends VBox {
     @FXML private Button buttonUndo;
 
     @FXML private Button buttonRedo;
+
+    @FXML private HBox timerAndLabelParent;
     /**
      * Le constructeur de la classe TechniquesController  
      * @param stage la scène courante
@@ -59,7 +61,7 @@ public class NiveauController extends VBox {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
          loader.setController(this);
          loader.setRoot(this);
-        Parent root = loader.load();
+         loader.load();
         // Add some debug output
         GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
             
@@ -85,6 +87,14 @@ public class NiveauController extends VBox {
 
          niveau.setUndoB(buttonUndo);
          niveau.setRedoB(buttonRedo);
+
+         if(mode_jeu.equals("CLASSIQUE"))timerAndLabelParent.getChildren().clear();
+
+         else {
+          //A Faire
+
+         }
+
 
          stage.setScene(new Scene(this));
          

@@ -70,6 +70,9 @@ public class SelectionNiveauxController extends VBox {
     @FXML
     private TilePane puzzlesTilePane;
 
+    @FXML
+    private ToggleButton easyToggle, mediumToggle, hardToggle;
+
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
@@ -138,7 +141,12 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Difficulties: {}", difficulties);
 
         List<Difficulty> liste_difficulte = new ArrayList<>(difficulties);
-        charger_niveaux_difficulte(liste_difficulte.get(0).getDisplayName());
+        
+        if(gameModeProperty.get().getModeName().equals("classic"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
+
+        else if(gameModeProperty.get().getModeName().equals("adventure"))charger_mode_aventure();
+
+        else charger_mode_contreLaMontre();
     }
 
     private String niveauToString(String difficulte, int num){
@@ -146,7 +154,12 @@ public class SelectionNiveauxController extends VBox {
         else return "src/main/resources/niveaux/"+difficulte+"_"+num+".txt";
     }
 
-    private void charger_niveaux_difficulte(String difficulte){
+    private void charger_mode_classique(String difficulte){
+      
+        easyToggle.setDisable(false);
+        mediumToggle.setDisable(false);
+        hardToggle.setDisable(false);
+
 
         HBox hniveau=new HBox(3), hbutton;
         NiveauCharger n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, 1).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, 1));
@@ -193,6 +206,30 @@ public class SelectionNiveauxController extends VBox {
         v.getChildren().add(hbutton);
         puzzlesTilePane.getChildren().add(v);
 
+    }
+
+    private void charger_mode_aventure(){
+      
+        easyToggle.setDisable(true);
+        mediumToggle.setDisable(true);
+        hardToggle.setDisable(true);
+        puzzlesTilePane.getChildren().clear();
+
+        /*A FAIRE */
+
+        stage.show();
+    }
+
+    private void charger_mode_contreLaMontre(){
+      
+        easyToggle.setDisable(true);
+        mediumToggle.setDisable(true);
+        hardToggle.setDisable(true);
+        puzzlesTilePane.getChildren().clear();
+
+        /*A FAIRE */
+
+        stage.show();
     }
 
     

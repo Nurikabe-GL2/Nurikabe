@@ -50,7 +50,7 @@
             <VBox alignment="TOP_CENTER">
                <children>
                   <Label styleClass="parameterLabel" text="Difficulté :" />
-                  <HBox alignment="TOP_CENTER" spacing="5.0">
+                  <HBox fx:id="DifficulteSelection" alignment="TOP_CENTER" spacing="5.0">
                      <children>
                         <ToggleButton fx:id="easyToggle" mnemonicParsing="false" prefWidth="135.0" selected="true" text="Facile">
                            <styleClass>
