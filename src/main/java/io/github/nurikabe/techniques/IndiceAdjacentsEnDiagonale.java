@@ -5,7 +5,7 @@ import io.github.nurikabe.Niveau;
 
 import java.util.List;
 
-public class IndiceAdjacentsEnDiagonale implements Technique {
+public class IndiceAdjacentsEnDiagonale extends Technique {
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int y = 0; y < grille.get_hauteur(); y++) {

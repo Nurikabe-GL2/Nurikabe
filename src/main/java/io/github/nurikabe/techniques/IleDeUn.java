@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Classe public représentant les différentes techniques
  */
-public class IleDeUn implements Technique {
+public class IleDeUn extends Technique {
     
     /**
      * La techniques recherche les cases de nombres avec le chiffre un,

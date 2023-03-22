@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Classe représentant la techniques de jeux pour une case Blanche isolé
  */
-public class CarreIsole implements Technique  {
+public class CarreIsole extends Technique  {
     
     /**
      * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste

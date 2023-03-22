@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //classe représentant la technique qui teste si une ile est extensible uniquement dans 2 directions
-public class IleExtensibleDansDeuxDirections implements Technique  {
+public class IleExtensibleDansDeuxDirections extends Technique  {
     /**
      * Méthode de parcours de la grille, elle vérifie qu'une ile est extensible dans éxactement 2 directions et si c'est le cas elle renvoie une liste avec la position de cette case
      * @param grille la grille en question

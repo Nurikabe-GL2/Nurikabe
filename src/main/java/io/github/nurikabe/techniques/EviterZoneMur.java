@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Classe représentant la technique du nurikabe, cette dernière implémente une méthode de la technique du même nom qui vérifie si une case blanche à 3 mur autour d'elle
  */
-public class EviterZoneMur implements Technique  {
+public class EviterZoneMur extends Technique  {
     /**
      * Méthode de parcours de la grille, elle vérifie qu'une case blanche à au moins 3 murs autour d'elle et si c'est le cas elle renvoie une liste avec la position de cette case
      * @param grille la grille en question
