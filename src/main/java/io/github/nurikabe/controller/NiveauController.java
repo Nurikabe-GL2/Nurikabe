@@ -2,17 +2,16 @@ package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Niveau;
 import javafx.event.ActionEvent;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-//import org.slf4j.Logger;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.GridPane;
-import java.io.*;
-import java.util.ArrayList;
-import javafx.scene.Node;
 
 /**
  * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
@@ -24,7 +23,7 @@ public class NiveauController extends VBox {
      * Variable d'instance privé qui stocke le stage actuel
      */
     private final Stage stage;
-    
+
     /**
      * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
      */
@@ -45,8 +44,11 @@ public class NiveauController extends VBox {
 
     @FXML private Button buttonAide;
 
+    @FXML private TabPane tabPane;
+    @FXML private Tab tabAide;
+
     /**
-     * Le constructeur de la classe TechniquesController  
+     * Le constructeur de la classe TechniquesController
      * @param stage la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
@@ -64,7 +66,7 @@ public class NiveauController extends VBox {
         GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
 
         niveau = new Niveau(stage, cheminNiveau, mode_jeu, select);
-            
+
         jeu_grille= niveau.get_grillegraphique();
         jeu_grille.setId("gridPaneGraphicalState");
 
@@ -85,7 +87,8 @@ public class NiveauController extends VBox {
          TabPane onglet = (TabPane) root.lookup("#tabPane");
          System.out.println(onglet);
 
-         niveau.setAide(buttonAide,tab);
+
+        niveau.setAide(buttonAide, tabPane, tabAide);
 
          //mise en place des boutons
          niveau.setUndoB(buttonUndo);
@@ -100,14 +103,14 @@ public class NiveauController extends VBox {
 
 
          //envoie du tab Aide et le bouton aide au setter
-        
+
 
          stage.setScene(new Scene(this));
     }
 
     /**
-     * Méthode qui est appelé quand on clique sur la grille du niveau1 
-     * elle appele le controller du plateau qui va chargé la grille 
+     * Méthode qui est appelé quand on clique sur la grille du niveau1
+     * elle appele le controller du plateau qui va chargé la grille
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML

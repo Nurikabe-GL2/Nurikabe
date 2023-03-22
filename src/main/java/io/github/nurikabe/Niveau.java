@@ -22,10 +22,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.io.*;
-//import javafx.*;
+import org.slf4j.Logger;
 
-import org.w3c.dom.Node;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 /**
  * Classe Niveau pour représenter un niveau
@@ -87,7 +89,8 @@ public class Niveau implements Serializable {
     * Variables d'instances undoB et redo B
     */
    Button undoB, redoB, resetB, aideB;
-    Node aideTab;
+    TabPane tabPane;
+    Tab tabAide;
 
    private boolean etat_partie=false;
 
@@ -205,14 +208,10 @@ public class Niveau implements Serializable {
         resetB=b;
     }
 
-    /**
-     * Setter du bouton Aide
-     * @param b le bouton
-     */
-    public void setAide(Button b,Node help){
-        aideB=b;
-        aideTab=help;
-       // System.out.println(help);
+    public void setAide(Button b, TabPane tabPane, Tab tabAide) {
+        this.aideB = b;
+        this.tabPane = tabPane;
+        this.tabAide = tabAide;
     }
 
     public int charger_niveau(String nom_niveau) throws Exception {
@@ -400,7 +399,6 @@ public class Niveau implements Serializable {
             LOGGER.info("aide cliqué");
             //charger_grille(get_niveau(nom_niveau));
             aideB.setStyle("-fx-background-color: #00008B");
-            aideTab.setNodeValue("test Of Kami-Sama");
         }
     };
 
