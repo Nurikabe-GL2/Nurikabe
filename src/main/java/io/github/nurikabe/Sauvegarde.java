@@ -17,7 +17,7 @@ import java.io.*;
  */
 public class Sauvegarde implements Serializable{
 
-    ArrayList<ArrayList<Case>> grille=new ArrayList<ArrayList<Case>>();
+    Grille<Case> grille;
     
     
     private Pile undoStack;
@@ -35,7 +35,7 @@ public class Sauvegarde implements Serializable{
         this.grille=null;
     }
 
-    public void setGrille(ArrayList grille){
+    public void setGrille(Grille<Case> grille){
         this.grille=grille;
     }
 
@@ -56,7 +56,7 @@ public class Sauvegarde implements Serializable{
         return redoStack;
     }
 
-    public ArrayList get_grille(){
+    public Grille<Case> get_grille(){
         return grille;
     }
 

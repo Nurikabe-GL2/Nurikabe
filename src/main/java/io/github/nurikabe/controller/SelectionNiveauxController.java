@@ -215,8 +215,21 @@ public class SelectionNiveauxController extends VBox {
         hardToggle.setDisable(true);
         puzzlesTilePane.getChildren().clear();
 
+        HBox ConteneurBoutons=new HBox(30);
+        VBox ConteneurHbox=new VBox(30);
+        for(int i=1, count=0;i<21;i++, count++){
+            if(count==6){
+                ConteneurHbox.getChildren().add(ConteneurBoutons);
+                ConteneurBoutons=new HBox(30);
+                count=0;
+            }
+            Button bouton=new Button("NIVEAU "+i);
+            bouton.setPrefSize(100, 100);
+            bouton.setStyle("-fx-background-color: GREY");
+            ConteneurBoutons.getChildren().add(bouton);
+        }
         /*A FAIRE */
-
+        puzzlesTilePane.getChildren().add(ConteneurHbox);
         stage.show();
     }
 

@@ -51,6 +51,11 @@ public abstract class Case implements Serializable{
     public int get_y(){
       return y;
     }
+
+    @Override
+    public String toString(){
+      return get_cont_case();
+    }
     
     /**
      * getter qui renvoie le contenue de la case sous forme de chaine de caractère
