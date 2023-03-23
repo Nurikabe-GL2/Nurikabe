@@ -18,33 +18,30 @@ public class IndicesSeparerParCaseBlanche extends Technique {
 
     /**
      * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
+     *
      * @param grille la grille en question
+     *
      * @return une Position technique ou null
      */
     @Override
-    public PositionTechniques tester(Niveau grille)
-    {
-        
-        for(int x=0;x<grille.get_largeur();x++)
-        {
-            for(int y=0;y<grille.get_hauteur();y++)
-            {
-                if(grille.get_case(x, y) instanceof CaseNombre)
-                {
+    public PositionTechniques tester(Niveau grille) {
+        for (int x = 0; x < grille.get_largeur(); x++) {
+            for (int y = 0; y < grille.get_hauteur(); y++) {
+                if (grille.get_case(x, y) instanceof CaseNombre) {
                     List<Coup> liste = new ArrayList<>();
 
-                    if(estValideCaseNombreEspace(grille,x-2,y))
-                        liste.add(new Coup(x-1, y));
-                    if(estValideCaseNombreEspace(grille,x+2,y))
-                        liste.add(new Coup(x+1, y));
-                    if(estValideCaseNombreEspace(grille,x,y-2))
-                        liste.add(new Coup(x, y-1));
-                    if(estValideCaseNombreEspace(grille,x,y+2))
-                        liste.add(new Coup(x, y+1));
-                    if(!liste.isEmpty())
+                    if (estValideCaseNombreEspace(grille, x - 2, y) && estCaseBlanche(grille, x - 1, y))
+                        liste.add(new Coup(x - 1, y));
+                    if (estValideCaseNombreEspace(grille, x + 2, y) && estCaseBlanche(grille, x + 1, y))
+                        liste.add(new Coup(x + 1, y));
+                    if (estValideCaseNombreEspace(grille, x, y - 2) && estCaseBlanche(grille, x, y - 1))
+                        liste.add(new Coup(x, y - 1));
+                    if (estValideCaseNombreEspace(grille, x, y + 2) && estCaseBlanche(grille, x, y + 1))
+                        liste.add(new Coup(x, y + 1));
+                    if (!liste.isEmpty())
                         return new PositionTechniques(this, liste);
                 }
-            }   
+            }
         }
         return null;
     }
