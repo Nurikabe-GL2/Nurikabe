@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,37 +27,27 @@ public class Niveau implements Serializable {
    /**
     * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
     */
-   ArrayList<ArrayList<Case>> grille = new ArrayList<ArrayList<Case>>();
+   Grille<Case> grille ;
 
    /**
     * Variable d'instance grilleGraphique qui représente la grille graphique
     */
-   ArrayList<ArrayList<CaseGraphique>> grilleGraphique = new ArrayList<ArrayList<CaseGraphique>>();
-    
-   /**
-    * Variable d'instance grilleSolution représentant la solution de la grille
-    */
-   String grilleSolution[][];
-    
-   /**
-    * Variable d'instance largeur représentant la largeur de la grille
-    */
-   int largeur;
-    
-   /**
-    * Variable d'instance hauteur représentant la hauteur de la grille
-    */
-   int hauteur;
+    Grille<CaseGraphique> grilleGraphique;
 
-   /**
-    * Variable d'instance panneauGrille représentant le panneau de la grille graphique
-    */
-   GridPane panneauGrille;
+    /**
+     * Variable d'instance grilleSolution représentant la solution de la grille
+     */
+    Grille<String> grille_solution;
 
-   /**
-    * Variable d'instance sauvegarde représentant la sauvegarde de la grille
-    */
-   Sauvegarde sauvegarde;
+    /**
+     * Variable d'instance panneauGrille représentant le panneau de la grille graphique
+     */
+    GridPane panneauGrille;
+
+    /**
+     * Variable d'instance sauvegarde représentant la sauvegarde de la grille
+     */
+    Sauvegarde sauvegarde;
 
    /**
     * Variable d'instance pileUndo représentant la pile servant au bouton Undo
@@ -101,10 +90,10 @@ public class Niveau implements Serializable {
       this.nom_niveau=nom_niveau;
       this.mode_jeu=mode;
       this.sauvegarde=new Sauvegarde();
-      this.gridpane = new GridPane();
+      this.panneauGrille = new GridPane();
       this.pileUndo = new Pile();
       this.pileRedo = new Pile();
-      gridpane.getStylesheets().add("/css/Plateau.css");
+      panneauGrille.getStylesheets().add("/css/Plateau.css");
       chargerGrille(nom_niveau);
    }
 
@@ -112,60 +101,57 @@ public class Niveau implements Serializable {
     * Méthode chargerGrille qui s'occupe de charger la grille
     * @param nomGrille le nom de la grille
     */
-   public void chargerGrille(String name) {
+   public void chargerGrille(String nomGrille) {
       try {
-        charger_grille_solution(name);
+        charger_grille_solution(nomGrille);
 
-        if(charger_niveau(nom_niveau)==0){
+        if(charger_niveau(nomNiveau)==0){
 
-                for(int i=0; i<largeur ; i++){
-                    grille.add(new ArrayList<Case>());
-                    grille_graphique.add(new ArrayList<CaseGraphique>());
-                }
+                grille=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
+                grilleGraphique=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
 
-                for (int i = 0; i < largeur; i++) {
+                for (int y = 0; y < grilleGraphique.recupHauteur(); y++) {
 
-                    for (int j = 0; j < hauteur; j++) {
-
+                    for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
                         //Case une_case;
 
-                        if(grille_solution[i][j].equals(".")||grille_solution[i][j].equals("n")){
-                            grille.get(i).add(new CaseNormale(i, j));
-                            //if(grille_solution[i][j].equals("."))grille_solution[i][j]=".";
+                        if(grille_solution.get(x, y).equals(".")||grille_solution.get(x, y).equals("n")){
+                            grille.set(x, y, new CaseNormale(x, y));
+                            //if(grille_solution.get(x, y).equals("."))grille_solution.get(x, y)=".";
                         }
-                        else grille.get(i).add(new CaseNombre(i, j, Integer.parseInt(grille_solution[i][j])));
+                        else grille.set(x, y, new CaseNombre(x, y, Integer.parseInt(grille_solution.get(x, y))));
 
-                        grille_graphique.get(i).add(new CaseGraphique(i, j, 30, 30, this));
+                        grille_graphique.set(x, y, new CaseGraphique(x, y, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                        GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
-                        GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
+                        GridPane.setRowIndex(grille_graphique.get(x, y).get_pane(), y);
+                        GridPane.setColumnIndex(grille_graphique.get(x, y).get_pane(), x);
 
-                        gridpane.getChildren().addAll(grille_graphique.get(i).get(j).get_pane());
+                        gridpane.getChildren().addAll(grille_graphique.get(x, y).get_pane());
                         //lecture.close();
                     }
                 }
             }
             else {
-                for(int i=0; i<largeur ; i++){
-                    grille_graphique.add(new ArrayList<CaseGraphique>());
-                }
+                grille_graphique=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
 
-                for (int i = 0; i < largeur; i++) {
+                for (int y = 0; y < grille_graphique.getHauteur(); y++) {
 
-                    for (int j = 0; j < hauteur; j++) {
+                    for (int x = 0; x < grille_graphique.getLargeur(); x++) {
 
-                        grille_graphique.get(i).add(new CaseGraphique(i, j, 30, 30, this));
+
+
+                        grille_graphique.set(x, y, new CaseGraphique(x, y, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                        GridPane.setRowIndex(grille_graphique.get(i).get(j).get_pane(), i);
-                        GridPane.setColumnIndex(grille_graphique.get(i).get(j).get_pane(), j);
+                        GridPane.setRowIndex(grille_graphique.get(x, y).get_pane(), y);
+                        GridPane.setColumnIndex(grille_graphique.get(x, y).get_pane(), x);
 
-                        gridpane.getChildren().addAll(grille_graphique.get(i).get(j).get_pane());
-
+                        gridpane.getChildren().addAll(grille_graphique.get(x, y).get_pane());
                     }
 
                 }
             }
       }catch (Exception e){
+        e.printStackTrace();
         System.out.println("erreur lors de la lecture de la grille : "+e);
       }
     }
@@ -222,17 +208,16 @@ public class Niveau implements Serializable {
 
             FileInputStream fichier = new FileInputStream(name);
             Scanner lecture = new Scanner(fichier);
-            this.hauteur = lecture.nextInt();
-            this.largeur = lecture.nextInt();
-            grille_solution=new String[largeur][hauteur];
+            int largeur = lecture.nextInt();
+            int hauteur = lecture.nextInt();
+            grille_solution=new Grille<>(largeur, hauteur);
 
-                    for (int i = 0; i < largeur; i++) {
+                    for (int y = 0; y < grille_solution.getHauteur(); y++) {
 
-                        for (int j = 0; j < hauteur; j++) {
+                        for (int x = 0; x < grille_solution.getLargeur(); x++) {
 
-                            grille_solution[i][j] = lecture.next();
-                            if(grille_solution[i][j].equals("b"))grille_solution[i][j]=".";
-
+                            grille_solution.set(x, y, lecture.next());
+                            if(grille_solution.get(x, y).equals("b"))grille_solution.set(x, y, ".");
                         }
                     }
 
@@ -241,18 +226,43 @@ public class Niveau implements Serializable {
           }
     }
 
+    public static Grille<String> charger_grille_solution_statique(String name){
+        try {
+
+            FileInputStream fichier = new FileInputStream(name);
+            Scanner lecture = new Scanner(fichier);
+            int largeur = lecture.nextInt();
+            int hauteur = lecture.nextInt();
+            Grille<String> grille_sol=new Grille<>(largeur, hauteur);
+
+            for (int y = 0; y < grille_sol.getHauteur(); y++) {
+
+                for (int x = 0; x < grille_sol.getLargeur(); x++) {
+
+                        grille_sol.set(x, y, lecture.next());
+
+                        }
+                    }
+                    return grille_sol;
+            }catch (Exception e){
+            System.out.println("erreur lors de la lecture de la grille : "+e);
+          }
+         return null;
+        }
+
     /**
      * Méthode victoire qui teste si la grille est terminée
      */
     public void victoire(){
         int count=0;
-          for (int i = 0; i < largeur; i++) {
-                for (int j = 0; j < hauteur; j++) {
-                    if(grille_solution[i][j].equals(grille.get(i).get(j).get_cont_case())==true)count++;
+          for (int y = 0; y < grille_solution.getHauteur(); y++) {
+
+                for (int x = 0; x < grille_solution.getLargeur() ; x++) {
+                    if(grille_solution.get(x, y).equals(grille.get(x, y).get_cont_case()))count++;
                 }
             }
-            System.out.println("count : "+count+"\n l*L : "+largeur*hauteur);
-      if(count==(largeur*hauteur)){
+            System.out.println("count : "+count+"\n l*L : "+grille_solution.getHauteur()*grille_solution.getLargeur());
+      if(count==(grille_solution.getHauteur()*grille_solution.getLargeur())){
         try {
             File myFile = new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
             myFile.delete();
@@ -301,15 +311,16 @@ public class Niveau implements Serializable {
        /**
      * Méthode statique qui test si la grille est fini
      */
-    public static int verifier_grilles(String grille1[][], String grille2[][], int l, int h){
+    public static int verifier_grilles(Grille grille1, Grille grille2){
         int count=0;
-          for (int i = 0; i < l; i++) {
-                for (int j = 0; j < h; j++) {
-                    if(grille1[i][j].equals(grille2[i][j])==true)count++;
-                }
+        for (int y = 0; y < grille1.getHauteur(); y++) {
+
+            for (int x = 0; x < grille2.getLargeur() ; x++) {
+                if(grille1.get(x, y).equals(grille2.get(x, y)))count++;
             }
-            System.out.println("count : "+count+"\n l*L : "+l*h);
-      if(count==(l*h)){
+        }
+            System.out.println("count : "+count+"\n l*L : "+grille1.getHauteur()*grille1.getLargeur());
+      if(count==(grille1.getHauteur()*grille1.getLargeur())){
         return 1;
       }
       return 0;
@@ -317,7 +328,7 @@ public class Niveau implements Serializable {
     }
 
     public Case get_case(int x, int y){
-        return grille.get(x).get(y);
+        return grille.get(x,y);
     }
 
     /**
@@ -338,19 +349,14 @@ public class Niveau implements Serializable {
      * @return l'état de la case sous forme de chaine de caractère
      */
     public String etat_case(int x, int y){
-        return grille.get(x).get(y).get_cont_case();
+        return grille.get(x, y).get_cont_case();
     }
 
     /**
      * Méthode afficherGrille qui affiche la grille
      */
     public void afficher_grille(){
-         for (int i = 0; i < largeur; i++) {
-                for (int j = 0; j < hauteur; j++) {
-                    System.out.print(grille.get(i).get(j).get_cont_case());
-                }
-                System.out.println("");
-            }
+         System.out.println(grille);
     }
 
    /**
@@ -358,7 +364,7 @@ public class Niveau implements Serializable {
     * @return la largeur de la grille
     */
    public int recupLargeur() {
-      return largeur;
+      return grille_solution.getLargeur();
    }
 
     /**
@@ -366,7 +372,7 @@ public class Niveau implements Serializable {
      * @return la hauteur de la grille
      */
     public int get_hauteur(){
-        return hauteur;
+        return grille_solution.getHauteur();
     }
 
     /**

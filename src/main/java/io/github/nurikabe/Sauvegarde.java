@@ -12,21 +12,22 @@ import java.io.*;
 /**
  * Classe Sauvegarde représentant une grille
  */
-public class Sauvegarde implements Serializable {
-   /**
-    * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
-    */
-   ArrayList<ArrayList<Case>> grille = new ArrayList<ArrayList<Case>>();
-   
-   /**
-    * Variable d'instance pileUndo qui représente la pile d'undo
-    */
-   private Pile pileUndo;
-   
-   /**
-    * Variable d'instance pileRedo qui représente la pile de redo
-    */ 
-   private Pile pileRedo;
+public class Sauvegarde implements Serializable{
+    /**
+     * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
+     */
+    Grille<Case> grille;
+
+    /**
+     * Variable d'instance pileUndo qui représente la pile d'undo
+     */
+    private Pile pileUndo;
+
+    /**
+     * Variable d'instance pileRedo qui représente la pile de redo
+     */
+    private Pile pileRedo;
+    
 
    /**
     * Constructeur de Sauvegarde
@@ -40,8 +41,8 @@ public class Sauvegarde implements Serializable {
    /**
     * Méthode mettreGrille qui permet de récupérer une grille pour la mettre dans la nôtre
     * @param grille la grille à récupérer
-    */ 
-   public void mettreGrille(ArrayList grille){
+    */
+   public void mettreGrille(Grille<Case> grille){
       this.grille = grille;
    }
 
@@ -53,21 +54,22 @@ public class Sauvegarde implements Serializable {
       this.pileUndo = undo;
    }
 
-   /**
-    * Méthode mettrePileRedoo qui permet de récupérer une pile de redo pour la mettre dans la nôtre
-    * @param redo la pile redo à récupérer
-    */
-   public void mettrePileRedo(Pile redo) {
-      this.pileRedo = redo;
-   }
-  
-   /**
-    * Méthode recupGrille qui renvoie la grille
-    * @param grille la grille à renvoyer
-    */ 
-   public ArrayList recupGrille() {
-      return grille;
-   }
+    public void setRedoPile(Pile redo){
+        this.pileRedo=redo;
+    }
+
+
+    public Pile mettrePileUndo(){
+        return pileUndo;
+    }
+
+    public Pile mettrePileRedo(){
+        return pileRedo;
+    }
+
+    public Grille<Case> recupGrille(){
+        return grille;
+    }
 
    /**
     * Méthode recupPileUndo qui renvoie la pile d'undo

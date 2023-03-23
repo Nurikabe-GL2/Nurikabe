@@ -38,7 +38,7 @@ public abstract class Case implements Serializable {
       this.x = x;
       this.y = y;
       this.type = type;
-   } 
+   }
 
    /**
     * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
@@ -62,6 +62,11 @@ public abstract class Case implements Serializable {
    public int recupY() {
       return y;
    }
+
+    @Override
+    public String toString(){
+      return recupContenuCase();
+    }
     
    /**
     * Méthode abstraite recupContenuCase qui renvoie le contenu de la case sous forme de chaîne de caractères

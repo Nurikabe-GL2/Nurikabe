@@ -15,54 +15,50 @@ public class NiveauCharger{
   private String sauv, nom_niveau;
   private GridPane niveau;
 
-  public NiveauCharger(String sauv, String nom_niveau){
-    this.sauv=sauv;
-    this.nom_niveau=nom_niveau;
+  public NiveauCharger(String nom_niveau, String mode_jeu){
+    this.sauv="src/main/resources/sauvegarde/"+nom_niveau+mode_jeu;
+    this.nom_niveau="src/main/resources/niveaux/"+nom_niveau;
     complete=niveau_complete(sauv);
     niveau=chargerNiveauGrilleMiniature();
   }
  
   private GridPane chargerNiveauGrilleMiniature(){
     try{
-        FileInputStream fichier = new FileInputStream(nom_niveau);
-        Scanner lecture = new Scanner(fichier);
-        this.hauteur = lecture.nextInt();
-        this.largeur = lecture.nextInt();
-        espace_boutons=largeur*9;
     
-        GridPane gridpane = new GridPane();;
+        GridPane gridpane = new GridPane();
         gridpane.getStylesheets().add("/css/Plateau.css");
         gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
         //grille_solution=new String[largeur][hauteur];
-        String temp[][]=new String[largeur][hauteur];
-                for (int i = 0; i < largeur; i++) {
-                    
-                    for (int j = 0; j < hauteur; j++) {
-                    
-                        temp[i][j] = lecture.next();
+        Grille<String> temp=Niveau.charger_grille_solution_statique(nom_niveau);
+        espace_boutons=temp.getLargeur()*9;
+
+        for (int y = 0; y < temp.getHauteur(); y++) {
+                
+            for (int x = 0; x < temp.getLargeur(); x++) {
+
                         StackPane p=new StackPane();
                         p.setPrefSize(20,20);
                         if(complete==0){
-                         if(temp[i][j].equals("b")||temp[i][j].equals("n"))p.getStyleClass().add("caseblanche");
+                         if(temp.get(x, y).equals("b")||temp.get(x, y).equals("n"))p.getStyleClass().add("caseblanche");
                         }
 
-                        else if(temp[i][j].equals("n")){
+                        else if(temp.get(x, y).equals("n")){
                           //p.getStyleClass().add("caseblanche");
                           p.getStyleClass().add("casenoire");
                         }
 
-                        else if(temp[i][j].equals("b")){
+                        else if(temp.get(x, y).equals("b")){
                           p.getStyleClass().add("caseblanche");
                          }
 
-                        if(temp[i][j].equals("b")==false&&temp[i][j].equals("n")==false){
+                        if(temp.get(x, y).equals("b")==false&&temp.get(x, y).equals("n")==false){
                           p.getStyleClass().add("caseblanche");
-                            Text nb = new Text(temp[i][j]);
+                            Text nb = new Text(temp.get(x, y));
                             p.getChildren().add(nb); 
                         }
 
-                        GridPane.setRowIndex(p, i);
-                        GridPane.setColumnIndex(p, j);
+                        GridPane.setRowIndex(p, y);
+                        GridPane.setColumnIndex(p, x);
                         gridpane.getChildren().addAll(p);
                     }
                 }
