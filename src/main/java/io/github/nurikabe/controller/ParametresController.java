@@ -1,11 +1,13 @@
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Logging;
+import io.github.nurikabe.Parametres;
+import java.io.*;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -16,114 +18,132 @@ import org.slf4j.Logger;
 public class ParametresController extends VBox {
 
     private static final Logger LOGGER = Logging.getLogger();
-    
     private final Stage stage;
-    private final Scene previousScene;
-    private boolean remplissage;
-    private boolean pathNumbering;
-    private boolean showErrors;
-    private boolean autocompleteOneTile;
-    private boolean autocompleteAdjacentTiles;
+    private final Scene scenePrecedente;
+
+
+    @FXML
+    private CheckBox cochableRemplirCases;
+    @FXML
+    private CheckBox cochableCheminFerme;
+    @FXML
+    private CheckBox cochableAfficherErreur;
+    @FXML
+    private CheckBox cochableCompleteTaille1;
+    @FXML
+    private CheckBox cochableCompleteAdjacence;
+
+    private Parametres parametres;
+
+    private static String cheminSauvegarde = Parametres.getCheminSauvegarde();
     
-    public ParametresController(Stage stage, Scene previousScene) {
+    public ParametresController(Stage stage, Scene scenePrecedente) {
         this.stage = stage;
-        this.previousScene = previousScene;
+        this.scenePrecedente = scenePrecedente;
+        this.parametres = new Parametres();
     }
 
-    public boolean getPathNumbering(){
-        return this.pathNumbering;
-    }
-
-    public boolean getShowErrors(){
-        return this.showErrors;
-    }
-
-    public boolean getAutocompleteOneTile(){
-        return this.autocompleteOneTile;
-    }
-
-    public boolean getautocompleteAdjacentTiles(){
-        return this.autocompleteAdjacentTiles;
-    }
-
-    public void setPathNumbering(boolean pathNumbering){
-        this.pathNumbering = pathNumbering;
-    }
-
-    public void setShowErrors(boolean showErrors){
-        this.showErrors = showErrors;
-    }
-
-    public void setAutoCompleteOneTile(boolean autocompleteOneTile){
-        this.autocompleteOneTile = autocompleteOneTile;
-    }
-
-    public void setAutocompleteAdjacentTiles(boolean autocompleteAdjacentTiles){
-        this.autocompleteAdjacentTiles = autocompleteAdjacentTiles;
-    }
-
+    /**
+     * Serialisation de parametres
+     */
     public void saveParams(){
-        LOGGER.info("Paramtres.JSON: {}", (String)gson.toJson(this));
+        LOGGER.info("Sauvegarde...");
+        try {
+            FileOutputStream fileOut = new FileOutputStream(cheminSauvegarde);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(this.parametres);
+            out.close();
+            fileOut.close();
+            LOGGER.info("Sauvegarde reussie");
+         } catch (IOException err) {
+            err.printStackTrace();
+         }
     }
 
-    public void setDefaultParams(){
-        setPathNumbering(false);
-        setShowErrors(true);
-        setAutoCompleteOneTile(false);
-        setAutocompleteAdjacentTiles(false);
+
+    /**
+     * Deserialisation de parametres, mise à jour du menu de parametres pour cocher ou décocher en conséquence
+     */
+    public void chargerParams(){
+        LOGGER.info("Chargement...");
+        try {
+            FileInputStream fileIn = new FileInputStream(cheminSauvegarde);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            this.parametres = (Parametres) in.readObject();
+            in.close();
+            fileIn.close();
+            LOGGER.info("Chargement réussi.");
+            LOGGER.info(this.parametres.toString());
+        } catch (IOException i) {
+            i.printStackTrace();
+            System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
+            this.parametres.setDefaultParams();
+            this.saveParams();
+            this.chargerParams();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
+            c.printStackTrace();
+            this.parametres.setDefaultParams();
+            return;
+        } 
+        //Remplissage ou non des cochables en conséquence
+        this.cochableRemplirCases.setSelected(this.parametres.getRemplirCases());
+        this.cochableCheminFerme.setSelected(this.parametres.getNumeroteChemin());
+        this.cochableAfficherErreur.setSelected(this.parametres.getAfficheErreurs());
+        this.cochableCompleteTaille1.setSelected(this.parametres.getCompleteTaille1());
+        this.cochableCompleteAdjacence.setSelected(this.parametres.getCompleteCaseAdj());
+         
+         
+         
     }
 
 
     @FXML
-    private void onRemplirBlancAction(ActionEvent event) {
-        LOGGER.info("Bouton Blanc actionné: {}", ((ToggleButton) event.getTarget()).isSelected());
-        
-        saveParams();
-    }
-
-    @FXML
-    private void onRemplirNoirAction(ActionEvent event) {
-        LOGGER.info("Bouton Noir actionné: {}", ((ToggleButton) event.getTarget()).isSelected());
-        
+    private void onRemplirCasesAction(ActionEvent event) {
+        this.parametres.setRemplirCases( ((CheckBox) event.getTarget()).isSelected() );
+        LOGGER.info("Bouton remplissage actionné: {}", this.parametres.getRemplirCases() );
     }
 
     @FXML
     private void onCheminFermeAction(ActionEvent event) {
-        setPathNumbering( ((CheckBox) event.getTarget()).isSelected() );
-        LOGGER.info( "Bouton numerotation chemin actionné: {}", (getPathNumbering()) );
+        this.parametres.setNumeroteChemin( ((CheckBox) event.getTarget()).isSelected() );
+        LOGGER.info( "Bouton numerotation chemin actionné: {}", (this.parametres.getNumeroteChemin()) );
     }
     
     @FXML
     private void onAfficherErreurAction(ActionEvent event) {
-        setShowErrors( ((CheckBox) event.getTarget()).isSelected() );
-        LOGGER.info( "Bouton afficher erreurs actionné: {}", (getShowErrors()) );
+        this.parametres.setAfficheErreurs( ((CheckBox) event.getTarget()).isSelected() );
+        LOGGER.info( "Bouton afficher erreurs actionné: {}", (this.parametres.getAfficheErreurs()) );
     }
 
     @FXML
     private void onCompleteTaille1Action(ActionEvent event) {
-        setAutoCompleteOneTile( ((CheckBox) event.getTarget()).isSelected() );
-        LOGGER.info("Bouton completeter iles taille 1 actionné: {}", (getAutocompleteOneTile()) );
+        this.parametres.setCompleteTaille1( ((CheckBox) event.getTarget()).isSelected() );
+        LOGGER.info("Bouton completeter iles taille 1 actionné: {}", (this.parametres.getCompleteTaille1()) );
     }
 
     @FXML
     private void onCompleteAdjacenceAction(ActionEvent event) {
-        setAutocompleteAdjacentTiles( ((CheckBox) event.getTarget()).isSelected() );
-        LOGGER.info("Bouton completer cases adjacentes actionné: {}", (getautocompleteAdjacentTiles()) );
+        this.parametres.setCompleteCaseAdj( ((CheckBox) event.getTarget()).isSelected() );
+        LOGGER.info("Bouton completer cases adjacentes actionné: {}", (this.parametres.getCompleteCaseAdj()) );
     }
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
         LOGGER.info("Menu Paramètres chargé");
-        //this.getParams();
+        this.chargerParams();
     }
-    /*
-     * Classique: Chrono croissant
-     * aventure: Chrono croissant, influence sur un score
-     * contre la montre: chrono décroissant
+    
+    /**
+     * Méthode privé qui est appelée par le bouton quitter
+     * Elle se charge d'afficher quel bouton à été appelé et de fermer la fenêtre
+     * @param event l'évènement qui à été appelé cette fonction
      */
-    //TODO bouton retour, voir ReglesController
     @FXML
     private void onBackAction(ActionEvent event) {
-        stage.setScene(previousScene);
+        LOGGER.info("Bouton retour actionné");
+        saveParams();
+        stage.setScene(scenePrecedente);
     }
 }
