@@ -1,6 +1,5 @@
 /**
  * Fichier Difficultes.java représentant les trois difficultés proposées par notre jeu
- * @author celui qui a fait la classe doit s'ajouter ici
  */
 
 // Package GitHub

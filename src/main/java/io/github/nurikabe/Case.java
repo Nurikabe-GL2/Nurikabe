@@ -1,6 +1,5 @@
 /**
  * Fichier Case.java contenant la classe Case pour représenter une case de la grille Nurikabe
- * @author Lazare Maclouf
  */
 
 // Package GitHub
@@ -13,56 +12,66 @@ import java.io.*;
 /**
  * Classe abstraite représentant une case
  */
-public abstract class Case implements Serializable{
-    /**
-     * Coordonnée x de la case
-     */
-    int x;
+public abstract class Case implements Serializable {
+   /**
+    * Variable d'instance représentant la coordonnée x de la case
+    */
+   int x;
 
-    /**
-     * Coordonnée y de la case
-     */
+   /**
+    * Variable d'instance représentant la coordonnée y de la case
+    */
    int y;
 
-    /**
-     * Le type de la case
-     */
+   /**
+    * Variable d'instance représentant le type de la case
+    */
    int type;
 
-   //new Button();
+   /**
+    * Constructeur de la classe Case
+    * @param x la coordonnée x de la case
+    * @param y la coordonnée y de la case
+    * @param type le type de la case
+    */
+   public Case(int x, int y, int type) {
+      this.x = x;
+      this.y = y;
+      this.type = type;
+   } 
 
-    /**
-     * Le construteur de la classe Case
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
-     */
-    public Case(int x, int y, int type){
-      this.x=x;
-      this.y=y;
-      this.type=type;
-    } 
-
-    /**
-     * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
-     */
+   /**
+    * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
+    */
    public int recupType() {
       return type;
-    }
+   }
 
-    public int get_x(){
+   /**
+    * Méthode recupX qui permet de récupérer la coordonnée x de la case
+    * @return la coordonnée x de la case
+    */
+   public int recupX() {
       return x;
-    }
+   }
 
-    public int get_y(){
+   /**
+    * Méthode recupY qui permet de récupérer la coordonnée y de la case
+    * @return la coordonnée y de la case
+    */
+   public int recupY() {
       return y;
-    }
+   }
     
-    /**
-     * getter qui renvoie le contenue de la case sous forme de chaine de caractère
-     * @return le contenue de la case
-     */
-    public abstract String get_cont_case();
+   /**
+    * Méthode abstraite recupContenuCase qui renvoie le contenu de la case sous forme de chaîne de caractères
+    * @return le contenu de la case
+    */
+   public abstract String recupContenuCase();
 
-    public abstract void set_etat(int type);
-
+   /**
+    * Méthode abstraite setEtat qui permet de donner le nouvel état à la case
+    * @param type l'état de la case
+    */
+   public abstract void mettreEtat(int type);
 }

@@ -1,63 +1,63 @@
+/**
+ * Fichier Utils.java
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
+// Importation des librairies javaFX
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ * Classe Utils
+ */
 public class Utils {
-    /**
-     * Retourne l'URL de la resource spécifiée, l'URL est relative à la classe donnée en paramètre.
-     *
-     * @param currentClass La classe qui appelle cette méthode
-     * @param url          L'URL de la resource demandée
-     *
-     * @return L'URL de la resource.
-     *
-     * @throws IllegalArgumentException Si la resource n'existe pas
-     */
-    public static URL getResource(Class<?> currentClass, String url) {
-        final URL resource = currentClass.getResource(url);
-        if (resource == null)
-            throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
+   /**
+    * Retourne l'URL de la ressource spécifiée, l'URL est relative à la classe donnée en paramètre
+    * @param currentClass la classe qui appelle cette méthode
+    * @param url l'URL de la ressource demandée
+    * @return l'URL de la ressource
+    * @throws IllegalArgumentException si la ressource n'existe pas
+    */
+   public static URL getResource(Class<?> currentClass, String url) {
+      final URL resource = currentClass.getResource(url);
+      if (resource == null)
+         throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
 
-        return resource;
-    }
+      return resource;
+   }
 
-    public static InputStream getResourceAsStream(Class<?> currentClass, String url) {
-        final var resource = currentClass.getResourceAsStream(url);
-        if (resource == null)
-            throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
+   public static InputStream getResourceAsStream(Class<?> currentClass, String url) {
+      final var resource = currentClass.getResourceAsStream(url);
+      if (resource == null)
+         throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
 
-        return resource;
-    }
+      return resource;
+   }
 
-    /**
-     * Charge le fichier FXML avec le nom donné, avec le contrôleur donné.
-     *
-     * <p>Le fichier devra être dans le package {@code view}.
-     *
-     * @param controller Le contrôleur de cette interface
-     * @param name       Le nom du fichier FXML, sans le {@code .fxml}
-     * @param <T>        Type du contrôleur
-     *
-     * @return Retourne le contrôleur donné en premier paramètre
-     *
-     * @throws IOException Si le chargement de l'interface à une erreur
-     */
-    public static <T extends Parent> T loadFxml(T controller, String name) throws IOException {
-        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
-        loader.setController(controller);
-        loader.setRoot(controller);
-        loader.load();
+   /**
+    * Charge le fichier FXML avec le nom donné, avec le contrôleur donné.
+    * <p>Le fichier devra être dans le package {@code view}.
+    * @param controller le contrôleur de cette interface
+    * @param name le nom du fichier FXML, sans le {@code .fxml}
+    * @param <T> le type du contrôleur
+    * @return retourne le contrôleur donné en premier paramètre
+    * @throws IOException si le chargement de l'interface à une erreur
+    */
+   public static <T extends Parent> T loadFxml(T controller, String name) throws IOException {
+      final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
+      loader.setController(controller);
+      loader.setRoot(controller);
+      loader.load();
+      return controller;
+   }
 
-        return controller;
-    }
-
-    public static FXMLLoader loadFxml_getfxml(String name) throws IOException {
-        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
-        return loader;
-    }
+   public static FXMLLoader loadFxml_getfxml(String name) throws IOException {
+      final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
+      return loader;
+   }
 }

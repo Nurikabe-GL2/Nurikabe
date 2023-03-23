@@ -1,11 +1,11 @@
 /**
- * Fichier Niveau.java représentant les grilles
- * @author celui qui a fait la classe doit s'ajouter ici
+ * Fichier Niveau.java représentant les niveaux
  */
 
 // Package GitHub
 package io.github.nurikabe;
 
+// Importation des librairies javaFX
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,79 +17,96 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Classe Niveau pour représenter une grille
+ * Classe Niveau pour représenter un niveau
  */
-public class Niveau implements Serializable{
-    /**
-     * Variable d'instance qui représente le contenu de la grille sous forme d'une ArrayList
-     */
-    ArrayList<ArrayList<Case>> grille=new ArrayList<ArrayList<Case>>();
-
-    ArrayList<ArrayList<CaseGraphique>> grille_graphique=new ArrayList<ArrayList<CaseGraphique>>();
-    
+public class Niveau implements Serializable {
    /**
-    * Variable d'instance représentant la solution de la grille
+    * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
     */
-   String grille_solution[][];
+   ArrayList<ArrayList<Case>> grille = new ArrayList<ArrayList<Case>>();
+
+   /**
+    * Variable d'instance grilleGraphique qui représente la grille graphique
+    */
+   ArrayList<ArrayList<CaseGraphique>> grilleGraphique = new ArrayList<ArrayList<CaseGraphique>>();
     
    /**
-    * Variable d'instance représentant la largeur de la grille
+    * Variable d'instance grilleSolution représentant la solution de la grille
+    */
+   String grilleSolution[][];
+    
+   /**
+    * Variable d'instance largeur représentant la largeur de la grille
     */
    int largeur;
     
    /**
-    * Variable d'instance représentant la hauteur de la grille
+    * Variable d'instance hauteur représentant la hauteur de la grille
     */
    int hauteur;
 
-    /**
-     * Variable d'instance représentant la grille graphique
-     */
-    GridPane gridpane;
-
-    Sauvegarde sauvegarde;
+   /**
+    * Variable d'instance panneauGrille représentant le panneau de la grille graphique
+    */
+   GridPane panneauGrille;
 
    /**
-    * Variable d'instance représentant la pile servant au bouton Undo
+    * Variable d'instance sauvegarde représentant la sauvegarde de la grille
+    */
+   Sauvegarde sauvegarde;
+
+   /**
+    * Variable d'instance pileUndo représentant la pile servant au bouton Undo
     */
    private Pile pileUndo;
     
    /**
-    * Variable d'instance représentant la pile servant au bouton Redo
+    * Variable d'instance pileRedo représentant la pile servant au bouton Redo
     */
    private Pile pileRedo;
 
-    Stage stage;
+   /**
+    * Variable d'instance stage qui représente le plateau de jeu
+    */
+   Stage stage;
 
-    private String nom_niveau;
+   /**
+    * Variable d'instance nomNiveau qui représente le nom du niveau
+    */
+   private String nomNiveau;
 
-    private String mode_jeu;
+   /**
+    * Variable d'instance modeDeJeu qui représente le mode de jeu
+    */
+   private String mode_jeu;
 
-    Button undoB, redoB;
+   /**
+    * Variables d'instances undoB et redo B
+    */
+   Button undoB, redoB;
 
-    private boolean etat_partie=false;
+   private boolean etat_partie=false;
 
-    /**
-     * Construteur de la classe Niveau
-     * @param nomGrille le nom de la grille
-     */
-    public Niveau(Stage stage, String nom_niveau, String mode){
-        this.stage=stage;
-        this.nom_niveau=nom_niveau;
-        this.mode_jeu=mode;
-        this.sauvegarde=new Sauvegarde();
-        this.gridpane = new GridPane();
-        this.pileUndo = new Pile();
-        this.pileRedo = new Pile();
-        gridpane.getStylesheets().add("/css/Plateau.css");
-        chargerGrille(nom_niveau);
-    }
+   /**
+    * Construteur de la classe Niveau
+    * @param nomGrille le nom de la grille
+    */
+   public Niveau(Stage stage, String nom_niveau, String mode){
+      this.stage=stage;
+      this.nom_niveau=nom_niveau;
+      this.mode_jeu=mode;
+      this.sauvegarde=new Sauvegarde();
+      this.gridpane = new GridPane();
+      this.pileUndo = new Pile();
+      this.pileRedo = new Pile();
+      gridpane.getStylesheets().add("/css/Plateau.css");
+      chargerGrille(nom_niveau);
+   }
 
    /**
     * Méthode chargerGrille qui s'occupe de charger la grille

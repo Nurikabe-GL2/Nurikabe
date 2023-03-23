@@ -1,6 +1,5 @@
 /**
  * Fichier Pile.java représentant une pile pour les coups joués
- * @author celui qui a fait la classe doit s'ajouter ici
  */
 
 // Package GitHub
@@ -12,14 +11,17 @@ import java.util.Stack;
 /**
  * Classe Pile qui permet de manipuler les coups joués
  */
-public class Pile implements Serializable{
+public class Pile implements Serializable {
+   /**
+    * Variable d'instance privée pile qui permet de gérer une pile
+    */
    private final Stack<Coup> pile;
 
    /**
     * Constructeur de la classe Pile
     */
    Pile() {
-        pile = new Stack<>();
+      pile = new Stack<>();
    }
 
    /**
@@ -45,7 +47,7 @@ public class Pile implements Serializable{
     * @return le coup à échanger
     * @throws EmptyStackException si la pile appelée est vide
     */
-   public Coup echangePile(Pile autrePile) throws EmptyStackException{
+   public Coup echangePile(Pile autrePile) throws EmptyStackException {
       Coup coup = new Coup(-1,-1);
       try {
          coup = this.depiler();

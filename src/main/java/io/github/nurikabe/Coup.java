@@ -11,7 +11,7 @@ import java.io.*;
 /**
  * Classe Coup représentant un coup joué servant pour le Undo Redo
  */
-public class Coup implements Serializable{
+public class Coup implements Serializable {
    /**
     * Variable d'instance représentant la coordonnée x d'un coup joué
     */
@@ -50,17 +50,17 @@ public class Coup implements Serializable{
 
    /**
     * Méthode definirX qui permet de définir la coordonnée x
-    * @param new_x la coordonnée x
+    * @param nouveauX la coordonnée x
     */
-   void definirX(int new_x) {
-      this.x = new_x;
+   void definirX(int nouveauX) {
+      this.x = nouveauX;
    }
 
    /**
-    * Méthode definirY qui permet de définir la coordonnée x
-    * @param new_y la coordonnée y
+    * Méthode definirY qui permet de définir la coordonnée y
+    * @param nouveauY la coordonnée y
     */
-   void definirY(int new_y) {
-      this.y = new_y;
+   void definirY(int nouveauY) {
+      this.y = nouveauY;
    }
 }
