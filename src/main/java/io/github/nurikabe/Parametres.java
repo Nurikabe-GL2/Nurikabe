@@ -59,25 +59,26 @@ public class Parametres implements Serializable{
     }
     
     public Parametres getParams(){
+        Parametres params = new Parametres();
         try {
             FileInputStream fileIn = new FileInputStream(cheminSauvegarde);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-             = (Parametres) in.readObject();
+            params = (Parametres) in.readObject();
             in.close();
             fileIn.close();
+            return params;
         } catch (IOException i) {
             i.printStackTrace();
             System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
-            this.parametres.setDefaultParams();
-            this.saveParams();
-            this.chargerParams();
-            return;
+            params.setDefaultParams();
+            return params;
         } catch (ClassNotFoundException c) {
             System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
             c.printStackTrace();
-            this.parametres.setDefaultParams();
-            return;
+            params.setDefaultParams();
+            return params;
         } 
+    }
 
     public void setDefaultParams(){
         setRemplirCases(false);
