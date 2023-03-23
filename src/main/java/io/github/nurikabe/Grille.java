@@ -48,6 +48,11 @@ public class Grille<T> implements Serializable {
     }
 
     private int getIndex(int x, int y) {
+        if (x < 0) throw new IllegalArgumentException("Le X ne peut pas être négatif, x = " + x);
+        if (y < 0) throw new IllegalArgumentException("Le Y ne peut pas être négatif, y = " + y);
+        if (x >= getLargeur()) throw new IllegalArgumentException("Le X ne peut pas être dépasser la largeur, x = " + x + ", largeur = " + getLargeur());
+        if (y >= getHauteur()) throw new IllegalArgumentException("Le Y ne peut pas être dépasser la hauteur, y = " + y + ", hauteur = " + getHauteur());
+
         return x + y * largeur;
     }
 }
