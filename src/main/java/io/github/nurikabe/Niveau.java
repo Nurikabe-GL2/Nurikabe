@@ -6,20 +6,21 @@
 // Package GitHub
 package io.github.nurikabe;
 
-import java.util.ArrayList;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.stage.Modality;
-
-import java.util.Scanner;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent; 
-import javafx.stage.Stage;
-import java.io.*;
-import java.util.*;
-import javafx.scene.text.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Classe Niveau pour représenter une grille
@@ -35,7 +36,7 @@ public class Niveau implements Serializable{
    /**
     * Variable d'instance représentant la solution de la grille
     */
-   String grilleSolution[][];
+   String grille_solution[][];
     
    /**
     * Variable d'instance représentant la largeur de la grille
@@ -84,18 +85,17 @@ public class Niveau implements Serializable{
         this.mode_jeu=mode;
         this.sauvegarde=new Sauvegarde();
         this.gridpane = new GridPane();
-        this.undoStack = new Pile();
-        this.redoStack = new Pile();
+        this.pileUndo = new Pile();
+        this.pileRedo = new Pile();
         gridpane.getStylesheets().add("/css/Plateau.css");
-        charger_grille(nom_niveau);
+        chargerGrille(nom_niveau);
     }
 
    /**
     * Méthode chargerGrille qui s'occupe de charger la grille
     * @param nomGrille le nom de la grille
     */
-   public void chargerGrille(String nomGrille) {
-      int i;
+   public void chargerGrille(String name) {
       try {
         charger_grille_solution(name);
 
@@ -161,8 +161,8 @@ public class Niveau implements Serializable{
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
             sauvegarde.setGrille(grille);
-            sauvegarde.setRedoPile(redoStack);
-            sauvegarde.setUndoPile(undoStack);
+            sauvegarde.setRedoPile(pileRedo);
+            sauvegarde.setUndoPile(pileUndo);
             oos.writeObject(this.sauvegarde);
         } catch (Exception e){
             System.out.println(e);
@@ -187,8 +187,8 @@ public class Niveau implements Serializable{
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
                 sauvegarde=(Sauvegarde)ois.readObject();
                 grille=sauvegarde.get_grille();
-                undoStack=sauvegarde.get_undo_pile();
-                redoStack=sauvegarde.get_redo_pile();
+                pileUndo =sauvegarde.get_undo_pile();
+                pileRedo =sauvegarde.get_redo_pile();
                 System.out.println(this.grille==null);
                 return 1;
             }
@@ -373,7 +373,7 @@ public class Niveau implements Serializable{
       coupPris = aPop.depiler();
       if (coupPris.recupX() != -1) {
          for (i = 0; i < nbClics; i++)
-            grille_graphique.get(coupPris.recupX()).get(coupPris.recupY()).actionClic();
+            grille_graphique.get(coupPris.recupX()).get(coupPris.recupY()).action_clic();
       }
         aPush.empiler(coupPris);
    }
@@ -405,6 +405,6 @@ public class Niveau implements Serializable{
       }
    };public Pile getUndo()
     {
-        return undoStack;
+        return pileUndo;
     }
 }

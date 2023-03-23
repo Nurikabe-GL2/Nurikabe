@@ -1,8 +1,8 @@
 package io.github.nurikabe;
 
-import javafx.scene.layout.*;
-import javafx.scene.shape.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
@@ -36,7 +36,7 @@ public class CaseGraphique {
      */
     public CaseGraphique(int x, int y, int l, int L, Niveau grid){
 
-      this.type=grid.get_case(x, y).get_type();
+      this.type=grid.get_case(x, y).recupType();
       this.grid=grid;
       this.x=x;
       this.y=y;
@@ -47,7 +47,7 @@ public class CaseGraphique {
             System.out.println("cliqued");
             if(grid.get_etat_partie()!=true){
               action_clic();
-              grid.getUndo().push(new Coup(x, y));
+              grid.getUndo().empiler(new Coup(x, y));
               grid.sauvegarder_niveau();
               grid.victoire();
             }

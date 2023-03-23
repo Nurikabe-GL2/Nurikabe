@@ -13,10 +13,10 @@ import javafx.scene.control.Toggle;
 /**
  * Énumération public représentant le mode de jeu
  */
-public enum ModesDeJeu {
-    CLASSIQUE("classique", "classiqueToggle"),
-    AVENTURE("aventure", "aventureToggle"),
-    CONTRE_LA_MONTRE("montre", "montreToggle");
+public enum ModeDeJeu {
+    CLASSIQUE("classique", "classicToggle"), //Ne pas modifier les ID de mode
+    AVENTURE("aventure", "adventureToggle"),
+    CONTRE_LA_MONTRE("montre", "timeToggle");
 
    /**
     * Variable d'instance représentant le nom du mode de jeu
@@ -33,7 +33,7 @@ public enum ModesDeJeu {
     * @param nomMode le nom du mode de jeu à utiliser pendant les sauvegardes
     * @param idMode l'id du mode de jeu {@link Toggle}
     */
-   ModesDeJeu(String nomMode, String idMode) {
+   ModeDeJeu(String nomMode, String idMode) {
       this.nomMode = nomMode;
       this.idMode = idMode;
    }
@@ -60,9 +60,9 @@ public enum ModesDeJeu {
     * @return le mode de jeu
     * @throws IllegalArgumentException exception renvoyé par la méthode en cas d'id incorrect
     */
-   public static ModesDeJeu fromToggle(Toggle toggle) throws IllegalArgumentException {
+   public static ModeDeJeu fromToggle(Toggle toggle) throws IllegalArgumentException {
       final String toggleId = ((Node) toggle).getId();
-      for (ModesDeJeu jeuMode : values()) {
+      for (ModeDeJeu jeuMode : values()) {
          if (jeuMode.idMode.equals(toggleId)) {
             return jeuMode;
          }

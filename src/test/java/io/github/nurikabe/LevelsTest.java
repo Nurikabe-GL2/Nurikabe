@@ -1,6 +1,5 @@
 package io.github.nurikabe;
 
-import io.github.nurikabe.backend.Difficulty;
 import io.github.nurikabe.backend.level.Level;
 import io.github.nurikabe.backend.serialization.SaveContext;
 import io.github.nurikabe.backend.tile.NormalTile;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,7 +23,7 @@ public class LevelsTest {
         assertEquals(6, level.getWidth());
         assertEquals(8, level.getHeight());
         assertEquals("Puzzle 1", level.getName());
-        assertEquals(Difficulty.EASY, level.getDifficulty());
+        assertEquals(Difficulte.EASY, level.getDifficulty());
 
         //Test solution
         checkNormalTile(level.getSolution().get(0, 0), TileColor.WHITE);

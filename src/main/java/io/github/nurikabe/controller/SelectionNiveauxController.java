@@ -1,36 +1,26 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.controller.NiveauController;
-import io.github.nurikabe.NiveauCharger;
-import io.github.nurikabe.FXUtils;
-import io.github.nurikabe.Logging;
-import io.github.nurikabe.Difficulty;
-import io.github.nurikabe.GameMode;
+import io.github.nurikabe.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
-import org.slf4j.helpers.NOPMDCAdapter;
 
-import io.github.nurikabe.Utils;
-import javafx.scene.text.Text;
-import javafx.scene.control.*;
-import javafx.geometry.Pos;
-
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -76,12 +66,12 @@ public class SelectionNiveauxController extends VBox {
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
-    private final ObjectProperty<GameMode> gameModeProperty = new SimpleObjectProperty<>(GameMode.AVENTURE);
+    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
     
     /**
      * variable d'instance privé qui représente la difficulté courante
      */
-    private final ObservableSet<Difficulty> difficulties = FXCollections.observableSet(Difficulty.EASY);
+    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.EASY);
 
     /**
      * Le contructeur de la classe SelectionNiveauxController 
@@ -103,7 +93,7 @@ public class SelectionNiveauxController extends VBox {
         FXUtils.singleItemToggleGroup(gameModeGroup);
         FXUtils.singleItemToggleGroup(difficultyGroup);
 
-        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(GameMode::fromToggle));
+        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
         gameModeProperty.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
@@ -124,9 +114,9 @@ public class SelectionNiveauxController extends VBox {
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
           //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
-            case "easyToggle" -> List.of(Difficulty.EASY);
-            case "mediumToggle" -> List.of(Difficulty.MEDIUM);
-            case "hardToggle" -> List.of(Difficulty.HARD);
+            case "easyToggle" -> List.of(Difficulte.EASY);
+            case "mediumToggle" -> List.of(Difficulte.MEDIUM);
+            case "hardToggle" -> List.of(Difficulte.HARD);
             default -> throw new IllegalStateException("Unexpected value: " + newToggle.getId());
         };
         difficulties.clear();
@@ -140,11 +130,11 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
-        List<Difficulty> liste_difficulte = new ArrayList<>(difficulties);
+        List<Difficulte> liste_difficulte = new ArrayList<>(difficulties);
         
-        if(gameModeProperty.get().getModeName().equals("classic"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
+        if(gameModeProperty.get().recupNomMode().equals("classique"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
 
-        else if(gameModeProperty.get().getModeName().equals("adventure"))charger_mode_aventure();
+        else if(gameModeProperty.get().recupNomMode().equals("aventure"))charger_mode_aventure();
 
         else charger_mode_contreLaMontre();
     }
