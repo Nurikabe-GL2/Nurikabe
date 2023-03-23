@@ -1,18 +1,21 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.Case;
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Niveau;
-import io.github.nurikabe.Utils;
+import io.github.nurikabe.*;
 import io.github.nurikabe.techniques.donnees.DonneesTechnique;
 import io.github.nurikabe.techniques.donnees.DonneesTechniques;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Interface des différentes techniques de jeu
  */
 public abstract class Technique {
+    protected interface Cond {
+        boolean test(Niveau grille, int x, int y);
+    }
+
     private final DonneesTechnique donneesTechnique;
     private Image imageTechnique;
 
@@ -69,6 +72,7 @@ public abstract class Technique {
      * @param grille la grille courante
      * @param x      la coordonnée x
      * @param y      la coordonnée y
+     *
      * @return {@code true} si elle est valide
      */
     protected boolean estValide(Niveau grille, int x, int y) {
@@ -103,5 +107,19 @@ public abstract class Technique {
 
     protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
         return x >= 0 && y >= 0 && y < grille.get_hauteur() && x < grille.get_largeur();
+    }
+
+    /**
+     * Insert un coup à la coordonnée indiquée, uniquement si la condition est remplie.
+     *
+     * @param coups  La liste de coups à remplir
+     * @param grille La grille
+     * @param x      La coordonnée X
+     * @param y      La coordonnée Y
+     * @param cond   La condition à remplir
+     */
+    protected void insertionCond(List<Coup> coups, Niveau grille, int x, int y, Cond cond) {
+        if (cond.test(grille, x, y))
+            coups.add(new Coup(x, y));
     }
 }

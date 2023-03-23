@@ -3,6 +3,7 @@ package io.github.nurikabe.techniques;
 import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IndiceAdjacentsEnDiagonale extends Technique {
@@ -16,28 +17,25 @@ public class IndiceAdjacentsEnDiagonale extends Technique {
         for (int y = 0; y < grille.get_largeur(); y++) {
             for (int x = 0; x < grille.get_hauteur(); x++) {
                 if (estUnNombre(grille, x, y)) {
+                    final List<Coup> coups = new ArrayList<>();
+
                     //Verifier la presence d'une case diagonale
                     if (estUnNombre(grille, x + 1, y + 1)) {
-                        return new PositionTechniques(this, List.of(
-                                new Coup(x, y + 1),
-                                new Coup(x + 1, y)
-                        ));
+                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche);
+                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche);
                     } else if (estUnNombre(grille, x + 1, y - 1)) {
-                        return new PositionTechniques(this, List.of(
-                                new Coup(x, y - 1),
-                                new Coup(x + 1, y)
-                        ));
+                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche);
+                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche);
                     } else if (estUnNombre(grille, x - 1, y + 1)) {
-                        return new PositionTechniques(this, List.of(
-                                new Coup(x, y + 1),
-                                new Coup(x - 1, y)
-                        ));
+                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche);
+                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche);
                     } else if (estUnNombre(grille, x - 1, y - 1)) {
-                        return new PositionTechniques(this, List.of(
-                                new Coup(x - 1, y),
-                                new Coup(x, y - 1)
-                        ));
+                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche);
+                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche);
                     }
+
+                    if (!coups.isEmpty())
+                        return new PositionTechniques(this, coups);
                 }
             }
         }
