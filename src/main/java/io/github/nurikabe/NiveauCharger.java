@@ -15,9 +15,9 @@ public class NiveauCharger{
   private String sauv, nom_niveau;
   private GridPane niveau;
 
-  public NiveauCharger(String sauv, String nom_niveau){
-    this.sauv=sauv;
-    this.nom_niveau=nom_niveau;
+  public NiveauCharger(String nom_niveau, String mode_jeu){
+    this.sauv="src/main/resources/sauvegarde/"+nom_niveau+mode_jeu;
+    this.nom_niveau="src/main/resources/niveaux/"+nom_niveau;
     complete=niveau_complete(sauv);
     niveau=chargerNiveauGrilleMiniature();
   }

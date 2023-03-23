@@ -1,36 +1,26 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.controller.NiveauController;
-import io.github.nurikabe.NiveauCharger;
-import io.github.nurikabe.FXUtils;
-import io.github.nurikabe.Logging;
-import io.github.nurikabe.Difficulty;
-import io.github.nurikabe.GameMode;
+import io.github.nurikabe.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
-import org.slf4j.helpers.NOPMDCAdapter;
 
-import io.github.nurikabe.Utils;
-import javafx.scene.text.Text;
-import javafx.scene.control.*;
-import javafx.geometry.Pos;
-
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -150,8 +140,8 @@ public class SelectionNiveauxController extends VBox {
     }
 
     private String niveauToString(String difficulte, int num){
-        if(num<10)return "src/main/resources/niveaux/"+difficulte+"_"+"0"+num+".txt";
-        else return "src/main/resources/niveaux/"+difficulte+"_"+num+".txt";
+        if(num<10)return difficulte+"_"+"0"+num+".txt";
+        else return difficulte+"_"+num+".txt";
     }
 
     private void charger_mode_classique(String difficulte){
@@ -162,14 +152,14 @@ public class SelectionNiveauxController extends VBox {
 
 
         HBox hniveau=new HBox(3), hbutton;
-        NiveauCharger n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, 1).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, 1));
+        NiveauCharger n=new NiveauCharger(niveauToString(difficulte, 1), gameModeProperty.get().toString());
         hbutton=new HBox(n.get_espace_boutons());
         int indic=0, ligne=0;
 
         puzzlesTilePane.getChildren().clear();
         for(int i=1;i<21;i++){
             
-            n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, i).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, i));
+            n=new NiveauCharger(niveauToString(difficulte, i), gameModeProperty.get().toString());
             if(indic==5){
                 
                 VBox v=new VBox(10);
@@ -196,7 +186,8 @@ public class SelectionNiveauxController extends VBox {
             b.setAlignment(Pos.BOTTOM_LEFT);
             b.setOnMouseClicked(MouseEvent -> {
                 System.out.println();
-                jouer(niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
+                jouer("src/main/resources/niveaux/"+niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
+                refreshLevels();
             });
             indic++;
         }
@@ -217,15 +208,32 @@ public class SelectionNiveauxController extends VBox {
 
         HBox ConteneurBoutons=new HBox(30);
         VBox ConteneurHbox=new VBox(30);
+        NiveauCharger n=new NiveauCharger(niveauToString("moyen", 1), gameModeProperty.get().toString());
         for(int i=1, count=0;i<21;i++, count++){
+
+            n=new NiveauCharger(niveauToString("moyen", i), gameModeProperty.get().toString());
             if(count==6){
                 ConteneurHbox.getChildren().add(ConteneurBoutons);
                 ConteneurBoutons=new HBox(30);
                 count=0;
             }
-            Button bouton=new Button("NIVEAU "+i);
+            Button bouton;
+            
+            if(n.get_complete()){
+                bouton=new Button("COMPLETE ");
+                bouton.setStyle("-fx-background-color: BLACK");
+            }
+            
+            else {
+                bouton=new Button("NIVEAU "+i);
+                bouton.setStyle("-fx-background-color: GREY");
+            }
             bouton.setPrefSize(100, 100);
-            bouton.setStyle("-fx-background-color: GREY");
+            bouton.setOnMouseClicked(MouseEvent -> {
+                System.out.println();
+                jouer("src/main/resources/niveaux/"+niveauToString("moyen", Integer.parseInt(bouton.getText().substring(7))));
+                refreshLevels(); 
+            });
             ConteneurBoutons.getChildren().add(bouton);
         }
         /*A FAIRE */
@@ -260,7 +268,7 @@ public class SelectionNiveauxController extends VBox {
         try{
             NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString());
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
 
         }
     }
