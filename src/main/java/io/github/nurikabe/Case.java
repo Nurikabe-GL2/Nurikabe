@@ -8,61 +8,61 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 import javafx.scene.layout.*;
+import java.io.*;
 
 /**
  * Classe abstraite représentant une case
  */
-public abstract class Case {
-   /**
-    * Coordonnée x de la case
-    */
-   int x;
+public abstract class Case implements Serializable{
+    /**
+     * Coordonnée x de la case
+     */
+    int x;
 
-   /**
-    * Coordonnée y de la case
-    */
+    /**
+     * Coordonnée y de la case
+     */
    int y;
 
-   /**
-    * Le type de la case
-    */
+    /**
+     * Le type de la case
+     */
    int type;
 
    //new Button();
 
-   /**
-    * Construteur de la classe Case
-    * @param x la coordonnée x de la case
-    * @param y la coordonnée y de la case
-    * @param type le type de la case (soit noire, soit blanche, soit un chiffre)
-    */
-   public Case(int x, int y, int type) {
-      this.x = x;
-      this.y = y;
-      this.type = type;
-   } 
+    /**
+     * Le construteur de la classe Case
+     * @param x la coordonnée x de la case
+     * @param y la coordonnée y de la case
+     */
+    public Case(int x, int y, int type){
+      this.x=x;
+      this.y=y;
+      this.type=type;
+    } 
 
-   /**
-    * Méthode abstraite qui définit la réaction de la case quand on clique dessus
-    * @param b False si la case est normale, True si la case est un nombre
-    */
-   public abstract void actionClic(boolean b);
     /**
      * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
      */
    public int recupType() {
       return type;
-   }
+    }
+
+    public int get_x(){
+      return x;
+    }
+
+    public int get_y(){
+      return y;
+    }
     
-   /**
-    * Méthode recupCase qui renvoie le contenu de la case sous forme de chaine de caractère
-    * @return le contenu de la case
-    */
-   public abstract String recupCase();
-    
-   /**
-    * Méthode recupPanneau qui renvoie le panneau de la case
-    * @return le panneau de la case
-    */
-   public abstract StackPane recupPanneau();
+    /**
+     * getter qui renvoie le contenue de la case sous forme de chaine de caractère
+     * @return le contenue de la case
+     */
+    public abstract String get_cont_case();
+
+    public abstract void set_etat(int type);
+
 }

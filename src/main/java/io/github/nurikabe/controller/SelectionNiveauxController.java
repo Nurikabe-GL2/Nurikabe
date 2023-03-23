@@ -1,5 +1,7 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.controller.NiveauController;
+import io.github.nurikabe.NiveauCharger;
 import io.github.nurikabe.FXUtils;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Difficulty;
@@ -14,12 +16,21 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
+import org.slf4j.helpers.NOPMDCAdapter;
 
-import java.util.Arrays;
-import java.util.List;
+import io.github.nurikabe.Utils;
+import javafx.scene.text.Text;
+import javafx.scene.control.*;
+import javafx.geometry.Pos;
+
+import java.util.*;
+import java.io.*;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -59,6 +70,9 @@ public class SelectionNiveauxController extends VBox {
     @FXML
     private TilePane puzzlesTilePane;
 
+    @FXML
+    private ToggleButton easyToggle, mediumToggle, hardToggle;
+
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
@@ -80,9 +94,8 @@ public class SelectionNiveauxController extends VBox {
     }
 
     /**
-     * Méthode privé qui est appelé quand le controller est chargé
-     * Elle s'occupe ... euh Bordel j'en sais foutrement rien je la comprend pas trop désolé les gars
-     * Elle à l'air de s'occuper d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
+     * Méthode privée qui est appelée quand le controller est chargé
+     * Elle s'occupe d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
      * de mettre à jour la difficulté des niveau et de rafraichir les niveaux
      */
     @FXML
@@ -94,8 +107,10 @@ public class SelectionNiveauxController extends VBox {
         gameModeProperty.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
+          
             setNewDifficulties((Node) newToggle);
             refreshLevels();
+            System.out.println(difficultyGroup.getSelectedToggle());
         });
 
         //Ajout des niveaux
@@ -108,7 +123,7 @@ public class SelectionNiveauxController extends VBox {
      */
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
-            case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
+          //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
             case "easyToggle" -> List.of(Difficulty.EASY);
             case "mediumToggle" -> List.of(Difficulty.MEDIUM);
             case "hardToggle" -> List.of(Difficulty.HARD);
@@ -125,8 +140,98 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
-        puzzlesTilePane.getChildren().addAll(/* TODO */);
+        List<Difficulty> liste_difficulte = new ArrayList<>(difficulties);
+        
+        if(gameModeProperty.get().getModeName().equals("classic"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
+
+        else if(gameModeProperty.get().getModeName().equals("adventure"))charger_mode_aventure();
+
+        else charger_mode_contreLaMontre();
     }
+
+    private String niveauToString(String difficulte, int num){
+        if(num<10)return "src/main/resources/niveaux/"+difficulte+"_"+"0"+num+".txt";
+        else return "src/main/resources/niveaux/"+difficulte+"_"+num+".txt";
+    }
+
+    private void charger_mode_classique(String difficulte){
+      
+        easyToggle.setDisable(false);
+        mediumToggle.setDisable(false);
+        hardToggle.setDisable(false);
+
+
+        HBox hniveau=new HBox(3), hbutton;
+        NiveauCharger n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, 1).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, 1));
+        hbutton=new HBox(n.get_espace_boutons());
+        int indic=0, ligne=0;
+
+        puzzlesTilePane.getChildren().clear();
+        for(int i=1;i<21;i++){
+            
+            n=new NiveauCharger("src/main/resources/sauvegarde/"+niveauToString(difficulte, i).substring(27)+gameModeProperty.get().toString(), niveauToString(difficulte, i));
+            if(indic==5){
+                
+                VBox v=new VBox(10);
+                v.getChildren().add(hniveau);
+                v.getChildren().add(hbutton);
+                puzzlesTilePane.getChildren().add(v);
+                hniveau=new HBox(3);
+                hbutton=new HBox(n.get_espace_boutons()); 
+                indic=0;
+            
+            }
+            
+            
+            hniveau.getChildren().add(n.get_gridpane());
+            Button b;
+            if(n.get_complete()){
+                b=new Button("COMPLETE ");
+                b.setStyle("-fx-background-color: BLACK");
+            }
+
+            else b=new Button("NIVEAU "+i);
+            
+            hbutton.getChildren().add(b);
+            b.setAlignment(Pos.BOTTOM_LEFT);
+            b.setOnMouseClicked(MouseEvent -> {
+                System.out.println();
+                jouer(niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
+            });
+            indic++;
+        }
+
+        VBox v=new VBox(10);
+        v.getChildren().add(hniveau);
+        v.getChildren().add(hbutton);
+        puzzlesTilePane.getChildren().add(v);
+
+    }
+
+    private void charger_mode_aventure(){
+      
+        easyToggle.setDisable(true);
+        mediumToggle.setDisable(true);
+        hardToggle.setDisable(true);
+        puzzlesTilePane.getChildren().clear();
+
+        /*A FAIRE */
+
+        stage.show();
+    }
+
+    private void charger_mode_contreLaMontre(){
+      
+        easyToggle.setDisable(true);
+        mediumToggle.setDisable(true);
+        hardToggle.setDisable(true);
+        puzzlesTilePane.getChildren().clear();
+
+        /*A FAIRE */
+
+        stage.show();
+    }
+
     
     /**
      * Méthode privé qui est appelé quand le bouton retour est cliqué
@@ -138,13 +243,12 @@ public class SelectionNiveauxController extends VBox {
         stage.setScene(scenePrecedente);
     }
 
-    /**
-     * Méthode qui est appelé quand on clique sur la grille du niveau1 
-     * elle appele le controller du plateau qui va chargé la grille 
-     * @param event l'évènement qui a activé la méthode ici le clique
-     */
-    @FXML
-    private void niveau1(ActionEvent event) {
-       PlateauController p=new PlateauController(stage);
+    private void jouer(String nom_niveau) {
+        try{
+            NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString());
+        }catch(Exception e){
+            System.out.println(e);
+
+        }
     }
 }

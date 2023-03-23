@@ -6,10 +6,12 @@
 // Package GitHub
 package io.github.nurikabe;
 
+import java.io.*;
+
 /**
  * Classe Coup représentant un coup joué servant pour le Undo Redo
  */
-public class Coup {
+public class Coup implements Serializable{
    /**
     * Variable d'instance représentant la coordonnée x d'un coup joué
     */

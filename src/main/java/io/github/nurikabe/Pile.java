@@ -5,15 +5,14 @@
 
 // Package GitHub
 package io.github.nurikabe;
-
-// Importation des librairies javaFX
+import java.io.Serializable;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
  * Classe Pile qui permet de manipuler les coups joués
  */
-public class Pile {
+public class Pile implements Serializable{
    private final Stack<Coup> pile;
 
    /**
@@ -43,7 +42,7 @@ public class Pile {
     * Méthode echangePile pour échanger un coup entre 2 piles et renvoie le coup en question
     * La pile appelée aura son premier coup retiré pour l'insérer dans la pile passée en paramètre
     * @param autrePile la pile où empiler le coup
-    * @return le coup à échanger 
+    * @return le coup à échanger
     * @throws EmptyStackException si la pile appelée est vide
     */
    public Coup echangePile(Pile autrePile) throws EmptyStackException{

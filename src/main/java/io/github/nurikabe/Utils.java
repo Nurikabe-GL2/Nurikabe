@@ -55,4 +55,9 @@ public class Utils {
 
         return controller;
     }
+
+    public static FXMLLoader loadFxml_getfxml(String name) throws IOException {
+        final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
+        return loader;
+    }
 }
