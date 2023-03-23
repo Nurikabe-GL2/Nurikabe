@@ -36,7 +36,7 @@ public class Grille<T> implements Serializable {
     * @return la grille avec ses coordonnées
     */
    @NotNull
-   public T recupCoordGrille(int x, int y) {
+   public T recup(int x, int y) {
       return (T) grille[recupIndex(x, y)];
    }
 
@@ -46,7 +46,7 @@ public class Grille<T> implements Serializable {
     * @param y l'index y de la grille
     * @param uneGrille une autre grille
     */
-   public void mettreCoordGrille(int x, int y, @NotNull T uneGrille) {
+   public void mettre(int x, int y, @NotNull T uneGrille) {
       grille[recupIndex(x, y)] = uneGrille;
    }
 
@@ -76,7 +76,7 @@ public class Grille<T> implements Serializable {
       final StringBuilder builder = new StringBuilder();
       for (y = 0; y < hauteur; y++) {
          for (x = 0; x < largeur; x++) {
-            builder.append(recupCoordGrille(x, y));
+            builder.append(recup(x, y));
          }
          builder.append('\n');
       }

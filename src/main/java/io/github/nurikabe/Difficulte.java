@@ -8,7 +8,7 @@ package io.github.nurikabe;
 /**
  * Classe de type Enum représentant les différentes difficultés du jeu
  */
-public enum Difficultes {
+public enum Difficulte {
    FACILE("Facile"),
    MOYEN("Moyen"),
    DIFFICILE("Difficile");
@@ -22,15 +22,15 @@ public enum Difficultes {
     * Constructeur de la difficulté
     * @param nomDiff le nom d'affichage de la difficulté
     */
-   Difficultes(String nomDiff) {
+   Difficulte(String nomDiff) {
       this.nomDiff = nomDiff;
    }
 
    /**
-    * Méthode recupNomDiff qui renvoie le nom de la difficulté actuelle
+    * Méthode recupNomDifficulte qui renvoie le nom de la difficulté actuelle
     * @return le nom de la difficulté
     */
-   public String recupNomDiff() {
+   public String recupNomDifficulte() {
       return nomDiff;
    }
 }

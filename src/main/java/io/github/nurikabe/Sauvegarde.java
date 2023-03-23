@@ -59,10 +59,6 @@ public class Sauvegarde implements Serializable{
     }
 
 
-    public Pile mettrePileUndo(){
-        return pileUndo;
-    }
-
     public Pile mettrePileRedo(){
         return pileRedo;
     }

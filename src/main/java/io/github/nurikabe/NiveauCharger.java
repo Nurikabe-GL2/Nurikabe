@@ -30,30 +30,30 @@ public class NiveauCharger{
         gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
         //grille_solution=new String[largeur][hauteur];
         Grille<String> temp=Niveau.charger_grille_solution_statique(nom_niveau);
-        espace_boutons=temp.getLargeur()*9;
+        espace_boutons=temp.recupLargeur()*9;
 
-        for (int y = 0; y < temp.getHauteur(); y++) {
+        for (int y = 0; y < temp.recupHauteur(); y++) {
                 
-            for (int x = 0; x < temp.getLargeur(); x++) {
+            for (int x = 0; x < temp.recupLargeur(); x++) {
 
                         StackPane p=new StackPane();
                         p.setPrefSize(20,20);
                         if(complete==0){
-                         if(temp.get(x, y).equals("b")||temp.get(x, y).equals("n"))p.getStyleClass().add("caseblanche");
+                         if(temp.recup(x, y).equals("b")||temp.recup(x, y).equals("n"))p.getStyleClass().add("caseblanche");
                         }
 
-                        else if(temp.get(x, y).equals("n")){
+                        else if(temp.recup(x, y).equals("n")){
                           //p.getStyleClass().add("caseblanche");
                           p.getStyleClass().add("casenoire");
                         }
 
-                        else if(temp.get(x, y).equals("b")){
+                        else if(temp.recup(x, y).equals("b")){
                           p.getStyleClass().add("caseblanche");
                          }
 
-                        if(temp.get(x, y).equals("b")==false&&temp.get(x, y).equals("n")==false){
+                        if(temp.recup(x, y).equals("b")==false&&temp.recup(x, y).equals("n")==false){
                           p.getStyleClass().add("caseblanche");
-                            Text nb = new Text(temp.get(x, y));
+                            Text nb = new Text(temp.recup(x, y));
                             p.getChildren().add(nb); 
                         }
 

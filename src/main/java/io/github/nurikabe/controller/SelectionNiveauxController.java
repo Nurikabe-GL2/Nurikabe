@@ -71,7 +71,7 @@ public class SelectionNiveauxController extends VBox {
     /**
      * variable d'instance privé qui représente la difficulté courante
      */
-    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.EASY);
+    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
 
     /**
      * Le contructeur de la classe SelectionNiveauxController 
@@ -114,9 +114,9 @@ public class SelectionNiveauxController extends VBox {
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
           //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
-            case "easyToggle" -> List.of(Difficulte.EASY);
-            case "mediumToggle" -> List.of(Difficulte.MEDIUM);
-            case "hardToggle" -> List.of(Difficulte.HARD);
+            case "easyToggle" -> List.of(Difficulte.FACILE);
+            case "mediumToggle" -> List.of(Difficulte.MOYEN);
+            case "hardToggle" -> List.of(Difficulte.DIFFICILE);
             default -> throw new IllegalStateException("Unexpected value: " + newToggle.getId());
         };
         difficulties.clear();
@@ -132,7 +132,7 @@ public class SelectionNiveauxController extends VBox {
 
         List<Difficulte> liste_difficulte = new ArrayList<>(difficulties);
         
-        if(gameModeProperty.get().recupNomMode().equals("classique"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
+        if(gameModeProperty.get().recupNomMode().equals("classique"))charger_mode_classique(liste_difficulte.get(0).recupNomDifficulte());
 
         else if(gameModeProperty.get().recupNomMode().equals("aventure"))charger_mode_aventure();
 

@@ -46,7 +46,7 @@ public class CaseGraphique {
     * @param y la coordonnée y de la case
     * @param l la longeur de la case 
     * @param L la largeur de la case 
-    * @param grid la grille de la case
+    * @param grille la grille de la case
     */
    public CaseGraphique(int x, int y, int l, int L, Niveau grille) {
       this.type = grille.recupCase(x, y).recupType();
@@ -109,7 +109,7 @@ public class CaseGraphique {
          panneau.getStyleClass().add(0, "casenoire");
          type = -1;
       }
-      grille.recupCase(x, y).recupEtat(this.type);
+      grille.recupCase(x, y).mettreEtat(this.type);
    }
 
    /**

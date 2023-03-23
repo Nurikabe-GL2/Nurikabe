@@ -6,7 +6,6 @@
 package io.github.nurikabe;
 
 // Importation des librairies javaFX
-import javafx.scene.layout.*;
 import java.io.*;
 
 /**
