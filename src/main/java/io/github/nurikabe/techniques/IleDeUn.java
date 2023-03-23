@@ -40,7 +40,7 @@ public class IleDeUn extends Technique {
                     if(estValide(grille,x,y+1))
                         liste.add(new Coup(x, y+1));
                     if(!liste.isEmpty())
-                        return new PositionTechniques(liste);
+                        return new PositionTechniques(this, liste);
                 }
             }   
         }

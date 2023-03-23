@@ -52,7 +52,7 @@ public class IleExtensibleDansDeuxDirections extends Technique  {
                         liste.add(new Coup(x,y));
                     		
 					if(!liste.isEmpty())
-                        			return new PositionTechniques(liste);
+                        			return new PositionTechniques(this, liste);
                 }
             }
         

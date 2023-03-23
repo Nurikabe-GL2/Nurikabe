@@ -8,13 +8,30 @@ import java.util.List;
  * Classe représentant une liste de position donnée par la ou les techniques applicables
  */
 public class PositionTechniques {
-    List<Coup> coups;
+    private final Technique technique;
+    private final List<Coup> coups;
+
     /**
-     * Le constructeur de la classe PositionTechniques 
-     * @param coups la liste des coordonnées des techniques applicables
+     * Le constructeur de la classe PositionTechniques
+     *
+     * @param technique la technique applicable
+     * @param coups     la liste des coordonnées des techniques applicables
      */
-    PositionTechniques(List<Coup> coups)
-    {
+    PositionTechniques(Technique technique, List<Coup> coups) {
+        this.technique = technique;
         this.coups = coups;
+    }
+
+    public Technique getTechnique() {
+        return technique;
+    }
+
+    public List<Coup> getCoups() {
+        return coups;
+    }
+
+    @Override
+    public String toString() {
+        return technique.toString();
     }
 }

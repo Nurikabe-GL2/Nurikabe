@@ -18,22 +18,22 @@ public class IndiceAdjacentsEnDiagonale extends Technique {
                 if (estUnNombre(grille, x, y)) {
                     //Verifier la presence d'une case diagonale
                     if (estUnNombre(grille, x + 1, y + 1)) {
-                        return new PositionTechniques(List.of(
+                        return new PositionTechniques(this, List.of(
                                 new Coup(x, y + 1),
                                 new Coup(x + 1, y)
                         ));
                     } else if (estUnNombre(grille, x + 1, y - 1)) {
-                        return new PositionTechniques(List.of(
+                        return new PositionTechniques(this, List.of(
                                 new Coup(x, y - 1),
                                 new Coup(x + 1, y)
                         ));
                     } else if (estUnNombre(grille, x - 1, y + 1)) {
-                        return new PositionTechniques(List.of(
+                        return new PositionTechniques(this, List.of(
                                 new Coup(x, y + 1),
                                 new Coup(x - 1, y)
                         ));
                     } else if (estUnNombre(grille, x - 1, y - 1)) {
-                        return new PositionTechniques(List.of(
+                        return new PositionTechniques(this, List.of(
                                 new Coup(x - 1, y),
                                 new Coup(x, y - 1)
                         ));

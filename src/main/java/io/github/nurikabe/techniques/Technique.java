@@ -49,6 +49,11 @@ public abstract class Technique {
     @Nullable
     public abstract PositionTechniques tester(Niveau grille);
 
+    @Override
+    public String toString() {
+        return "Technique '%s' (%s)".formatted(getNom(), getIdentifiant());
+    }
+
     /**
      * Retourne l'identifiant de la technique.
      *

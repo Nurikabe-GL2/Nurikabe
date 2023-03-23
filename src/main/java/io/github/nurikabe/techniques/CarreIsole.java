@@ -48,7 +48,7 @@ public class CarreIsole extends Technique  {
                     		}
                     		
 					if(!liste.isEmpty())
-                        			return new PositionTechniques(liste);
+                        			return new PositionTechniques(this, liste);
                     	}
                     }
                 }

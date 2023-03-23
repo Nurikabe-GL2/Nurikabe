@@ -42,7 +42,7 @@ public class IndicesSeparerParCaseBlanche extends Technique {
                     if(estValideCaseNombreEspace(grille,x,y+2))
                         liste.add(new Coup(x, y+1));
                     if(!liste.isEmpty())
-                        return new PositionTechniques(liste);
+                        return new PositionTechniques(this, liste);
                 }
             }   
         }
