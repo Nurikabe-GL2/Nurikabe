@@ -25,22 +25,22 @@ public class IndicesSeparerParCaseBlanche extends Technique {
     public PositionTechniques tester(Niveau grille)
     {
         
-        for(int i=0;i<grille.get_hauteur();i++)
+        for(int x=0;x<grille.get_largeur();x++)
         {
-            for(int j=0;j<grille.get_largeur();j++)
+            for(int y=0;y<grille.get_hauteur();y++)
             {
-                if(grille.get_case(i, j) instanceof CaseNombre)
+                if(grille.get_case(x, y) instanceof CaseNombre)
                 {
                     List<Coup> liste = new ArrayList<>();
 
-                    if(estValideCaseNombreEspace(grille,i-2,j))
-                        liste.add(new Coup(i-1, j));
-                    if(estValideCaseNombreEspace(grille,i+2,j))
-                        liste.add(new Coup(i+1, j));
-                    if(estValideCaseNombreEspace(grille,i,j-2))
-                        liste.add(new Coup(i, j-1));
-                    if(estValideCaseNombreEspace(grille,i,j+2))
-                        liste.add(new Coup(i, j+1));
+                    if(estValideCaseNombreEspace(grille,x-2,y))
+                        liste.add(new Coup(x-1, y));
+                    if(estValideCaseNombreEspace(grille,x+2,y))
+                        liste.add(new Coup(x+1, y));
+                    if(estValideCaseNombreEspace(grille,x,y-2))
+                        liste.add(new Coup(x, y-1));
+                    if(estValideCaseNombreEspace(grille,x,y+2))
+                        liste.add(new Coup(x, y+1));
                     if(!liste.isEmpty())
                         return new PositionTechniques(liste);
                 }

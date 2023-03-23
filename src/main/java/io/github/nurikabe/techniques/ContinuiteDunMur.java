@@ -22,34 +22,34 @@ public class ContinuiteDunMur extends Technique {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        for(int i=0;i<grille.get_hauteur();i++)
+        for(int x=0;x<grille.get_largeur();x++)
         {
-            for(int j=0;j<grille.get_largeur();j++)
+            for(int y=0;y<grille.get_hauteur();y++)
             {
                 int cpt = 0;
-                if(grille.get_case(i, j) instanceof CaseNormale)
+                if(grille.get_case(x, y) instanceof CaseNormale)
                 {
                     List<Coup> liste = new ArrayList<>();
                     
 		            //test si la case de gauche de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i-1,j)&& grille.get_case(i - 1, j).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x-1,y)&& grille.get_case(x - 1, y).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case de droite de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i+1,j)&& grille.get_case(i + 1, j).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x+1,y)&& grille.get_case(x + 1, y).get_cont_case().equals("n"))
                         cpt++;
                     
                         //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i,j-1)&& grille.get_case(i, j - 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x,y-1)&& grille.get_case(x, y - 1).get_cont_case().equals("n"))
                         cpt++;
 
                     //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,i,j+1)&& grille.get_case(i, j + 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x,y+1)&& grille.get_case(x, y + 1).get_cont_case().equals("n"))
                         cpt++;
                     
                     //si elle possède éxactement 2 murs comme voisins alors la technique est valide pour cette case
                     if(cpt==2)
-                        liste.add(new Coup(i,j));   
+                        liste.add(new Coup(x,y));
                     		
 					if(!liste.isEmpty())
                         			return new PositionTechniques(liste);

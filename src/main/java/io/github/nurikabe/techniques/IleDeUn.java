@@ -23,22 +23,22 @@ public class IleDeUn extends Technique {
     public PositionTechniques tester(Niveau grille)
     {
         
-        for(int i=0;i<grille.get_hauteur();i++)
+        for(int x=0;x<grille.get_largeur();x++)
         {
-            for(int j=0;j<grille.get_largeur();j++)
+            for(int y=0;y<grille.get_hauteur();y++)
             {
-                if(grille.etat_case(i, j).equals("1"))
+                if(grille.etat_case(x, y).equals("1"))
                 {
                     List<Coup> liste = new ArrayList<>();
 
-                    if(estValide(grille,i-1,j))
-                        liste.add(new Coup(i-1, j));
-                    if(estValide(grille,i+1,j))
-                        liste.add(new Coup(i+1, j));
-                    if(estValide(grille,i,j-1))
-                        liste.add(new Coup(i, j-1));
-                    if(estValide(grille,i,j+1))
-                        liste.add(new Coup(i, j+1));
+                    if(estValide(grille,x-1,y))
+                        liste.add(new Coup(x-1, y));
+                    if(estValide(grille,x+1,y))
+                        liste.add(new Coup(x+1, y));
+                    if(estValide(grille,x,y-1))
+                        liste.add(new Coup(x, y-1));
+                    if(estValide(grille,x,y+1))
+                        liste.add(new Coup(x, y+1));
                     if(!liste.isEmpty())
                         return new PositionTechniques(liste);
                 }

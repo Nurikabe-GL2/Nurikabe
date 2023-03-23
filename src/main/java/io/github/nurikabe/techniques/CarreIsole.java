@@ -25,25 +25,25 @@ public class CarreIsole extends Technique  {
     public PositionTechniques tester(Niveau grille)
     {
         
-        for(int i=0;i<grille.get_hauteur();i++)
+        for(int i=0;i<grille.get_largeur();i++)
         {
-            for(int j=0;j<grille.get_largeur();j++)
+            for(int j=0;j<grille.get_hauteur();j++)
             {
                 if(grille.get_case(i, j) instanceof CaseNormale && grille.get_case(i, j).get_cont_case().equals("b"))
                 {
                     List<Coup> liste = new ArrayList<>();
 
 		//test si la case de gauche de la case courante est valide ou que c'est une case noir
-                    if(estCoordonneeValide(grille,i-1,j)|| grille.get_case(i - 1, j).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,i-1,j) && grille.get_case(i - 1, j).get_cont_case().equals("n"))
                     {
                     	//test si la case de droite de la case courante est valide ou que c'est une case noir
-                    	if(estCoordonneeValide(grille,i+1,j)|| grille.get_case(i + 1, j).get_cont_case().equals("n"))
+                    	if(estCoordonneeValide(grille,i+1,j) && grille.get_case(i + 1, j).get_cont_case().equals("n"))
                     	{
                     		//test si la case en bas de la case courante est valide ou que c'est une case noir
-                    		if(estCoordonneeValide(grille,i,j-1)|| grille.get_case(i, j - 1).get_cont_case().equals("n"))
+                    		if(estCoordonneeValide(grille,i,j-1) && grille.get_case(i, j - 1).get_cont_case().equals("n"))
                     		{
                     			//test si la case en bas de la case courante est valide ou que c'est une case noir
-                    			if(estCoordonneeValide(grille,i,j+1)|| grille.get_case(i, j + 1).get_cont_case().equals("n"))
+                    			if(estCoordonneeValide(grille,i,j+1) && grille.get_case(i, j + 1).get_cont_case().equals("n"))
                     				liste.add(new Coup(i,j));
                     		}
                     		
