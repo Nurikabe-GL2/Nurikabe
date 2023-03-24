@@ -435,4 +435,22 @@ public class Niveau implements Serializable {
     public Pile recupUndo() {
         return pileUndo;
     }
+
+    /**
+     * Calcule le nombre d'erreurs et le renvoie
+     *
+     * @return le nombre d'erreurs
+     */
+    public int verifier() {
+        int erreurs = 0;
+        for (int x = 0; x < grille.recupLargeur(); x++) {
+            for (int y = 0; y < grille.recupHauteur(); y++) {
+                if (!grille.recup(x, y).recupContenuCase().equals(grilleSolution.recup(x, y))) {
+                    erreurs++;
+                }
+            }
+        }
+
+        return erreurs;
+    }
 }

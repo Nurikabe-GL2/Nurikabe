@@ -197,18 +197,21 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Pane HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button layoutY="1.0" mnemonicParsing="false" styleClass="gameButton" text="Vérifier">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../img/help.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children></Pane>
+                        <Button mnemonicParsing="false" onAction="#onVerifierAction" styleClass="gameButton" text="Vérifier">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="labelErreurs" text="0 erreurs" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Pane HBox.hgrow="ALWAYS" />
                         <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
