@@ -25,9 +25,9 @@ public class IndicesSeparerParCaseBlanche extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int x = 0; x < grille.get_largeur(); x++) {
+        for (int x = 0; x < grille.recupLargeur(); x++) {
             for (int y = 0; y < grille.get_hauteur(); y++) {
-                if (grille.get_case(x, y) instanceof CaseNombre) {
+                if (grille.recupCase(x, y) instanceof CaseNombre) {
                     List<Coup> liste = new ArrayList<>();
 
                     if (estValideCaseNombreEspace(grille, x - 2, y) && estCaseBlanche(grille, x - 1, y))

@@ -391,24 +391,9 @@ public class Niveau implements Serializable {
         }
     };
 
-    /**
-     * Le handler associé au bouton reset
-     */
-    public EventHandler<MouseEvent> handlerReset = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            LOGGER.info("reset cliqué");
-            //charger_grille(get_niveau(nom_niveau));
-            resetB.setStyle("-fx-background-color: #00008B");
-        }
-    };
-
     public EventHandler<MouseEvent> handlerAide = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
-            LOGGER.info("aide cliqué");
-            aideB.setStyle("-fx-background-color: #00008B");
-
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(Niveau.this);
             System.out.println(positionTechniques);
             

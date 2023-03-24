@@ -24,45 +24,45 @@ public class EviterZoneMur extends Technique  {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        for(int x=0;x<grille.get_largeur();x++)
+        for(int x=0;x<grille.recupLargeur();x++)
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {
                 int cpt = 0;
-                if(grille.get_case(x, y) instanceof CaseNormale && grille.get_case(x, y).get_cont_case().equals("b"))
+                if(grille.recupCase(x, y) instanceof CaseNormale && grille.recupCase(x, y).recupContenuCase().equals("b"))
                 {
                     List<Coup> liste = new ArrayList<>();
                     
 		            //test si la case de gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x-1,y)&& grille.get_case(x - 1, y).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("n"))
                         cpt++;
                     
                         //test si la case de droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x+1,y)&& grille.get_case(x + 1, y).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("n"))
                         cpt++;
                     
                         //test si la case en bas de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x,y-1)&& grille.get_case(x, y - 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("n"))
                         cpt++;
 
                     //test si la case en bas de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x,y+1)&& grille.get_case(x, y + 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("n"))
                         cpt++;
                     
                     //test si la case en haut à gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x-1,y-1)&& grille.get_case(x - 1, y - 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x-1,y-1)&& grille.recupCase(x - 1, y - 1).recupContenuCase().equals("n"))
                         cpt++;
                     
                         //test si la case en haut à droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x+1,y-1)&& grille.get_case(x + 1, y - 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x+1,y-1)&& grille.recupCase(x + 1, y - 1).recupContenuCase().equals("n"))
                         cpt++;
                     
                         //test si la case en bas à gauche de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x-1,y+1)&& grille.get_case(x - 1, y + 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x-1,y+1)&& grille.recupCase(x - 1, y + 1).recupContenuCase().equals("n"))
                         cpt++;
                         
                     //test si la case en bas à droite de la case courante est valide et que c'est une case noir
-                    if(estCoordonneeValide(grille,x+1,y+1)&& grille.get_case(x + 1, y + 1).get_cont_case().equals("n"))
+                    if(estCoordonneeValide(grille,x+1,y+1)&& grille.recupCase(x + 1, y + 1).recupContenuCase().equals("n"))
                         cpt++;
                 
                     if(cpt>=3)

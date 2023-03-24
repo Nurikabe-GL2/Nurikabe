@@ -23,7 +23,7 @@ public class IleDeUn extends Technique {
     public PositionTechniques tester(Niveau grille)
     {
         
-        for(int x=0;x<grille.get_largeur();x++)
+        for(int x=0;x<grille.recupLargeur();x++)
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {

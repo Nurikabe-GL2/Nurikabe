@@ -22,29 +22,29 @@ public class IleExtensionDepuisUnIndice extends Technique {
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        for(int x=0;x<grille.get_largeur();x++)
+        for(int x=0;x<grille.recupLargeur();x++)
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {
                 int cpt = 0;
-                if(grille.get_case(x, y) instanceof CaseNombre)
+                if(grille.recupCase(x, y) instanceof CaseNombre)
                 {
                     List<Coup> liste = new ArrayList<>();
                     
 		            //test si la case de gauche de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x-1,y)&& grille.get_case(x - 1, y).get_cont_case().equals("b"))
+                    if(estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("b"))
                         cpt++;
                     
                         //test si la case de droite de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x+1,y)&& grille.get_case(x + 1, y).get_cont_case().equals("b"))
+                    if(estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("b"))
                         cpt++;
                     
                         //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y-1)&& grille.get_case(x, y - 1).get_cont_case().equals("b"))
+                    if(estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("b"))
                         cpt++;
 
                     //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y+1)&& grille.get_case(x, y + 1).get_cont_case().equals("b"))
+                    if(estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("b"))
                         cpt++;
                     
                     //si elle est extensible uniquement dans 2 directions alors la technique est valide

@@ -95,18 +95,18 @@ public abstract class Technique {
     protected boolean estValideCaseNombreEspace(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
-        return (grille.get_case(x, y) instanceof CaseNombre);
+        return (grille.recupCase(x, y) instanceof CaseNombre);
     }
 
     protected boolean estCaseBlanche(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
-        final Case uneCase = grille.get_case(x, y);
-        return uneCase.get_cont_case().equals("b");
+        final Case uneCase = grille.recupCase(x, y);
+        return uneCase.recupContenuCase().equals("b");
     }
 
     protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
-        return x >= 0 && y >= 0 && y < grille.get_hauteur() && x < grille.get_largeur();
+        return x >= 0 && y >= 0 && y < grille.get_hauteur() && x < grille.recupLargeur();
     }
 
     /**

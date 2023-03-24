@@ -23,12 +23,12 @@ public class ContinuiteDeLile extends Technique{
     @Override
     public PositionTechniques tester(Niveau grille)
     {
-        for(int x=0;x<grille.get_largeur();x++)
+        for(int x=0;x<grille.recupLargeur();x++)
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {
                 int cpt = 0;
-                if(grille.get_case(x, y) instanceof CaseNormale)
+                if(grille.recupCase(x, y) instanceof CaseNormale)
                 {
                     List<Coup> liste = new ArrayList<>();
                     //si la case courante vérifie la technique de la zone de mur
@@ -36,19 +36,19 @@ public class ContinuiteDeLile extends Technique{
                     if(new EviterZoneMur().tester(grille)!=null)
                     {
                         //si la case de gauche est valide et que c'est une case blanche et que la case de sa gauche est une ile
-                        if((estCoordonneeValide(grille,x-1,y)&& grille.get_case(x - 1, y).get_cont_case().equals("b"))&&(estCoordonneeValide(grille,x-2,y)&&grille.get_case(x - 2, y) instanceof CaseNombre))
+                        if((estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x-2,y)&&grille.recupCase(x - 2, y) instanceof CaseNombre))
                             liste.add(new Coup(x,y));
                     	
                         //si la case de droite est valide et que c'est une case blanche et que la case de sa droite est une ile
-                        else if((estCoordonneeValide(grille,x+1,y)&& grille.get_case(x + 1, y).get_cont_case().equals("b"))&&(estCoordonneeValide(grille,x+2,y)&&grille.get_case(x + 2, y) instanceof CaseNombre))
+                        else if((estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x+2,y)&&grille.recupCase(x + 2, y) instanceof CaseNombre))
                             liste.add(new Coup(x,y));
 
                         //si la case en haut est valide et que c'est une case blanche et que la case en haut de cette dernière est une ile
-                        else if((estCoordonneeValide(grille,x,y-1)&& grille.get_case(x, y - 1).get_cont_case().equals("b"))&&(estCoordonneeValide(grille,x,y-2)&&grille.get_case(x, y - 2) instanceof CaseNombre))
+                        else if((estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x,y-2)&&grille.recupCase(x, y - 2) instanceof CaseNombre))
                             liste.add(new Coup(x,y));
 
                         //si la case en bas est valide et que c'est une case blanche et que la case en bas de cette dernière est une ile
-                        else if((estCoordonneeValide(grille,x,y+1)&& grille.get_case(x, y + 1).get_cont_case().equals("b"))&&(estCoordonneeValide(grille,x,y+2)&&grille.get_case(x, y + 2) instanceof CaseNombre))
+                        else if((estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x,y+2)&&grille.recupCase(x, y + 2) instanceof CaseNombre))
                             liste.add(new Coup(x,y));
 					
                         if(!liste.isEmpty())

@@ -14,7 +14,7 @@ public class IndiceAdjacentsEnDiagonale extends Technique {
 
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int y = 0; y < grille.get_largeur(); y++) {
+        for (int y = 0; y < grille.recupLargeur(); y++) {
             for (int x = 0; x < grille.get_hauteur(); x++) {
                 if (estUnNombre(grille, x, y)) {
                     final List<Coup> coups = new ArrayList<>();

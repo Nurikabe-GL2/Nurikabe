@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
@@ -77,16 +78,7 @@ public class NiveauController extends VBox {
          //définition des handlers des boutons
          buttonUndo.setOnMousePressed(niveau.handlerUndo);
          buttonRedo.setOnMousePressed(niveau.handlerRedo);
-         buttonReset.setOnMousePressed(niveau.handlerReset);
          buttonAide.setOnMousePressed(niveau.handlerAide);
-
-        //obtention du tab Aide
-         Node tab = (Node) root.lookup("#tabAide");
-         //System.out.println(tab);
-
-         TabPane onglet = (TabPane) root.lookup("#tabPane");
-         System.out.println(onglet);
-
 
         niveau.setAide(buttonAide, tabPane, tabAide);
 
