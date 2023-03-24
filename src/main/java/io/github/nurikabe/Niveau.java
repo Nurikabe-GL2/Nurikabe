@@ -178,7 +178,7 @@ public class Niveau implements Serializable {
             sauvegarde.mettrePileUndo(pileUndo);
             oos.writeObject(this.sauvegarde);
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }
@@ -207,7 +207,7 @@ public class Niveau implements Serializable {
             }
             else return 0;
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             return 0;
         }
 
@@ -284,7 +284,7 @@ public class Niveau implements Serializable {
                 sauv.close();
             }
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         etat_partie=true;
 
