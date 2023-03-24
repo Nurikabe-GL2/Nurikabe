@@ -80,7 +80,7 @@ public abstract class Technique {
      * @return {@code true} si elle est valide
      */
     protected boolean estValide(Niveau grille, int x, int y) {
-        if (estCoordonneeValide(grille, x, y))
+        if (!estCoordonneeValide(grille, x, y))
             return false;
         return (grille.etat_case(x, y).equals("b"));
     }
