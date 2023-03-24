@@ -310,38 +310,8 @@ public class Niveau implements Serializable {
       }
     }
 
-       /**
-     * Méthode statique qui test si la grille est fini
-     */
-    public static int verifier_grilles(Grille grille1, Grille grille2){
-        int count=0;
-        for (int y = 0; y < grille1.recupHauteur(); y++) {
-
-            for (int x = 0; x < grille2.recupLargeur() ; x++) {
-                if(grille1.recup(x, y).equals(grille2.recup(x, y)))count++;
-            }
-        }
-            System.out.println("count : "+count+"\n l*L : "+grille1.recupHauteur()*grille1.recupLargeur());
-      if(count==(grille1.recupHauteur()*grille1.recupLargeur())){
-        return 1;
-      }
-      return 0;
-
-    }
-
     public Case recupCase(int x, int y){
         return grille.recup(x,y);
-    }
-
-    /**
-     * Méthode verifierCasesAutour qui compte le nombre de cases autour de la grille
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
-     * @return le nombre de cases
-     */
-    public int verifier_cases_autour(int x, int y){
-        int count=0;
-        return count;
     }
 
     /**
