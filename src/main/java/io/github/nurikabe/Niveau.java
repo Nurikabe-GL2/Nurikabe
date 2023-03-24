@@ -331,8 +331,6 @@ public class Niveau implements Serializable {
    public EventHandler<MouseEvent> handlerUndo = new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
-         //LOGGER.info("Undo cliqué");
-         undoB.setStyle("-fx-background-color: #00008B");
             coup(pileUndo, pileRedo,2);
       }
    };
@@ -347,9 +345,6 @@ public class Niveau implements Serializable {
     public EventHandler<MouseEvent> handlerRedo = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
-            //LOGGER.info("Redo cliqué");
-            //if(e.getEventType().getName().equals("MOUSE_RELEASED"))redoB.setStyle("-fx-background-color: #00008B");
-            redoB.setStyle("-fx-background-color: #00008B");
             coup(pileRedo, pileUndo, 1);
         }
     };
