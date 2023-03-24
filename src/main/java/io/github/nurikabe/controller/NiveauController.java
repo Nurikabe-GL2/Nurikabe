@@ -71,14 +71,6 @@ public class NiveauController extends VBox {
          buttonUndo.setOnMousePressed(niveau.handlerUndo);
          buttonRedo.setOnMousePressed(niveau.handlerRedo);
 
-         buttonUndo.setOnMouseReleased(MouseEvent -> {
-          buttonUndo.setStyle("-fx-background-color: #4882bd");
-         });
-
-         buttonRedo.setOnMouseReleased(MouseEvent -> {
-          buttonRedo.setStyle("-fx-background-color: #4882bd");
-         });
-
          niveau.setUndoB(buttonUndo);
          niveau.setRedoB(buttonRedo);
 
