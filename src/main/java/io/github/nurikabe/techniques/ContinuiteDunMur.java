@@ -26,33 +26,31 @@ public class ContinuiteDunMur extends Technique {
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {
-                int cpt = 0;
-                if(grille.recupCase(x, y) instanceof CaseNormale)
+                if(grille.recupCase(x, y).recupContenuCase().equals("b"))
                 {
-                    List<Coup> liste = new ArrayList<>();
-                    
-		            //test si la case de gauche de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("n"))
+                    int cpt = 0;
+
+		            //test si la case de gauche de la case courante est valide et que c'est une case noire
+                    if (estCaseNoire(grille, x - 1, y))
                         cpt++;
                     
-                        //test si la case de droite de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("n"))
+                    //test si la case de droite de la case courante est valide et que c'est une case noire
+                    if (estCaseNoire(grille, x + 1, y))
                         cpt++;
                     
-                        //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("n"))
+                    //test si la case en bas de la case courante est valide et que c'est une case noire
+                    if (estCaseNoire(grille, x, y - 1))
                         cpt++;
 
-                    //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("n"))
+                    //test si la case en bas de la case courante est valide et que c'est une case noire
+                    if (estCaseNoire(grille, x, y + 1))
                         cpt++;
                     
-                    //si elle possède éxactement 2 murs comme voisins alors la technique est valide pour cette case
-                    if(cpt==2)
-                        liste.add(new Coup(x,y));
-                    		
-					if(!liste.isEmpty())
-                        			return new PositionTechniques(this, liste);
+                    //si elle possède exactement 2 murs comme voisins et que cela ne formera pas un carré,
+                    // alors la technique est valide pour cette case
+                    if (cpt == 2 && !estUnCarre(grille, x, y)) {
+                        return new PositionTechniques(this, List.of(new Coup(x, y)));
+                    }
                 }
             }
         
