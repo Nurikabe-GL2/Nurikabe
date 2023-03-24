@@ -76,7 +76,7 @@ public class Niveau implements Serializable {
    /**
     * Variable d'instance nomNiveau qui représente le nom du niveau
     */
-   private String nomNiveau;
+   private String cheminNiveau;
 
    /**
     * Variable d'instance modeDeJeu qui représente le mode de jeu
@@ -91,30 +91,29 @@ public class Niveau implements Serializable {
    private boolean etat_partie=false;
 
    /**
-    * Construteur de la classe Niveau
-    * @param nomNiveau le nom de la grille
+    * Constructeur de la classe Niveau
+    * @param cheminNiveau le chemin vers la grille
     */
-   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select) throws Exception{
+   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select) throws Exception{
         this.select=select;
       this.stage=stage;
-      this.nomNiveau = nomNiveau;
+      this.cheminNiveau = cheminNiveau;
       this.mode_jeu=mode;
       this.sauvegarde=new Sauvegarde();
       this.panneauGrille = new GridPane();
       this.pileUndo = new Pile();
       this.pileRedo = new Pile();
       panneauGrille.getStylesheets().add("/css/Plateau.css");
-      chargerGrille(nomNiveau);
+      chargerGrille();
    }
 
    /**
     * Méthode chargerGrille qui s'occupe de charger la grille
-    * @param nomGrille le nom de la grille
     */
-   public void chargerGrille(String nomGrille) throws Exception {
-        charger_grille_solution(nomGrille);
+   public void chargerGrille() throws Exception {
+        charger_grille_solution(cheminNiveau);
 
-        if(charger_niveau(nomNiveau)==0){
+        if(charger_niveau(cheminNiveau)==0){
 
                 grille=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
                 grilleGraphique=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
@@ -164,8 +163,9 @@ public class Niveau implements Serializable {
     public void sauvegarderNiveau(){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
-            File sauv =  new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            File sauv =  new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
+
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
             sauvegarde.mettreGrille(grille);
@@ -200,10 +200,10 @@ public class Niveau implements Serializable {
         }
     }
 
-    public void charger_grille_solution(String name){
+    public void charger_grille_solution(String cheminNiveau){
         try {
 
-            FileInputStream fichier = new FileInputStream(name);
+            FileInputStream fichier = new FileInputStream(cheminNiveau);
             Scanner lecture = new Scanner(fichier);
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
@@ -261,10 +261,10 @@ public class Niveau implements Serializable {
             System.out.println("count : "+count+"\n l*L : "+ grilleSolution.recupHauteur()* grilleSolution.recupLargeur());
       if(count==(grilleSolution.recupHauteur()* grilleSolution.recupLargeur())){
         try {
-            File myFile = new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            File myFile = new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             myFile.delete();
 
-            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
             if(sauv!=null){
                 sauv.write("NIVEAU_COMPLETE");

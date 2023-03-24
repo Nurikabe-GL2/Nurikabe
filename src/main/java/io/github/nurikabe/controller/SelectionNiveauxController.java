@@ -280,9 +280,9 @@ public class SelectionNiveauxController extends VBox {
         stage.setScene(scenePrecedente);
     }
 
-    private void jouer(String nom_niveau) {
+    private void jouer(String cheminNiveau) {
         try{
-            NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString(), this);
+            NiveauController c=new NiveauController(stage, stage.getScene(), cheminNiveau, gameModeProperty.get().toString(), this);
         }catch(Exception e){
             e.printStackTrace();
 
