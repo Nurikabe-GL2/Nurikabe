@@ -85,9 +85,7 @@ public class Niveau implements Serializable {
    /**
     * Variables d'instances undoB et redo B
     */
-   Button undoB, redoB, aideB;
-    TabPane tabPane;
-    Tab tabAide;
+   Button undoB, redoB;
 
    private boolean etat_partie=false;
 
@@ -195,12 +193,6 @@ public class Niveau implements Serializable {
      */
     public void setUndoB(Button b){
         undoB=b;
-    }
-
-    public void setAide(Button b, TabPane tabPane, Tab tabAide) {
-        this.aideB = b;
-        this.tabPane = tabPane;
-        this.tabAide = tabAide;
     }
 
     public int charger_niveau(String nom_niveau) throws Exception {
@@ -367,35 +359,6 @@ public class Niveau implements Serializable {
         @Override
         public void handle(MouseEvent e) {
             coup(pileRedo, pileUndo, 1);
-        }
-    };
-
-    public EventHandler<MouseEvent> handlerAide = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            final PositionTechniques positionTechniques = Techniques.trouverTechnique(Niveau.this);
-            System.out.println(positionTechniques);
-            
-            //création de la box recevant les labels
-            VBox box = new VBox();
-            //création et insertion du label catégorie
-            Label labelCategorie = new Label("Technique Applicable\n");
-            labelCategorie.getStyleClass().add("tabContentMainLabel");
-            labelCategorie.setWrapText(true);
-            box.getChildren().add(labelCategorie);
-
-            //création et insertion du label de la technique
-            Label labelTechnique = new Label(""+positionTechniques.toString());
-            labelTechnique.getStyleClass().add("tipCategory");
-            labelTechnique.setWrapText(true);
-            box.getChildren().add(labelTechnique);
-
-            //insertion des label dans l'onglet aide
-            tabAide.setContent(box);
-
-            //actualisation de la fenêtre
-            ((Parent) tabAide.getContent()).requestLayout();
-
         }
     };
 

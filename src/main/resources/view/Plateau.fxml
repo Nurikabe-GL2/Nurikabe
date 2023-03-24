@@ -32,7 +32,7 @@
       </HBox>
       <SplitPane id="contentBox" dividerPositions="0.33" VBox.vgrow="ALWAYS">
          <items>
-            <TabPane id="#tabPane" fx:id="tabPane" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS">
+            <TabPane prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS">
                <stylesheets>
                   <URL value="@../css/ScrollPane.css" />
                   <URL value="@../css/TabPane.css" />
@@ -114,9 +114,9 @@
                         </ScrollPane>
                      </content>
                   </Tab>
-                  <Tab id="#tabAide" fx:id="tabAide" text="Aide">
+                  <Tab text="Aide">
                      <content>
-                        <ScrollPane fitToWidth="true">
+                        <ScrollPane fx:id="aidePane" fitToWidth="true">
                            <content>
                               <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
                                  <padding>
@@ -179,7 +179,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="buttonAide" mnemonicParsing="false" styleClass="gameButton" text="Aide">
+                        <Button mnemonicParsing="false" onAction="#onAideAction" styleClass="gameButton" text="Aide">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
