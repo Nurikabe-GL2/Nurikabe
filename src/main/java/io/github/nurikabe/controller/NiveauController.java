@@ -112,7 +112,10 @@ public class NiveauController extends VBox {
             final Tab tab = new Tab("Aide");
             tab.setContent(Utils.loadFxml(new ContenuAideController(positionTechniques), "_ContenuAide"));
 
+            //Remplacement de l'onglet d'aide
+            tabPane.getTabs().removeIf(t -> t.getText().equals("Aide"));
             tabPane.getTabs().add(tab);
+            tabPane.getSelectionModel().select(tab);
         } catch (Exception e) {
             e.printStackTrace();
         }
