@@ -189,22 +189,20 @@ public class Niveau implements Serializable {
     public int charger_niveau(String nom_niveau) throws Exception {
         File sauv = new File("src/main/resources/sauvegarde/" + nom_niveau.substring(27) + mode_jeu);
         if (sauv.exists()) {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv));
-            sauvegarde = (Sauvegarde) ois.readObject();
-            grille = sauvegarde.recupGrille();
-            pileUndo = sauvegarde.recupPileUndo();
-            pileRedo = sauvegarde.recupPileRedo();
-            return 1;
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv))) {
+                sauvegarde = (Sauvegarde) ois.readObject();
+                grille = sauvegarde.recupGrille();
+                pileUndo = sauvegarde.recupPileUndo();
+                pileRedo = sauvegarde.recupPileRedo();
+                return 1;
+            }
         } else {
             return 0;
         }
     }
 
     public void charger_grille_solution(String cheminNiveau){
-        try {
-
-            FileInputStream fichier = new FileInputStream(cheminNiveau);
-            Scanner lecture = new Scanner(fichier);
+        try (Scanner lecture = new Scanner(new FileInputStream(cheminNiveau))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
             grilleSolution =new Grille<>(largeur, hauteur);
@@ -224,10 +222,7 @@ public class Niveau implements Serializable {
     }
 
     public static Grille<String> charger_grille_solution_statique(String name){
-        try {
-
-            FileInputStream fichier = new FileInputStream(name);
-            Scanner lecture = new Scanner(fichier);
+        try (Scanner lecture = new Scanner(new FileInputStream(name))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
             Grille<String> grille_sol=new Grille<>(largeur, hauteur);
@@ -265,11 +260,8 @@ public class Niveau implements Serializable {
             myFile.delete();
 
             FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
-            //System.out.println(nom_niveau+mode_jeu);
-            if(sauv!=null){
-                sauv.write("NIVEAU_COMPLETE");
-                sauv.close();
-            }
+            sauv.write("NIVEAU_COMPLETE");
+            sauv.close();
         } catch (Exception e){
             e.printStackTrace();
         }

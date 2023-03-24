@@ -81,15 +81,13 @@ public class NiveauCharger{
   public int niveau_complete(String nom){
       try {
       if(NiveauCharger.fichier_existe(nom)==1){
-          FileInputStream niv = new FileInputStream(nom);
-          Scanner lire = new Scanner(niv); 
-          String res=lire.nextLine();
-          lire.close();
-          niv.close();
-          if(res.equals("NIVEAU_COMPLETE")==true){
-              System.out.println("niveau complete!");
-              return 1;
-          } 
+          try (Scanner lire = new Scanner(new FileInputStream(nom))) {
+              String res = lire.nextLine();
+              if(res.equals("NIVEAU_COMPLETE")){
+                  System.out.println("niveau complete!");
+                  return 1;
+              }
+          }
           return 0;
       }
       }catch(Exception e){
