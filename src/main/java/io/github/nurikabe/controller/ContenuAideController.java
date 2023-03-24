@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import org.jetbrains.annotations.NotNull;
 
 public class ContenuAideController extends ScrollPane {
     private final PositionTechniques positionTechniques;
@@ -23,7 +24,7 @@ public class ContenuAideController extends ScrollPane {
     @FXML
     private Label labelNom;
 
-    public ContenuAideController(PositionTechniques positionTechniques) {
+    public ContenuAideController(@NotNull PositionTechniques positionTechniques) {
         this.positionTechniques = positionTechniques;
     }
 
