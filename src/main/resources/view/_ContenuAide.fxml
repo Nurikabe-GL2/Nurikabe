@@ -28,7 +28,7 @@
                   <Label fx:id="labelDescription" styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
                   <ImageView fx:id="image" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/techniques_demarrages/1_ile_de_un.png" />
+                        <Image url="@../img/techniques_demarrage/1_ile_de_un.png" />
                      </image>
                   </ImageView>
                </children>

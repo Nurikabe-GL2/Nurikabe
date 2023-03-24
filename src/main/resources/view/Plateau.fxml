@@ -81,7 +81,7 @@
                                           <Label styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
                                           <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../img/techniques_demarrages/1_ile_de_un.png" />
+                                                <Image url="@../img/techniques_demarrage/1_ile_de_un.png" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -92,7 +92,7 @@
                                           <Label styleClass="tipLabel" text="Tous les indices doivent être séparés les uns des autres par des murs. Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case, la case intermédiaire doit être un mur." wrapText="true" />
                                           <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../img/techniques_demarrages/2_indices_separes.png" />
+                                                <Image url="@../img/techniques_demarrage/2_indices_separes.png" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -103,7 +103,7 @@
                                           <Label styleClass="tipLabel" text="Similaire à la technique précédente, quand deux indices sont adjacents en diagonales, il faut mettre des murs à toutes les cases touchants les deux indices." wrapText="true" />
                                           <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../img/techniques_demarrages/3_adjacence_diagonale.png" />
+                                                <Image url="@../img/techniques_demarrage/3_adjacence_diagonale.png" />
                                              </image>
                                           </ImageView>
                                        </children>
