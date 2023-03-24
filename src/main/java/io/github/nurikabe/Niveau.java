@@ -1,5 +1,6 @@
 package io.github.nurikabe;
 
+import io.github.nurikabe.controller.SelectionNiveauxController;
 import java.util.ArrayList;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -48,6 +49,8 @@ public class Niveau implements Serializable{
      * La pile servant au bouton undo
      */
     private Pile undoStack;
+
+    private SelectionNiveauxController select;
     
     /**
      * La pile servant au bouton redo
@@ -68,7 +71,8 @@ public class Niveau implements Serializable{
      * Le construteur de la grille
      * @param name le nom de la grille
      */
-    public Niveau(Stage stage, String nom_niveau, String mode){
+    public Niveau(Stage stage, String nom_niveau, String mode, SelectionNiveauxController select){
+        this.select=select;
         this.stage=stage;
         this.nom_niveau=nom_niveau;
         this.mode_jeu=mode;
@@ -266,19 +270,11 @@ public class Niveau implements Serializable{
 
           // Create a label with the message
           Label messageLabel = new Label("Niveau complété !");
-        
-          // Create buttons
-          Button nextLevelButton = new Button("Niveau Suivant");
-          Button mainMenuButton = new Button("Retour");
-  
-          // Create an HBox to hold the buttons
-          HBox buttonBox = new HBox(10);
-          buttonBox.getChildren().addAll(nextLevelButton, mainMenuButton);
+
           
           // Create a VBox to hold the label and button HBox
           VBox vbox = new VBox(10);
-          vbox.getChildren().addAll(messageLabel, buttonBox);
-          vbox.setPadding(new Insets(10));
+          vbox.getChildren().addAll(messageLabel);
           
           // Create the dialog box
           Stage dialog = new Stage();
@@ -291,6 +287,7 @@ public class Niveau implements Serializable{
           dialog.show();
 
         System.out.println("PARTIE GAGNEE !!!!");
+        select.refreshLevels();
       }
     }
 
