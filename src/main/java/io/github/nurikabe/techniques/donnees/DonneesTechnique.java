@@ -1,9 +1,10 @@
 package io.github.nurikabe.techniques.donnees;
 
 public class DonneesTechnique {
-    private final String nom, description, condition, cheminImage;
+    private final String categorie, nom, description, condition, cheminImage;
 
-    DonneesTechnique(String nom, String description, String condition, String cheminImage) {
+    DonneesTechnique(String categorie, String nom, String description, String condition, String cheminImage) {
+        this.categorie = categorie;
         this.nom = nom;
         this.description = description;
         this.condition = condition;
@@ -24,5 +25,9 @@ public class DonneesTechnique {
 
     public String getCheminImage() {
         return cheminImage;
+    }
+
+    public String getCategorie() {
+        return categorie;
     }
 }

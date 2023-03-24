@@ -31,6 +31,7 @@ public class ContenuAideController extends ScrollPane {
     @FXML
     private void initialize() {
         final Technique technique = positionTechniques.getTechnique();
+        labelCategorie.setText(technique.getCategorie());
         labelNom.setText(technique.getNom());
         labelDescription.setText(technique.getDescription());
         image.setImage(technique.getImage());

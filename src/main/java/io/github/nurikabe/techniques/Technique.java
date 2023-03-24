@@ -23,6 +23,10 @@ public abstract class Technique {
         this.donneesTechnique = DonneesTechniques.getDonnees(getIdentifiant());
     }
 
+    public final String getCategorie() {
+        return donneesTechnique.getCategorie();
+    }
+
     public final String getNom() {
         return donneesTechnique.getNom();
     }
