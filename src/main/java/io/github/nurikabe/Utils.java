@@ -1,4 +1,11 @@
+/**
+ * Fichier Utils.java
+ */
+
+// Package GitHub
 package io.github.nurikabe;
+
+// Importation des librairies javaFX
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,16 +14,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+/**
+ * Classe Utils
+ */
 public class Utils {
     /**
-     * Retourne l'URL de la resource spécifiée, l'URL est relative à la classe donnée en paramètre.
+     * Retourne l'URL de la ressource spécifiée, l'URL est relative à la classe donnée en paramètre
      *
-     * @param currentClass La classe qui appelle cette méthode
-     * @param url          L'URL de la resource demandée
+     * @param currentClass la classe qui appelle cette méthode
+     * @param url          l'URL de la ressource demandée
      *
-     * @return L'URL de la resource.
+     * @return l'URL de la ressource
      *
-     * @throws IllegalArgumentException Si la resource n'existe pas
+     * @throws IllegalArgumentException si la ressource n'existe pas
      */
     public static URL getResource(Class<?> currentClass, String url) {
         final URL resource = currentClass.getResource(url);
@@ -36,23 +46,21 @@ public class Utils {
 
     /**
      * Charge le fichier FXML avec le nom donné, avec le contrôleur donné.
-     *
      * <p>Le fichier devra être dans le package {@code view}.
      *
-     * @param controller Le contrôleur de cette interface
-     * @param name       Le nom du fichier FXML, sans le {@code .fxml}
-     * @param <T>        Type du contrôleur
+     * @param controller le contrôleur de cette interface
+     * @param name       le nom du fichier FXML, sans le {@code .fxml}
+     * @param <T>        le type du contrôleur
      *
-     * @return Retourne le contrôleur donné en premier paramètre
+     * @return retourne le contrôleur donné en premier paramètre
      *
-     * @throws IOException Si le chargement de l'interface à une erreur
+     * @throws IOException si le chargement de l'interface à une erreur
      */
     public static <T extends Parent> T loadFxml(T controller, String name) throws IOException {
         final FXMLLoader loader = new FXMLLoader(Utils.getResource(Utils.class, "/view/" + name + ".fxml"));
         loader.setController(controller);
         loader.setRoot(controller);
         loader.load();
-
         return controller;
     }
 

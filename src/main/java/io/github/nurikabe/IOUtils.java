@@ -1,23 +1,29 @@
+/**
+ * Fichier IOUtils.java
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
 import org.jetbrains.annotations.NotNull;
 
+// Importation des librairies javaFX
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
-@SuppressWarnings("resource")
-
 /**
- * classe implémentant les outils de gestion des flux d'entrer sortie
+ * Classe IOUtils implémentant les outils de gestion des flux d'entrées-sorties
  */
+@SuppressWarnings("resource")
 public class IOUtils {
-
     /**
-     * implémente le path vers la racine
+     * Représente le dossier racine par rapport aux classes compilées,
+     * c'est-à-dire le dossier contenant les fichiers {@code .class}.
+     *
+     * <p>Il peut aussi s'agir du fichier JAR du jeu.
      */
     public static final Path ROOT_PATH;
 
@@ -35,13 +41,15 @@ public class IOUtils {
     }
 
     /**
-     * getter du nom du fichier sans extension
-     * @param path le chemin
-     * @return une string le nom du fichier
+     * Méthode getFileNameNoExtensions qui permet de récupérer du nom du fichier sans extension
+     *
+     * @param path le chemin jusqu'au fichier
+     *
+     * @return le nom du fichier sous forme de chaine de caractères
      */
     @NotNull
     public static String getFileNameNoExtensions(@NotNull Path path) {
-        final var fileName = path.getFileName().toString();
-        return fileName.substring(0, fileName.lastIndexOf('.'));
+        final var nomFichier = path.getFileName().toString();
+        return nomFichier.substring(0, nomFichier.lastIndexOf('.'));
     }
 }

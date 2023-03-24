@@ -1,5 +1,7 @@
+/* Feuille de style CSS générale */
+
 * {
-   -fx-font-family: Lucida Sans; /* Police inexistante */
+   -fx-font-family: Lucida Sans;
 }
 
 #puzzlesTilePane Label {

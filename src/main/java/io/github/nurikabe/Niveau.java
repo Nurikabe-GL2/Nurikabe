@@ -1,5 +1,11 @@
+/**
+ * Fichier Niveau.java représentant les niveaux
+ */
+
+// Package GitHub
 package io.github.nurikabe;
 
+// Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
 import java.util.ArrayList;
 import javafx.scene.layout.*;
@@ -8,135 +14,150 @@ import javafx.stage.Modality;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent; 
-import javafx.stage.Stage;
-import java.io.*;
-import java.util.*;
-import javafx.scene.text.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import java.io.*;
+import java.util.Scanner;
 
 /**
- * Classe public représentant une grille
+ * Classe Niveau pour représenter un niveau
  */
-public class Niveau implements Serializable{
+public class Niveau implements Serializable {
+   /**
+    * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
+    */
+   Grille<Case> grille ;
+
+   /**
+    * Variable d'instance grilleGraphique qui représente la grille graphique
+    */
+    Grille<CaseGraphique> grilleGraphique;
 
     /**
-     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
+     * Variable d'instance grilleSolution représentant la solution de la grille
      */
+    Grille<String> grilleSolution;
 
     /**
-     * variable d'instance qui représente le contenue de la grille sous forme d'unne ArrayList
+     * Variable d'instance panneauGrille représentant le panneau de la grille graphique
      */
-    Grille<Case> grille;
+    GridPane panneauGrille;
 
-    Grille<CaseGraphique> grille_graphique;
-    
     /**
-     * variable d'instance représentant la solution de la grille
+     * Variable d'instance sauvegarde représentant la sauvegarde de la grille
      */
-    Grille<String> grille_solution;
-    
-    /**
-     * un gridPane représentant la grille
-     */
-    GridPane gridpane;
-    
     Sauvegarde sauvegarde;
 
-    /**
-     * La pile servant au bouton undo
-     */
-    private Pile undoStack;
+   /**
+    * Variable d'instance pileUndo représentant la pile servant au bouton Undo
+    */
+   private Pile pileUndo;
 
     private SelectionNiveauxController select;
     
-    /**
-     * La pile servant au bouton redo
-     */
-    private Pile redoStack;
+   /**
+    * Variable d'instance pileRedo représentant la pile servant au bouton Redo
+    */
+   private Pile pileRedo;
 
-    Stage stage;
+   /**
+    * Variable d'instance stage qui représente le plateau de jeu
+    */
+   Stage stage;
 
-    private String nom_niveau;
+   /**
+    * Variable d'instance nomNiveau qui représente le nom du niveau
+    */
+   private String nomNiveau;
 
-    private String mode_jeu;
+   /**
+    * Variable d'instance modeDeJeu qui représente le mode de jeu
+    */
+   private String mode_jeu;
 
-    Button undoB, redoB;
+   /**
+    * Variables d'instances undoB et redo B
+    */
+   Button undoB, redoB;
 
-    private boolean etat_partie=false;
+   private boolean etat_partie=false;
 
-    /**
-     * Le construteur de la grille
-     * @param name le nom de la grille
-     */
-    public Niveau(Stage stage, String nom_niveau, String mode, SelectionNiveauxController select){
+   /**
+    * Construteur de la classe Niveau
+    * @param nomNiveau le nom de la grille
+    */
+   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select){
         this.select=select;
-        this.stage=stage;
-        this.nom_niveau=nom_niveau;
-        this.mode_jeu=mode;
-        this.sauvegarde=new Sauvegarde();
-        this.gridpane = new GridPane();
-        this.undoStack = new Pile();
-        this.redoStack = new Pile();
-        gridpane.getStylesheets().add("/css/Plateau.css");
-        charger_grille(nom_niveau);
-    }
+      this.stage=stage;
+      this.nomNiveau = nomNiveau;
+      this.mode_jeu=mode;
+      this.sauvegarde=new Sauvegarde();
+      this.panneauGrille = new GridPane();
+      this.pileUndo = new Pile();
+      this.pileRedo = new Pile();
+      panneauGrille.getStylesheets().add("/css/Plateau.css");
+      chargerGrille(nomNiveau);
+   }
 
-    /**
-     * Méthode public qui s'occupe de chargé la grille
-     * @param name le nom de la grille
-     */
-    public void charger_grille(String name){
+   /**
+    * Méthode chargerGrille qui s'occupe de charger la grille
+    * @param nomGrille le nom de la grille
+    */
+   public void chargerGrille(String nomGrille) {
       try {
-        charger_grille_solution(name);
+        charger_grille_solution(nomGrille);
 
-        if(charger_niveau(nom_niveau)==0){
+        if(charger_niveau(nomNiveau)==0){
 
-                grille=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
-                grille_graphique=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
+                grille=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
+                grilleGraphique=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
 
-                for (int y = 0; y < grille_graphique.getHauteur(); y++) {
-               
-                    for (int x = 0; x < grille_graphique.getLargeur(); x++) {
-                        
+                for (int y = 0; y < grilleGraphique.recupHauteur(); y++) {
+
+                    for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
                         //Case une_case;
 
-                        if(grille_solution.get(x, y).equals(".")||grille_solution.get(x, y).equals("n")){
-                            grille.set(x, y, new CaseNormale(x, y));
+                        if(grilleSolution.recup(x, y).equals(".")|| grilleSolution.recup(x, y).equals("n")){
+                            grille.mettre(x, y, new CaseNormale(x, y));
                             //if(grille_solution.get(x, y).equals("."))grille_solution.get(x, y)=".";
                         }
-                        else grille.set(x, y, new CaseNombre(x, y, Integer.parseInt(grille_solution.get(x, y))));
+                        else grille.mettre(x, y, new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y))));
 
-                        grille_graphique.set(x, y, new CaseGraphique(x, y, 30, 30, this));
+                        grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                        GridPane.setRowIndex(grille_graphique.get(x, y).get_pane(), y);
-                        GridPane.setColumnIndex(grille_graphique.get(x, y).get_pane(), x);
+                        GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
+                        GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
 
-                        gridpane.getChildren().addAll(grille_graphique.get(x, y).get_pane());
+                        panneauGrille.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
                         //lecture.close();
                     }
                 }
             }
             else {
-                grille_graphique=new Grille<>(grille_solution.getLargeur(), grille_solution.getHauteur());
+                grilleGraphique =new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
 
-                for (int y = 0; y < grille_graphique.getHauteur(); y++) {
-               
-                     for (int x = 0; x < grille_graphique.getLargeur(); x++) {
-                    
-                    
+                for (int y = 0; y < grilleGraphique.recupHauteur(); y++) {
 
-                        grille_graphique.set(x, y, new CaseGraphique(x, y, 30, 30, this));
+                    for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
+
+
+
+                        grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
                         //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                        GridPane.setRowIndex(grille_graphique.get(x, y).get_pane(), y);
-                        GridPane.setColumnIndex(grille_graphique.get(x, y).get_pane(), x);
+                        GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
+                        GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
 
-                        gridpane.getChildren().addAll(grille_graphique.get(x, y).get_pane());
-                
+                        panneauGrille.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
                     }
-                
+
                 }
             }
       }catch (Exception e){
@@ -145,21 +166,21 @@ public class Niveau implements Serializable{
       }
     }
 
-    public void sauvegarder_niveau(){
+    public void sauvegarderNiveau(){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        try { 
-            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
+        try {
+            File sauv =  new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
-            sauvegarde.setGrille(grille);
-            sauvegarde.setRedoPile(redoStack);
-            sauvegarde.setUndoPile(undoStack);
+            sauvegarde.mettreGrille(grille);
+            sauvegarde.setRedoPile(pileRedo);
+            sauvegarde.mettrePileUndo(pileUndo);
             oos.writeObject(this.sauvegarde);
         } catch (Exception e){
             System.out.println(e);
-        } 
-        
+        }
+
     }
 
     public void setRedoB(Button b){
@@ -172,15 +193,15 @@ public class Niveau implements Serializable{
 
     public int charger_niveau(String nom_niveau){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        try { 
+        try {
             File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
             if(sauv.createNewFile()==false){
                 System.out.println("fichier existe deja");
                 ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
                 sauvegarde=(Sauvegarde)ois.readObject();
-                grille=sauvegarde.get_grille();
-                undoStack=sauvegarde.get_undo_pile();
-                redoStack=sauvegarde.get_redo_pile();
+                grille=sauvegarde.recupGrille();
+                pileUndo =sauvegarde.recupPileUndo();
+                pileRedo =sauvegarde.recupPileRedo();
                 System.out.println(this.grille==null);
                 return 1;
             }
@@ -188,8 +209,8 @@ public class Niveau implements Serializable{
         } catch (Exception e){
             System.out.println(e);
             return 0;
-        } 
-        
+        }
+
     }
 
     public void charger_grille_solution(String name){
@@ -199,15 +220,14 @@ public class Niveau implements Serializable{
             Scanner lecture = new Scanner(fichier);
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
-            grille_solution=new Grille<>(largeur, hauteur);
-    
-            for (int y = 0; y < grille_solution.getHauteur(); y++) {
-                  
-                for (int x = 0; x < grille_solution.getLargeur(); x++) {
-                        
-                            grille_solution.set(x, y, lecture.next());
-                            if(grille_solution.get(x, y).equals("b"))grille_solution.set(x, y, ".");
-                            
+            grilleSolution =new Grille<>(largeur, hauteur);
+
+                    for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
+
+                        for (int x = 0; x < grilleSolution.recupLargeur(); x++) {
+
+                            grilleSolution.mettre(x, y, lecture.next());
+                            if(grilleSolution.recup(x, y).equals("b")) grilleSolution.mettre(x, y, ".");
                         }
                     }
 
@@ -224,40 +244,40 @@ public class Niveau implements Serializable{
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
             Grille<String> grille_sol=new Grille<>(largeur, hauteur);
-    
-            for (int y = 0; y < grille_sol.getHauteur(); y++) {
-                  
-                for (int x = 0; x < grille_sol.getLargeur(); x++) {
-                        
-                        grille_sol.set(x, y, lecture.next());
-                            
+
+            for (int y = 0; y < grille_sol.recupHauteur(); y++) {
+
+                for (int x = 0; x < grille_sol.recupLargeur(); x++) {
+
+                        grille_sol.mettre(x, y, lecture.next());
+
                         }
                     }
                     return grille_sol;
             }catch (Exception e){
             System.out.println("erreur lors de la lecture de la grille : "+e);
           }
-         return null;   
+         return null;
         }
 
     /**
-     * Méthode qui test si la grille est fini
+     * Méthode victoire qui teste si la grille est terminée
      */
     public void victoire(){
         int count=0;
-          for (int y = 0; y < grille_solution.getHauteur(); y++) {
-            
-                for (int x = 0; x < grille_solution.getLargeur() ; x++) {
-                    if(grille_solution.get(x, y).equals(grille.get(x, y).get_cont_case()))count++;
+          for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
+
+                for (int x = 0; x < grilleSolution.recupLargeur() ; x++) {
+                    if(grilleSolution.recup(x, y).equals(grille.recup(x, y).recupContenuCase()))count++;
                 }
             }
-            System.out.println("count : "+count+"\n l*L : "+grille_solution.getHauteur()*grille_solution.getLargeur());
-      if(count==(grille_solution.getHauteur()*grille_solution.getLargeur())){
-        try { 
-            File myFile = new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
-            myFile.delete(); 
+            System.out.println("count : "+count+"\n l*L : "+ grilleSolution.recupHauteur()* grilleSolution.recupLargeur());
+      if(count==(grilleSolution.recupHauteur()* grilleSolution.recupLargeur())){
+        try {
+            File myFile = new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            myFile.delete();
 
-            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
+            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
             if(sauv!=null){
                 sauv.write("NIVEAU_COMPLETE");
@@ -265,7 +285,7 @@ public class Niveau implements Serializable{
             }
         } catch (Exception e){
             System.out.println(e);
-        } 
+        }
         etat_partie=true;
 
           // Create a label with the message
@@ -275,14 +295,13 @@ public class Niveau implements Serializable{
           // Create a VBox to hold the label and button HBox
           VBox vbox = new VBox(10);
           vbox.getChildren().addAll(messageLabel);
-          
           // Create the dialog box
           Stage dialog = new Stage();
           dialog.initModality(Modality.APPLICATION_MODAL);
           dialog.initOwner(stage);
           dialog.setScene(new Scene(vbox));
           dialog.setTitle("Niveau Complété !");
-          
+
           // Show the dialog box
           dialog.show();
 
@@ -296,29 +315,29 @@ public class Niveau implements Serializable{
      */
     public static int verifier_grilles(Grille grille1, Grille grille2){
         int count=0;
-        for (int y = 0; y < grille1.getHauteur(); y++) {
-            
-            for (int x = 0; x < grille2.getLargeur() ; x++) {
-                if(grille1.get(x, y).equals(grille2.get(x, y)))count++;
+        for (int y = 0; y < grille1.recupHauteur(); y++) {
+
+            for (int x = 0; x < grille2.recupLargeur() ; x++) {
+                if(grille1.recup(x, y).equals(grille2.recup(x, y)))count++;
             }
         }
-            System.out.println("count : "+count+"\n l*L : "+grille1.getHauteur()*grille1.getLargeur());
-      if(count==(grille1.getHauteur()*grille1.getLargeur())){
+            System.out.println("count : "+count+"\n l*L : "+grille1.recupHauteur()*grille1.recupLargeur());
+      if(count==(grille1.recupHauteur()*grille1.recupLargeur())){
         return 1;
       }
       return 0;
-    
+
     }
 
-    public Case get_case(int x, int y){
-        return grille.get(x,y);
+    public Case recupCase(int x, int y){
+        return grille.recup(x,y);
     }
 
     /**
-     * Méthode qui compte le nombre de case autour de la grille 
-     * @param x la coordonné x de la case
-     * @param y la coordonné y de la case
-     * @return le nombre de case
+     * Méthode verifierCasesAutour qui compte le nombre de cases autour de la grille
+     * @param x la coordonnée x de la case
+     * @param y la coordonnée y de la case
+     * @return le nombre de cases
      */
     public int verifier_cases_autour(int x, int y){
         int count=0;
@@ -326,99 +345,94 @@ public class Niveau implements Serializable{
     }
 
     /**
-     * méthode public qui renvoie l'état de la case
+     * Méthode etatCase qui renvoie l'état de la case
      * @param x la coordonné x de la case
      * @param y la coordonné y de la case
      * @return l'état de la case sous forme de chaine de caractère
      */
     public String etat_case(int x, int y){
-        return grille.get(x, y).get_cont_case();
+        return grille.recup(x, y).recupContenuCase();
     }
 
     /**
-     * méthode public qui affiche la grille
+     * Méthode afficherGrille qui affiche la grille
      */
     public void afficher_grille(){
          System.out.println(grille);
     }
 
-    /**
-     * getter de la largeur de la grille
-     * @return la largeur de la grille
-     */
-    public int get_largeur(){
-        return grille_solution.getLargeur();
-    }
+   /**
+    * Méthode recupLargeur qui renvoie la largeur de la grille
+    * @return la largeur de la grille
+    */
+   public int recupLargeur() {
+      return grilleSolution.recupLargeur();
+   }
 
     /**
-     * getter de la hauteur de la grille
+     * Méthode qui renvoie la hauteur de la grille
      * @return la hauteur de la grille
      */
     public int get_hauteur(){
-        return grille_solution.getHauteur();
+        return grilleSolution.recupHauteur();
     }
+
     /**
-     * getter de la partie graphique de la grille
-     * @return un gridPane
+     * Méthode qui renvoie l'état de la partie
+     * @return l'état de la partie sous forme d'entier
      */
     public GridPane get_grillegraphique(){
-        return this.gridpane;
+        return this.panneauGrille;
     }
     
 
-    /**
-     * Méthode appelé par les handlers de undo et redo pour pop un coup le joué un coup et le mettre dans la pile correcte
-     * @param a_pop la pile qui possède le coup à jouer, c'est elle qui sera pop
-     * @param a_push la pile qui recevra le nouveau coup, c'est elle qui sera push
-     * @param nb_clique le nombre de clique à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
-     */
-    private void coup(Pile a_pop, Pile a_push, int nb_clique){
-        
-        Coup coup_pris = new Coup(-1,-1);
+   /**
+    * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
+    * @param aPop la pile qui possède le coup à jouer, c'est elle qui sera pop
+    * @param aPush la pile qui recevra le nouveau coup, c'est elle qui sera push
+    * @param nbClics le nombre de clics à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
+    */
+   private void coup(Pile aPop, Pile aPush, int nbClics) {
+      int i;
+      Coup coupPris = new Coup(-1, -1);
+      coupPris = aPop.depiler();
+      if (coupPris.recupX() != -1) {
+         for (i = 0; i < nbClics; i++)
+            grilleGraphique.recup(coupPris.recupX(), coupPris.recupY()).actionClic();
+      }
+        aPush.empiler(coupPris);
+   }
 
-        coup_pris=a_pop.pop();
+   /**
+    * Le handler associé au bouton précédent
+    */
+   public EventHandler<MouseEvent> handlerUndo = new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+         //LOGGER.info("Undo cliqué");
+         undoB.setStyle("-fx-background-color: #00008B");
+            coup(pileUndo, pileRedo,2);
+      }
+   };
 
-        if(coup_pris.get_x()!=-1)
-        {
-            for(int i=0;i<nb_clique;i++)
-                grille_graphique.get(coup_pris.get_x(), coup_pris.get_y()).action_clic();
-        }
-
-        a_push.push(coup_pris);
-    }
-
-    /**
-     * Le handler associé au bouton précédent 
-     */
-    public EventHandler<MouseEvent> handlerUndo = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            //LOGGER.info("undo cliqué");
-            undoB.setStyle("-fx-background-color: #00008B");
-            coup(undoStack, redoStack,2);
-        }
-    };
-
-    public boolean get_etat_partie(){
+    public boolean recupEtatPartie() {
         return etat_partie;
     }
 
     /**
-     * Le handler associé au bouton suivant 
+     * Le handler associé au bouton suivant
      */
     public EventHandler<MouseEvent> handlerRedo = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
-            //LOGGER.info("redo cliqué");
+            //LOGGER.info("Redo cliqué");
             //if(e.getEventType().getName().equals("MOUSE_RELEASED"))redoB.setStyle("-fx-background-color: #00008B");
             redoB.setStyle("-fx-background-color: #00008B");
-            coup(redoStack, undoStack,1);
+            coup(pileRedo, pileUndo, 1);
         }
     };
 
-    public Pile getUndo()
-    {
-        return undoStack;
+    public Pile recupUndo() {
+        return pileUndo;
     }
-
 }

@@ -67,12 +67,12 @@ public class SelectionNiveauxController extends VBox {
     /**
      * variable d'instance privé qui représente le mode jeu courant
      */
-    private final ObjectProperty<GameMode> gameModeProperty = new SimpleObjectProperty<>(GameMode.AVENTURE);
+    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
     
     /**
      * variable d'instance privé qui représente la difficulté courante
      */
-    private final ObservableSet<Difficulty> difficulties = FXCollections.observableSet(Difficulty.EASY);
+    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
 
     /**
      * Le contructeur de la classe SelectionNiveauxController 
@@ -94,7 +94,7 @@ public class SelectionNiveauxController extends VBox {
         FXUtils.singleItemToggleGroup(gameModeGroup);
         FXUtils.singleItemToggleGroup(difficultyGroup);
 
-        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(GameMode::fromToggle));
+        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
         gameModeProperty.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
@@ -115,9 +115,9 @@ public class SelectionNiveauxController extends VBox {
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
           //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
-            case "easyToggle" -> List.of(Difficulty.EASY);
-            case "mediumToggle" -> List.of(Difficulty.MEDIUM);
-            case "hardToggle" -> List.of(Difficulty.HARD);
+            case "easyToggle" -> List.of(Difficulte.FACILE);
+            case "mediumToggle" -> List.of(Difficulte.MOYEN);
+            case "hardToggle" -> List.of(Difficulte.DIFFICILE);
             default -> throw new IllegalStateException("Unexpected value: " + newToggle.getId());
         };
         difficulties.clear();
@@ -131,11 +131,11 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
-        List<Difficulty> liste_difficulte = new ArrayList<>(difficulties);
+        List<Difficulte> liste_difficulte = new ArrayList<>(difficulties);
         
-        if(gameModeProperty.get().getModeName().equals("classic"))charger_mode_classique(liste_difficulte.get(0).getDisplayName());
+        if(gameModeProperty.get().recupNomMode().equals("classique"))charger_mode_classique(liste_difficulte.get(0).recupNomDifficulte());
 
-        else if(gameModeProperty.get().getModeName().equals("adventure"))charger_mode_aventure();
+        else if(gameModeProperty.get().recupNomMode().equals("aventure"))charger_mode_aventure();
 
         else charger_mode_contreLaMontre();
     }

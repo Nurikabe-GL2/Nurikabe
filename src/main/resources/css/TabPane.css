@@ -1,3 +1,5 @@
+/* Feuille de style CSS pour le volet d'onglet */
+
 TabPane .tab-header-background {
     -fx-background-color: #253257;
 }
