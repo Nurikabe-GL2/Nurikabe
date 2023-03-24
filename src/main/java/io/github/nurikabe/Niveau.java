@@ -7,25 +7,18 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
-import java.util.ArrayList;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
 import javafx.stage.Modality;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
-import java.util.Scanner;
 
 /**
  * Classe Niveau pour représenter un niveau
@@ -76,7 +69,7 @@ public class Niveau implements Serializable {
    /**
     * Variable d'instance nomNiveau qui représente le nom du niveau
     */
-   private String nomNiveau;
+   private String cheminNiveau;
 
    /**
     * Variable d'instance modeDeJeu qui représente le mode de jeu
@@ -91,31 +84,29 @@ public class Niveau implements Serializable {
    private boolean etat_partie=false;
 
    /**
-    * Construteur de la classe Niveau
-    * @param nomNiveau le nom de la grille
+    * Constructeur de la classe Niveau
+    * @param cheminNiveau le chemin vers la grille
     */
-   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select){
+   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select) throws Exception{
         this.select=select;
       this.stage=stage;
-      this.nomNiveau = nomNiveau;
+      this.cheminNiveau = cheminNiveau;
       this.mode_jeu=mode;
       this.sauvegarde=new Sauvegarde();
       this.panneauGrille = new GridPane();
       this.pileUndo = new Pile();
       this.pileRedo = new Pile();
       panneauGrille.getStylesheets().add("/css/Plateau.css");
-      chargerGrille(nomNiveau);
+      chargerGrille();
    }
 
    /**
     * Méthode chargerGrille qui s'occupe de charger la grille
-    * @param nomGrille le nom de la grille
     */
-   public void chargerGrille(String nomGrille) {
-      try {
-        charger_grille_solution(nomGrille);
+   public void chargerGrille() throws Exception {
+       grilleSolution = chargerGrilleSolution(cheminNiveau);
 
-        if(charger_niveau(nomNiveau)==0){
+        if(charger_niveau(cheminNiveau)==0){
 
                 grille=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
                 grilleGraphique=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
@@ -125,9 +116,8 @@ public class Niveau implements Serializable {
                     for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
                         //Case une_case;
 
-                        if(grilleSolution.recup(x, y).equals(".")|| grilleSolution.recup(x, y).equals("n")){
+                        if(grilleSolution.recup(x, y).equals("b")|| grilleSolution.recup(x, y).equals("n")){
                             grille.mettre(x, y, new CaseNormale(x, y));
-                            //if(grille_solution.get(x, y).equals("."))grille_solution.get(x, y)=".";
                         }
                         else grille.mettre(x, y, new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y))));
 
@@ -160,17 +150,14 @@ public class Niveau implements Serializable {
 
                 }
             }
-      }catch (Exception e){
-        e.printStackTrace();
-        System.out.println("erreur lors de la lecture de la grille : "+e);
-      }
     }
 
     public void sauvegarderNiveau(){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
-            File sauv =  new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            File sauv =  new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
+
             sauv.createNewFile();
             ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
             sauvegarde.mettreGrille(grille);
@@ -178,7 +165,7 @@ public class Niveau implements Serializable {
             sauvegarde.mettrePileUndo(pileUndo);
             oos.writeObject(this.sauvegarde);
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }
@@ -191,56 +178,23 @@ public class Niveau implements Serializable {
         undoB=b;
     }
 
-    public int charger_niveau(String nom_niveau){
-        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        try {
-            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
-            if(sauv.createNewFile()==false){
-                System.out.println("fichier existe deja");
-                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
-                sauvegarde=(Sauvegarde)ois.readObject();
-                grille=sauvegarde.recupGrille();
-                pileUndo =sauvegarde.recupPileUndo();
-                pileRedo =sauvegarde.recupPileRedo();
-                System.out.println(this.grille==null);
+    public int charger_niveau(String nom_niveau) throws Exception {
+        File sauv = new File("src/main/resources/sauvegarde/" + nom_niveau.substring(27) + mode_jeu);
+        if (sauv.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv))) {
+                sauvegarde = (Sauvegarde) ois.readObject();
+                grille = sauvegarde.recupGrille();
+                pileUndo = sauvegarde.recupPileUndo();
+                pileRedo = sauvegarde.recupPileRedo();
                 return 1;
             }
-            else return 0;
-        } catch (Exception e){
-            System.out.println(e);
+        } else {
             return 0;
         }
-
     }
 
-    public void charger_grille_solution(String name){
-        try {
-
-            FileInputStream fichier = new FileInputStream(name);
-            Scanner lecture = new Scanner(fichier);
-            int largeur = lecture.nextInt();
-            int hauteur = lecture.nextInt();
-            grilleSolution =new Grille<>(largeur, hauteur);
-
-                    for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
-
-                        for (int x = 0; x < grilleSolution.recupLargeur(); x++) {
-
-                            grilleSolution.mettre(x, y, lecture.next());
-                            if(grilleSolution.recup(x, y).equals("b")) grilleSolution.mettre(x, y, ".");
-                        }
-                    }
-
-            }catch (Exception e){
-            System.out.println("erreur lors de la lecture de la grille : "+e);
-          }
-    }
-
-    public static Grille<String> charger_grille_solution_statique(String name){
-        try {
-
-            FileInputStream fichier = new FileInputStream(name);
-            Scanner lecture = new Scanner(fichier);
+    public static Grille<String> chargerGrilleSolution(String cheminGrille) throws IOException {
+        try (Scanner lecture = new Scanner(new FileInputStream(cheminGrille))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
             Grille<String> grille_sol=new Grille<>(largeur, hauteur);
@@ -254,10 +208,7 @@ public class Niveau implements Serializable {
                         }
                     }
                     return grille_sol;
-            }catch (Exception e){
-            System.out.println("erreur lors de la lecture de la grille : "+e);
-          }
-         return null;
+            }
         }
 
     /**
@@ -274,17 +225,14 @@ public class Niveau implements Serializable {
             System.out.println("count : "+count+"\n l*L : "+ grilleSolution.recupHauteur()* grilleSolution.recupLargeur());
       if(count==(grilleSolution.recupHauteur()* grilleSolution.recupLargeur())){
         try {
-            File myFile = new File("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
+            File myFile = new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             myFile.delete();
 
-            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ nomNiveau.substring(27)+mode_jeu);
-            //System.out.println(nom_niveau+mode_jeu);
-            if(sauv!=null){
-                sauv.write("NIVEAU_COMPLETE");
-                sauv.close();
-            }
+            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
+            sauv.write("NIVEAU_COMPLETE");
+            sauv.close();
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         etat_partie=true;
 
@@ -310,38 +258,8 @@ public class Niveau implements Serializable {
       }
     }
 
-       /**
-     * Méthode statique qui test si la grille est fini
-     */
-    public static int verifier_grilles(Grille grille1, Grille grille2){
-        int count=0;
-        for (int y = 0; y < grille1.recupHauteur(); y++) {
-
-            for (int x = 0; x < grille2.recupLargeur() ; x++) {
-                if(grille1.recup(x, y).equals(grille2.recup(x, y)))count++;
-            }
-        }
-            System.out.println("count : "+count+"\n l*L : "+grille1.recupHauteur()*grille1.recupLargeur());
-      if(count==(grille1.recupHauteur()*grille1.recupLargeur())){
-        return 1;
-      }
-      return 0;
-
-    }
-
     public Case recupCase(int x, int y){
         return grille.recup(x,y);
-    }
-
-    /**
-     * Méthode verifierCasesAutour qui compte le nombre de cases autour de la grille
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
-     * @return le nombre de cases
-     */
-    public int verifier_cases_autour(int x, int y){
-        int count=0;
-        return count;
     }
 
     /**

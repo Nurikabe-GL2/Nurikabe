@@ -10,14 +10,13 @@ import java.io.*;
  * Classe
  */
 public class NiveauCharger{
-
-  private int largeur, hauteur, espace_boutons, complete;
-  private String sauv, nom_niveau;
+  private int espace_boutons, complete;
+  private String sauv, cheminSolution;
   private GridPane niveau;
 
-  public NiveauCharger(String nom_niveau, String mode_jeu){
-    this.sauv="src/main/resources/sauvegarde/"+nom_niveau+mode_jeu;
-    this.nom_niveau="src/main/resources/niveaux/"+nom_niveau;
+  public NiveauCharger(String cheminSolution, String mode_jeu){
+    this.sauv="src/main/resources/sauvegarde/"+ cheminSolution +mode_jeu;
+    this.cheminSolution ="src/main/resources/niveaux/"+ cheminSolution;
     complete=niveau_complete(sauv);
     niveau=chargerNiveauGrilleMiniature();
   }
@@ -29,7 +28,7 @@ public class NiveauCharger{
         gridpane.getStylesheets().add("/css/Plateau.css");
         gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
         //grille_solution=new String[largeur][hauteur];
-        Grille<String> temp=Niveau.charger_grille_solution_statique(nom_niveau);
+        Grille<String> temp=Niveau.chargerGrilleSolution(cheminSolution);
         espace_boutons=temp.recupLargeur()*9;
 
         for (int y = 0; y < temp.recupHauteur(); y++) {
@@ -66,7 +65,7 @@ public class NiveauCharger{
                 return gridpane;
 
         }catch (Exception e){
-        System.out.println("erreur lors de la lecture de la grille : "+e);
+        e.printStackTrace();
         return null;
       }
     }
@@ -81,19 +80,17 @@ public class NiveauCharger{
   public int niveau_complete(String nom){
       try {
       if(NiveauCharger.fichier_existe(nom)==1){
-          FileInputStream niv = new FileInputStream(nom);
-          Scanner lire = new Scanner(niv); 
-          String res=lire.nextLine();
-          lire.close();
-          niv.close();
-          if(res.equals("NIVEAU_COMPLETE")==true){
-              System.out.println("niveau complete!");
-              return 1;
-          } 
+          try (Scanner lire = new Scanner(new FileInputStream(nom))) {
+              String res = lire.nextLine();
+              if(res.equals("NIVEAU_COMPLETE")){
+                  System.out.println("niveau complete!");
+                  return 1;
+              }
+          }
           return 0;
       }
       }catch(Exception e){
-          System.out.println("erreur : "+e);
+          e.printStackTrace();
           return 0;
       }
       return 0;
