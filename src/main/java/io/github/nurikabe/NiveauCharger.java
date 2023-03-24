@@ -66,7 +66,7 @@ public class NiveauCharger{
                 return gridpane;
 
         }catch (Exception e){
-        System.out.println("erreur lors de la lecture de la grille : "+e);
+        e.printStackTrace();
         return null;
       }
     }
@@ -91,7 +91,7 @@ public class NiveauCharger{
           return 0;
       }
       }catch(Exception e){
-          System.out.println("erreur : "+e);
+          e.printStackTrace();
           return 0;
       }
       return 0;

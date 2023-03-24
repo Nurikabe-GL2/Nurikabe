@@ -201,7 +201,7 @@ public class Niveau implements Serializable {
         }
     }
 
-    public void charger_grille_solution(String cheminNiveau){
+    public void charger_grille_solution(String cheminNiveau) throws IOException {
         try (Scanner lecture = new Scanner(new FileInputStream(cheminNiveau))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
@@ -216,12 +216,10 @@ public class Niveau implements Serializable {
                         }
                     }
 
-            }catch (Exception e){
-            System.out.println("erreur lors de la lecture de la grille : "+e);
-          }
+            }
     }
 
-    public static Grille<String> charger_grille_solution_statique(String name){
+    public static Grille<String> charger_grille_solution_statique(String name) throws IOException {
         try (Scanner lecture = new Scanner(new FileInputStream(name))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
@@ -236,10 +234,7 @@ public class Niveau implements Serializable {
                         }
                     }
                     return grille_sol;
-            }catch (Exception e){
-            System.out.println("erreur lors de la lecture de la grille : "+e);
-          }
-         return null;
+            }
         }
 
     /**
