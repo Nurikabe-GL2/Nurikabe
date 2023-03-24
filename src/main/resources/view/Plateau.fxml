@@ -212,7 +212,7 @@
                            </font>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" styleClass="gameButton">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onResetAction" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
