@@ -8,8 +8,6 @@ package io.github.nurikabe;
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
 import javafx.stage.Modality;
-import org.slf4j.Logger;
-import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.*;
 
@@ -17,26 +15,15 @@ import java.util.Scanner;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Techniques;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
 
 
 /**
@@ -98,7 +85,7 @@ public class Niveau implements Serializable {
    /**
     * Variables d'instances undoB et redo B
     */
-   Button undoB, redoB, resetB, aideB;
+   Button undoB, redoB, aideB;
     TabPane tabPane;
     Tab tabAide;
 
@@ -208,14 +195,6 @@ public class Niveau implements Serializable {
      */
     public void setUndoB(Button b){
         undoB=b;
-    }
-
-    /**
-     * Setter du bouton Reset
-     * @param b le bouton
-     */
-    public void setResetB(Button b){
-        resetB=b;
     }
 
     public void setAide(Button b, TabPane tabPane, Tab tabAide) {
