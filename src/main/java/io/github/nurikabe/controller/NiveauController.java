@@ -46,7 +46,7 @@ public class NiveauController extends VBox {
      * @param stage la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, String name, String mode_jeu, SelectionNiveauxController select) throws IOException {
+    public NiveauController(Stage stage, Scene scenePrecedente, String name, String mode_jeu, SelectionNiveauxController select) throws Exception {
 
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;

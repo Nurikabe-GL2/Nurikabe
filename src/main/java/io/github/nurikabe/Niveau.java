@@ -94,7 +94,7 @@ public class Niveau implements Serializable {
     * Construteur de la classe Niveau
     * @param nomNiveau le nom de la grille
     */
-   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select){
+   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select) throws Exception{
         this.select=select;
       this.stage=stage;
       this.nomNiveau = nomNiveau;
@@ -111,8 +111,7 @@ public class Niveau implements Serializable {
     * Méthode chargerGrille qui s'occupe de charger la grille
     * @param nomGrille le nom de la grille
     */
-   public void chargerGrille(String nomGrille) {
-      try {
+   public void chargerGrille(String nomGrille) throws Exception {
         charger_grille_solution(nomGrille);
 
         if(charger_niveau(nomNiveau)==0){
@@ -160,10 +159,6 @@ public class Niveau implements Serializable {
 
                 }
             }
-      }catch (Exception e){
-        e.printStackTrace();
-        System.out.println("erreur lors de la lecture de la grille : "+e);
-      }
     }
 
     public void sauvegarderNiveau(){
@@ -191,26 +186,18 @@ public class Niveau implements Serializable {
         undoB=b;
     }
 
-    public int charger_niveau(String nom_niveau){
-        //System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        try {
-            File sauv =  new File("src/main/resources/sauvegarde/"+nom_niveau.substring(27)+mode_jeu);
-            if(sauv.createNewFile()==false){
-                System.out.println("fichier existe deja");
-                ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(sauv)) ;
-                sauvegarde=(Sauvegarde)ois.readObject();
-                grille=sauvegarde.recupGrille();
-                pileUndo =sauvegarde.recupPileUndo();
-                pileRedo =sauvegarde.recupPileRedo();
-                System.out.println(this.grille==null);
-                return 1;
-            }
-            else return 0;
-        } catch (Exception e){
-            e.printStackTrace();
+    public int charger_niveau(String nom_niveau) throws Exception {
+        File sauv = new File("src/main/resources/sauvegarde/" + nom_niveau.substring(27) + mode_jeu);
+        if (sauv.exists()) {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv));
+            sauvegarde = (Sauvegarde) ois.readObject();
+            grille = sauvegarde.recupGrille();
+            pileUndo = sauvegarde.recupPileUndo();
+            pileRedo = sauvegarde.recupPileRedo();
+            return 1;
+        } else {
             return 0;
         }
-
     }
 
     public void charger_grille_solution(String name){
