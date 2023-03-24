@@ -9,6 +9,10 @@
     -fx-text-fill: white;
 }
 
+.gameButton:armed {
+     -fx-background-color: #00008B;
+ }
+
 #timerLabel, #scoreLabel {
     -fx-text-fill: white;
 }
