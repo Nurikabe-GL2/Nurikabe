@@ -10,8 +10,7 @@ import java.io.*;
  * Classe
  */
 public class NiveauCharger{
-
-  private int largeur, hauteur, espace_boutons, complete;
+  private int espace_boutons, complete;
   private String sauv, cheminSolution;
   private GridPane niveau;
 
