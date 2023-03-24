@@ -32,7 +32,7 @@
       </HBox>
       <SplitPane id="contentBox" dividerPositions="0.33" VBox.vgrow="ALWAYS">
          <items>
-            <TabPane prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS">
+            <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="800.0" tabClosingPolicy="ALL_TABS">
                <stylesheets>
                   <URL value="@../css/ScrollPane.css" />
                   <URL value="@../css/TabPane.css" />
@@ -108,47 +108,6 @@
                                           </ImageView>
                                        </children>
                                     </VBox>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Aide">
-                     <content>
-                        <ScrollPane fx:id="aidePane" fitToWidth="true">
-                           <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <children>
-                                    <Label styleClass="tabContentMainLabel" text="Technique applicable">
-                                       <font>
-                                          <Font name="Lucida Sans Typewriter Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
-                                          <Label styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
-                                          <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/techniques_demarrages/1_ile_de_un.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <Button mnemonicParsing="false" styleClass="gameButton" text="Position aide">
-                                       <graphic>
-                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/location.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
                                  </children>
                               </VBox>
                            </content>

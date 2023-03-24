@@ -1,6 +1,7 @@
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Techniques;
 import javafx.event.ActionEvent;
@@ -8,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -47,7 +46,7 @@ public class NiveauController extends VBox {
 
     @FXML private Button buttonAide;
 
-    @FXML private ScrollPane aidePane;
+    @FXML private TabPane tabPane;
 
     /**
      * Le constructeur de la classe TechniquesController
@@ -106,25 +105,17 @@ public class NiveauController extends VBox {
 
     @FXML
     private void onAideAction(ActionEvent event) {
-        final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
-        System.out.println(positionTechniques);
+        try {
+            final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
+            System.out.println(positionTechniques);
 
-        //création de la box recevant les labels
-        VBox box = new VBox();
-        //création et insertion du label catégorie
-        Label labelCategorie = new Label("Technique Applicable\n");
-        labelCategorie.getStyleClass().add("tabContentMainLabel");
-        labelCategorie.setWrapText(true);
-        box.getChildren().add(labelCategorie);
+            final Tab tab = new Tab("Aide");
+            tab.setContent(Utils.loadFxml(new ContenuAideController(positionTechniques), "_ContenuAide"));
 
-        //création et insertion du label de la technique
-        Label labelTechnique = new Label(""+positionTechniques.toString());
-        labelTechnique.getStyleClass().add("tipCategory");
-        labelTechnique.setWrapText(true);
-        box.getChildren().add(labelTechnique);
-
-        //insertion des label dans l'onglet aide
-        aidePane.setContent(box);
+            tabPane.getTabs().add(tab);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
