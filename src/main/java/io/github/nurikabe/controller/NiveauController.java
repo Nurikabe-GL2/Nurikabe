@@ -51,7 +51,7 @@ public class NiveauController extends VBox {
      * @param stage la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, String name, String mode_jeu) {
+    public NiveauController(Stage stage, Scene scenePrecedente, String name, String mode_jeu, SelectionNiveauxController select) {
 
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
@@ -65,7 +65,7 @@ public class NiveauController extends VBox {
         // Add some debug output
         GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
             
-        Niveau niveau=new Niveau(stage, name, mode_jeu);
+        Niveau niveau=new Niveau(stage, name, mode_jeu, select);
             
         jeu_grille=niveau.get_grillegraphique(); 
         jeu_grille.setId("gridPaneGraphicalState");
@@ -88,10 +88,10 @@ public class NiveauController extends VBox {
          niveau.setUndoB(buttonUndo);
          niveau.setRedoB(buttonRedo);
 
-         if(mode_jeu.equals("CLASSIQUE"))timerAndLabelParent.getChildren().clear();
+         if(mode_jeu.equals("CLASSIQUE")||mode_jeu.equals("AVENTURE"))timerAndLabelParent.getChildren().clear();
 
          else {
-          //A Faire
+          //A FAIRE
 
          }
 

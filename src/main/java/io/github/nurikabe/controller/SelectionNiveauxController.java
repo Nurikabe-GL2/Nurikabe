@@ -18,6 +18,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,7 @@ public class SelectionNiveauxController extends VBox {
     /**
      * Méthode privé qui se charge de rafraichir les niveaux en fonction de la difficulté et du mode de jeu choisis
      */
-    private void refreshLevels() {
+    public void refreshLevels() {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
@@ -209,6 +210,7 @@ public class SelectionNiveauxController extends VBox {
         HBox ConteneurBoutons=new HBox(30);
         VBox ConteneurHbox=new VBox(30);
         NiveauCharger n=new NiveauCharger(niveauToString("moyen", 1), gameModeProperty.get().toString());
+        int niv_courant=0;
         for(int i=1, count=0;i<21;i++, count++){
 
             n=new NiveauCharger(niveauToString("moyen", i), gameModeProperty.get().toString());
@@ -225,15 +227,29 @@ public class SelectionNiveauxController extends VBox {
             }
             
             else {
-                bouton=new Button("NIVEAU "+i);
-                bouton.setStyle("-fx-background-color: GREY");
+                
+                
+                if(niv_courant==0){
+                    bouton=new Button("NIVEAU "+i);
+                    niv_courant=i;
+                    bouton.setStyle("-fx-background-color: WHITE");
+                }
+                else {
+                    bouton=new Button("BLOQUE ");
+                    bouton.setStyle("-fx-background-color: GREY");
+                }
+                //ImageView imageView = new ImageView("src/main/resources/img/locked.png");
+                //bouton.setGraphic(imageView);
+                
             }
             bouton.setPrefSize(100, 100);
-            bouton.setOnMouseClicked(MouseEvent -> {
-                System.out.println();
-                jouer("src/main/resources/niveaux/"+niveauToString("moyen", Integer.parseInt(bouton.getText().substring(7))));
-                refreshLevels(); 
-            });
+            if(niv_courant==i){
+                bouton.setOnMouseClicked(MouseEvent -> {
+                    System.out.println();
+                    jouer("src/main/resources/niveaux/"+niveauToString("moyen", Integer.parseInt(bouton.getText().substring(7))));
+                    refreshLevels(); 
+                });
+            }
             ConteneurBoutons.getChildren().add(bouton);
         }
         /*A FAIRE */
@@ -266,7 +282,7 @@ public class SelectionNiveauxController extends VBox {
 
     private void jouer(String nom_niveau) {
         try{
-            NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString());
+            NiveauController c=new NiveauController(stage, stage.getScene(), nom_niveau, gameModeProperty.get().toString(), this);
         }catch(Exception e){
             e.printStackTrace();
 

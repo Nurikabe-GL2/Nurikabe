@@ -6,6 +6,13 @@
 package io.github.nurikabe;
 
 // Importation des librairies javaFX
+import io.github.nurikabe.controller.SelectionNiveauxController;
+import java.util.ArrayList;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+
+import java.util.Scanner;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -53,6 +60,8 @@ public class Niveau implements Serializable {
     * Variable d'instance pileUndo représentant la pile servant au bouton Undo
     */
    private Pile pileUndo;
+
+    private SelectionNiveauxController select;
     
    /**
     * Variable d'instance pileRedo représentant la pile servant au bouton Redo
@@ -85,7 +94,8 @@ public class Niveau implements Serializable {
     * Construteur de la classe Niveau
     * @param nomNiveau le nom de la grille
     */
-   public Niveau(Stage stage, String nomNiveau, String mode){
+   public Niveau(Stage stage, String nomNiveau, String mode, SelectionNiveauxController select){
+        this.select=select;
       this.stage=stage;
       this.nomNiveau = nomNiveau;
       this.mode_jeu=mode;
@@ -281,19 +291,10 @@ public class Niveau implements Serializable {
           // Create a label with the message
           Label messageLabel = new Label("Niveau complété !");
 
-          // Create buttons
-          Button nextLevelButton = new Button("Niveau Suivant");
-          Button mainMenuButton = new Button("Retour");
-
-          // Create an HBox to hold the buttons
-          HBox buttonBox = new HBox(10);
-          buttonBox.getChildren().addAll(nextLevelButton, mainMenuButton);
-
+          
           // Create a VBox to hold the label and button HBox
           VBox vbox = new VBox(10);
-          vbox.getChildren().addAll(messageLabel, buttonBox);
-          vbox.setPadding(new Insets(10));
-
+          vbox.getChildren().addAll(messageLabel);
           // Create the dialog box
           Stage dialog = new Stage();
           dialog.initModality(Modality.APPLICATION_MODAL);
@@ -305,6 +306,7 @@ public class Niveau implements Serializable {
           dialog.show();
 
         System.out.println("PARTIE GAGNEE !!!!");
+        select.refreshLevels();
       }
     }
 
