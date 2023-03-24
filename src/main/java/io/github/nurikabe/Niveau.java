@@ -42,7 +42,7 @@ public class Niveau implements Serializable {
     /**
      * Variable d'instance panneauGrille représentant le panneau de la grille graphique
      */
-    GridPane panneauGrille;
+    GridPane panneauGrille = new GridPane();
 
     /**
      * Variable d'instance sauvegarde représentant la sauvegarde de la grille
@@ -92,15 +92,19 @@ public class Niveau implements Serializable {
       this.stage=stage;
       this.cheminNiveau = cheminNiveau;
       this.mode_jeu=mode;
-      this.sauvegarde=new Sauvegarde();
-      this.panneauGrille = new GridPane();
-      this.pileUndo = new Pile();
-      this.pileRedo = new Pile();
-      panneauGrille.getStylesheets().add("/css/Plateau.css");
-      chargerGrille();
+       initialiser();
    }
 
-   /**
+    private void initialiser() throws Exception {
+        this.sauvegarde=new Sauvegarde();
+        this.panneauGrille.getChildren().clear();
+        this.pileUndo = new Pile();
+        this.pileRedo = new Pile();
+        panneauGrille.getStylesheets().add("/css/Plateau.css");
+        chargerGrille();
+    }
+
+    /**
     * Méthode chargerGrille qui s'occupe de charger la grille
     */
    public void chargerGrille() throws Exception {
@@ -158,12 +162,12 @@ public class Niveau implements Serializable {
             File sauv =  new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
 
-            sauv.createNewFile();
-            ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(sauv));
-            sauvegarde.mettreGrille(grille);
-            sauvegarde.setRedoPile(pileRedo);
-            sauvegarde.mettrePileUndo(pileUndo);
-            oos.writeObject(this.sauvegarde);
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sauv))) {
+                sauvegarde.mettreGrille(grille);
+                sauvegarde.setRedoPile(pileRedo);
+                sauvegarde.mettrePileUndo(pileUndo);
+                oos.writeObject(this.sauvegarde);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -370,5 +374,20 @@ public class Niveau implements Serializable {
         }
 
         return erreurs;
+    }
+
+    public void reset() {
+        try {
+            //Voir #charger_niveau
+            File sauvegarde = new File("src/main/resources/sauvegarde/" + cheminNiveau.substring(27) + mode_jeu);
+            if (sauvegarde.exists()) {
+                if (!sauvegarde.delete()) throw new IOException("Unable to delete " + sauvegarde);
+            }
+
+            initialiser();
+            sauvegarderNiveau();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

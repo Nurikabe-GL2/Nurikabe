@@ -108,4 +108,9 @@ public class NiveauController extends VBox {
         final int erreurs = niveau.verifier();
         labelErreurs.setText(erreurs + " erreurs");
     }
+
+    @FXML
+    private void onResetAction(ActionEvent event) {
+        niveau.reset();
+    }
 }
