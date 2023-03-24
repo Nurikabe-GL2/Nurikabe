@@ -7,25 +7,18 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
-import java.util.ArrayList;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
 import javafx.stage.Modality;
 
 import java.util.Scanner;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
-import java.util.Scanner;
 
 /**
  * Classe Niveau pour représenter un niveau
@@ -111,7 +104,7 @@ public class Niveau implements Serializable {
     * Méthode chargerGrille qui s'occupe de charger la grille
     */
    public void chargerGrille() throws Exception {
-        charger_grille_solution(cheminNiveau);
+       grilleSolution = chargerGrilleSolution(cheminNiveau);
 
         if(charger_niveau(cheminNiveau)==0){
 
@@ -123,9 +116,8 @@ public class Niveau implements Serializable {
                     for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
                         //Case une_case;
 
-                        if(grilleSolution.recup(x, y).equals(".")|| grilleSolution.recup(x, y).equals("n")){
+                        if(grilleSolution.recup(x, y).equals("b")|| grilleSolution.recup(x, y).equals("n")){
                             grille.mettre(x, y, new CaseNormale(x, y));
-                            //if(grille_solution.get(x, y).equals("."))grille_solution.get(x, y)=".";
                         }
                         else grille.mettre(x, y, new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y))));
 
@@ -201,26 +193,8 @@ public class Niveau implements Serializable {
         }
     }
 
-    public void charger_grille_solution(String cheminNiveau) throws IOException {
-        try (Scanner lecture = new Scanner(new FileInputStream(cheminNiveau))) {
-            int largeur = lecture.nextInt();
-            int hauteur = lecture.nextInt();
-            grilleSolution =new Grille<>(largeur, hauteur);
-
-                    for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
-
-                        for (int x = 0; x < grilleSolution.recupLargeur(); x++) {
-
-                            grilleSolution.mettre(x, y, lecture.next());
-                            if(grilleSolution.recup(x, y).equals("b")) grilleSolution.mettre(x, y, ".");
-                        }
-                    }
-
-            }
-    }
-
-    public static Grille<String> charger_grille_solution_statique(String name) throws IOException {
-        try (Scanner lecture = new Scanner(new FileInputStream(name))) {
+    public static Grille<String> chargerGrilleSolution(String cheminGrille) throws IOException {
+        try (Scanner lecture = new Scanner(new FileInputStream(cheminGrille))) {
             int largeur = lecture.nextInt();
             int hauteur = lecture.nextInt();
             Grille<String> grille_sol=new Grille<>(largeur, hauteur);

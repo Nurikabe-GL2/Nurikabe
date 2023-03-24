@@ -12,12 +12,12 @@ import java.io.*;
 public class NiveauCharger{
 
   private int largeur, hauteur, espace_boutons, complete;
-  private String sauv, nom_niveau;
+  private String sauv, cheminSolution;
   private GridPane niveau;
 
-  public NiveauCharger(String nom_niveau, String mode_jeu){
-    this.sauv="src/main/resources/sauvegarde/"+nom_niveau+mode_jeu;
-    this.nom_niveau="src/main/resources/niveaux/"+nom_niveau;
+  public NiveauCharger(String cheminSolution, String mode_jeu){
+    this.sauv="src/main/resources/sauvegarde/"+ cheminSolution +mode_jeu;
+    this.cheminSolution ="src/main/resources/niveaux/"+ cheminSolution;
     complete=niveau_complete(sauv);
     niveau=chargerNiveauGrilleMiniature();
   }
@@ -29,7 +29,7 @@ public class NiveauCharger{
         gridpane.getStylesheets().add("/css/Plateau.css");
         gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
         //grille_solution=new String[largeur][hauteur];
-        Grille<String> temp=Niveau.charger_grille_solution_statique(nom_niveau);
+        Grille<String> temp=Niveau.chargerGrilleSolution(cheminSolution);
         espace_boutons=temp.recupLargeur()*9;
 
         for (int y = 0; y < temp.recupHauteur(); y++) {
