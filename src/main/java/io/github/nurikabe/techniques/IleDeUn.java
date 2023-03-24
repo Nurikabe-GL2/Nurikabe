@@ -29,18 +29,26 @@ public class IleDeUn extends Technique {
             {
                 if(grille.etat_case(x, y).equals("1"))
                 {
+                
                     List<Coup> liste = new ArrayList<>();
 
                     if(estValide(grille,x-1,y))
                         liste.add(new Coup(x-1, y));
+                        
                     if(estValide(grille,x+1,y))
                         liste.add(new Coup(x+1, y));
+
                     if(estValide(grille,x,y-1))
                         liste.add(new Coup(x, y-1));
+
                     if(estValide(grille,x,y+1))
                         liste.add(new Coup(x, y+1));
+
                     if(!liste.isEmpty())
+                    {
+                        System.out.println("1 est applicable ...");
                         return new PositionTechniques(this, liste);
+                    }
                 }
             }   
         }

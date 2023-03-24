@@ -18,6 +18,8 @@ import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Techniques;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,6 +34,8 @@ import org.slf4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -407,6 +411,27 @@ public class Niveau implements Serializable {
 
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(Niveau.this);
             System.out.println(positionTechniques);
+            
+            //création de la box recevant les labels
+            VBox box = new VBox();
+            //création et insertion du label catégorie
+            Label labelCategorie = new Label("Technique Applicable\n");
+            labelCategorie.getStyleClass().add("tabContentMainLabel");
+            labelCategorie.setWrapText(true);
+            box.getChildren().add(labelCategorie);
+
+            //création et insertion du label de la technique
+            Label labelTechnique = new Label(""+positionTechniques.toString());
+            labelTechnique.getStyleClass().add("tipCategory");
+            labelTechnique.setWrapText(true);
+            box.getChildren().add(labelTechnique);
+
+            //insertion des label dans l'onglet aide
+            tabAide.setContent(box);
+
+            //actualisation de la fenêtre
+            ((Parent) tabAide.getContent()).requestLayout();
+
         }
     };
 
