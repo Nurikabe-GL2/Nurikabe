@@ -26,37 +26,24 @@ public class IleExtensionDepuisUnIndice extends Technique {
         {
             for(int y=0;y<grille.get_hauteur();y++)
             {
-                int cpt = 0;
                 if(grille.recupCase(x, y) instanceof CaseNombre)
                 {
-                    List<Coup> liste = new ArrayList<>();
-                    
-		            //test si la case de gauche de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("b"))
-                        cpt++;
-                    
-                        //test si la case de droite de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("b"))
-                        cpt++;
-                    
-                        //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("b"))
-                        cpt++;
+                    List<Coup> coups = new ArrayList<>();
 
-                    //test si la case en bas de la case courante est valide et que c'est une case blanche
-                    if(estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("b"))
-                        cpt++;
-                    
-                    //si elle est extensible uniquement dans 2 directions alors la technique est valide
-                    if(cpt==1)
-                        liste.add(new Coup(x,y));
-                    		
-					if(!liste.isEmpty())
-                        			return new PositionTechniques(this, liste);
+                    //Test si les cases autour sont des cases blanches,
+                    // il ne nous faut exactement 1 case blanche pour que la technique soit valide
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche);
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche);
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche);
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche);
+
+                    if (coups.size() == 1) {
+                        return new PositionTechniques(this, coups);
+                    }
                 }
             }
-        
-        }   
+        }
+
         return null;
     }
 }
