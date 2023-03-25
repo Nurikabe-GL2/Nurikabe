@@ -139,6 +139,8 @@ public class CaseGraphique {
    }
 
    public void surbrillance() {
+      if (type == 1) //askip c'est une case nombre
+         throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");
       panneau.getStyleClass().add("surbrillance");
    }
 }
