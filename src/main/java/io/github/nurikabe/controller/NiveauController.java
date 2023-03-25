@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -116,6 +117,10 @@ public class NiveauController extends VBox {
                 tabPane.getTabs().removeIf(t -> t.getText().equals("Aide"));
                 tabPane.getTabs().add(tab);
                 tabPane.getSelectionModel().select(tab);
+            } else {
+                final Alert alert = new Alert(Alert.AlertType.INFORMATION, "Il n'y a pas de techniques applicables, vous devriez peut être essayer de revenir en arrière.");
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
