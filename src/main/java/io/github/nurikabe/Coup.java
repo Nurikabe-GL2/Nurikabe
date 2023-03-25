@@ -36,7 +36,7 @@ public class Coup implements Serializable {
     * Méthode recupX qui renvoie la coordonnée x du coup joué
     * @return la coordonnée x du coup
     */
-   int recupX() {
+   public int recupX() {
       return x;
    }
 
@@ -44,7 +44,7 @@ public class Coup implements Serializable {
     * Méthode recupY qui renvoie la coordonnée y du coup joué
     * @return la coordonnée y du coup
     */
-   int recupY() {
+   public int recupY() {
       return y;
    }
 

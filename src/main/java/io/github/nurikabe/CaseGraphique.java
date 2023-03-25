@@ -87,6 +87,8 @@ public class CaseGraphique {
     * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
     */
    public void actionClic() {
+      panneau.getStyleClass().remove("surbrillance");
+
       // Si la case contient un point
       if (type == -2) {
          if (panneau.getChildren() != null)
@@ -134,5 +136,9 @@ public class CaseGraphique {
       panneau.getStyleClass().remove(0);
       panneau.getChildren().add(cercle);
       panneau.getStyleClass().add(0, "caseblanche");
+   }
+
+   public void surbrillance() {
+      panneau.getStyleClass().add("surbrillance");
    }
 }

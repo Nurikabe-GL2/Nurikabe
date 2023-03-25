@@ -9,13 +9,10 @@ package io.github.nurikabe;
 import io.github.nurikabe.controller.SelectionNiveauxController;
 import javafx.stage.Modality;
 import javafx.scene.layout.GridPane;
-import javafx.scene.control.*;
 
 import java.util.Scanner;
-import io.github.nurikabe.techniques.PositionTechniques;
-import io.github.nurikabe.techniques.Techniques;
+
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -316,12 +313,15 @@ public class Niveau implements Serializable {
      * Méthode qui renvoie l'état de la partie
      * @return l'état de la partie sous forme d'entier
      */
-    public GridPane get_grillegraphique(){
+    public GridPane getGridPane(){
         return this.panneauGrille;
     }
-    
 
-   /**
+    public Grille<CaseGraphique> getGrilleGraphique() {
+        return grilleGraphique;
+    }
+
+    /**
     * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
     * @param aPop la pile qui possède le coup à jouer, c'est elle qui sera pop
     * @param aPush la pile qui recevra le nouveau coup, c'est elle qui sera push

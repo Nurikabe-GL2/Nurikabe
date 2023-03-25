@@ -33,7 +33,7 @@
                   </ImageView>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#onPositionAideAction" styleClass="gameButton" text="Position aide">
+            <Button fx:id="boutonPositionAide" mnemonicParsing="false" onAction="#onPositionAideAction" styleClass="gameButton" text="Position aide">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

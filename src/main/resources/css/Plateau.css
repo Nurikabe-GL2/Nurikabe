@@ -30,4 +30,9 @@
   .caseblanche {
     -fx-border-color:black;
   }
+
+.surbrillance {
+    -fx-border-color: red;
+    -fx-border-width: 3px;
+}
   

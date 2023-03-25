@@ -7,7 +7,6 @@ import io.github.nurikabe.techniques.Techniques;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -68,7 +67,7 @@ public class NiveauController extends VBox {
 
         niveau = new Niveau(stage, cheminNiveau, mode_jeu, select);
 
-        jeu_grille= niveau.get_grillegraphique();
+        jeu_grille= niveau.getGridPane();
         jeu_grille.setId("gridPaneGraphicalState");
 
          gridPaneContainer.getChildren().remove(gridPane);
@@ -111,7 +110,7 @@ public class NiveauController extends VBox {
 
             if (positionTechniques != null) {
                 final Tab tab = new Tab("Aide");
-                tab.setContent(Utils.loadFxml(new ContenuAideController(positionTechniques), "_ContenuAide"));
+                tab.setContent(Utils.loadFxml(new ContenuAideController(niveau, positionTechniques), "_ContenuAide"));
 
                 //Remplacement de l'onglet d'aide
                 tabPane.getTabs().removeIf(t -> t.getText().equals("Aide"));
