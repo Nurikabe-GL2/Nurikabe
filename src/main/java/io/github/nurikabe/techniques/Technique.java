@@ -116,6 +116,13 @@ public abstract class Technique {
         return uneCase.recupContenuCase().equals("n");
     }
 
+    protected boolean estPasCaseNoire(Niveau grille, int x, int y) {
+        if (!estCoordonneeValide(grille, x, y))
+            return false;
+        final Case uneCase = grille.recupCase(x, y);
+        return !uneCase.recupContenuCase().equals("n");
+    }
+
     /**
      * Teste si insérer une case noire à ces coordonnées donnera un carré noir.
      *
@@ -140,6 +147,36 @@ public abstract class Technique {
             return true;
 
         if (estCaseNoire(grille, x - 1, y)
+                && estCaseNoire(grille, x, y - 1) && estCaseNoire(grille, x - 1, y - 1))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Teste si un carré noir existe à ces coordonnées.
+     *
+     * @param grille la grille courante
+     * @param x      la coordonnée x
+     * @param y      la coordonnée y
+     *
+     * @return {@code true} si un carré noir existe
+     */
+    @SuppressWarnings("RedundantIfStatement")
+    protected boolean estUnCarre(Niveau grille, int x, int y) {
+        if (estCaseNoire(grille, x, y) && estCaseNoire(grille, x + 1, y)
+                && estCaseNoire(grille, x, y + 1) && estCaseNoire(grille, x + 1, y + 1))
+            return true;
+
+        if (estCaseNoire(grille, x, y) && estCaseNoire(grille, x + 1, y)
+                && estCaseNoire(grille, x, y - 1) && estCaseNoire(grille, x + 1, y - 1))
+            return true;
+
+        if (estCaseNoire(grille, x, y) && estCaseNoire(grille, x - 1, y)
+                && estCaseNoire(grille, x, y + 1) && estCaseNoire(grille, x - 1, y + 1))
+            return true;
+
+        if (estCaseNoire(grille, x, y) && estCaseNoire(grille, x - 1, y)
                 && estCaseNoire(grille, x, y - 1) && estCaseNoire(grille, x - 1, y - 1))
             return true;
 
