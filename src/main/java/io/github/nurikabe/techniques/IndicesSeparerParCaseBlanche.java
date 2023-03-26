@@ -29,13 +29,13 @@ public class IndicesSeparerParCaseBlanche extends Technique {
                 if (grille.recupCase(x, y) instanceof CaseNombre) {
                     List<Cible> liste = new ArrayList<>();
 
-                    if (estValideCaseNombreEspace(grille, x - 2, y) && estCaseBlanche(grille, x - 1, y))
+                    if (estCaseNombre(grille, x - 2, y) && estCaseBlanche(grille, x - 1, y))
                         liste.add(new Cible(x - 1, y, "n"));
-                    if (estValideCaseNombreEspace(grille, x + 2, y) && estCaseBlanche(grille, x + 1, y))
+                    if (estCaseNombre(grille, x + 2, y) && estCaseBlanche(grille, x + 1, y))
                         liste.add(new Cible(x + 1, y, "n"));
-                    if (estValideCaseNombreEspace(grille, x, y - 2) && estCaseBlanche(grille, x, y - 1))
+                    if (estCaseNombre(grille, x, y - 2) && estCaseBlanche(grille, x, y - 1))
                         liste.add(new Cible(x, y - 1, "n"));
-                    if (estValideCaseNombreEspace(grille, x, y + 2) && estCaseBlanche(grille, x, y + 1))
+                    if (estCaseNombre(grille, x, y + 2) && estCaseBlanche(grille, x, y + 1))
                         liste.add(new Cible(x, y + 1, "n"));
                     if (!liste.isEmpty())
                         return new PositionTechniques(this, liste);

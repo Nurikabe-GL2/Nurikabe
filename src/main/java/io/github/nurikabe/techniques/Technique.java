@@ -96,7 +96,7 @@ public abstract class Technique {
         }
     }
 
-    protected boolean estValideCaseNombreEspace(Niveau grille, int x, int y) {
+    protected boolean estCaseNombre(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
         return (grille.recupCase(x, y) instanceof CaseNombre);
