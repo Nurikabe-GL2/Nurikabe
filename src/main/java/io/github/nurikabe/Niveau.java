@@ -8,17 +8,20 @@ package io.github.nurikabe;
 // Importation des librairies javaFX
 import io.github.nurikabe.controller.SelectionNiveauxController;
 import javafx.stage.Modality;
+import javafx.scene.layout.GridPane;
 
 import java.util.Scanner;
+
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import java.io.*;
+
 
 /**
  * Classe Niveau pour représenter un niveau
@@ -113,6 +116,10 @@ public class Niveau implements Serializable {
         afficherChrono();
     }
 
+    public Grille<String> getGrilleSolution() {
+        return grilleSolution;
+    }
+
     /**
     * Méthode chargerGrille qui s'occupe de charger la grille
     */
@@ -188,10 +195,18 @@ public class Niveau implements Serializable {
         if(timerLabel!=null)timerLabel.setText(chrono.toString());
     }
 
+    /**
+     * Setter du bouton redo
+     * @param b le bouton
+     */
     public void setRedoB(Button b){
         redoB=b;
     }
 
+    /**
+     * Setter du bouton undo
+     * @param b le bouton
+     */
     public void setUndoB(Button b){
         undoB=b;
     }
@@ -233,19 +248,13 @@ public class Niveau implements Serializable {
     /**
      * Méthode victoire qui teste si la grille est terminée
      */
-    public void victoire(){
+    public void victoire() {
 
         afficherChrono();
-        
-        int count=0;
-          for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
 
-                for (int x = 0; x < grilleSolution.recupLargeur() ; x++) {
-                    if(grilleSolution.recup(x, y).equals(grille.recup(x, y).recupContenuCase()))count++;
-                }
-            }
-            System.out.println("count : "+count+"\n l*L : "+ grilleSolution.recupHauteur()* grilleSolution.recupLargeur());
-      if(count==(grilleSolution.recupHauteur()* grilleSolution.recupLargeur())){
+        final int erreurs = verifier();
+
+      if(erreurs==0){
         try {
             File myFile = new File(Niveau.path_sauvegarde+ cheminNiveau.substring(27)+mode_jeu);
             myFile.delete();
@@ -261,7 +270,7 @@ public class Niveau implements Serializable {
           // Create a label with the message
           Label messageLabel = new Label("Niveau complété !");
 
-          
+
           // Create a VBox to hold the label and button HBox
           VBox vbox = new VBox(10);
           vbox.getChildren().addAll(messageLabel);
@@ -321,12 +330,15 @@ public class Niveau implements Serializable {
      * Méthode qui renvoie l'état de la partie
      * @return l'état de la partie sous forme d'entier
      */
-    public GridPane get_grillegraphique(){
+    public GridPane getGridPane(){
         return this.panneauGrille;
     }
-    
 
-   /**
+    public Grille<CaseGraphique> getGrilleGraphique() {
+        return grilleGraphique;
+    }
+
+    /**
     * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
     * @param aPop la pile qui possède le coup à jouer, c'est elle qui sera pop
     * @param aPush la pile qui recevra le nouveau coup, c'est elle qui sera push
@@ -367,6 +379,10 @@ public class Niveau implements Serializable {
         }
     };
 
+    /**
+     * Getter du stack Undo
+     * @return une pile
+     */
     public Pile recupUndo() {
         return pileUndo;
     }
@@ -380,7 +396,11 @@ public class Niveau implements Serializable {
         int erreurs = 0;
         for (int x = 0; x < grille.recupLargeur(); x++) {
             for (int y = 0; y < grille.recupHauteur(); y++) {
-                if (!grille.recup(x, y).recupContenuCase().equals(grilleSolution.recup(x, y))) {
+                String contenuGrille = grille.recup(x, y).recupContenuCase();
+                if (contenuGrille.equals(".")) contenuGrille = "b";
+
+                final String contenuSolution = grilleSolution.recup(x, y);
+                if (!contenuGrille.equals(contenuSolution)) {
                     erreurs++;
                 }
             }

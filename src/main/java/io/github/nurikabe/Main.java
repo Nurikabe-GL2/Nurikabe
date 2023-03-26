@@ -22,12 +22,12 @@ public class Main {
     */
    private static final Logger LOGGER = Logging.getLogger();
 
-   /**
-    * Méthode main de lancement du jeu
-    * @param args les arguments d'entrée
-    */
-   public static void main(String[] args) {
-      LOGGER.debug("Démarrage");
+    /**
+     * Méthode main de lancement du jeu
+     * @param args les arguments d'entrée
+     */
+    public static void main(String[] args) {
+        LOGGER.debug("Démarrage");
 
       // Démarre JavaFX
       Platform.startup(() -> {

@@ -1,0 +1,5 @@
+/* Feuille de style CSS pour la sous-fenêtre du contenu d'aide */
+
+#aidePane, #aidePane .viewport {
+    -fx-background-color: #152247;
+}

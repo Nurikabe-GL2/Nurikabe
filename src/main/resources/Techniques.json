@@ -1,0 +1,128 @@
+{
+  "demarrage_1": {
+    "categorie": "Techniques de démarrage",
+    "nom": "1. Ile de 1",
+    "description": "Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux.",
+    "condition": "Avoir une île de 1.",
+    "cheminImage": "/img/techniques_demarrage/1_ile_de_un.png"
+  },
+  "demarrage_2": {
+    "categorie": "Techniques de démarrage",
+    "nom": "2. Indices séparés par une case blanche",
+    "description": "Tous les indices doivent être séparés les uns des autres par des murs. Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case, la case intermédiaire doit être un mur.",
+    "condition": "2 indices séparés par une case blanche.",
+    "cheminImage": "/img/techniques_demarrage/2_indices_separes.png"
+  },
+  "demarrage_3": {
+    "categorie": "Techniques de démarrage",
+    "nom": "3. Indices adjacents en diagonale",
+    "description": "Similaire à la technique précédente, quand deux indices sont adjacents en diagonales, il faut mettre des murs à toutes les cases touchants les deux indices.",
+    "condition": "2 indices adjacents en diagonales.",
+    "cheminImage": "/img/techniques_demarrage/3_adjacence_diagonale.png"
+  },
+  "basique_1": {
+    "categorie": "Techniques basiques",
+    "nom": "1. Carré isolé par des murs",
+    "description": "Après avoir résolu les premières étapes en utilisant les techniques de départ décrites ci-dessus, le puzzle du diagramme de gauche ci-dessous comporte deux carrés ? en rouge. Comme ces carrés sont entourés de murs horizontalement et verticalement, ils ne peuvent pas appartenir à une île et doivent donc être ombrés pour faire partie du mur.",
+    "condition": "Carré blanc entouré de murs.",
+    "cheminImage": "/img/techniques_basiques/1_carre_isole.png"
+  },
+  "basique_2": {
+    "categorie": "Techniques basiques",
+    "nom": "2. Extension d’un mur",
+    "description": "Selon les règles du Nurikabe, tous les murs doivent former un seul chemin continu. Si on regarde le mur isolé dans le diagramme de gauche ci-dessous, la seule façon de le relier aux autres murs est de l'agrandir avec trois carrés sur sa droite, comme indiqué dans le diagramme de droite.",
+    "condition": "Mur isolé.",
+    "cheminImage": "/img/techniques_basiques/2_extension_mur.png"
+  },
+  "basique_3": {
+    "categorie": "Techniques basiques",
+    "nom": "3. Continuité d’un mur",
+    "description": "Dans le puzzle ci-dessous, si le carré ? en rouge fait partie d'une île, le mur du haut sera cloisonné. Par conséquent, pour maintenir la continuité du mur selon les règles du Nurikabe, ce carré doit faire partie d'un mur.",
+    "condition": "Carré blanc entre 2 murs.",
+    "cheminImage": "/img/techniques_basiques/3_continuite_mur.png"
+  },
+  "basique_4": {
+    "categorie": "Techniques basiques",
+    "nom": "4. Extension d’une île depuis un indice",
+    "description": "Dans de nombreux cas, la façon dont une île peut être agrandie directement à partir d'un indice est claire. Dans le schéma ci-dessous, l'île du 3 ne peut être agrandie que vers le haut et l'île du 7 ne peut être agrandie que vers la gauche. Nous allons marquer ces carrés avec des points pour montrer qu'ils font partie des îles respectives et ne peuvent pas faire partie d'un mur.",
+    "condition": "Chemin unique depuis un indice.",
+    "cheminImage": "/img/techniques_basiques/4_extension_ile.png"
+  },
+  "basique_5": {
+    "categorie": "Techniques basiques",
+    "nom": "5. Île extensible uniquement dans deux directions",
+    "description": "Dans certains cas, un îlot de 2 ou le dernier carré d'un îlot plus grand ne peut être agrandi que dans deux directions perpendiculaires. Dans ce cas, quelle que soit la direction dans laquelle l’extension de l'îlot aura lieu, le carré diagonal doit faire partie d'un mur comme indiqué dans le diagramme de droite ci-dessous.",
+    "condition": "Chemin possible dans 2 directions.",
+    "cheminImage": "/img/techniques_basiques/5_ile_extensible_deux_directions.png"
+  },
+  "basique_6": {
+    "categorie": "Techniques basiques",
+    "nom": "6. Extension de d’île cachée",
+    "description": "Parfois, une île est trop grande pour tenir dans une zone donnée. Dans l'énigme partiellement résolue ci-dessous, l'île de 12 ne peut pas tenir dans la zone du haut et doit donc s'étendre vers le bas, comme indiqué par un point dans le diagramme de droite. Notez que la case située à gauche de ce point ne peut appartenir à aucune île et qu'elle est donc ombragée pour faire partie d'un mur.",
+    "condition": "Chemin trop gros pour une zone.",
+    "cheminImage": "/img/techniques_basiques/6_ile_trop_grande.png"
+  },
+  "basique_7": {
+    "categorie": "Techniques basiques",
+    "nom": "7. Continuité de l’île",
+    "description": "La case marquée d'un point rouge dans le schéma de gauche ci-dessous doit faire partie d'un îlot pour éviter une surface de mur de 2x2. Cela signifie que la case située à sa gauche doit également faire partie de la même île et est donc également marquée d'un point. L'île de 3 est maintenant terminée et nous pouvons l'entourer d'un mur.",
+    "condition": "Probable surface 2x2 sur un probable chemin d’une île",
+    "cheminImage": "/img/techniques_basiques/7_continuite_ile.png"
+  },
+  "basique_8": {
+    "categorie": "Techniques basiques",
+    "nom": "8. Entourer une île terminée",
+    "description": "Dans l'énigme partiellement résolue ci-dessous, l'île de 3 a été complétée comme le montre la zone en surbrillance. Nous pouvons maintenant entourer cette île de murs adjacents horizontalement et verticalement, comme le montre l'image de droite.",
+    "condition": "Île complétée.",
+    "cheminImage": "/img/techniques_basiques/8_ile_completee.png"
+  },
+  "basique_9": {
+    "categorie": "Techniques basiques",
+    "nom": "9. Éviter une zone de mur de 2x2",
+    "description": "Selon les règles, il n'est pas permis d'avoir des murs de 2x2 ou plus. Par conséquent, le carré surligné ci-dessous ne peut pas faire partie du mur et est marqué d'un point indiquant qu'il appartient à l'une des îles.",
+    "condition": "Probable zone de mur de 2x2.",
+    "cheminImage": "/img/techniques_basiques/9_zone_mur_2x2.png"
+  },
+  "basique_10": {
+    "categorie": "Techniques basiques",
+    "nom": "10. Carré inaccessible",
+    "description": "Dans certains cas, une case ne peut appartenir à aucune île, tout simplement parce qu'aucun indice ne peut l' « atteindre ». Dans l'exemple ci-dessous, les deux cases ? en rouge sont trop éloignées des indices et ne peuvent faire partie d'aucune île. Elles sont donc ombragées pour indiquer qu'elles doivent faire partie d'un mur.",
+    "condition": "Carré inaccessible.",
+    "cheminImage": "/img/techniques_basiques/10_carre_innaccessible.png"
+  },
+  "avancee_1": {
+    "categorie": "Techniques avancées",
+    "nom": "1. Technique avancée 1",
+    "description": "La case surlignée sous le 2 dans le diagramme de gauche ci-dessous, comme toute autre case dans le Nurikabe, peut être soit une île, soit un mur. Supposons qu'elle fasse partie d'une île, ce qui signifie que l'île du 2 peut être complétée et entourée de murs comme indiqué dans le diagramme du centre. Cependant, cela créera une zone de mur de 2x2, ce qui n'est pas autorisé. Par conséquent, le carré sous le 2 doit faire partie d'un mur, comme le montre le diagramme de droite.",
+    "condition": "Case indéterminée avec possible zone de mur 2x2.",
+    "cheminImage": "/img/techniques_avancees/1_technique.png"
+  },
+  "avancee_2": {
+    "categorie": "Techniques avancées",
+    "nom": "2. Technique avancée 2",
+    "description": "Comme dans l'exemple précédent, si nous supposons que le carré en surbrillance fait partie d'un mur, une fois encore, une zone de mur de 2x2 sera créée, ce qui n'est pas autorisé. Par conséquent, le carré en surbrillance doit faire partie d'un îlot et est marqué d'un point, comme indiqué dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un mur.",
+    "cheminImage": "/img/techniques_avancees/2_technique.png"
+  },
+  "avancee_3": {
+    "categorie": "Techniques avancées",
+    "nom": "3. Technique avancée 3",
+    "description": "Si la case surlignée dans le diagramme de gauche ci-dessous fait partie d'une île, alors la case sous le 2 doit faire partie d'un mur. Cependant, cette partie de mur ne pourra pas être reliée à d'autres murs du puzzle, comme le montre le diagramme du centre. Le carré en surbrillance doit donc faire partie d'un mur et est ombragé comme indiqué dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un indice provoquant un possible mur isolé.",
+    "cheminImage": "/img/techniques_avancees/3_technique.png"
+  },
+  "avancee_4": {
+    "categorie": "Techniques avancées",
+    "nom": "4. Technique avancée 4",
+    "description": "Examinons la case mise en évidence dans le puzzle partiellement résolu présenté dans le diagramme de gauche ci-dessous. Si cette case fait partie d'un mur, les deux cases adjacentes deviennent inaccessibles et doivent également faire partie du mur, créant ainsi une zone de mur de 2x2. Puisque, selon les règles du Nurikabe, ceci n'est pas autorisé, la case en surbrillance doit faire partie d'une île et est marquée d'un point dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un mur isolé.",
+    "cheminImage": "/img/techniques_avancees/4_technique.png"
+  },
+  "avancee_5": {
+    "categorie": "Techniques avancées",
+    "nom": "5. Technique avancée 5",
+    "description": "Vous trouverez ci-dessous une section d'un puzzle plus grand partiellement résolu dans lequel l'île des 6 a besoin d'une dernière case pour être complétée. Si nous supposons que cette case est celle qui est surlignée en rouge dans le diagramme de gauche ci-dessous, la case située en dessous doit faire partie d'un mur et la case située à gauche de ce mur doit faire partie d'une île pour éviter une zone de mur de 2x2. Tout ceci, comme le montre le diagramme du centre, va complètement entourer le mur à droite du 6 en éliminant la continuité du mur dans toutes les directions. Par conséquent, le dernier carré de l'îlot de 6 doit être vers la droite et cet îlot peut être complété comme indiqué dans le diagramme de droite.",
+    "condition": "Chemin d’un indice pour lequel il manque une case violant possiblement les règle de la zone de mur 2x2",
+    "cheminImage": "/img/techniques_avancees/5_technique.png"
+  }
+}
