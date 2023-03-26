@@ -126,7 +126,7 @@ public abstract class Technique {
      * @return {@code true} si insérer cette case noire donnera un carré noir
      */
     @SuppressWarnings("RedundantIfStatement")
-    protected boolean estUnCarre(Niveau grille, int x, int y) {
+    protected boolean seraUnCarre(Niveau grille, int x, int y) {
         if (estCaseNoire(grille, x + 1, y)
                 && estCaseNoire(grille, x, y + 1) && estCaseNoire(grille, x + 1, y + 1))
             return true;
