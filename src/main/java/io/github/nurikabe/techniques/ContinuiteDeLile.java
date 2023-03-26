@@ -33,7 +33,7 @@ public class ContinuiteDeLile extends Technique{
                     List<Coup> liste = new ArrayList<>();
                     //si la case courante vérifie la technique de la zone de mur
                     //alors on vérifie s'il n'y à pas une case blanche qui est entre elle et une ile
-                    if(new EviterZoneMur().tester(grille)!=null)
+                    if(estCaseBlanche(grille, x, y) && seraUnCarre(grille, x, y))
                     {
                         //si la case de gauche est valide et que c'est une case blanche et que la case de sa gauche est une ile
                         if((estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x-2,y)&&grille.recupCase(x - 2, y) instanceof CaseNombre))
