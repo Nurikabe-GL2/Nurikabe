@@ -107,6 +107,10 @@ public class Niveau implements Serializable {
         chargerGrille();
     }
 
+    public Grille<String> getGrilleSolution() {
+        return grilleSolution;
+    }
+
     /**
     * Méthode chargerGrille qui s'occupe de charger la grille
     */

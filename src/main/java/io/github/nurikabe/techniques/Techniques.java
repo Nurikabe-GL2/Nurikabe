@@ -1,11 +1,15 @@
 package io.github.nurikabe.techniques;
 
+import io.github.nurikabe.Logging;
 import io.github.nurikabe.Niveau;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 import java.util.List;
 
 public class Techniques {
+    private static final Logger LOGGER = Logging.getLogger();
+
     //L'ordre des techniques est important pour savoir laquelle est prioritaire.
     // Les techniques prioritaires sont les moins compliquées
     public static final List<Technique> TECHNIQUES = List.of(
@@ -25,6 +29,26 @@ public class Techniques {
         for (Technique technique : TECHNIQUES) {
             final PositionTechniques positionTechniques = technique.tester(niveau);
             if (positionTechniques != null) {
+                //Vérifier si les cibles sont conformes à la solution
+                for (Cible cible : positionTechniques.getCibles()) {
+                    String typeCible = cible.getType();
+                    if (typeCible.equals(".")) typeCible = "b";
+
+                    final String typeSolution = niveau.getGrilleSolution().recup(cible.getX(), cible.getY());
+                    if (!typeSolution.equals(typeCible)) {
+                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY(), typeSolution);
+                    }
+                }
+
+                //Vérifier si les cibles ne sont pas déjà mises
+                for (Cible cible : positionTechniques.getCibles()) {
+                    final String typeCible = cible.getType();
+                    final String typeSolution = niveau.getGrilleSolution().recup(cible.getX(), cible.getY());
+                    if (typeSolution.equals(typeCible)) {
+                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY());
+                    }
+                }
+
                 return positionTechniques;
             }
         }

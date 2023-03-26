@@ -44,10 +44,7 @@ public class IleDeUn extends Technique {
                         liste.add(new Cible(x, y+1, "n"));
 
                     if(!liste.isEmpty())
-                    {
-                        System.out.println("1 est applicable ...");
                         return new PositionTechniques(this, liste);
-                    }
                 }
             }   
         }
