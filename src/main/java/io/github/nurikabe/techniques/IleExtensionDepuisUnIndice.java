@@ -31,10 +31,10 @@ public class IleExtensionDepuisUnIndice extends Technique {
 
                     //Test si les cases autour sont des cases blanches,
                     // il ne nous faut exactement 1 case blanche pour que la technique soit valide
-                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, ".");
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, ".");
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, ".");
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, ".");
 
                     if (coups.size() == 1) {
                         return new PositionTechniques(this, coups);
