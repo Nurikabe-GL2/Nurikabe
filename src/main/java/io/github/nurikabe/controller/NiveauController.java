@@ -117,7 +117,7 @@ public class NiveauController extends VBox {
                 tabPane.getTabs().add(tab);
                 tabPane.getSelectionModel().select(tab);
             } else {
-                final Alert alert = new Alert(Alert.AlertType.INFORMATION, "Il n'y a pas de techniques applicables, vous devriez peut être essayer de revenir en arrière.");
+                final Alert alert = new Alert(Alert.AlertType.INFORMATION, "Il n'y a pas de techniques applicables, vous pouvez revenir en arrière, ou continuer à jouer.");
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.showAndWait();
             }
