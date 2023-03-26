@@ -50,7 +50,7 @@ public class ContenuAideController extends ScrollPane {
     @FXML
     private void onPositionAideAction(ActionEvent event) {
         for (Cible cible : positionTechniques.getCibles()) {
-            niveau.getGrilleGraphique().recup(cible.getX(), cible.getY()).surbrillance();
+            niveau.getGrilleGraphique().recup(cible.getX(), cible.getY()).surbrillance(cible.getType());
         }
     }
 }

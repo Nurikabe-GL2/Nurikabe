@@ -31,8 +31,13 @@
     -fx-border-color:black;
   }
 
-.surbrillance {
+.cible-noir {
     -fx-border-color: red;
+    -fx-border-width: 3px;
+}
+
+.cible-point {
+    -fx-border-color: #b268f3;
     -fx-border-width: 3px;
 }
   

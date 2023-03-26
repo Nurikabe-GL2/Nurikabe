@@ -107,7 +107,6 @@ public class NiveauController extends VBox {
     private void onAideAction(ActionEvent event) {
         try {
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
-            System.out.println(positionTechniques);
 
             if (positionTechniques != null) {
                 final Tab tab = new Tab("Aide");

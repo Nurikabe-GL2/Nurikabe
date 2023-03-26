@@ -87,8 +87,6 @@ public class CaseGraphique {
     * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
     */
    public void actionClic() {
-      panneau.getStyleClass().removeIf(s -> s.equals("surbrillance"));
-
       // Si la case contient un point
       if (type == -2) {
          if (panneau.getChildren() != null)
@@ -111,6 +109,13 @@ public class CaseGraphique {
          panneau.getStyleClass().add(0, "casenoire");
          type = -1;
       }
+
+      //Suppression des aides si la case est remplie avec le bon type
+      //Point
+      if (type == -2) panneau.getStyleClass().removeIf(s -> s.equals("cible-point"));
+      //Noir
+      if (type == -1) panneau.getStyleClass().removeIf(s -> s.equals("cible-noir"));
+
       grille.recupCase(x, y).mettreEtat(this.type);
    }
 
@@ -138,9 +143,15 @@ public class CaseGraphique {
       panneau.getStyleClass().add(0, "caseblanche");
    }
 
-   public void surbrillance() {
-      if (type == 1) //askip c'est une case nombre
+   public void surbrillance(String type) {
+      if (this.type == 1) //askip c'est une case nombre
          throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");
-      panneau.getStyleClass().add("surbrillance");
+
+      if (type.equals(".")) //askip c'est une case point
+         panneau.getStyleClass().add("cible-point");
+      else if (type.equals("n"))
+         panneau.getStyleClass().add("cible-noir");
+      else
+         throw new IllegalArgumentException("Type de case en surbrillance invalide: " + type);
    }
 }
