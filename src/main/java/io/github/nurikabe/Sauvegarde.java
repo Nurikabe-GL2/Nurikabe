@@ -24,6 +24,11 @@ public class Sauvegarde implements Serializable{
     private Pile pileUndo;
 
     /**
+     * Variable d'instance chrono qui représente le chronomètre de la partie
+     */
+    private Chronometre chrono;
+
+    /**
      * Variable d'instance pileRedo qui représente la pile de redo
      */
     private Pile pileRedo;
@@ -36,6 +41,7 @@ public class Sauvegarde implements Serializable{
       this.pileUndo = null;
       this.pileRedo = null;
       this.grille = null;
+      this.chrono = null;
    }
 
    /**
@@ -58,6 +64,13 @@ public class Sauvegarde implements Serializable{
         this.pileRedo=redo;
     }
 
+    public void setChrono(Chronometre chrono){
+      this.chrono=chrono;
+    }
+
+    public Chronometre recupChrono(){
+      return chrono;
+    }
 
     public Pile mettrePileRedo(){
         return pileRedo;

@@ -1,6 +1,7 @@
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.Chronometre;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Scene;
@@ -41,6 +42,8 @@ public class NiveauController extends VBox {
 
     @FXML private Label labelErreurs;
 
+    @FXML private Label timerLabel;
+
     /**
      * Le constructeur de la classe TechniquesController  
      * @param stage la scène courante
@@ -59,8 +62,15 @@ public class NiveauController extends VBox {
         // Add some debug output
         GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
 
-        niveau = new Niveau(stage, cheminNiveau, mode_jeu, select);
+        if(mode_jeu.equals("CLASSIQUE")||mode_jeu.equals("AVENTURE")){
             
+            timerAndLabelParent.getChildren().clear();
+            niveau = new Niveau(stage, cheminNiveau, mode_jeu, select, null);
+
+        }
+       
+        else niveau = new Niveau(stage, cheminNiveau, mode_jeu, select, timerLabel);
+
         jeu_grille= niveau.get_grillegraphique();
         jeu_grille.setId("gridPaneGraphicalState");
 
@@ -73,14 +83,6 @@ public class NiveauController extends VBox {
 
          niveau.setUndoB(buttonUndo);
          niveau.setRedoB(buttonRedo);
-
-         if(mode_jeu.equals("CLASSIQUE")||mode_jeu.equals("AVENTURE"))timerAndLabelParent.getChildren().clear();
-
-         else {
-          //A FAIRE
-
-         }
-
 
          stage.setScene(new Scene(this));
     }
