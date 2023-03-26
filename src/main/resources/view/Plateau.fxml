@@ -64,7 +64,7 @@
                      <content>
                         <ScrollPane fitToWidth="true">
                            <content>
-                              <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
+                              <VBox fx:id="techniquesBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
@@ -74,40 +74,6 @@
                                           <Font name="Lucida Sans Typewriter Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
-                                          <Label styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
-                                          <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/techniques_demarrage/1_ile_de_un.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="2. Indices séparés par une case blanche" textAlignment="CENTER" wrapText="true" />
-                                          <Label styleClass="tipLabel" text="Tous les indices doivent être séparés les uns des autres par des murs. Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case, la case intermédiaire doit être un mur." wrapText="true" />
-                                          <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/techniques_demarrage/2_indices_separes.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <VBox>
-                                       <children>
-                                          <Label maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="3. Indices adjacents en diagonale" textAlignment="CENTER" wrapText="true" />
-                                          <Label styleClass="tipLabel" text="Similaire à la technique précédente, quand deux indices sont adjacents en diagonales, il faut mettre des murs à toutes les cases touchants les deux indices." wrapText="true" />
-                                          <ImageView fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../img/techniques_demarrage/3_adjacence_diagonale.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
                                  </children>
                               </VBox>
                            </content>
