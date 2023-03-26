@@ -16,12 +16,12 @@ public class PositionTechniques {
      * @param technique la technique applicable
      * @param cibles    la liste des cases à jouer
      */
-    PositionTechniques(Technique technique, List<Cible> cibles) {
+    public PositionTechniques(Technique technique, List<Cible> cibles) {
         this.technique = technique;
         this.cibles = cibles;
     }
 
-    PositionTechniques(Technique technique, Cible... cibles) {
+    public PositionTechniques(Technique technique, Cible... cibles) {
         this(technique, Arrays.asList(cibles));
     }
 

@@ -31,23 +31,15 @@ public class IleDeUn extends Technique {
             {
                 if(grille.etat_case(x, y).equals("1"))
                 {
-                
-                    List<Cible> liste = new ArrayList<>();
+                    List<Cible> cibles = new ArrayList<>();
 
-                    if(estValide(grille,x-1,y))
-                        liste.add(new Cible(x-1, y, "n"));
-                        
-                    if(estValide(grille,x+1,y))
-                        liste.add(new Cible(x+1, y, "n"));
+                    insertionCond(cibles, grille, x - 1, y, this::estCaseBlanche, "n");
+                    insertionCond(cibles, grille, x + 1, y, this::estCaseBlanche, "n");
+                    insertionCond(cibles, grille, x, y - 1, this::estCaseBlanche, "n");
+                    insertionCond(cibles, grille, x, y + 1, this::estCaseBlanche, "n");
 
-                    if(estValide(grille,x,y-1))
-                        liste.add(new Cible(x, y-1, "n"));
-
-                    if(estValide(grille,x,y+1))
-                        liste.add(new Cible(x, y+1, "n"));
-
-                    if(!liste.isEmpty())
-                        return new PositionTechniques(this, liste);
+                    if(!cibles.isEmpty())
+                        return new PositionTechniques(this, cibles);
                 }
             }   
         }

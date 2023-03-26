@@ -70,21 +70,6 @@ public abstract class Technique {
      */
     protected abstract String getIdentifiant();
 
-    /**
-     * Teste si une case est valide ou non (indice valide et case blanche)
-     *
-     * @param grille la grille courante
-     * @param x      la coordonnée x
-     * @param y      la coordonnée y
-     *
-     * @return {@code true} si elle est valide
-     */
-    protected boolean estValide(Niveau grille, int x, int y) {
-        if (!estCoordonneeValide(grille, x, y))
-            return false;
-        return (grille.etat_case(x, y).equals("b"));
-    }
-
     protected boolean estUnNombre(Niveau grille, int x, int y) {
         try {
             if (!estCoordonneeValide(grille, x, y)) return false;
