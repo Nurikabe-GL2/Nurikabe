@@ -252,19 +252,17 @@ public class SelectionNiveauxController extends VBox {
             }
             ConteneurBoutons.getChildren().add(bouton);
         }
-        /*A FAIRE */
+
         puzzlesTilePane.getChildren().add(ConteneurHbox);
         stage.show();
     }
 
     private void charger_mode_contreLaMontre(){
       
+        charger_mode_classique("facile");
         easyToggle.setDisable(true);
         mediumToggle.setDisable(true);
         hardToggle.setDisable(true);
-        puzzlesTilePane.getChildren().clear();
-
-        /*A FAIRE */
 
         stage.show();
     }

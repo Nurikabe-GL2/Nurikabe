@@ -163,10 +163,10 @@
                                           <Image url="@../img/timer.png" />
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="timerLabel" text="00:00:00.00" />
+                                    <Label fx:id="timerLabel" text="00:00" />
                                  </children>
                               </HBox>
-                              <Label fx:id="scoreLabel" text="Score: 1000" />
+                              <Label fx:id="scoreLabel" text="Score: 0" />
                            </children>
                         </HBox>
                         <GridPane fx:id="gridPaneGraphicalState" gridLinesVisible="true" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">

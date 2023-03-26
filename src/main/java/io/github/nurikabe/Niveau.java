@@ -32,6 +32,8 @@ public class Niveau implements Serializable {
     */
    Grille<Case> grille ;
 
+   public static String path_sauvegarde="sauvegarde/";
+
    /**
     * Variable d'instance grilleGraphique qui représente la grille graphique
     */
@@ -86,15 +88,20 @@ public class Niveau implements Serializable {
 
    private boolean etat_partie=false;
 
+   private Chronometre chrono;
+
+   private Label timerLabel;
+
    /**
     * Constructeur de la classe Niveau
     * @param cheminNiveau le chemin vers la grille
     */
-   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select) throws Exception{
+   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, Label timer) throws Exception{
         this.select=select;
       this.stage=stage;
       this.cheminNiveau = cheminNiveau;
       this.mode_jeu=mode;
+      this.timerLabel=timer;
        initialiser();
    }
 
@@ -105,6 +112,8 @@ public class Niveau implements Serializable {
         this.pileRedo = new Pile();
         panneauGrille.getStylesheets().add("/css/Plateau.css");
         chargerGrille();
+        if(chrono==null)chrono=new Chronometre();
+        afficherChrono();
     }
 
     public Grille<String> getGrilleSolution() {
@@ -166,13 +175,14 @@ public class Niveau implements Serializable {
     public void sauvegarderNiveau(){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
-            File sauv =  new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
+            File sauv =  new File(Niveau.path_sauvegarde+ cheminNiveau.substring(27)+mode_jeu);
             //System.out.println(nom_niveau+mode_jeu);
 
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sauv))) {
                 sauvegarde.mettreGrille(grille);
                 sauvegarde.setRedoPile(pileRedo);
                 sauvegarde.mettrePileUndo(pileUndo);
+                sauvegarde.setChrono(chrono);
                 oos.writeObject(this.sauvegarde);
             }
         } catch (Exception e){
@@ -180,6 +190,11 @@ public class Niveau implements Serializable {
         }
 
     }
+
+    public void afficherChrono(){
+        if(timerLabel!=null)timerLabel.setText(chrono.toString());
+    }
+
     /**
      * Setter du bouton redo
      * @param b le bouton
@@ -197,13 +212,14 @@ public class Niveau implements Serializable {
     }
 
     public int charger_niveau(String nom_niveau) throws Exception {
-        File sauv = new File("src/main/resources/sauvegarde/" + nom_niveau.substring(27) + mode_jeu);
+        File sauv = new File(Niveau.path_sauvegarde + nom_niveau.substring(27) + mode_jeu);
         if (sauv.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv))) {
                 sauvegarde = (Sauvegarde) ois.readObject();
                 grille = sauvegarde.recupGrille();
                 pileUndo = sauvegarde.recupPileUndo();
                 pileRedo = sauvegarde.recupPileRedo();
+                chrono = sauvegarde.recupChrono();
                 return 1;
             }
         } else {
@@ -233,14 +249,17 @@ public class Niveau implements Serializable {
      * Méthode victoire qui teste si la grille est terminée
      */
     public void victoire() {
+
+        afficherChrono();
+
         final int erreurs = verifier();
 
       if(erreurs==0){
         try {
-            File myFile = new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
+            File myFile = new File(Niveau.path_sauvegarde+ cheminNiveau.substring(27)+mode_jeu);
             myFile.delete();
 
-            FileWriter sauv =  new FileWriter("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
+            FileWriter sauv =  new FileWriter(Niveau.path_sauvegarde+ cheminNiveau.substring(27)+mode_jeu);
             sauv.write("NIVEAU_COMPLETE");
             sauv.close();
         } catch (Exception e){
@@ -391,9 +410,10 @@ public class Niveau implements Serializable {
     }
 
     public void reset() {
+        chrono.reset();
         try {
             //Voir #charger_niveau
-            File sauvegarde = new File("src/main/resources/sauvegarde/" + cheminNiveau.substring(27) + mode_jeu);
+            File sauvegarde = new File(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);
             if (sauvegarde.exists()) {
                 if (!sauvegarde.delete()) throw new IOException("Unable to delete " + sauvegarde);
             }
