@@ -1,9 +1,6 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
-
-import java.util.List;
 
 //classe représentant la technique qui dit qu'il faut joindre deux murs si une case blanche est entre eux
 public class ContinuiteDunMur extends Technique {
@@ -47,7 +44,7 @@ public class ContinuiteDunMur extends Technique {
                     //si elle possède exactement 2 murs comme voisins et que cela ne formera pas un carré,
                     // alors la technique est valide pour cette case
                     if (cpt >= 2 && !seraUnCarre(grille, x, y)) {
-                        return new PositionTechniques(this, List.of(new Coup(x, y)));
+                        return new PositionTechniques(this, new Cible(x, y, "n"));
                     }
                 }
             }

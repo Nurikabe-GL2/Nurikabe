@@ -2,7 +2,6 @@ package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.CaseNombre;
 import io.github.nurikabe.CaseNormale;
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
 import java.util.ArrayList;
@@ -30,26 +29,26 @@ public class ContinuiteDeLile extends Technique{
                 int cpt = 0;
                 if(grille.recupCase(x, y) instanceof CaseNormale)
                 {
-                    List<Coup> liste = new ArrayList<>();
+                    List<Cible> liste = new ArrayList<>();
                     //si la case courante vérifie la technique de la zone de mur
                     //alors on vérifie s'il n'y à pas une case blanche qui est entre elle et une ile
                     if(estCaseBlanche(grille, x, y) && seraUnCarre(grille, x, y))
                     {
                         //si la case de gauche est valide et que c'est une case blanche et que la case de sa gauche est une ile
                         if((estCoordonneeValide(grille,x-1,y)&& grille.recupCase(x - 1, y).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x-2,y)&&grille.recupCase(x - 2, y) instanceof CaseNombre))
-                            liste.add(new Coup(x,y));
+                            liste.add(new Cible(x,y, "n"));
                     	
                         //si la case de droite est valide et que c'est une case blanche et que la case de sa droite est une ile
                         else if((estCoordonneeValide(grille,x+1,y)&& grille.recupCase(x + 1, y).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x+2,y)&&grille.recupCase(x + 2, y) instanceof CaseNombre))
-                            liste.add(new Coup(x,y));
+                            liste.add(new Cible(x,y, "n"));
 
                         //si la case en haut est valide et que c'est une case blanche et que la case en haut de cette dernière est une ile
                         else if((estCoordonneeValide(grille,x,y-1)&& grille.recupCase(x, y - 1).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x,y-2)&&grille.recupCase(x, y - 2) instanceof CaseNombre))
-                            liste.add(new Coup(x,y));
+                            liste.add(new Cible(x,y, "n"));
 
                         //si la case en bas est valide et que c'est une case blanche et que la case en bas de cette dernière est une ile
                         else if((estCoordonneeValide(grille,x,y+1)&& grille.recupCase(x, y + 1).recupContenuCase().equals("b"))&&(estCoordonneeValide(grille,x,y+2)&&grille.recupCase(x, y + 2) instanceof CaseNombre))
-                            liste.add(new Coup(x,y));
+                            liste.add(new Cible(x,y, "n"));
 					
                         if(!liste.isEmpty())
                         	return new PositionTechniques(this, liste);

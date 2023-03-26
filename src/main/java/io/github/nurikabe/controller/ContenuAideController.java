@@ -1,7 +1,7 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import javafx.event.ActionEvent;
@@ -44,13 +44,13 @@ public class ContenuAideController extends ScrollPane {
         labelDescription.setText(technique.getDescription());
         image.setImage(technique.getImage());
 
-        boutonPositionAide.setDisable(positionTechniques.getCoups().isEmpty());
+        boutonPositionAide.setDisable(positionTechniques.getCibles().isEmpty());
     }
 
     @FXML
     private void onPositionAideAction(ActionEvent event) {
-        for (Coup coup : positionTechniques.getCoups()) {
-            niveau.getGrilleGraphique().recup(coup.recupX(), coup.recupY()).surbrillance();
+        for (Cible cible : positionTechniques.getCibles()) {
+            niveau.getGrilleGraphique().recup(cible.getX(), cible.getY()).surbrillance();
         }
     }
 }

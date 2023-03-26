@@ -190,14 +190,15 @@ public abstract class Technique {
     /**
      * Insert un coup à la coordonnée indiquée, uniquement si la condition est remplie.
      *
-     * @param coups  La liste de coups à remplir
+     * @param cibles La liste de coups à remplir
      * @param grille La grille
      * @param x      La coordonnée X
      * @param y      La coordonnée Y
      * @param cond   La condition à remplir
+     * @param type   Le type de case à insérer dans les cibles
      */
-    protected void insertionCond(List<Coup> coups, Niveau grille, int x, int y, Cond cond) {
+    protected void insertionCond(List<Cible> cibles, Niveau grille, int x, int y, Cond cond, String type) {
         if (cond.test(grille, x, y))
-            coups.add(new Coup(x, y));
+            cibles.add(new Cible(x, y, type));
     }
 }

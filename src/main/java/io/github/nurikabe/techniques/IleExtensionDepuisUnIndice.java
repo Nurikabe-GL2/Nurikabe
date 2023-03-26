@@ -1,7 +1,6 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
 import java.util.ArrayList;
@@ -28,14 +27,14 @@ public class IleExtensionDepuisUnIndice extends Technique {
             {
                 if(grille.recupCase(x, y) instanceof CaseNombre)
                 {
-                    List<Coup> coups = new ArrayList<>();
+                    List<Cible> coups = new ArrayList<>();
 
                     //Test si les cases autour sont des cases blanches,
                     // il ne nous faut exactement 1 case blanche pour que la technique soit valide
-                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche);
-                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche);
-                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche);
-                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche);
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
 
                     if (coups.size() == 1) {
                         return new PositionTechniques(this, coups);

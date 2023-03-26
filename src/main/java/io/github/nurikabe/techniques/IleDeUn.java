@@ -1,6 +1,5 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
 import java.util.ArrayList;
@@ -30,19 +29,19 @@ public class IleDeUn extends Technique {
                 if(grille.etat_case(x, y).equals("1"))
                 {
                 
-                    List<Coup> liste = new ArrayList<>();
+                    List<Cible> liste = new ArrayList<>();
 
                     if(estValide(grille,x-1,y))
-                        liste.add(new Coup(x-1, y));
+                        liste.add(new Cible(x-1, y, "n"));
                         
                     if(estValide(grille,x+1,y))
-                        liste.add(new Coup(x+1, y));
+                        liste.add(new Cible(x+1, y, "n"));
 
                     if(estValide(grille,x,y-1))
-                        liste.add(new Coup(x, y-1));
+                        liste.add(new Cible(x, y-1, "n"));
 
                     if(estValide(grille,x,y+1))
-                        liste.add(new Coup(x, y+1));
+                        liste.add(new Cible(x, y+1, "n"));
 
                     if(!liste.isEmpty())
                     {

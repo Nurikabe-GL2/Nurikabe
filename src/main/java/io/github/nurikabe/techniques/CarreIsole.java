@@ -1,7 +1,6 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.CaseNormale;
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class CarreIsole extends Technique  {
             {
                 if(grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).recupContenuCase().equals("b"))
                 {
-                    List<Coup> liste = new ArrayList<>();
+                    List<Cible> liste = new ArrayList<>();
 
 		//test si la case de gauche de la case courante est valide ou que c'est une case noir
                     if(estCoordonneeValide(grille,i-1,j) && grille.recupCase(i - 1, j).recupContenuCase().equals("n"))
@@ -44,7 +43,7 @@ public class CarreIsole extends Technique  {
                     		{
                     			//test si la case en bas de la case courante est valide ou que c'est une case noir
                     			if(estCoordonneeValide(grille,i,j+1) && grille.recupCase(i, j + 1).recupContenuCase().equals("n"))
-                    				liste.add(new Coup(i,j));
+                    				liste.add(new Cible(i,j, "n"));
                     		}
                     		
 					if(!liste.isEmpty())

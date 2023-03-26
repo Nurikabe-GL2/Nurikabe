@@ -1,11 +1,6 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.CaseNormale;
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe représentant la technique du nurikabe, cette dernière implémente une méthode de la technique du même nom qui vérifie si une case blanche à 3 mur autour d'elle
@@ -30,7 +25,7 @@ public class EviterZoneMur extends Technique  {
             {
                 if(estCaseBlanche(grille, x, y) && seraUnCarre(grille, x, y))
                 {
-                    return new PositionTechniques(this, List.of(new Coup(x, y)));
+                    return new PositionTechniques(this, new Cible(x, y, "n"));
                 }
             }
         

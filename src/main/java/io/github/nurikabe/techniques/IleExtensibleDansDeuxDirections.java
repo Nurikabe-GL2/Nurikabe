@@ -1,7 +1,6 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.Niveau;
 
 import java.util.ArrayList;
@@ -28,25 +27,25 @@ public class IleExtensibleDansDeuxDirections extends Technique  {
             {
                 if(grille.recupCase(x, y) instanceof CaseNombre)
                 {
-                    List<Coup> coups = new ArrayList<>();
+                    List<Cible> coups = new ArrayList<>();
 
                     //Test si les cases autour sont des cases blanches,
                     // il ne nous faut exactement 2 case blanche pour que la technique soit valide.
                     // Puisque les parallèles sont interdites, la 1ère et 3ème ligne, ou la 2ème et 4ème ligne seront exécutées,
                     // et indiquerons les coordonnées de la diagonale.
-                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche);
-                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche);
-                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche);
-                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche);
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
 
                     if (coups.size() == 2) {
                         //On évite le cas où les 2 cases blanches sont parallèles,
                         // puisque la technique voudra mettre une case en diagonale
-                        if (coups.get(0).recupX() == coups.get(1).recupX() || coups.get(0).recupY() == coups.get(1).recupY())
+                        if (coups.get(0).getX() == coups.get(1).getX() || coups.get(0).getY() == coups.get(1).getY())
                             continue;
 
-                        if (!estCaseNoire(grille, coups.get(0).recupX(), coups.get(1).recupY())) {
-                            return new PositionTechniques(this, List.of(new Coup(coups.get(0).recupX(), coups.get(1).recupY())));
+                        if (!estCaseNoire(grille, coups.get(0).getX(), coups.get(1).getY())) {
+                            return new PositionTechniques(this, new Cible(coups.get(0).getX(), coups.get(1).getY(), "n"));
                         }
                     }
                 }
