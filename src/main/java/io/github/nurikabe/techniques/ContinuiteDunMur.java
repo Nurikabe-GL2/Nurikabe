@@ -46,7 +46,7 @@ public class ContinuiteDunMur extends Technique {
                     
                     //si elle possède exactement 2 murs comme voisins et que cela ne formera pas un carré,
                     // alors la technique est valide pour cette case
-                    if (cpt == 2 && !seraUnCarre(grille, x, y)) {
+                    if (cpt >= 2 && !seraUnCarre(grille, x, y)) {
                         return new PositionTechniques(this, List.of(new Coup(x, y)));
                     }
                 }
