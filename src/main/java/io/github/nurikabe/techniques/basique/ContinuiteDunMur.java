@@ -1,6 +1,9 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.basique;
 
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 //classe représentant la technique qui dit qu'il faut joindre deux murs si une case blanche est entre eux
 public class ContinuiteDunMur extends Technique {

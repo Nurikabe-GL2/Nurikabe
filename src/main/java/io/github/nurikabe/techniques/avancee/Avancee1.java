@@ -1,6 +1,8 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.avancee;
 
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 public class Avancee1 extends Technique {
     @Override

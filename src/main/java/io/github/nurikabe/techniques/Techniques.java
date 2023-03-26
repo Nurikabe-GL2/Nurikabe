@@ -2,6 +2,11 @@ package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.avancee.*;
+import io.github.nurikabe.techniques.basique.*;
+import io.github.nurikabe.techniques.demarrage.IleDeUn;
+import io.github.nurikabe.techniques.demarrage.IndiceAdjacentsEnDiagonale;
+import io.github.nurikabe.techniques.demarrage.IndicesSeparerParCaseBlanche;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 

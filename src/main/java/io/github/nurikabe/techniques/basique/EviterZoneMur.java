@@ -1,11 +1,14 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.basique;
 
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 /**
  * Classe représentant la technique du nurikabe, cette dernière implémente une méthode de la technique du même nom qui vérifie si une case blanche à 3 mur autour d'elle
  */
-public class EviterZoneMur extends Technique  {
+public class EviterZoneMur extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_9";

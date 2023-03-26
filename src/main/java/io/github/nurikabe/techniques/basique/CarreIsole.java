@@ -1,7 +1,10 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.basique;
 
 import io.github.nurikabe.CaseNormale;
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
 /**
  * Classe représentant la techniques de jeux pour une case Blanche isolé
  */
-public class CarreIsole extends Technique  {
+public class CarreIsole extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_1";

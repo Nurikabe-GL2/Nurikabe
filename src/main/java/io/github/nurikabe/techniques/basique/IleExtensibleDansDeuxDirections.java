@@ -1,13 +1,16 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.basique;
 
 import io.github.nurikabe.CaseNombre;
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //classe représentant la technique qui teste si une ile est extensible uniquement dans 2 directions
-public class IleExtensibleDansDeuxDirections extends Technique  {
+public class IleExtensibleDansDeuxDirections extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_5";

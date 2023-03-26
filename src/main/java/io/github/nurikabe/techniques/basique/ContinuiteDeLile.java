@@ -1,14 +1,17 @@
-package io.github.nurikabe.techniques;
+package io.github.nurikabe.techniques.basique;
 
 import io.github.nurikabe.CaseNombre;
 import io.github.nurikabe.CaseNormale;
 import io.github.nurikabe.Niveau;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //classe représentant la technique de continuité de l'ile, elle vérifie si une case vérifie la technique Éviter une zone de mur 2x2 et test si il y'a une case blanche entre cette dernière et une ile
-public class ContinuiteDeLile extends Technique{
+public class ContinuiteDeLile extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_7";
