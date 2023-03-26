@@ -17,11 +17,20 @@ public class Techniques {
             new IndicesSeparerParCaseBlanche(),         //Demarrage 2
             new IndiceAdjacentsEnDiagonale(),           //Demarrage 3
             new CarreIsole(),                           //Basique 1
-            new ContinuiteDunMur(),                     //Basique 2
+            new ExtensionMur(),                         //Basique 2
+            new ContinuiteDunMur(),                     //Basique 3
             new IleExtensionDepuisUnIndice(),           //Basique 4
             new IleExtensibleDansDeuxDirections(),      //Basique 5
+            new ExtensionIleCachee(),                   //Basique 6
             new ContinuiteDeLile(),                     //Basique 7
-            new EviterZoneMur()                         //Basique 9
+            new EntourerIleTerminee(),                  //Basique 8
+            new EviterZoneMur(),                        //Basique 9
+            new CarreInaccessible(),                    //Basique 10
+            new Avancee1(),
+            new Avancee2(),
+            new Avancee3(),
+            new Avancee4(),
+            new Avancee5()
     );
 
     @Nullable

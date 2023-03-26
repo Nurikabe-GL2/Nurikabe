@@ -89,5 +89,40 @@
     "description": "Dans certains cas, une case ne peut appartenir à aucune île, tout simplement parce qu'aucun indice ne peut l' « atteindre ». Dans l'exemple ci-dessous, les deux cases ? en rouge sont trop éloignées des indices et ne peuvent faire partie d'aucune île. Elles sont donc ombragées pour indiquer qu'elles doivent faire partie d'un mur.",
     "condition": "Carré inaccessible.",
     "cheminImage": "/img/techniques_basiques/10_carre_innaccessible.png"
+  },
+  "avancee_1": {
+    "categorie": "Techniques avancées",
+    "nom": "1. Technique avancée 1",
+    "description": "La case surlignée sous le 2 dans le diagramme de gauche ci-dessous, comme toute autre case dans le Nurikabe, peut être soit une île, soit un mur. Supposons qu'elle fasse partie d'une île, ce qui signifie que l'île du 2 peut être complétée et entourée de murs comme indiqué dans le diagramme du centre. Cependant, cela créera une zone de mur de 2x2, ce qui n'est pas autorisé. Par conséquent, le carré sous le 2 doit faire partie d'un mur, comme le montre le diagramme de droite.",
+    "condition": "Case indéterminée avec possible zone de mur 2x2.",
+    "cheminImage": "/img/techniques_avancees/1_technique.png"
+  },
+  "avancee_2": {
+    "categorie": "Techniques avancées",
+    "nom": "2. Technique avancée 2",
+    "description": "Comme dans l'exemple précédent, si nous supposons que le carré en surbrillance fait partie d'un mur, une fois encore, une zone de mur de 2x2 sera créée, ce qui n'est pas autorisé. Par conséquent, le carré en surbrillance doit faire partie d'un îlot et est marqué d'un point, comme indiqué dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un mur.",
+    "cheminImage": "/img/techniques_avancees/2_technique.png"
+  },
+  "avancee_3": {
+    "categorie": "Techniques avancées",
+    "nom": "3. Technique avancée 3",
+    "description": "Si la case surlignée dans le diagramme de gauche ci-dessous fait partie d'une île, alors la case sous le 2 doit faire partie d'un mur. Cependant, cette partie de mur ne pourra pas être reliée à d'autres murs du puzzle, comme le montre le diagramme du centre. Le carré en surbrillance doit donc faire partie d'un mur et est ombragé comme indiqué dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un indice provoquant un possible mur isolé.",
+    "cheminImage": "/img/techniques_avancees/3_technique.png"
+  },
+  "avancee_4": {
+    "categorie": "Techniques avancées",
+    "nom": "4. Technique avancée 4",
+    "description": "Examinons la case mise en évidence dans le puzzle partiellement résolu présenté dans le diagramme de gauche ci-dessous. Si cette case fait partie d'un mur, les deux cases adjacentes deviennent inaccessibles et doivent également faire partie du mur, créant ainsi une zone de mur de 2x2. Puisque, selon les règles du Nurikabe, ceci n'est pas autorisé, la case en surbrillance doit faire partie d'une île et est marquée d'un point dans le diagramme de droite.",
+    "condition": "Case inconnue adjacente à un mur isolé.",
+    "cheminImage": "/img/techniques_avancees/4_technique.png"
+  },
+  "avancee_5": {
+    "categorie": "Techniques avancées",
+    "nom": "5. Technique avancée 5",
+    "description": "Vous trouverez ci-dessous une section d'un puzzle plus grand partiellement résolu dans lequel l'île des 6 a besoin d'une dernière case pour être complétée. Si nous supposons que cette case est celle qui est surlignée en rouge dans le diagramme de gauche ci-dessous, la case située en dessous doit faire partie d'un mur et la case située à gauche de ce mur doit faire partie d'une île pour éviter une zone de mur de 2x2. Tout ceci, comme le montre le diagramme du centre, va complètement entourer le mur à droite du 6 en éliminant la continuité du mur dans toutes les directions. Par conséquent, le dernier carré de l'îlot de 6 doit être vers la droite et cet îlot peut être complété comme indiqué dans le diagramme de droite.",
+    "condition": "Chemin d’un indice pour lequel il manque une case violant possiblement les règle de la zone de mur 2x2",
+    "cheminImage": "/img/techniques_avancees/5_technique.png"
   }
 }
