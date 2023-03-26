@@ -228,16 +228,10 @@ public class Niveau implements Serializable {
     /**
      * Méthode victoire qui teste si la grille est terminée
      */
-    public void victoire(){
-        int count=0;
-          for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
+    public void victoire() {
+        final int erreurs = verifier();
 
-                for (int x = 0; x < grilleSolution.recupLargeur() ; x++) {
-                    if(grilleSolution.recup(x, y).equals(grille.recup(x, y).recupContenuCase()))count++;
-                }
-            }
-            System.out.println("count : "+count+"\n l*L : "+ grilleSolution.recupHauteur()* grilleSolution.recupLargeur());
-      if(count==(grilleSolution.recupHauteur()* grilleSolution.recupLargeur())){
+      if(erreurs==0){
         try {
             File myFile = new File("src/main/resources/sauvegarde/"+ cheminNiveau.substring(27)+mode_jeu);
             myFile.delete();
@@ -379,7 +373,11 @@ public class Niveau implements Serializable {
         int erreurs = 0;
         for (int x = 0; x < grille.recupLargeur(); x++) {
             for (int y = 0; y < grille.recupHauteur(); y++) {
-                if (!grille.recup(x, y).recupContenuCase().equals(grilleSolution.recup(x, y))) {
+                String contenuGrille = grille.recup(x, y).recupContenuCase();
+                if (contenuGrille.equals(".")) contenuGrille = "b";
+
+                final String contenuSolution = grilleSolution.recup(x, y);
+                if (!contenuGrille.equals(contenuSolution)) {
                     erreurs++;
                 }
             }
