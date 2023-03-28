@@ -52,7 +52,7 @@ public class Niveau implements Serializable {
     /**
      * Variable d'instance panneauGrille représentant le panneau de la grille graphique
      */
-    GridPane panneauGrille = new GridPane();
+    private final GridPane gridPane;
     /**
      * Variable d'instance sauvegarde représentant la sauvegarde de la grille
      */
@@ -99,11 +99,12 @@ public class Niveau implements Serializable {
      *
      * @param cheminNiveau le chemin vers la grille
      */
-    public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, Label timer) throws Exception {
+    public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, GridPane gridPane, Label timer) throws Exception {
         this.select = select;
         this.stage = stage;
         this.cheminNiveau = cheminNiveau;
         this.mode_jeu = mode;
+        this.gridPane = gridPane;
         this.timerLabel = timer;
         initialiser();
     }
@@ -128,10 +129,10 @@ public class Niveau implements Serializable {
 
     private void initialiser() throws Exception {
         this.sauvegarde = new Sauvegarde();
-        this.panneauGrille.getChildren().clear();
+        this.gridPane.getChildren().clear();
         this.pileUndo = new Pile();
         this.pileRedo = new Pile();
-        panneauGrille.getStylesheets().add("/css/Plateau.css");
+        gridPane.getStylesheets().add("/css/Plateau.css");
         chargerGrille();
         if (chrono == null) chrono = new Chronometre();
         afficherChrono();
@@ -166,7 +167,7 @@ public class Niveau implements Serializable {
                     GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
                     GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
 
-                    panneauGrille.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
+                    gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
                     //lecture.close();
                 }
             }
@@ -183,7 +184,7 @@ public class Niveau implements Serializable {
                     GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
                     GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
 
-                    panneauGrille.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
+                    gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
                 }
 
             }
@@ -338,7 +339,7 @@ public class Niveau implements Serializable {
      * @return l'état de la partie sous forme d'entier
      */
     public GridPane getGridPane() {
-        return this.panneauGrille;
+        return this.gridPane;
     }
 
     public Grille<CaseGraphique> getGrilleGraphique() {

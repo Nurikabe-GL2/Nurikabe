@@ -38,7 +38,7 @@ public class NiveauController extends VBox {
     private final Niveau niveau;
 
     @FXML
-    private VBox gridPaneContainer;
+    private GridPane gridPane;
 
     @FXML
     private Button buttonUndo, buttonRedo;
@@ -76,22 +76,13 @@ public class NiveauController extends VBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
-        // Add some debug output
-        GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
 
         if (modeJeu.equals("CLASSIQUE") || modeJeu.equals("AVENTURE")) {
 
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, null);
+            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, null);
 
-        } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, timerLabel);
-
-        GridPane jeuGrille = niveau.getGridPane();
-        jeuGrille.setId("gridPaneGraphicalState");
-
-        gridPaneContainer.getChildren().remove(gridPane);
-        jeuGrille.setStyle("-fx-background-color: #C0C0C0;");
-        gridPaneContainer.getChildren().add(jeuGrille);
+        } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel);
 
         //définition des handlers des boutons
         buttonUndo.setOnMousePressed(niveau.handlerUndo);
