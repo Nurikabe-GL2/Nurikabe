@@ -84,14 +84,6 @@ public class NiveauController extends VBox {
 
         } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel);
 
-        //définition des handlers des boutons
-        buttonUndo.setOnMousePressed(niveau.handlerUndo);
-        buttonRedo.setOnMousePressed(niveau.handlerRedo);
-
-        //mise en place des boutons
-        niveau.setUndoB(buttonUndo);
-        niveau.setRedoB(buttonRedo);
-
         stage.setScene(new Scene(this));
     }
 
@@ -119,6 +111,16 @@ public class NiveauController extends VBox {
     @FXML
     private void onBackAction(ActionEvent event) {
         stage.setScene(scenePrecedente);
+    }
+
+    @FXML
+    private void onUndoAction(ActionEvent event) {
+        niveau.undo();
+    }
+
+    @FXML
+    private void onRedoAction(ActionEvent event) {
+        niveau.redo();
     }
 
     @FXML

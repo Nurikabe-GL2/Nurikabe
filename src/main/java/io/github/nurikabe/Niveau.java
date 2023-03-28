@@ -8,11 +8,8 @@ package io.github.nurikabe;
 // Importation des librairies javaFX
 
 import io.github.nurikabe.controller.SelectionNiveauxController;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -62,10 +59,6 @@ public class Niveau implements Serializable {
      */
     Stage stage;
     /**
-     * Variables d'instances undoB et redo B
-     */
-    Button undoB, redoB;
-    /**
      * Variable d'instance pileUndo représentant la pile servant au bouton Undo
      */
     private Pile pileUndo;
@@ -74,24 +67,6 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
     private boolean etat_partie = false;
-    /**
-     * Le handler associé au bouton précédent
-     */
-    public EventHandler<MouseEvent> handlerUndo = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            coup(pileUndo, pileRedo, 2);
-        }
-    };
-    /**
-     * Le handler associé au bouton suivant
-     */
-    public EventHandler<MouseEvent> handlerRedo = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
-            coup(pileRedo, pileUndo, 1);
-        }
-    };
     private Chronometre chrono;
 
     /**
@@ -214,24 +189,6 @@ public class Niveau implements Serializable {
         if (timerLabel != null) timerLabel.setText(chrono.toString());
     }
 
-    /**
-     * Setter du bouton redo
-     *
-     * @param b le bouton
-     */
-    public void setRedoB(Button b) {
-        redoB = b;
-    }
-
-    /**
-     * Setter du bouton undo
-     *
-     * @param b le bouton
-     */
-    public void setUndoB(Button b) {
-        undoB = b;
-    }
-
     public int chargerNiveau(String nomNiveau) throws Exception {
         File sauv = new File(Niveau.path_sauvegarde + nomNiveau.substring(27) + mode_jeu);
         if (sauv.exists()) {
@@ -344,6 +301,14 @@ public class Niveau implements Serializable {
 
     public Grille<CaseGraphique> getGrilleGraphique() {
         return grilleGraphique;
+    }
+
+    public void undo() {
+        coup(pileUndo, pileRedo, 2);
+    }
+
+    public void redo() {
+        coup(pileRedo, pileUndo, 1);
     }
 
     /**
