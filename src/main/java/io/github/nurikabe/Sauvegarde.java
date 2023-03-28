@@ -62,32 +62,46 @@ public class Sauvegarde implements Serializable{
    public void mettrePileUndo(Pile undo) {
       this.pileUndo = undo;
    }
-
+   /**
+    * setter pour la pile redo à sauvegarder
+    * @param redo pile redo
+    */
     public void setRedoPile(Pile redo){
         this.pileRedo=redo;
     }
-
+    /**
+    * setter pour le chronometre à sauvegarder
+    * @param chrono chronometre à sauvegarder
+    */
     public void setChrono(Chronometre chrono){
       this.chrono=chrono;
     }
-
+   /**
+    * setter pour le score
+    * @param score score à sauvegarder
+    */
     public void setScore(Score score){
       this.score=score;
     }
-
+    /**
+    * recupérer le chrono de la sauvegarde
+    * @return chrono
+    */
     public Chronometre recupChrono(){
       chrono.reset();
       return chrono;
     }
-
-    public Pile mettrePileRedo(){
-        return pileRedo;
-    }
-
+    /**
+     * récuperer le score de la sauvegarde
+     * @return score
+     */
     public Score getScore(){
       return score;
     }
-
+    /**
+     * récuperer la grille
+     * @return une Grille<Case>
+     */
     public Grille<Case> recupGrille(){
         return grille;
     }
