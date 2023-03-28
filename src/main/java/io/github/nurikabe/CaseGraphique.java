@@ -41,7 +41,10 @@ public class CaseGraphique {
    int type;
 
    /**
-    * Constructeur de la classe CaseGraphique 
+    * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
+    * de la case. On va y ajouter un stackpane avec un handler sur la case :
+    * lorsqu'on clique sur une case on modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
+    * victoire pour voir si on a gagné la partie  
     * @param x la coordonnée x de la case
     * @param y la coordonnée y de la case
     * @param l la longeur de la case 
@@ -143,6 +146,10 @@ public class CaseGraphique {
       panneau.getStyleClass().add(0, "caseblanche");
    }
 
+   /**
+    * mettre la case en surbrillance lors du positionnement des techniques sur la grille
+    * @param type
+    */
    public void surbrillance(String type) {
       if (this.type == 1) //askip c'est une case nombre
          throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");

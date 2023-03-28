@@ -11,7 +11,9 @@ import javafx.stage.Modality;
 import javafx.scene.layout.GridPane;
 
 import java.util.Scanner;
-
+import javafx.application.Platform;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -90,21 +92,30 @@ public class Niveau implements Serializable {
 
    private Chronometre chrono;
 
-   private Label timerLabel;
+   private Label timerLabel, scoreLabel;
+
+   private Score score;
 
    /**
     * Constructeur de la classe Niveau
     * @param cheminNiveau le chemin vers la grille
     */
-   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, Label timer) throws Exception{
-        this.select=select;
+   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, Label timer, Label sc) throws Exception{
+      this.select=select;
       this.stage=stage;
       this.cheminNiveau = cheminNiveau;
       this.mode_jeu=mode;
       this.timerLabel=timer;
-       initialiser();
+      this.scoreLabel=sc;
+      initialiser();
+      afficherScore();
    }
-
+    /*
+     * Méthode servant à initialiser la partie.
+     * C'est ici qu'on crée les piles pour les boutons undo/redo, qu'on charge le niveau
+     * et sa sauvegarde s'il en existe une (la grille du niveau existante, les piles undo/redo etc...)
+     * on charge le chronomètre et le score (qui seront affiché si nous sommes en mode ContrLaMontre)
+     */
     private void initialiser() throws Exception {
         this.sauvegarde=new Sauvegarde();
         this.panneauGrille.getChildren().clear();
@@ -112,21 +123,29 @@ public class Niveau implements Serializable {
         this.pileRedo = new Pile();
         panneauGrille.getStylesheets().add("/css/Plateau.css");
         chargerGrille();
+        if(score==null)score=new Score(1500);
         if(chrono==null)chrono=new Chronometre();
-        afficherChrono();
+        majChronometre();
+        afficherScore();
     }
 
+    /*
+     * Récuperer la grille contenant la solution du niveau
+     */
     public Grille<String> getGrilleSolution() {
         return grilleSolution;
     }
 
     /**
-    * Méthode chargerGrille qui s'occupe de charger la grille
+    * Méthode chargerGrille qui s'occupe de charger la grille.
+    * on commence par charger la solution du niveau, puis on tente de charger sa sauvegarde
+    * si il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
     */
    public void chargerGrille() throws Exception {
        grilleSolution = chargerGrilleSolution(cheminNiveau);
 
         if(charger_niveau(cheminNiveau)==0){
+                
 
                 grille=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
                 grilleGraphique=new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
@@ -172,6 +191,10 @@ public class Niveau implements Serializable {
             }
     }
 
+    /*
+     * méthode servant à sauvegarder un niveau en faisant appel à la classe Sauvegarde
+     * on sérialise les objets tels que la grille, les piles undo/redo, le chronomètre et le score
+     */
     public void sauvegarderNiveau(){
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
@@ -182,7 +205,10 @@ public class Niveau implements Serializable {
                 sauvegarde.mettreGrille(grille);
                 sauvegarde.setRedoPile(pileRedo);
                 sauvegarde.mettrePileUndo(pileUndo);
+                chrono.sauvegarder();
                 sauvegarde.setChrono(chrono);
+                sauvegarde.setScore(score);
+                System.out.println("score : "+score);
                 oos.writeObject(this.sauvegarde);
             }
         } catch (Exception e){
@@ -191,9 +217,32 @@ public class Niveau implements Serializable {
 
     }
 
-    public void afficherChrono(){
-        if(timerLabel!=null)timerLabel.setText(chrono.toString());
+    /*
+    * méthode pour mettre à jour le chronomètre.
+    * si le label pour le chronomètre n'est pas nul, on y met le chrono (appel à la méthode toString()) 
+    */
+    public void majChronometre(){
+            if(timerLabel!=null)timerLabel.setText(chrono.toString());
+            System.out.println("moved");
     }
+
+    /**
+     * methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
+     */
+    public void afficherScore(){
+        if(scoreLabel!=null)scoreLabel.setText("Score: "+score.getScore());
+    }
+
+    /**
+     * methode appelée lors de l'utilisation du bouton aide
+     * on sauvegarde le niveau et on retire 100 points au score (pénalité pour l'utilisation de l'aide)
+     */
+    public void utilisation_aide(){
+        if(score.getScore()>0)score.retirerScore(100);
+        afficherScore();
+        sauvegarderNiveau();
+    }
+
 
     /**
      * Setter du bouton redo
@@ -211,6 +260,13 @@ public class Niveau implements Serializable {
         undoB=b;
     }
 
+    /**
+     * cette méthode est appelée dans la méthode initialiser pour charger la sauvegarde d'un niveau.
+     * si elle n'existe pas, la méthode retournera 0
+     * @param nom_niveau le nom du niveau sous format String
+     * @return 1 si le niveau a une sauvegarde et a été chargé correctement, 0 sinon
+     * @throws Exception Si le niveau n'a pas pu être chargé pour une raison quelconque
+     */
     public int charger_niveau(String nom_niveau) throws Exception {
         File sauv = new File(Niveau.path_sauvegarde + nom_niveau.substring(27) + mode_jeu);
         if (sauv.exists()) {
@@ -220,6 +276,7 @@ public class Niveau implements Serializable {
                 pileUndo = sauvegarde.recupPileUndo();
                 pileRedo = sauvegarde.recupPileRedo();
                 chrono = sauvegarde.recupChrono();
+                score = sauvegarde.getScore();
                 return 1;
             }
         } else {
@@ -227,6 +284,13 @@ public class Niveau implements Serializable {
         }
     }
 
+    /**
+     * méthode pour charger la solution de la grille à partir d'un fichier texte (les grilles sont dans le dossier
+     * niveaux dans resources)
+     * @param cheminGrille
+     * @return
+     * @throws IOException
+     */
     public static Grille<String> chargerGrilleSolution(String cheminGrille) throws IOException {
         try (Scanner lecture = new Scanner(new FileInputStream(cheminGrille))) {
             int largeur = lecture.nextInt();
@@ -247,10 +311,12 @@ public class Niveau implements Serializable {
 
     /**
      * Méthode victoire qui teste si la grille est terminée
+     * si le niveau est complété, on insert dans la sauvegarde le flag "NIVEAU_COMPLETE"
+     * Comme ça lors du chargement des niveaux sur l'interface cela indiquera les niveaux déjà complétés
      */
     public void victoire() {
 
-        afficherChrono();
+        majChronometre();
 
         final int erreurs = verifier();
 
@@ -267,28 +333,17 @@ public class Niveau implements Serializable {
         }
         etat_partie=true;
 
-          // Create a label with the message
-          Label messageLabel = new Label("Niveau complété !");
-
-
-          // Create a VBox to hold the label and button HBox
-          VBox vbox = new VBox(10);
-          vbox.getChildren().addAll(messageLabel);
-          // Create the dialog box
-          Stage dialog = new Stage();
-          dialog.initModality(Modality.APPLICATION_MODAL);
-          dialog.initOwner(stage);
-          dialog.setScene(new Scene(vbox));
-          dialog.setTitle("Niveau Complété !");
-
-          // Show the dialog box
-          dialog.show();
-
         System.out.println("PARTIE GAGNEE !!!!");
         select.refreshLevels();
       }
     }
 
+    /**
+     * récupérer uen case à partir de ses coordonnées
+     * @param x abscisse de la case 
+     * @param y  ordonnée de la case
+     * @return la case avec les coordonnées entrées
+     */
     public Case recupCase(int x, int y){
         return grille.recup(x,y);
     }
@@ -334,6 +389,10 @@ public class Niveau implements Serializable {
         return this.panneauGrille;
     }
 
+    /**
+     * Méthode qui renvoie la grille graphique (grille contenant la GridPane du jeu)
+     * @return l'état de la partie sous forme d'entier
+     */
     public Grille<CaseGraphique> getGrilleGraphique() {
         return grilleGraphique;
     }
@@ -365,6 +424,10 @@ public class Niveau implements Serializable {
       }
    };
 
+    /**
+     * récupérer l'état de la partie en cours sous la forme d'un booléen
+     * @return
+     */
     public boolean recupEtatPartie() {
         return etat_partie;
     }
@@ -409,8 +472,14 @@ public class Niveau implements Serializable {
         return erreurs;
     }
 
+    /**
+     * méthode servant à réinitialiser le niveau courant
+     * on réinitialise le chronomètre en faisant appel à sa méthode reset_all (on fait de même pour le score)
+     * on supprime la sauvegarde du niveau actuel si elle existait
+     */
     public void reset() {
-        chrono.reset();
+        chrono.reset_all();
+        score.reset_all();
         try {
             //Voir #charger_niveau
             File sauvegarde = new File(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);

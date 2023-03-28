@@ -30,4 +30,5 @@ public class DonneesTechnique {
     public String getCategorie() {
         return categorie;
     }
+    
 }

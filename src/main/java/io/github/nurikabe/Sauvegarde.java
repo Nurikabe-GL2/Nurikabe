@@ -32,6 +32,8 @@ public class Sauvegarde implements Serializable{
      * Variable d'instance pileRedo qui représente la pile de redo
      */
     private Pile pileRedo;
+
+    private Score score;
     
 
    /**
@@ -42,6 +44,7 @@ public class Sauvegarde implements Serializable{
       this.pileRedo = null;
       this.grille = null;
       this.chrono = null;
+      this.score = null;
    }
 
    /**
@@ -68,12 +71,21 @@ public class Sauvegarde implements Serializable{
       this.chrono=chrono;
     }
 
+    public void setScore(Score score){
+      this.score=score;
+    }
+
     public Chronometre recupChrono(){
+      chrono.reset();
       return chrono;
     }
 
     public Pile mettrePileRedo(){
         return pileRedo;
+    }
+
+    public Score getScore(){
+      return score;
     }
 
     public Grille<Case> recupGrille(){

@@ -166,7 +166,7 @@
                                     <Label fx:id="timerLabel" text="00:00" />
                                  </children>
                               </HBox>
-                              <Label fx:id="scoreLabel" text="Score: 0" />
+                              <Label fx:id="scoreLabel" text="Score: 1500" />
                            </children>
                         </HBox>
                         <GridPane fx:id="gridPaneGraphicalState" gridLinesVisible="true" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">
