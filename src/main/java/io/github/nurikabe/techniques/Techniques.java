@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import java.util.List;
 
 public class Techniques {
-    private static final Logger LOGGER = Logging.getLogger();
-
     //L'ordre des techniques est important pour savoir laquelle est prioritaire.
     // Les techniques prioritaires sont les moins compliquées
     public static final List<Technique> TECHNIQUES = List.of(
@@ -37,6 +35,7 @@ public class Techniques {
             new Avancee4(),
             new Avancee5()
     );
+    private static final Logger LOGGER = Logging.getLogger();
 
     @Nullable
     public static PositionTechniques trouverTechnique(Niveau niveau) {

@@ -1,6 +1,9 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.*;
+import io.github.nurikabe.Case;
+import io.github.nurikabe.CaseNombre;
+import io.github.nurikabe.Niveau;
+import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.donnees.DonneesTechnique;
 import io.github.nurikabe.techniques.donnees.DonneesTechniques;
 import javafx.scene.image.Image;
@@ -12,13 +15,8 @@ import java.util.List;
  * Interface des différentes techniques de jeu
  */
 public abstract class Technique {
-    protected interface Cond {
-        boolean test(Niveau grille, int x, int y);
-    }
-
     private final DonneesTechnique donneesTechnique;
     private Image imageTechnique;
-
     protected Technique() {
         this.donneesTechnique = DonneesTechniques.getDonnees(getIdentifiant());
     }
@@ -74,7 +72,7 @@ public abstract class Technique {
         try {
             if (!estCoordonneeValide(grille, x, y)) return false;
 
-            Integer.parseInt(grille.etat_case(x, y));
+            Integer.parseInt(grille.etatCase(x, y));
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -169,7 +167,7 @@ public abstract class Technique {
     }
 
     protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
-        return x >= 0 && y >= 0 && y < grille.get_hauteur() && x < grille.recupLargeur();
+        return x >= 0 && y >= 0 && y < grille.getHauteur() && x < grille.recupLargeur();
     }
 
     /**
@@ -185,5 +183,9 @@ public abstract class Technique {
     protected void insertionCond(List<Cible> cibles, Niveau grille, int x, int y, Cond cond, String type) {
         if (cond.test(grille, x, y))
             cibles.add(new Cible(x, y, type));
+    }
+
+    protected interface Cond {
+        boolean test(Niveau grille, int x, int y);
     }
 }

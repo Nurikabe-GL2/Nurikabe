@@ -13,8 +13,10 @@ public class CategorieTechniqueController extends VBox {
     private final String nomCategorie;
     private final List<Technique> techniques;
 
-    @FXML private Label categorieLabel;
-    @FXML private VBox techniquesBox;
+    @FXML
+    private Label categorieLabel;
+    @FXML
+    private VBox techniquesBox;
 
     public CategorieTechniqueController(String nomCategorie, List<Technique> techniques) {
         this.nomCategorie = nomCategorie;

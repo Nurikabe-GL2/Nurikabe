@@ -7,7 +7,6 @@ package io.github.nurikabe;
 
 import org.jetbrains.annotations.NotNull;
 
-// Importation des librairies javaFX
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystems;

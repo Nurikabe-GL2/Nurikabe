@@ -14,28 +14,26 @@ public class ContinuiteDunMur extends Technique {
 
     /**
      * Méthode de parcours de la grille, elle vérifie qu'une case blanche possède éxactement 2 murs autour d'elle (sans les diagonales) et si c'est le cas elle renvoie une liste avec la position de cette case
+     *
      * @param grille la grille en question
+     *
      * @return une Position technique ou null
      */
     @Override
-    public PositionTechniques tester(Niveau grille)
-    {
-        for(int x=0;x<grille.recupLargeur();x++)
-        {
-            for(int y=0;y<grille.get_hauteur();y++)
-            {
-                if(grille.recupCase(x, y).recupContenuCase().equals("b"))
-                {
+    public PositionTechniques tester(Niveau grille) {
+        for (int x = 0; x < grille.recupLargeur(); x++) {
+            for (int y = 0; y < grille.getHauteur(); y++) {
+                if (grille.recupCase(x, y).recupContenuCase().equals("b")) {
                     int cpt = 0;
 
-		            //test si la case de gauche de la case courante est valide et que c'est une case noire
+                    //test si la case de gauche de la case courante est valide et que c'est une case noire
                     if (estCaseNoire(grille, x - 1, y))
                         cpt++;
-                    
+
                     //test si la case de droite de la case courante est valide et que c'est une case noire
                     if (estCaseNoire(grille, x + 1, y))
                         cpt++;
-                    
+
                     //test si la case en bas de la case courante est valide et que c'est une case noire
                     if (estCaseNoire(grille, x, y - 1))
                         cpt++;
@@ -43,7 +41,7 @@ public class ContinuiteDunMur extends Technique {
                     //test si la case en bas de la case courante est valide et que c'est une case noire
                     if (estCaseNoire(grille, x, y + 1))
                         cpt++;
-                    
+
                     //si elle possède exactement 2 murs comme voisins et que cela ne formera pas un carré,
                     // alors la technique est valide pour cette case
                     if (cpt >= 2 && !seraUnCarre(grille, x, y)) {
@@ -51,8 +49,8 @@ public class ContinuiteDunMur extends Technique {
                     }
                 }
             }
-        
-        }   
+
+        }
         return null;
     }
 }

@@ -5,14 +5,12 @@
 // Package GitHub
 package io.github.nurikabe;
 
-// Importation des librairies javaFX
-import java.util.ArrayList;
-import java.io.*;
+import java.io.Serializable;
 
 /**
  * Classe Sauvegarde représentant une grille
  */
-public class Sauvegarde implements Serializable{
+public class Sauvegarde implements Serializable {
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
      */
@@ -32,67 +30,71 @@ public class Sauvegarde implements Serializable{
      * Variable d'instance pileRedo qui représente la pile de redo
      */
     private Pile pileRedo;
-    
 
-   /**
-    * Constructeur de Sauvegarde
-    */
-   public Sauvegarde() {
-      this.pileUndo = null;
-      this.pileRedo = null;
-      this.grille = null;
-      this.chrono = null;
-   }
 
-   /**
-    * Méthode mettreGrille qui permet de récupérer une grille pour la mettre dans la nôtre
-    * @param grille la grille à récupérer
-    */
-   public void mettreGrille(Grille<Case> grille){
-      this.grille = grille;
-   }
-
-   /**
-    * Méthode mettrePileUndo qui permet de récupérer une pile d'undo pour la mettre dans la nôtre
-    * @param undo la pile undo à récupérer
-    */
-   public void mettrePileUndo(Pile undo) {
-      this.pileUndo = undo;
-   }
-
-    public void setRedoPile(Pile redo){
-        this.pileRedo=redo;
+    /**
+     * Constructeur de Sauvegarde
+     */
+    public Sauvegarde() {
+        this.pileUndo = null;
+        this.pileRedo = null;
+        this.grille = null;
+        this.chrono = null;
     }
 
-    public void setChrono(Chronometre chrono){
-      this.chrono=chrono;
+    /**
+     * Méthode mettreGrille qui permet de récupérer une grille pour la mettre dans la nôtre
+     *
+     * @param grille la grille à récupérer
+     */
+    public void mettreGrille(Grille<Case> grille) {
+        this.grille = grille;
     }
 
-    public Chronometre recupChrono(){
-      return chrono;
+    /**
+     * Méthode mettrePileUndo qui permet de récupérer une pile d'undo pour la mettre dans la nôtre
+     *
+     * @param undo la pile undo à récupérer
+     */
+    public void mettrePileUndo(Pile undo) {
+        this.pileUndo = undo;
     }
 
-    public Pile mettrePileRedo(){
+    public void setRedoPile(Pile redo) {
+        this.pileRedo = redo;
+    }
+
+    public void setChrono(Chronometre chrono) {
+        this.chrono = chrono;
+    }
+
+    public Chronometre recupChrono() {
+        return chrono;
+    }
+
+    public Pile mettrePileRedo() {
         return pileRedo;
     }
 
-    public Grille<Case> recupGrille(){
+    public Grille<Case> recupGrille() {
         return grille;
     }
 
-   /**
-    * Méthode recupPileUndo qui renvoie la pile d'undo
-    * @return la pile d'undo à renvoyer
-    */
-   public Pile recupPileUndo() {
-      return pileUndo;
-   }
+    /**
+     * Méthode recupPileUndo qui renvoie la pile d'undo
+     *
+     * @return la pile d'undo à renvoyer
+     */
+    public Pile recupPileUndo() {
+        return pileUndo;
+    }
 
-   /**
-    * Méthode recupPileRedo qui renvoie la pile de redo
-    * @return la pile de redo à renvoyer
-    */
-   public Pile recupPileRedo() {
-      return pileRedo;
-   }
+    /**
+     * Méthode recupPileRedo qui renvoie la pile de redo
+     *
+     * @return la pile de redo à renvoyer
+     */
+    public Pile recupPileRedo() {
+        return pileRedo;
+    }
 }
