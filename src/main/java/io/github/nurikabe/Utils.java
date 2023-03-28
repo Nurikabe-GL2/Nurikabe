@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Classe Utils
@@ -42,6 +43,16 @@ public class Utils {
             throw new IllegalArgumentException("Unable to find resource '%s' from class '%s'".formatted(url, currentClass.getName()));
 
         return resource;
+    }
+
+    public static byte[] getResourceAsBytes(Class<?> currentClass, String url) throws IOException {
+        try (InputStream stream = getResourceAsStream(currentClass, url)) {
+            return stream.readAllBytes();
+        }
+    }
+
+    public static String getResourceAsString(Class<?> currentClass, String url) throws IOException {
+        return new String(getResourceAsBytes(currentClass, url), StandardCharsets.UTF_8);
     }
 
     /**
