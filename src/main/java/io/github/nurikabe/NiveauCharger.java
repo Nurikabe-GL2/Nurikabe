@@ -17,7 +17,7 @@ public class NiveauCharger {
     private final String sauv;
     private final String cheminSolution;
     private final GridPane niveau;
-    private int espace_boutons;
+    private int espaceBoutons;
 
     public NiveauCharger(String cheminSolution, String modeJeu) {
         this.sauv = "src/main/resources/sauvegarde/" + cheminSolution + modeJeu;
@@ -40,7 +40,7 @@ public class NiveauCharger {
             gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
             //grille_solution=new String[largeur][hauteur];
             Grille<String> grilleSolution = Niveau.chargerGrilleSolution(cheminSolution);
-            espace_boutons = grilleSolution.recupLargeur() * 9;
+            espaceBoutons = grilleSolution.recupLargeur() * 9;
 
             for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
 
@@ -98,7 +98,7 @@ public class NiveauCharger {
     }
 
     public int getEspaceBoutons() {
-        return espace_boutons;
+        return espaceBoutons;
     }
 
     public GridPane getGridpane() {

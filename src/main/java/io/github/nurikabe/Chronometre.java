@@ -18,7 +18,7 @@ public class Chronometre implements Serializable {
     private long debut;
     private long fin;
     private int minutes = 0, secondes = 0;
-    private String minutes_s = "00", secondes_s = "00";
+    private String minutesStr = "00", secondesStr = "00";
 
     public Chronometre() {
         debut();
@@ -52,11 +52,11 @@ public class Chronometre implements Serializable {
         }
         secondes = tempsEcoule / 1000;
 
-        if (secondes < 10) secondes_s = "0" + secondes;
-        else secondes_s = secondes + "";
+        if (secondes < 10) secondesStr = "0" + secondes;
+        else secondesStr = secondes + "";
 
-        if (minutes < 10) minutes_s = "0" + minutes;
-        else minutes_s = minutes + "";
+        if (minutes < 10) minutesStr = "0" + minutes;
+        else minutesStr = minutes + "";
 
     }
 
@@ -64,7 +64,7 @@ public class Chronometre implements Serializable {
     public String toString() {
 
         convertirTempsEcoule();
-        return minutes_s + ":" + secondes_s;
+        return minutesStr + ":" + secondesStr;
 
     }
 }

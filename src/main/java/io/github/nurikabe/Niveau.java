@@ -23,7 +23,7 @@ import java.util.Scanner;
  * Classe Niveau pour représenter un niveau
  */
 public class Niveau implements Serializable {
-    public static String path_sauvegarde = "sauvegarde/";
+    public static String pathSauvegarde = "sauvegarde/";
     private final SelectionNiveauxController select;
     /**
      * Variable d'instance nomNiveau qui représente le nom du niveau
@@ -32,7 +32,7 @@ public class Niveau implements Serializable {
     /**
      * Variable d'instance modeDeJeu qui représente le mode de jeu
      */
-    private final String mode_jeu;
+    private final String modeJeu;
     private final Label timerLabel;
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
@@ -66,7 +66,7 @@ public class Niveau implements Serializable {
      * Variable d'instance pileRedo représentant la pile servant au bouton Redo
      */
     private Pile pileRedo;
-    private boolean etat_partie = false;
+    private boolean etatPartie = false;
     private Chronometre chrono;
 
     /**
@@ -78,7 +78,7 @@ public class Niveau implements Serializable {
         this.select = select;
         this.stage = stage;
         this.cheminNiveau = cheminNiveau;
-        this.mode_jeu = mode;
+        this.modeJeu = mode;
         this.gridPane = gridPane;
         this.timerLabel = timer;
         initialiser();
@@ -169,7 +169,7 @@ public class Niveau implements Serializable {
     public void sauvegarderNiveau() {
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
-            File sauv = new File(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);
+            File sauv = new File(Niveau.pathSauvegarde + cheminNiveau.substring(27) + modeJeu);
             //System.out.println(nom_niveau+mode_jeu);
 
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sauv))) {
@@ -190,7 +190,7 @@ public class Niveau implements Serializable {
     }
 
     public int chargerNiveau(String nomNiveau) throws Exception {
-        File sauv = new File(Niveau.path_sauvegarde + nomNiveau.substring(27) + mode_jeu);
+        File sauv = new File(Niveau.pathSauvegarde + nomNiveau.substring(27) + modeJeu);
         if (sauv.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv))) {
                 sauvegarde = (Sauvegarde) ois.readObject();
@@ -216,16 +216,16 @@ public class Niveau implements Serializable {
 
         if (erreurs == 0) {
             try {
-                File myFile = new File(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);
+                File myFile = new File(Niveau.pathSauvegarde + cheminNiveau.substring(27) + modeJeu);
                 myFile.delete();
 
-                FileWriter sauv = new FileWriter(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);
+                FileWriter sauv = new FileWriter(Niveau.pathSauvegarde + cheminNiveau.substring(27) + modeJeu);
                 sauv.write("NIVEAU_COMPLETE");
                 sauv.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            etat_partie = true;
+            etatPartie = true;
 
             // Create a label with the message
             Label messageLabel = new Label("Niveau complété !");
@@ -328,7 +328,7 @@ public class Niveau implements Serializable {
     }
 
     public boolean recupEtatPartie() {
-        return etat_partie;
+        return etatPartie;
     }
 
     /**
@@ -366,7 +366,7 @@ public class Niveau implements Serializable {
         chrono.reset();
         try {
             //Voir #charger_niveau
-            File sauvegarde = new File(Niveau.path_sauvegarde + cheminNiveau.substring(27) + mode_jeu);
+            File sauvegarde = new File(Niveau.pathSauvegarde + cheminNiveau.substring(27) + modeJeu);
             if (sauvegarde.exists()) {
                 if (!sauvegarde.delete()) throw new IOException("Unable to delete " + sauvegarde);
             }
