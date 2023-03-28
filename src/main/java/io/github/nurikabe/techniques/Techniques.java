@@ -56,7 +56,7 @@ public class Techniques {
                 //Vérifier si les cibles ne sont pas déjà mises
                 for (Cible cible : positionTechniques.getCibles()) {
                     final String typeCible = cible.getType();
-                    final String typeActuel = niveau.etat_case(cible.getX(), cible.getY());
+                    final String typeActuel = niveau.etatCase(cible.getX(), cible.getY());
                     if (typeActuel.equals(typeCible)) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY());
                     }
