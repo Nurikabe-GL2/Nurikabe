@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,8 +18,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -143,48 +145,62 @@ public class SelectionNiveauxController extends VBox {
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
 
-        HBox hniveau = new HBox(3);
-        NiveauCharger n = new NiveauCharger(niveauToString(difficulte, 1), gameModeProperty.get());
-        HBox hbutton = new HBox(n.getEspaceBoutons());
-        int indic = 0, ligne = 0;
+        final Path facile1 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_01.txt");
+        final Path facile2 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_02.txt");
+        puzzlesTilePane.getChildren().addAll(Stream.of(facile1, facile2)
+                .map(GrilleSolution::chargerGrilleSolution)
+                .map(g -> {
+                    try {
+                        return Utils.loadFxml(new NiveauSelectionableController(g, ModeDeJeu.CLASSIQUE), "_NiveauSelectionable");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toList()
+        );
 
-        puzzlesTilePane.getChildren().clear();
-        for (int i = 1; i < 21; i++) {
-
-            n = new NiveauCharger(niveauToString(difficulte, i), gameModeProperty.get());
-            if (indic == 5) {
-
-                VBox v = new VBox(10);
-                v.getChildren().add(hniveau);
-                v.getChildren().add(hbutton);
-                puzzlesTilePane.getChildren().add(v);
-                hniveau = new HBox(3);
-                hbutton = new HBox(n.getEspaceBoutons());
-                indic = 0;
-
-            }
-
-
-            hniveau.getChildren().add(n.getGridpane());
-            Button b;
-            if (n.isComplete()) {
-                b = new Button("COMPLETE ");
-                b.setStyle("-fx-background-color: BLACK");
-            } else b = new Button("NIVEAU " + i);
-
-            hbutton.getChildren().add(b);
-            b.setAlignment(Pos.BOTTOM_LEFT);
-            b.setOnMouseClicked(event -> {
-                jouer("src/main/resources/niveaux/" + niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
-                refreshLevels();
-            });
-            indic++;
-        }
-
-        VBox v = new VBox(10);
-        v.getChildren().add(hniveau);
-        v.getChildren().add(hbutton);
-        puzzlesTilePane.getChildren().add(v);
+//        HBox hniveau = new HBox(3);
+//        NiveauCharger n = new NiveauCharger(niveauToString(difficulte, 1), gameModeProperty.get());
+//        HBox hbutton = new HBox(n.getEspaceBoutons());
+//        int indic = 0, ligne = 0;
+//
+//        puzzlesTilePane.getChildren().clear();
+//        for (int i = 1; i < 21; i++) {
+//
+//            n = new NiveauCharger(niveauToString(difficulte, i), gameModeProperty.get());
+//            if (indic == 5) {
+//
+//                VBox v = new VBox(10);
+//                v.getChildren().add(hniveau);
+//                v.getChildren().add(hbutton);
+//                puzzlesTilePane.getChildren().add(v);
+//                hniveau = new HBox(3);
+//                hbutton = new HBox(n.getEspaceBoutons());
+//                indic = 0;
+//
+//            }
+//
+//
+//            hniveau.getChildren().add(n.getGridpane());
+//            Button b;
+//            if (n.isComplete()) {
+//                b = new Button("COMPLETE ");
+//                b.setStyle("-fx-background-color: BLACK");
+//            } else b = new Button("NIVEAU " + i);
+//
+//            hbutton.getChildren().add(b);
+//            b.setAlignment(Pos.BOTTOM_LEFT);
+//            b.setOnMouseClicked(event -> {
+//                jouer("src/main/resources/niveaux/" + niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
+//                refreshLevels();
+//            });
+//            indic++;
+//        }
+//
+//        VBox v = new VBox(10);
+//        v.getChildren().add(hniveau);
+//        v.getChildren().add(hbutton);
+//        puzzlesTilePane.getChildren().add(v);
 
     }
 

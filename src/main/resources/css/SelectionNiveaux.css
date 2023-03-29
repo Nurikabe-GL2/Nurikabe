@@ -19,3 +19,11 @@ ToggleButton:selected {
     -fx-background-color: #455685 !important;
     -fx-font-weight: bold;
 }
+
+.case-solution {
+    -fx-border-color: black;
+}
+
+.case-solution.case-noire {
+    -fx-background-color: black;
+}
