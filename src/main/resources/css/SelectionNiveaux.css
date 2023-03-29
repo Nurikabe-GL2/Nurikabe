@@ -9,7 +9,7 @@
     -fx-text-fill: white;
 }
 
-.gamemodeButton, .difficultyButton {
+.gamemodeButton, .difficultyButton, .levelButton {
     -fx-background-color: #4882bd;
     -fx-text-fill: white;
     -fx-font-size: 14px;
