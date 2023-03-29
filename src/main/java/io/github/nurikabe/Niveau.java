@@ -8,19 +8,8 @@ package io.github.nurikabe;
 // Importation des librairies javaFX
 
 import io.github.nurikabe.controller.SelectionNiveauxController;
-import javafx.stage.Modality;
-import javafx.scene.layout.GridPane;
-
-import java.util.Scanner;
-import javafx.application.Platform;
-import java.util.Timer;
-import java.util.TimerTask;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -77,7 +66,7 @@ public class Niveau implements Serializable {
     private boolean etatPartie = false;
     private Chronometre chrono;
 
-    private Label timerLabel, scoreLabel;
+    private final Label scoreLabel;
 
     private Score score;
 
@@ -101,14 +90,17 @@ public class Niveau implements Serializable {
 
    /**
     * Constructeur de la classe Niveau
+    *
     * @param cheminNiveau le chemin vers la grille
+    * @param gridPane
     */
-   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, Label timer, Label sc) throws Exception{
+   public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, GridPane gridPane, Label timer, Label sc) throws Exception{
       this.select=select;
       this.stage=stage;
       this.cheminNiveau = cheminNiveau;
-      this.mode_jeu=mode;
-      this.timerLabel=timer;
+      this.modeJeu=mode;
+       this.gridPane = gridPane;
+       this.timerLabel=timer;
       this.scoreLabel=sc;
       initialiser();
       afficherScore();

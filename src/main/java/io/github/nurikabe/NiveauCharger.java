@@ -28,7 +28,7 @@ public class NiveauCharger {
     /**
    * constructeur de la classe NiveauCharger
    * @param cheminSolution le chemin pour récuperer le fichier à charger
-   * @param mode_jeu le mode de jeu du niveau à charger
+   * @param modeJeu le mode de jeu du niveau à charger
    */
   public NiveauCharger(String cheminSolution, String modeJeu) {
         this.sauv = "sauvegarde/" + cheminSolution + modeJeu;
@@ -107,7 +107,7 @@ public class NiveauCharger {
    * @param nom nom du niveau à vérifier avec son chemin complet
    * @return 1 si ce dernier est complété, 0 sinon
    */
-  public int niveau_complete(String nom){
+  public int niveauComplete(String nom){
       try {
       if(NiveauCharger.fichier_existe(nom)==1){
           try (Scanner lire = new Scanner(new FileInputStream(nom))) {
