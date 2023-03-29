@@ -87,6 +87,7 @@ public class CaseGraphique {
 
     /**
      * methode appelée à la fin du mode hypothèse pour remettre les cases en noir si besoin
+     * executer 3 fois la méthode actionClic pour remettre la couleur de base de la case
      */
     public void mettre_a_jour(){
         actionClic();

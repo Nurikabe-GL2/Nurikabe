@@ -102,6 +102,7 @@ public class Niveau implements Serializable {
         this.scoreLabel = sc;
         initialiser();
         afficherScore();
+        hypo=new Hypothese(this);
     }
 
     /*
@@ -184,25 +185,6 @@ public class Niveau implements Serializable {
             e.printStackTrace();
         }
 
-    }
-
-    public boolean estEnModeHypothese(){
-        return estEnModeHypothese;
-    }
-
-    /**
-     * méthode appelée pour mettre en mode hypothèse le niveau
-     */
-    public void mettreEnModeHypothese(){
-        if(estEnModeHypothese){
-            estEnModeHypothese=false;    
-            hypo.annuler();
-            hypo=null;
-        }    
-        else {
-            hypo=new Hypothese(this);
-            estEnModeHypothese=true;
-        }
     }
 
     /**
@@ -337,26 +319,48 @@ public class Niveau implements Serializable {
     public void redo() {
         coup(pileRedo, pileUndo, 1);
     }
-
+    /**
+     * mettre à jour la grillle graphique
+     */
     public void majGrilles(){
-        for (int y = 0; y < grille.getHauteur(); y++) {
-            for (int x = 0; x < grille.getLargeur(); x++) {
+        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
+            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
                 grilleGraphique.recup(x, y).mettre_a_jour();
             }
         }
     }
-    /**
-     * fonction appelée lors de l'arrêt du mode hypothèse (confirmée ou non)
-     */
-    public void arreterModeHypothese(){
-        majGrilles();
+
+    public boolean estEnModeHypothese(){
+        return estEnModeHypothese;
+    }
+
+    public void desactiverModeHypothese(){
         estEnModeHypothese=false;
+    }
+
+    public void activerModeHypothese(){
+        estEnModeHypothese=true;
+    }
+
+    /**
+     * méthode appelée pour mettre en mode hypothèse le niveau
+     */
+    public void mettreEnModeHypothese(){
+        if(estEnModeHypothese){   
+            hypo.annuler();
+        }    
+        else {
+            hypo.activer();
+        }
     }
 
     public void actionHypothese(){
         hypo.incrementer_actions();
     }
 
+    public void confirmerHypothese(){
+        hypo.confirmer();
+    }
     /**
      * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
      *
