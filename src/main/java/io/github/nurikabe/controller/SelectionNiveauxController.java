@@ -145,6 +145,7 @@ public class SelectionNiveauxController extends VBox {
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
 
+        //TODO introspection des niveaux
         final Path facile1 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_01.txt");
         final Path facile2 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_02.txt");
         puzzlesTilePane.getChildren().addAll(Stream.of(facile1, facile2)
@@ -204,7 +205,7 @@ public class SelectionNiveauxController extends VBox {
 
     }
 
-    private void chargerModeAventure() {
+    private void chargerModeAventure() { //TODO selection niveau aventure
         easyToggle.setDisable(true);
         mediumToggle.setDisable(true);
         hardToggle.setDisable(true);
