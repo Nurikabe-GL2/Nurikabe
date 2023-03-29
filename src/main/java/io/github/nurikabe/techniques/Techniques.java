@@ -13,8 +13,6 @@ import org.slf4j.Logger;
 import java.util.List;
 
 public class Techniques {
-    private static final Logger LOGGER = Logging.getLogger();
-
     //L'ordre des techniques est important pour savoir laquelle est prioritaire.
     // Les techniques prioritaires sont les moins compliquées
     public static final List<Technique> TECHNIQUES = List.of(
@@ -37,6 +35,7 @@ public class Techniques {
             new Avancee4(),
             new Avancee5()
     );
+    private static final Logger LOGGER = Logging.getLogger();
 
     @Nullable
     public static PositionTechniques trouverTechnique(Niveau niveau) {
@@ -57,7 +56,7 @@ public class Techniques {
                 //Vérifier si les cibles ne sont pas déjà mises
                 for (Cible cible : positionTechniques.getCibles()) {
                     final String typeCible = cible.getType();
-                    final String typeActuel = niveau.etat_case(cible.getX(), cible.getY());
+                    final String typeActuel = niveau.etatCase(cible.getX(), cible.getY());
                     if (typeActuel.equals(typeCible)) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY());
                     }

@@ -18,18 +18,16 @@ public class IleExtensibleDansDeuxDirections extends Technique {
 
     /**
      * Méthode de parcours de la grille, elle vérifie qu'une ile est extensible dans éxactement 2 directions et si c'est le cas elle renvoie une liste avec la position de cette case
+     *
      * @param grille la grille en question
+     *
      * @return une Position technique ou null
      */
     @Override
-    public PositionTechniques tester(Niveau grille)
-    {
-        for(int x=0;x<grille.recupLargeur();x++)
-        {
-            for(int y=0;y<grille.get_hauteur();y++)
-            {
-                if(grille.recupCase(x, y) instanceof CaseNombre)
-                {
+    public PositionTechniques tester(Niveau grille) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
+            for (int y = 0; y < grille.getHauteur(); y++) {
+                if (grille.recupCase(x, y) instanceof CaseNombre) {
                     List<Cible> coups = new ArrayList<>();
 
                     //Test si les cases autour sont des cases blanches,
@@ -53,8 +51,8 @@ public class IleExtensibleDansDeuxDirections extends Technique {
                     }
                 }
             }
-        
-        }   
+
+        }
         return null;
     }
 }

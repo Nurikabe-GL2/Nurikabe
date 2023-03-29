@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe représentant la techniques de jeux pour 2 cases de nombe séparer par un case blanche
+ * Classe représentant la technique de jeux pour 2 cases de nombres séparées par une case blanche
  */
 public class IndicesSeparerParCaseBlanche extends Technique {
     @Override
@@ -27,8 +27,8 @@ public class IndicesSeparerParCaseBlanche extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int x = 0; x < grille.recupLargeur(); x++) {
-            for (int y = 0; y < grille.get_hauteur(); y++) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
+            for (int y = 0; y < grille.getHauteur(); y++) {
                 if (grille.recupCase(x, y) instanceof CaseNombre) {
                     List<Cible> liste = new ArrayList<>();
 

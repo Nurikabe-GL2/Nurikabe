@@ -1,11 +1,11 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.ModeDeJeu;
 import io.github.nurikabe.Niveau;
 import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
-import io.github.nurikabe.Chronometre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,32 +18,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
  */
 public class NiveauController extends VBox {
-
-
     /**
-     * Variable d'instance privé qui stocke le stage actuel
+     * Variable d'instance privée qui stocke le stage actuel
      */
     private final Stage stage;
 
     /**
-     * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
+     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
+
     private final Niveau niveau;
 
-    private GridPane jeu_grille;
+    @FXML private GridPane gridPane;
 
-    @FXML private VBox gridPaneContainer;
-
-    @FXML private Button buttonUndo;
-
-    @FXML private Button buttonRedo;
+    @FXML private Button buttonUndo, buttonRedo;
 
     @FXML private HBox timerAndLabelParent;
 
@@ -51,9 +49,9 @@ public class NiveauController extends VBox {
 
     @FXML private Label timerLabel;
 
-    @FXML private Label scoreLabel;
-
     @FXML private Button buttonAide;
+
+    @FXML private Label scoreLabel;
 
     @FXML private TabPane tabPane;
 
@@ -61,47 +59,28 @@ public class NiveauController extends VBox {
 
     /**
      * Le constructeur de la classe TechniquesController
-     * @param stage la scène courante
+     *
+     * @param stage           la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, String cheminNiveau, String mode_jeu, SelectionNiveauxController select) throws Exception {
-
+    public NiveauController(Stage stage, Scene scenePrecedente, String cheminNiveau, ModeDeJeu modeJeu, SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
 
-          System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
-         loader.setController(this);
-         loader.setRoot(this);
-         loader.load();
-        // Add some debug output
-        GridPane gridPane = (GridPane) loader.getNamespace().get("gridPaneGraphicalState");
+        loader.setController(this);
+        loader.setRoot(this);
+        loader.load();
 
-        if(mode_jeu.equals("CLASSIQUE")||mode_jeu.equals("AVENTURE")){
-
+        if (modeJeu == ModeDeJeu.CLASSIQUE || modeJeu == ModeDeJeu.AVENTURE) {
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(stage, cheminNiveau, mode_jeu, select, null, null);
-
+            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, null, null);
+        } else {
+            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
         }
 
-        else niveau = new Niveau(stage, cheminNiveau, mode_jeu, select, timerLabel, scoreLabel);
-
-        jeu_grille= niveau.getGridPane();
-        jeu_grille.setId("gridPaneGraphicalState");
-
-         gridPaneContainer.getChildren().remove(gridPane);
-         jeu_grille.setStyle("-fx-background-color: #C0C0C0;");
-         gridPaneContainer.getChildren().add(jeu_grille);
-
-         //définition des handlers des boutons
-         buttonUndo.setOnMousePressed(niveau.handlerUndo);
-         buttonRedo.setOnMousePressed(niveau.handlerRedo);
-
-         //mise en place des boutons
-         niveau.setUndoB(buttonUndo);
-         niveau.setRedoB(buttonRedo);
-
-         stage.setScene(new Scene(this));
+        stage.setScene(new Scene(this));
     }
 
     @FXML
@@ -121,21 +100,33 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton retour
-     * @param event l'évènement qui a activé la méthode ici le clique
+     *
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onBackAction(ActionEvent event) {
         stage.setScene(scenePrecedente);
     }
 
+    @FXML
+    private void onUndoAction(ActionEvent event) {
+        niveau.undo();
+    }
+
+    @FXML
+    private void onRedoAction(ActionEvent event) {
+        niveau.redo();
+    }
+
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton aide
-     * @param event l'évènement qui a activé la méthode ici le clique
+     *
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onAideAction(ActionEvent event) {
-        niveau.utilisation_aide();
+        niveau.utilisationAide();
         try {
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
 
@@ -159,7 +150,8 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton verifier
-     * @param event l'évènement qui a activé la méthode ici le clique
+     *
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onVerifierAction(ActionEvent event) {
@@ -169,7 +161,8 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton reset
-     * @param event l'évènement qui a activé la méthode ici le clique
+     *
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onResetAction(ActionEvent event) {

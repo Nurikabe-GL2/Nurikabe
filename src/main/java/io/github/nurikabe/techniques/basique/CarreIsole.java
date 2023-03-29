@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe représentant la techniques de jeux pour une case Blanche isolé
+ * Classe représentant le technique de jeux pour une case Blanche isolé
  */
 public class CarreIsole extends Technique {
     @Override
@@ -19,7 +19,7 @@ public class CarreIsole extends Technique {
     }
 
     /**
-     * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
+     * Méthode de parcours de la grille, elle teste toutes les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
      *
      * @param grille la grille en question
      *
@@ -27,18 +27,18 @@ public class CarreIsole extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int i = 0; i < grille.recupLargeur(); i++) {
-            for (int j = 0; j < grille.get_hauteur(); j++) {
+        for (int i = 0; i < grille.getLargeur(); i++) {
+            for (int j = 0; j < grille.getHauteur(); j++) {
                 if (grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).recupContenuCase().equals("b")) {
                     List<Cible> liste = new ArrayList<>();
 
-                    //test si la case de gauche de la case courante est valide ou que c'est une case noir
+                    //test si la case de gauche de la case courante est valide ou que c'est une case noire
                     if (estCaseNoire(grille, i - 1, j)) {
-                        //test si la case de droite de la case courante est valide ou que c'est une case noir
+                        //test si la case de droite de la case courante est valide ou que c'est une case noire
                         if (estCaseNoire(grille, i + 1, j)) {
-                            //test si la case en bas de la case courante est valide ou que c'est une case noir
+                            //test si la case en bas de la case courante est valide ou que c'est une case noire
                             if (estCaseNoire(grille, i, j - 1)) {
-                                //test si la case en bas de la case courante est valide ou que c'est une case noir
+                                //test si la case en bas de la case courante est valide ou que c'est une case noire
                                 if (estCaseNoire(grille, i, j + 1))
                                     liste.add(new Cible(i, j, "n"));
                             }

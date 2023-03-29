@@ -16,20 +16,9 @@ public class ContenuAideController extends ScrollPane {
     private final Niveau niveau;
     private final PositionTechniques positionTechniques;
 
-    @FXML
-    private ImageView image;
-
-    @FXML
-    private Label labelCategorie;
-
-    @FXML
-    private Label labelDescription;
-
-    @FXML
-    private Label labelNom;
-
-    @FXML
-    private Button boutonPositionAide;
+    @FXML private ImageView image;
+    @FXML private Label labelCategorie, labelDescription, labelNom;
+    @FXML private Button boutonPositionAide;
 
     public ContenuAideController(Niveau niveau, @NotNull PositionTechniques positionTechniques) {
         this.niveau = niveau;
