@@ -17,6 +17,7 @@ import java.util.List;
 public abstract class Technique {
     private final DonneesTechnique donneesTechnique;
     private Image imageTechnique;
+
     protected Technique() {
         this.donneesTechnique = DonneesTechniques.getDonnees(getIdentifiant());
     }

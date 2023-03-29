@@ -1,6 +1,6 @@
 /**
-* Fichier Case.java contenant la classe Case pour représenter une case de la grille Nurikabe
-*/
+ * Fichier Case.java contenant la classe Case pour représenter une case de la grille Nurikabe
+ */
 
 // Package GitHub
 package io.github.nurikabe;

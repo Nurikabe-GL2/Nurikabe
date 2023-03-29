@@ -55,7 +55,8 @@ public class NiveauController extends VBox {
     @FXML
     private Button buttonAide;
 
-    @FXML private Label scoreLabel;
+    @FXML
+    private Label scoreLabel;
 
     @FXML
     private TabPane tabPane;
@@ -106,6 +107,7 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton retour
+     *
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML
@@ -126,6 +128,7 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton aide
+     *
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML
@@ -154,6 +157,7 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton verifier
+     *
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML
@@ -164,6 +168,7 @@ public class NiveauController extends VBox {
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton reset
+     *
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML
