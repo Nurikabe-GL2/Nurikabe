@@ -121,28 +121,25 @@ public class SelectionNiveauxController extends VBox {
     }
 
     /**
-     * Méthode privé qui se charge de rafraichir les niveaux en fonction de la difficulté et du mode de jeu choisis
+     * Méthode privée qui se charge de rafraichir les niveaux en fonction de la difficulté et du mode de jeu choisis
      */
     public void refreshLevels() {
         LOGGER.info("Mode: {}", gameModeProperty.get());
         LOGGER.info("Difficulties: {}", difficulties);
 
-        List<Difficulte> listeDifficulte = new ArrayList<>(difficulties);
-
-        if (gameModeProperty.get().recupNomMode().equals("classique"))
-            chargerModeClassique(listeDifficulte.get(0).recupNomDifficulte());
-
-        else if (gameModeProperty.get().recupNomMode().equals("aventure")) chargerModeAventure();
-
-        else chargerModeContreLaMontre();
+        switch (gameModeProperty.get()) {
+            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(difficulties).get(0));
+            case AVENTURE -> chargerModeAventure();
+            default -> chargerModeContreLaMontre();
+        }
     }
 
-    private String niveauToString(String difficulte, int num) {
+    private String niveauToString(Difficulte difficulte, int num) {
         if (num < 10) return difficulte + "_" + "0" + num + ".txt";
         else return difficulte + "_" + num + ".txt";
     }
 
-    private void chargerModeClassique(String difficulte) {
+    private void chargerModeClassique(Difficulte difficulte) {
 
         easyToggle.setDisable(false);
         mediumToggle.setDisable(false);
@@ -205,7 +202,7 @@ public class SelectionNiveauxController extends VBox {
         int nivCourant = 0;
         for (int i = 1, count = 0; i < 21; i++, count++) {
 
-            NiveauCharger n = new NiveauCharger(niveauToString("moyen", i), gameModeProperty.get().toString());
+            NiveauCharger n = new NiveauCharger(niveauToString(Difficulte.MOYEN, i), gameModeProperty.get().toString());
             if (count == 6) {
                 conteneurHbox.getChildren().add(conteneurBoutons);
                 conteneurBoutons = new HBox(30);
@@ -232,7 +229,7 @@ public class SelectionNiveauxController extends VBox {
             bouton.setPrefSize(100, 100);
             if (nivCourant == i) {
                 bouton.setOnMouseClicked(event -> {
-                    jouer("src/main/resources/niveaux/" + niveauToString("moyen", Integer.parseInt(bouton.getText().substring(7))));
+                    jouer("src/main/resources/niveaux/" + niveauToString(Difficulte.MOYEN, Integer.parseInt(bouton.getText().substring(7))));
                     refreshLevels();
                 });
             }
@@ -244,7 +241,7 @@ public class SelectionNiveauxController extends VBox {
     }
 
     private void chargerModeContreLaMontre() {
-        chargerModeClassique("facile");
+        chargerModeClassique(Difficulte.FACILE);
         easyToggle.setDisable(true);
         mediumToggle.setDisable(true);
         hardToggle.setDisable(true);
@@ -266,7 +263,7 @@ public class SelectionNiveauxController extends VBox {
 
     private void jouer(String cheminNiveau) {
         try {
-            new NiveauController(stage, stage.getScene(), cheminNiveau, gameModeProperty.get().toString(), this);
+            new NiveauController(stage, stage.getScene(), cheminNiveau, gameModeProperty.get(), this);
         } catch (Exception e) {
             e.printStackTrace();
         }

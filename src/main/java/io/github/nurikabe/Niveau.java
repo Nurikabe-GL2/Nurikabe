@@ -26,10 +26,11 @@ public class Niveau implements Serializable {
      * Variable d'instance nomNiveau qui représente le nom du niveau
      */
     private final String cheminNiveau;
+
     /**
      * Variable d'instance modeDeJeu qui représente le mode de jeu
      */
-    private final String modeJeu;
+    private final ModeDeJeu modeDeJeu;
     private final Label timerLabel;
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
@@ -92,13 +93,12 @@ public class Niveau implements Serializable {
      * Constructeur de la classe Niveau
      *
      * @param cheminNiveau le chemin vers la grille
-     * @param gridPane
      */
-    public Niveau(Stage stage, String cheminNiveau, String mode, SelectionNiveauxController select, GridPane gridPane, Label timer, Label sc) throws Exception {
+    public Niveau(Stage stage, String cheminNiveau, ModeDeJeu modeDeJeu, SelectionNiveauxController select, GridPane gridPane, Label timer, Label sc) throws Exception {
         this.select = select;
         this.stage = stage;
         this.cheminNiveau = cheminNiveau;
-        this.modeJeu = mode;
+        this.modeDeJeu = modeDeJeu;
         this.gridPane = gridPane;
         this.timerLabel = timer;
         this.scoreLabel = sc;
@@ -176,7 +176,7 @@ public class Niveau implements Serializable {
     public void sauvegarderNiveau() {
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
-            File sauv = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
+            File sauv = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeDeJeu);
 
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sauv))) {
                 sauvegarde.mettreGrille(grille);
@@ -222,7 +222,7 @@ public class Niveau implements Serializable {
 
 
     public int chargerNiveau(String nomNiveau) throws Exception {
-        File sauv = new File(Niveau.PATH_SAUVEGARDE + nomNiveau.substring(27) + modeJeu);
+        File sauv = new File(Niveau.PATH_SAUVEGARDE + nomNiveau.substring(27) + modeDeJeu);
         if (sauv.exists()) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(sauv))) {
                 sauvegarde = (Sauvegarde) ois.readObject();
@@ -251,10 +251,10 @@ public class Niveau implements Serializable {
 
         if (erreurs == 0) {
             try {
-                File myFile = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
+                File myFile = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeDeJeu);
                 myFile.delete();
 
-                FileWriter sauv = new FileWriter(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
+                FileWriter sauv = new FileWriter(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeDeJeu);
                 sauv.write("NIVEAU_COMPLETE");
                 sauv.close();
             } catch (Exception e) {
@@ -404,7 +404,7 @@ public class Niveau implements Serializable {
         score.resetAll();
         try {
             //Voir #chargerNiveau
-            File sauvegarde = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
+            File sauvegarde = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeDeJeu);
             if (sauvegarde.exists()) {
                 if (!sauvegarde.delete()) throw new IOException("Unable to delete " + sauvegarde);
             }
