@@ -179,8 +179,7 @@ public class SelectionNiveauxController extends VBox {
 
             hbutton.getChildren().add(b);
             b.setAlignment(Pos.BOTTOM_LEFT);
-            b.setOnMouseClicked(MouseEvent -> {
-                System.out.println();
+            b.setOnMouseClicked(event -> {
                 jouer("src/main/resources/niveaux/" + niveauToString(difficulte, Integer.parseInt(b.getText().substring(7))));
                 refreshLevels();
             });
@@ -231,8 +230,7 @@ public class SelectionNiveauxController extends VBox {
             }
             bouton.setPrefSize(100, 100);
             if (nivCourant == i) {
-                bouton.setOnMouseClicked(MouseEvent -> {
-                    System.out.println();
+                bouton.setOnMouseClicked(event -> {
                     jouer("src/main/resources/niveaux/" + niveauToString("moyen", Integer.parseInt(bouton.getText().substring(7))));
                     refreshLevels();
                 });

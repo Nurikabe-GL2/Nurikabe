@@ -25,7 +25,7 @@ public class Score implements Serializable {
     /**
      * méthode pour réinitialiser le score
      */
-    public void reset_all() {
+    public void resetAll() {
         score = 1500;
     }
 

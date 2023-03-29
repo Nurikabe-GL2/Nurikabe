@@ -17,8 +17,8 @@ public class Chronometre implements Serializable {
     private long debut;
     private long fin;
     private int minutes = 0, secondes = 0;
-    private int temps_supp = 0;
-    private String minutes_s = "00", secondes_s = "00";
+    private int tempsSupp = 0;
+    private String minutesStr = "00", secondesStr = "00";
 
     /*
      * constructeur Chronometre, on appelle les méthodes de début et fin pour initialiser les variables fin et début
@@ -39,17 +39,17 @@ public class Chronometre implements Serializable {
     /*
      * méthode appelée lors de la réinitialisation d'un niveau
      */
-    public void reset_all() {
+    public void resetAll() {
         debut();
         fin();
-        temps_supp = 0;
+        tempsSupp = 0;
     }
 
     /*
      * méthode appelée pour sauvegarder un niveau (on garde le temps écoulé dans une variable)
      */
     public void sauvegarder() {
-        temps_supp = getTempsEcoule();
+        tempsSupp = getTempsEcoule();
         reset();
     }
 
@@ -73,7 +73,7 @@ public class Chronometre implements Serializable {
     private int getTempsEcoule() {
         fin();
         // System.out.println(fin-debut);
-        return (int) (fin - debut) + temps_supp;
+        return (int) (fin - debut) + tempsSupp;
     }
 
     /*
@@ -81,23 +81,19 @@ public class Chronometre implements Serializable {
      * on commence par calculer les secondes puis ensuite les minutes (le calcul est fait à parti de milisecondes)
      * La méthode currentTimeMillis renvoie le temps courant en milisecondes
      */
-    private void convertir_temps_ecoule() {
-        int temps_ecoule = getTempsEcoule();
-        if (temps_ecoule < 60000) {
-            secondes = temps_ecoule / 1000;
-        } else {
-
-            minutes = temps_ecoule / 60000;
-            temps_ecoule -= minutes * 60000;
-            secondes = temps_ecoule / 1000;
-
+    private void convertirTempsEcoule() {
+        int tempsEcoule = getTempsEcoule();
+        if (tempsEcoule >= 60000) {
+            minutes = tempsEcoule / 60000;
+            tempsEcoule -= minutes * 60000;
         }
+        secondes = tempsEcoule / 1000;
 
-        if (secondes < 10) secondes_s = "0" + secondes;
-        else secondes_s = secondes + "";
+        if (secondes < 10) secondesStr = "0" + secondes;
+        else secondesStr = secondes + "";
 
-        if (minutes < 10) minutes_s = "0" + minutes;
-        else minutes_s = minutes + "";
+        if (minutes < 10) minutesStr = "0" + minutes;
+        else minutesStr = minutes + "";
 
     }
 
@@ -109,8 +105,8 @@ public class Chronometre implements Serializable {
     @Override
     public String toString() {
 
-        convertir_temps_ecoule();
-        return minutes_s + ":" + secondes_s;
+        convertirTempsEcoule();
+        return minutesStr + ":" + secondesStr;
 
     }
 }

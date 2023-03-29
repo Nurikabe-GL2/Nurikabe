@@ -47,19 +47,19 @@ public class CaseGraphique {
      * lorsqu'on clique sur une case on modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
      * victoire pour voir si on a gagné la partie
      *
-     * @param x      la coordonnée x de la case
-     * @param y      la coordonnée y de la case
-     * @param l      la longeur de la case
-     * @param L      la largeur de la case
-     * @param grille la grille de la case
+     * @param x        la coordonnée x de la case
+     * @param y        la coordonnée y de la case
+     * @param longueur la longueur de la case
+     * @param largeur  la largeur de la case
+     * @param grille   la grille de la case
      */
-    public CaseGraphique(int x, int y, int l, int L, Niveau grille) {
+    public CaseGraphique(int x, int y, int longueur, int largeur, Niveau grille) {
         this.type = grille.recupCase(x, y).recupType();
         this.grille = grille;
         this.x = x;
         this.y = y;
         panneau = new StackPane();
-        panneau.setPrefSize(l, L);
+        panneau.setPrefSize(longueur, largeur);
 
         if (this.type <= 0) {
             panneau.setOnMouseClicked(e -> {
@@ -84,7 +84,7 @@ public class CaseGraphique {
             Text nb = new Text(grille.recupCase(x, y).recupContenuCase());
             panneau.getChildren().add(nb);
             panneau.getStyleClass().add("caseblanche");
-            panneau.setPrefSize(l, L);
+            panneau.setPrefSize(longueur, largeur);
         }
     }
 

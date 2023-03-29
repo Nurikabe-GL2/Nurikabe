@@ -133,7 +133,7 @@ public class NiveauController extends VBox {
      */
     @FXML
     private void onAideAction(ActionEvent event) {
-        niveau.utilisation_aide();
+        niveau.utilisationAide();
         try {
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
 

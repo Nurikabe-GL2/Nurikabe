@@ -96,19 +96,6 @@ public class NiveauCharger {
     }
 
     /**
-     * savoir si un fichier dont le nom est entré en paramètres existe
-     *
-     * @param nom nom du fichier
-     *
-     * @return 1 si le fichier existe, 0 sinon
-     */
-    public static int fichier_existe(String nom) {
-        File fichier = new File(nom);
-        if (fichier.exists() && !fichier.isDirectory()) return 1;
-        return 0;
-    }
-
-    /**
      * savoir si un niveau est complété ou non
      *
      * @param nom nom du niveau à vérifier avec son chemin complet
@@ -117,7 +104,7 @@ public class NiveauCharger {
      */
     public int niveauComplete(String nom) {
         try {
-            if (NiveauCharger.fichier_existe(nom) == 1) {
+            if (NiveauCharger.fichierExiste(nom) == 1) {
                 try (Scanner lire = new Scanner(new FileInputStream(nom))) {
                     String res = lire.nextLine();
                     if (res.equals("NIVEAU_COMPLETE")) {
