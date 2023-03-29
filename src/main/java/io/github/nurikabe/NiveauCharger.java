@@ -55,7 +55,6 @@ public class NiveauCharger {
             GridPane gridpane = new GridPane();
             gridpane.getStylesheets().add("/css/Plateau.css");
             gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
-            //grille_solution=new String[largeur][hauteur];
             Grille<String> grilleSolution = Niveau.chargerGrilleSolution(cheminSolution);
             espaceBoutons = grilleSolution.getLargeur() * 9;
 

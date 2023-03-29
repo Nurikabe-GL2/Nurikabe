@@ -141,45 +141,30 @@ public class Niveau implements Serializable {
         grilleSolution = chargerGrilleSolution(cheminNiveau);
 
         if (chargerNiveau(cheminNiveau) == 0) {
-
-
+            //Pas de sauvegarde, création de la grille
             grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
-            grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
-            for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-
-                for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                    //Case une_case;
-
+            for (int y = 0; y < grille.getHauteur(); y++) {
+                for (int x = 0; x < grille.getLargeur(); x++) {
+                    final Case uneCase;
                     if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n")) {
-                        grille.mettre(x, y, new CaseNormale(x, y));
-                    } else grille.mettre(x, y, new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y))));
-
-                    grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
-                    //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                    GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
-                    GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
-
-                    gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
-                    //lecture.close();
+                        uneCase = new CaseNormale(x, y);
+                    } else {
+                        uneCase = new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y)));
+                    }
+                    grille.mettre(x, y, uneCase);
                 }
             }
-        } else {
-            grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
+        }
 
-            for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-
-                for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-
-
-                    grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
-                    //System.out.println(grille.get(i).get(j).get_pane()!=null);
-                    GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
-                    GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
-
-                    gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
-                }
-
+        //Création de la grille graphique
+        grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
+        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
+            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+                grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
+                GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
+                GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
+                gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
             }
         }
     }
@@ -192,7 +177,6 @@ public class Niveau implements Serializable {
         //System.out.println("Working Directory = " + System.getProperty("user.dir"));
         try {
             File sauv = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
-            //System.out.println(nom_niveau+mode_jeu);
 
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(sauv))) {
                 sauvegarde.mettreGrille(grille);
@@ -412,14 +396,14 @@ public class Niveau implements Serializable {
 
     /**
      * méthode servant à réinitialiser le niveau courant
-     * on réinitialise le chronomètre en faisant appel à sa méthode reset_all (on fait de même pour le score)
+     * on réinitialise le chronomètre en faisant appel à sa méthode resetAll (on fait de même pour le score)
      * on supprime la sauvegarde du niveau actuel si elle existait
      */
     public void reset() {
         chrono.resetAll();
         score.resetAll();
         try {
-            //Voir #charger_niveau
+            //Voir #chargerNiveau
             File sauvegarde = new File(Niveau.PATH_SAUVEGARDE + cheminNiveau.substring(27) + modeJeu);
             if (sauvegarde.exists()) {
                 if (!sauvegarde.delete()) throw new IOException("Unable to delete " + sauvegarde);

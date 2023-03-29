@@ -99,7 +99,7 @@ public class Chronometre implements Serializable {
 
     /**
      * Redéfinition de la méthode toString pour afficher le chronomètre
-     * Cette méthode fait appel à la méthode convertir_temps_écouler
+     * Cette méthode fait appel à la méthode convertirTempsEcoule
      * comme ça lors de l'affichage du chronomètre, ce dernier s'actualisera automatiquement
      */
     @Override
