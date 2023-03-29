@@ -28,7 +28,7 @@ import java.util.List;
 public class SelectionNiveauxController extends VBox {
 
     /**
-     * initialisation du logger pour générer des messages durant l'éxécution suite à des évènements.
+     * Initialisation du logger pour générer des messages durant l'exécution suite à des évènements.
      */
     private static final Logger LOGGER = Logging.getLogger();
 
@@ -81,7 +81,7 @@ public class SelectionNiveauxController extends VBox {
 
     /**
      * Méthode privée qui est appelée quand le controller est chargé
-     * Elle s'occupe d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
+     * Elle s'occupe d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter à la propriété du jeu en ajoutant un listener,
      * de mettre à jour la difficulté des niveaux et de rafraichir les niveaux
      */
     @FXML

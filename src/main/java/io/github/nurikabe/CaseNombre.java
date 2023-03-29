@@ -12,7 +12,7 @@ public class CaseNombre extends Case {
     /**
      * Variable d'instance représentant le nombre de la case
      */
-    int nombre;
+    private final int nombre;
 
     /**
      * Constructeur de la classe Nombre

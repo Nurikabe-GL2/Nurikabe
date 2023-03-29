@@ -10,9 +10,9 @@ import java.io.Serializable;
 public class Chronometre implements Serializable {
 
     /**
-     * debut et fin : représentent le temps (long) avec la méthode currentTimeMillis() de la classe System
+     * Debut et fin : représentent le temps (long) avec la méthode currentTimeMillis() de la classe System
      * ensuite les autres variables servent à convertir le temps en seconde et minutes puis à l'afficher
-     * avec des String
+     * avec des chaines de caractères
      */
     private long debut;
     private long fin;
@@ -29,7 +29,7 @@ public class Chronometre implements Serializable {
     }
 
     /*
-     * Méthode appelée pour relancer le chronomètre courant à 0
+     * Méthode appelée pour relancer le chronomètre courant à zero
      */
     public void reset() {
         debut();
@@ -78,8 +78,8 @@ public class Chronometre implements Serializable {
 
     /*
      * méthode pour convertir le temps écoulé en String
-     * on commence par calculer les secondes puis ensuite les minutes (le calcul est fait à parti de milisecondes)
-     * La méthode currentTimeMillis renvoie le temps courant en milisecondes
+     * on commence par calculer les secondes puis les minutes (le calcul est fait à partir de millisecondes)
+     * La méthode currentTimeMillis renvoie le temps courant en millisecondes
      */
     private void convertirTempsEcoule() {
         int tempsEcoule = getTempsEcoule();

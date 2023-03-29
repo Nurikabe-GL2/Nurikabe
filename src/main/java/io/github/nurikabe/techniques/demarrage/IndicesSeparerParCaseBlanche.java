@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe représentant la techniques de jeux pour 2 cases de nombe séparer par un case blanche
+ * Classe représentant la technique de jeux pour 2 cases de nombres séparées par une case blanche
  */
 public class IndicesSeparerParCaseBlanche extends Technique {
     @Override

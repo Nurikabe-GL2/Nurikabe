@@ -37,9 +37,9 @@ public class Main {
             try {
                 // Crée la fenêtre du jeu
                 final Stage stage = new Stage();
-                // Charge le menu principal, le contrôleur étend le type du noeud racine
+                // Charge le menu principal, le contrôleur étend le type du nœud racine
                 final var controller = Utils.loadFxml(new MenuPrincipalController(stage), "MenuPrincipal");
-                // Le conteneur de noeud racine
+                // Le conteneur de nœud racine
                 final Scene scene = new Scene(controller);
                 stage.setScene(scene);
                 stage.show();

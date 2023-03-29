@@ -18,7 +18,7 @@ public class IleDeUn extends Technique {
     }
 
     /**
-     * La techniques recherche les cases de nombres avec le chiffre un,
+     * La technique recherche les cases de nombres avec le chiffre un,
      * Et retourne la position du dit un
      *
      * @return la position du 1

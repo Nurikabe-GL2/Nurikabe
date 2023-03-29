@@ -12,12 +12,12 @@ import javafx.stage.Stage;
 public class ReglesController extends VBox {
 
     /**
-     * Variable d'instance privé qui stocke le stage actuel
+     * Variable d'instance privée qui stocke le stage actuel
      */
     private final Stage stage;
 
     /**
-     * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
+     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
 
@@ -33,7 +33,7 @@ public class ReglesController extends VBox {
     }
 
     /**
-     * Méthode privé qui est appelé quand le bouton retour est actionné
+     * Méthode privée qui est appelé quand le bouton retour est actionné
      * Cette méthode se charge de changer la fenêtre courante par la précédente
      *
      * @param event l'évènement ayant provoqué l'appel de la fonction ici clic

@@ -21,7 +21,7 @@ public class JouerController extends VBox {
     private final Stage stage;
 
     /**
-     * Variable d'instance privée qui implémente la scène précédente (cette variable est utilisée par le bouton retour pour remettre le stage courant en tant qu'actuel)
+     * Variable d'instance privée qui implémente la scène précédente (elle est utilisée par le bouton retour pour remettre le stage courant en tant qu'actuel)
      */
     private final Scene scenePrecedente;
 
@@ -38,8 +38,6 @@ public class JouerController extends VBox {
 
     /**
      * Méthode qui est appelée par le bouton retour, cette méthode permet de revenir à l'écran d'avant
-     *
-     * @param event
      */
     @FXML
     private void onBackAction(ActionEvent event) {

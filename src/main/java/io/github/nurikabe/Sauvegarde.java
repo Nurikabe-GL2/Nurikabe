@@ -1,5 +1,5 @@
 /**
- * Fichier Sauvegarde.java pour sauvegarder la grille de jeu et les piles d'undo-redo
+ * Fichier Sauvegarde.java pour sauvegarder la grille de jeu et les piles d'undo redo
  */
 
 // Package GitHub

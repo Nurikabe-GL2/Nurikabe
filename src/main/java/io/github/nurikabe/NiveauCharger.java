@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 
 /**
- * Classe servant à charger charger les niveaux pour afficher les grilles miniatures des modes de jeu (classique et ContreLaMontre)
+ * Classe servant à charger les niveaux pour afficher les grilles miniatures des modes de jeu (classique et ContreLaMontre)
  */
 public class NiveauCharger {
     /**

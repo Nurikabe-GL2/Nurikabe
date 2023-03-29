@@ -1,5 +1,5 @@
 /**
- * Fichier ModesDeJeu.java représentant les trois modes de jeu proposés : classique, aventure et contre la montre
+ * Fichier ModesDeJeu.java représentant les trois modes de jeu proposés : classique, aventure et contre-la-montre
  */
 
 // Package GitHub

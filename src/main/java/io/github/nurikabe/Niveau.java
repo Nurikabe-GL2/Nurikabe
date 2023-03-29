@@ -103,7 +103,7 @@ public class Niveau implements Serializable {
      * Méthode servant à initialiser la partie.
      * C'est ici qu'on crée les piles pour les boutons undo/redo, qu'on charge le niveau
      * et sa sauvegarde s'il en existe une (la grille du niveau existante, les piles undo/redo etc...)
-     * on charge le chronomètre et le score (qui seront affiché si nous sommes en mode ContrLaMontre)
+     * on charge le chronomètre et le score (qui seront affichés si nous sommes en mode ContreLaMontre)
      */
     private void initialiser() throws Exception {
         this.gridPane.getChildren().clear();
@@ -126,8 +126,8 @@ public class Niveau implements Serializable {
 
     /**
      * Méthode chargerGrille qui s'occupe de charger la grille.
-     * on commence par charger la solution du niveau, puis on tente de charger sa sauvegarde
-     * si il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
+     * On commence par charger la solution du niveau, puis on tente de charger sa sauvegarde
+     * s'il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
      */
     public void chargerGrille() throws Exception {
         grilleSolution = chargerGrilleSolution(cheminNiveau);
@@ -191,7 +191,7 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
+     * Methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
      */
     public void afficherScore() {
         if (scoreLabel != null) scoreLabel.setText("Score: " + score.getScore());
@@ -226,7 +226,7 @@ public class Niveau implements Serializable {
 
     /**
      * Méthode victoire qui teste si la grille est terminée
-     * si le niveau est complété, on insert dans la sauvegarde le flag "NIVEAU_COMPLETE"
+     * si le niveau est complété, on écrit dans la sauvegarde le flag "NIVEAU_COMPLETE"
      * Comme ça lors du chargement des niveaux sur l'interface cela indiquera les niveaux déjà complétés
      */
     public void victoire() {
@@ -366,7 +366,7 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * méthode servant à réinitialiser le niveau courant
+     * Méthode servant à réinitialiser le niveau courant
      * on réinitialise le chronomètre en faisant appel à sa méthode resetAll (on fait de même pour le score)
      * on supprime la sauvegarde du niveau actuel si elle existait
      */

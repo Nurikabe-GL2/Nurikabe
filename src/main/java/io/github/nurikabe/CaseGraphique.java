@@ -76,7 +76,7 @@ public class CaseGraphique {
             panneau.getStyleClass().add(0, "casenoire");
         else if (type == -2) {
             panneau.getStyleClass().add("caseblanche");
-            mettreCercle(1);
+            mettreCercle();
         } else {
             Text nb = new Text(grille.recupCase(x, y).recupContenuCase());
             panneau.getChildren().add(nb);
@@ -98,7 +98,7 @@ public class CaseGraphique {
 
         // Si la case est noire
         else if (type == -1) {
-            mettreCercle(1);
+            mettreCercle();
             type = -2;
             grille.victoire();
         }
@@ -130,25 +130,20 @@ public class CaseGraphique {
 
     /**
      * Méthode privée pour mettre un cercle dans la case quand la case se trouve dans l'état point
-     *
-     * @param couleur la couleur du point
      */
-    private void mettreCercle(int couleur) {
+    private void mettreCercle() {
         // Couleur = 0 pour gris OU couleur = 1 pour noir
         Circle cercle = new Circle(10, 10, 7);
-        if (couleur == 1)
-            cercle.setFill(Color.BLACK);
-        else
-            cercle.setFill(Color.GREY);
+        cercle.setFill(Color.BLACK);
         panneau.getStyleClass().remove(0);
         panneau.getChildren().add(cercle);
         panneau.getStyleClass().add(0, "caseblanche");
     }
 
     /**
-     * mettre la case en surbrillance lors du positionnement des techniques sur la grille
+     * Met la case en surbrillance lors du positionnement des techniques sur la grille
      *
-     * @param type
+     * @param type Le type de la case qui devrait être insérée
      */
     public void surbrillance(String type) {
         if (this.type == 1) //askip c'est une case nombre

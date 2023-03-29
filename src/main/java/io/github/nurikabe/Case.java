@@ -16,17 +16,17 @@ public abstract class Case implements Serializable {
     /**
      * Variable d'instance représentant la coordonnée x de la case
      */
-    int x;
+    private final int x;
 
     /**
      * Variable d'instance représentant la coordonnée y de la case
      */
-    int y;
+    private final int y;
 
     /**
      * Variable d'instance représentant le type de la case
      */
-    int type;
+    protected int type;
 
     /**
      * Constructeur de la classe Case
@@ -42,7 +42,7 @@ public abstract class Case implements Serializable {
     }
 
     /**
-     * Méthode recupType renvoyant le type de la case (ici 1 car c'est un nombre)
+     * Méthode recupType renvoyant le type de la case
      */
     public int recupType() {
         return type;
