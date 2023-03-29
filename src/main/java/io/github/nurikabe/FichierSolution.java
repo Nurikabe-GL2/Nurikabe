@@ -6,16 +6,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-public class GrilleSolution {
+public class FichierSolution {
     private final Path cheminNiveau;
     private final Grille<String> grille;
 
-    private GrilleSolution(Path cheminNiveau, Grille<String> grille) {
+    private FichierSolution(Path cheminNiveau, Grille<String> grille) {
         this.cheminNiveau = cheminNiveau;
         this.grille = grille;
     }
 
-    public static GrilleSolution chargerGrilleSolution(Path cheminNiveau) {
+    public static FichierSolution chargerGrilleSolution(Path cheminNiveau) {
         try (Scanner lecture = new Scanner(Files.newBufferedReader(cheminNiveau))) {
             final int largeur = lecture.nextInt();
             final int hauteur = lecture.nextInt();
@@ -27,7 +27,7 @@ public class GrilleSolution {
                 }
             }
 
-            return new GrilleSolution(cheminNiveau, grille);
+            return new FichierSolution(cheminNiveau, grille);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

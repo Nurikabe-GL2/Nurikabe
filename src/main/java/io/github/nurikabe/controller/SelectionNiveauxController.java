@@ -148,10 +148,10 @@ public class SelectionNiveauxController extends VBox {
         final Path facile1 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_01.txt");
         final Path facile2 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_02.txt");
         puzzlesTilePane.getChildren().addAll(Stream.of(facile1, facile2)
-                .map(GrilleSolution::chargerGrilleSolution)
+                .map(FichierSolution::chargerGrilleSolution)
                 .map(g -> {
                     try {
-                        return Utils.loadFxml(new NiveauSelectionableController(g, ModeDeJeu.CLASSIQUE), "_NiveauSelectionable");
+                        return Utils.loadFxml(new NiveauSelectionableController(this, stage, g, ModeDeJeu.CLASSIQUE), "_NiveauSelectionable");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -271,10 +271,10 @@ public class SelectionNiveauxController extends VBox {
     }
 
     private void jouer(String cheminNiveau) {
-        try {
-            new NiveauController(stage, stage.getScene(), cheminNiveau, gameModeProperty.get(), this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            new NiveauController(stage, stage.getScene(), cheminNiveau, gameModeProperty.get(), this);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

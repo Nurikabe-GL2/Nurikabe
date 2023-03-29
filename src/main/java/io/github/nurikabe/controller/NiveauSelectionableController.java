@@ -1,7 +1,7 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.FichierSolution;
 import io.github.nurikabe.Grille;
-import io.github.nurikabe.GrilleSolution;
 import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
 import javafx.fxml.FXML;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Contrôleur pour le composant affichant un niveau.
@@ -18,10 +19,14 @@ public class NiveauSelectionableController extends VBox {
     @FXML private GridPane gridPane;
     @FXML private Label label;
 
-    private final GrilleSolution solution;
+    private final SelectionNiveauxController selectionNiveauxController;
+    private final Stage stage;
+    private final FichierSolution solution;
     private final ModeDeJeu modeDeJeu;
 
-    public NiveauSelectionableController(GrilleSolution solution, ModeDeJeu modeDeJeu) {
+    public NiveauSelectionableController(SelectionNiveauxController selectionNiveauxController, Stage stage, FichierSolution solution, ModeDeJeu modeDeJeu) {
+        this.selectionNiveauxController = selectionNiveauxController;
+        this.stage = stage;
         this.solution = solution;
         this.modeDeJeu = modeDeJeu;
     }

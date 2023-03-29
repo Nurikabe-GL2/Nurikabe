@@ -1,23 +1,28 @@
 package io.github.nurikabe;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 
 public class MetadonneesSauvegarde {
-    private final GrilleSolution grilleSolution;
+    private static final String NIVEAU_COMPLETE = "NIVEAU_COMPLETE";
+
+    private final FichierSolution grilleSolution;
     private final ModeDeJeu modeDeJeu;
 
     private final Path cheminSauvegarde;
 
-    public MetadonneesSauvegarde(GrilleSolution grilleSolution, ModeDeJeu modeDeJeu) {
+    public MetadonneesSauvegarde(FichierSolution grilleSolution, ModeDeJeu modeDeJeu) {
         this.grilleSolution = grilleSolution;
         this.modeDeJeu = modeDeJeu;
 
-        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.recupNomMode(), grilleSolution.getCheminNiveau().getFileName().toString());
+        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.recupNomMode(), IOUtils.replaceExtension(grilleSolution.getCheminNiveau(), "bin").getFileName().toString());
     }
 
     public boolean contiensSauvegarde() {
@@ -31,23 +36,58 @@ public class MetadonneesSauvegarde {
      * @see #contiensSauvegarde()
      */
     public Sauvegarde chargerSauvegarde() throws IOException {
-        try (ObjectInputStream stream = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(cheminSauvegarde)))) {
+        try (ObjectInputStream stream = new ObjectInputStream(IOUtils.newBufferedInputStream(cheminSauvegarde))) {
             return (Sauvegarde) stream.readObject();
         } catch (ClassNotFoundException e) { //Impossible
             throw new RuntimeException(e);
         }
     }
 
+    public void ecrireSauvegarde(Sauvegarde sauvegarde) throws IOException {
+        Files.createDirectories(cheminSauvegarde.getParent()); //Création du dossier s'il n'existe pas
+        try (ObjectOutputStream stream = new ObjectOutputStream(IOUtils.newBufferedOutputStream(cheminSauvegarde))) {
+            stream.writeObject(sauvegarde);
+        }
+    }
+
     /**
-     * Détermine si le niveau a été complété
+     * Supprime la sauvegarde, si elle existe.
+     */
+    public void supprimerSauvegarde() {
+        try {
+            Files.deleteIfExists(cheminSauvegarde);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * Marque le niveau comme ayant été complété.
+     *
+     * @see #estComplete()
+     */
+    public void marquerComplet() {
+        try {
+            Files.createDirectories(cheminSauvegarde.getParent()); //Création du dossier s'il n'existe pas
+            Files.writeString(cheminSauvegarde, NIVEAU_COMPLETE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * Détermine si le niveau a été complété.
      * <br>Cette méthode renvoie toujours un résultat à jour.
+     *
+     * @see #marquerComplet()
      */
     public boolean estComplete() {
         try {
             if (Files.notExists(cheminSauvegarde))
                 return false;
 
-            return Files.readString(cheminSauvegarde).equals("NIVEAU_COMPLETE");
+            //Attention à ne pas lire des fichiers binaires sous forme de String
+            return Arrays.equals(Files.readAllBytes(cheminSauvegarde), NIVEAU_COMPLETE.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) { //Il y a vraiment un problème si cela arrive
             throw new UncheckedIOException(e);
         }
