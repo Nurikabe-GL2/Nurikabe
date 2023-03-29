@@ -14,4 +14,5 @@ public class Avancee4 extends Technique {
     public PositionTechniques tester(Niveau grille) {
         return null; //TODO
     }
+    
 }

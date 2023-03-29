@@ -55,6 +55,8 @@ public class NiveauController extends VBox {
     @FXML
     private Button buttonAide;
 
+    @FXML private Label scoreLabel;
+
     @FXML
     private TabPane tabPane;
 
@@ -80,9 +82,9 @@ public class NiveauController extends VBox {
         if (modeJeu.equals("CLASSIQUE") || modeJeu.equals("AVENTURE")) {
 
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, null);
+            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, null, null);
 
-        } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel);
+        } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
 
         stage.setScene(new Scene(this));
     }
@@ -103,9 +105,7 @@ public class NiveauController extends VBox {
     }
 
     /**
-     * Méthode qui est appelé quand on clique sur la grille du niveau1
-     * elle appele le controller du plateau qui va chargé la grille
-     *
+     * Méthode qui est appelée en cliquant sur le bouton retour
      * @param event l'évènement qui a activé la méthode ici le clique
      */
     @FXML
@@ -123,8 +123,14 @@ public class NiveauController extends VBox {
         niveau.redo();
     }
 
+
+    /**
+     * Méthode qui est appelée en cliquant sur le bouton aide
+     * @param event l'évènement qui a activé la méthode ici le clique
+     */
     @FXML
     private void onAideAction(ActionEvent event) {
+        niveau.utilisation_aide();
         try {
             final PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
 
@@ -146,12 +152,20 @@ public class NiveauController extends VBox {
         }
     }
 
+    /**
+     * Méthode qui est appelée en cliquant sur le bouton verifier
+     * @param event l'évènement qui a activé la méthode ici le clique
+     */
     @FXML
     private void onVerifierAction(ActionEvent event) {
         final int erreurs = niveau.verifier();
         labelErreurs.setText(erreurs + " erreurs");
     }
 
+    /**
+     * Méthode qui est appelée en cliquant sur le bouton reset
+     * @param event l'évènement qui a activé la méthode ici le clique
+     */
     @FXML
     private void onResetAction(ActionEvent event) {
         niveau.reset();
