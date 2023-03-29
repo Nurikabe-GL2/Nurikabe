@@ -36,7 +36,7 @@ public class ReglesController extends VBox {
      * Méthode privé qui est appelé quand le bouton retour est actionné
      * Cette méthode se charge de changer la fenêtre courante par la précédente
      *
-     * @param event l'évènement ayant provoqué l'appel de la fonction ici un clique
+     * @param event l'évènement ayant provoqué l'appel de la fonction ici clic
      */
     @FXML
     private void onBackAction(ActionEvent event) {

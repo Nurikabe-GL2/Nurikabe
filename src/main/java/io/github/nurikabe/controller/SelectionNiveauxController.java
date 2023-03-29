@@ -82,7 +82,7 @@ public class SelectionNiveauxController extends VBox {
     /**
      * Méthode privée qui est appelée quand le controller est chargé
      * Elle s'occupe d'ajouter le groupe du mode de jeu et de la difficulté, de les ajouter au propriété du jeu en ajoutant un listener,
-     * de mettre à jour la difficulté des niveau et de rafraichir les niveaux
+     * de mettre à jour la difficulté des niveaux et de rafraichir les niveaux
      */
     @FXML
     private void initialize() {
@@ -104,13 +104,12 @@ public class SelectionNiveauxController extends VBox {
     }
 
     /**
-     * Méthode privé qui s'occupe de mettre à jour la difficulté
+     * Méthode privée qui s'occupe de mettre à jour la difficulté
      *
-     * @param newToggle le noeud comportant la difficulté choisis
+     * @param newToggle le nœud comportant la difficulté choisis
      */
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
-            //  case "allDifficultyToggle" -> Arrays.asList(Difficulty.values());
             case "easyToggle" -> List.of(Difficulte.FACILE);
             case "mediumToggle" -> List.of(Difficulte.MOYEN);
             case "hardToggle" -> List.of(Difficulte.DIFFICILE);
@@ -140,21 +139,19 @@ public class SelectionNiveauxController extends VBox {
     }
 
     private void chargerModeClassique(Difficulte difficulte) {
-
         easyToggle.setDisable(false);
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
 
-
-        HBox hniveau = new HBox(3), hbutton;
-        NiveauCharger n = new NiveauCharger(niveauToString(difficulte, 1), gameModeProperty.get().toString());
-        hbutton = new HBox(n.getEspaceBoutons());
+        HBox hniveau = new HBox(3);
+        NiveauCharger n = new NiveauCharger(niveauToString(difficulte, 1), gameModeProperty.get());
+        HBox hbutton = new HBox(n.getEspaceBoutons());
         int indic = 0, ligne = 0;
 
         puzzlesTilePane.getChildren().clear();
         for (int i = 1; i < 21; i++) {
 
-            n = new NiveauCharger(niveauToString(difficulte, i), gameModeProperty.get().toString());
+            n = new NiveauCharger(niveauToString(difficulte, i), gameModeProperty.get());
             if (indic == 5) {
 
                 VBox v = new VBox(10);
@@ -201,8 +198,7 @@ public class SelectionNiveauxController extends VBox {
         VBox conteneurHbox = new VBox(30);
         int nivCourant = 0;
         for (int i = 1, count = 0; i < 21; i++, count++) {
-
-            NiveauCharger n = new NiveauCharger(niveauToString(Difficulte.MOYEN, i), gameModeProperty.get().toString());
+            NiveauCharger n = new NiveauCharger(niveauToString(Difficulte.MOYEN, i), gameModeProperty.get());
             if (count == 6) {
                 conteneurHbox.getChildren().add(conteneurBoutons);
                 conteneurBoutons = new HBox(30);
@@ -214,8 +210,6 @@ public class SelectionNiveauxController extends VBox {
                 bouton = new Button("COMPLETE ");
                 bouton.setStyle("-fx-background-color: BLACK");
             } else {
-
-
                 if (nivCourant == 0) {
                     bouton = new Button("NIVEAU " + i);
                     nivCourant = i;
@@ -224,7 +218,6 @@ public class SelectionNiveauxController extends VBox {
                     bouton = new Button("BLOQUE ");
                     bouton.setStyle("-fx-background-color: GREY");
                 }
-
             }
             bouton.setPrefSize(100, 100);
             if (nivCourant == i) {
@@ -251,10 +244,10 @@ public class SelectionNiveauxController extends VBox {
 
 
     /**
-     * Méthode privé qui est appelé quand le bouton retour est cliqué
-     * il s'occupe de revenir en arrière en chargant la scène précédente
+     * Méthode privée qui est appelé quand le bouton retour est cliqué
+     * il s'occupe de revenir en arrière en chargeant la scène précédente
      *
-     * @param event l'événement qui a activé la méthode, ici le clique
+     * @param event l'événement qui a activé la méthode, ici le clic
      */
     @FXML
     private void onBackAction(ActionEvent event) {

@@ -26,20 +26,20 @@ public class NiveauCharger {
     private int espaceBoutons;
 
     /**
-     * constructeur de la classe NiveauCharger
+     * Constructeur de la classe NiveauCharger
      *
-     * @param cheminSolution le chemin pour récuperer le fichier à charger
-     * @param modeJeu        le mode de jeu du niveau à charger
+     * @param cheminSolution le chemin pour récupérer le fichier à charger
+     * @param modeDeJeu      le mode de jeu du niveau à charger
      */
-    public NiveauCharger(String cheminSolution, String modeJeu) {
-        this.sauv = "sauvegarde/" + cheminSolution + modeJeu;
+    public NiveauCharger(String cheminSolution, ModeDeJeu modeDeJeu) {
+        this.sauv = "sauvegarde/" + cheminSolution + modeDeJeu;
         this.cheminSolution = "src/main/resources/niveaux/" + cheminSolution;
         complete = niveauComplete(sauv);
         niveau = chargerNiveauGrilleMiniature();
     }
 
     /**
-     * méthode appelée pour charger la grille miniaturisée du niveau en question
+     * Méthode appelée pour charger la grille miniaturisée du niveau en question
      *
      * @return un objet de type GridPane qui sera affiché dans la sélection des niveaux
      */

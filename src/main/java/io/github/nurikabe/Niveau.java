@@ -161,7 +161,7 @@ public class Niveau implements Serializable {
         grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
         for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
             for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
+                grilleGraphique.mettre(x, y, new CaseGraphique(x, y, this));
                 GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
                 GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
                 gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());

@@ -19,27 +19,27 @@ public class CaseGraphique {
     /**
      * Variable d'instance représantant le panneau de la case
      */
-    StackPane panneau;
+    private final StackPane panneau = new StackPane();
 
     /**
      * Variable d'instance représentant la grille de la case
      */
-    Niveau grille;
+    private final Niveau grille;
 
     /**
      * Variable d'instance représentant la coordonnée x de la case
      */
-    int x;
+    private final int x;
 
     /**
      * Variable d'instance représentant la coordonnée y de la case
      */
-    int y;
+    private final int y;
 
     /**
      * Variable d'instance représentant le type de la case
      */
-    int type;
+    private int type;
 
     /**
      * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
@@ -47,23 +47,20 @@ public class CaseGraphique {
      * lorsqu'on clique sur une case on modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
      * victoire pour voir si on a gagné la partie
      *
-     * @param x        la coordonnée x de la case
-     * @param y        la coordonnée y de la case
-     * @param longueur la longueur de la case
-     * @param largeur  la largeur de la case
-     * @param grille   la grille de la case
+     * @param x      la coordonnée x de la case
+     * @param y      la coordonnée y de la case
+     * @param grille la grille de la case
      */
-    public CaseGraphique(int x, int y, int longueur, int largeur, Niveau grille) {
+    public CaseGraphique(int x, int y, Niveau grille) {
         this.type = grille.recupCase(x, y).recupType();
         this.grille = grille;
         this.x = x;
         this.y = y;
-        panneau = new StackPane();
-        panneau.setPrefSize(longueur, largeur);
+
+        panneau.setPrefSize(30, 30);
 
         if (this.type <= 0) {
             panneau.setOnMouseClicked(e -> {
-                System.out.println("cliqued");
                 if (!grille.recupEtatPartie()) {
                     actionClic();
                     grille.recupUndo().empiler(new Coup(x, y));
@@ -84,7 +81,6 @@ public class CaseGraphique {
             Text nb = new Text(grille.recupCase(x, y).recupContenuCase());
             panneau.getChildren().add(nb);
             panneau.getStyleClass().add("caseblanche");
-            panneau.setPrefSize(longueur, largeur);
         }
     }
 
@@ -94,8 +90,7 @@ public class CaseGraphique {
     public void actionClic() {
         // Si la case contient un point
         if (type == -2) {
-            if (panneau.getChildren() != null)
-                panneau.getChildren().remove(0);
+            panneau.getChildren().remove(0);
             panneau.getStyleClass().remove(0);
             panneau.getStyleClass().add(0, "caseblanche");
             type = 0;

@@ -101,7 +101,7 @@ public class NiveauController extends VBox {
     /**
      * Méthode qui est appelée en cliquant sur le bouton retour
      *
-     * @param event l'évènement qui a activé la méthode ici le clique
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onBackAction(ActionEvent event) {
@@ -122,7 +122,7 @@ public class NiveauController extends VBox {
     /**
      * Méthode qui est appelée en cliquant sur le bouton aide
      *
-     * @param event l'évènement qui a activé la méthode ici le clique
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onAideAction(ActionEvent event) {
@@ -151,7 +151,7 @@ public class NiveauController extends VBox {
     /**
      * Méthode qui est appelée en cliquant sur le bouton verifier
      *
-     * @param event l'évènement qui a activé la méthode ici le clique
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onVerifierAction(ActionEvent event) {
@@ -162,7 +162,7 @@ public class NiveauController extends VBox {
     /**
      * Méthode qui est appelée en cliquant sur le bouton reset
      *
-     * @param event l'évènement qui a activé la méthode ici le clique
+     * @param event l'évènement qui a activé la méthode ici le clic
      */
     @FXML
     private void onResetAction(ActionEvent event) {
