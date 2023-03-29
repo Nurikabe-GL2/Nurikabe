@@ -22,6 +22,11 @@
     -fx-font-size: 18px;
 }
 
+.casenoireBleue {
+    -fx-background-color:blue;
+    -fx-border-color:blue;
+  }
+
 .casenoire {
     -fx-background-color:black;
     -fx-border-color:black;

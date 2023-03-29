@@ -32,6 +32,8 @@ public class NiveauController extends VBox {
      */
     private final Stage stage;
 
+    private boolean hypo = false;
+
     /**
      * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
@@ -42,6 +44,8 @@ public class NiveauController extends VBox {
     @FXML private GridPane gridPane;
 
     @FXML private Button buttonUndo, buttonRedo;
+
+    @FXML private Button boutonHypothese;
 
     @FXML private HBox timerAndLabelParent;
 
@@ -116,6 +120,19 @@ public class NiveauController extends VBox {
     @FXML
     private void onRedoAction(ActionEvent event) {
         niveau.redo();
+    }
+
+    @FXML
+    private void onHypotheseAction(ActionEvent event){
+        if(hypo){
+            boutonHypothese.setText("Hypothèse");
+            hypo=false;
+        }
+        else {
+            boutonHypothese.setText("Annuler");
+            hypo=true;
+        }
+        niveau.mettreEnModeHypothese();
     }
 
 

@@ -61,7 +61,12 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
 
+    private Hypothese hypo;
+
     private boolean etatPartie = false;
+
+    private boolean estEnModeHypothese = false;
+
     private Chronometre chrono;
 
     private final Label scoreLabel;
@@ -179,6 +184,25 @@ public class Niveau implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean estEnModeHypothese(){
+        return estEnModeHypothese;
+    }
+
+    /**
+     * méthode appelée pour mettre en mode hypothèse le niveau
+     */
+    public void mettreEnModeHypothese(){
+        if(estEnModeHypothese){
+            estEnModeHypothese=false;    
+            hypo.annuler();
+            hypo=null;
+        }    
+        else {
+            hypo=new Hypothese(this);
+            estEnModeHypothese=true;
+        }
     }
 
     /**
@@ -307,11 +331,30 @@ public class Niveau implements Serializable {
     }
 
     public void undo() {
-        coup(pileUndo, pileRedo, 2);
+         coup(pileUndo, pileRedo, 2);
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
+    }
+
+    public void majGrilles(){
+        for (int y = 0; y < grille.getHauteur(); y++) {
+            for (int x = 0; x < grille.getLargeur(); x++) {
+                grilleGraphique.recup(x, y).mettre_a_jour();
+            }
+        }
+    }
+    /**
+     * fonction appelée lors de l'arrêt du mode hypothèse (confirmée ou non)
+     */
+    public void arreterModeHypothese(){
+        majGrilles();
+        estEnModeHypothese=false;
+    }
+
+    public void actionHypothese(){
+        hypo.incrementer_actions();
     }
 
     /**

@@ -100,7 +100,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" styleClass="gameButton" text="Hypothèse">
+                        <Button fx:id="boutonHypothese" mnemonicParsing="false" onAction="#onHypotheseAction" styleClass="gameButton" text="Hypothèse">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -157,22 +157,6 @@
                            </children>
                         </HBox>
                         <GridPane fx:id="gridPane" gridLinesVisible="true" style="-fx-background-color: #FFFFFF; -fx-border-color: #FFFFFF; -fx-border-insets: 5px;">
-                           <columnConstraints>
-                              <ColumnConstraints prefWidth="25.0" />
-                              <ColumnConstraints prefWidth="25.0" />
-                              <ColumnConstraints prefWidth="25.0" />
-                              <ColumnConstraints prefWidth="25.0" />
-                              <ColumnConstraints prefWidth="25.0" />
-                              <ColumnConstraints prefWidth="25.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints prefHeight="25.0" />
-                              <RowConstraints prefHeight="25.0" />
-                              <RowConstraints prefHeight="25.0" />
-                              <RowConstraints prefHeight="25.0" />
-                              <RowConstraints prefHeight="25.0" />
-                              <RowConstraints prefHeight="25.0" />
-                           </rowConstraints>
                            <children>
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" />
                               <Pane style="-fx-background-color: black; -fx-border-color: black;" GridPane.columnIndex="1" />

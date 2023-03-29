@@ -19,7 +19,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représantant le panneau de la case
      */
-    private final StackPane panneau = new StackPane();
+    protected final StackPane panneau = new StackPane();
 
     /**
      * Variable d'instance représentant la grille de la case
@@ -39,7 +39,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représentant le type de la case
      */
-    private int type;
+    protected int type;
 
     /**
      * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
@@ -74,6 +74,7 @@ public class CaseGraphique {
             panneau.getStyleClass().add("caseblanche");
         else if (type == -1)
             panneau.getStyleClass().add(0, "casenoire");
+        
         else if (type == -2) {
             panneau.getStyleClass().add("caseblanche");
             mettreCercle();
@@ -85,9 +86,19 @@ public class CaseGraphique {
     }
 
     /**
+     * methode appelée à la fin du mode hypothèse pour remettre les cases en noir si besoin
+     */
+    public void mettre_a_jour(){
+        actionClic();
+        actionClic();
+        actionClic();
+    }
+
+    /**
      * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
      */
     public void actionClic() {
+        if(grille.estEnModeHypothese())grille.actionHypothese();
         // Si la case contient un point
         if (type == -2) {
             panneau.getChildren().remove(0);
@@ -106,7 +117,8 @@ public class CaseGraphique {
         // Si la case est blanche
         else if (type == 0) {
             panneau.getStyleClass().remove(0);
-            panneau.getStyleClass().add(0, "casenoire");
+            if(grille.estEnModeHypothese())panneau.getStyleClass().add(0, "casenoireBleue");
+            else panneau.getStyleClass().add(0, "casenoire");
             type = -1;
         }
 
@@ -134,7 +146,8 @@ public class CaseGraphique {
     private void mettreCercle() {
         // Couleur = 0 pour gris OU couleur = 1 pour noir
         Circle cercle = new Circle(10, 10, 7);
-        cercle.setFill(Color.BLACK);
+        if(grille.estEnModeHypothese())cercle.setFill(Color.BLUE);
+        else cercle.setFill(Color.BLACK);
         panneau.getStyleClass().remove(0);
         panneau.getChildren().add(cercle);
         panneau.getStyleClass().add(0, "caseblanche");
