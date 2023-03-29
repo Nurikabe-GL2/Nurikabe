@@ -61,7 +61,7 @@ public class Grille<T> implements Serializable {
      *
      * @return la largeur de la grille
      */
-    public int recupLargeur() {
+    public int getLargeur() {
         return largeur;
     }
 
@@ -70,7 +70,7 @@ public class Grille<T> implements Serializable {
      *
      * @return la largeur de la grille
      */
-    public int recupHauteur() {
+    public int getHauteur() {
         return hauteur;
     }
 
@@ -104,10 +104,10 @@ public class Grille<T> implements Serializable {
             throw new IllegalArgumentException("La coordonnée X ne peut pas être négatif, x = " + x);
         if (y < 0)
             throw new IllegalArgumentException("La coordonnée Y ne peut pas être négatif, y = " + y);
-        if (x >= recupLargeur())
-            throw new IllegalArgumentException("La coordonnée X ne peut pas dépasser la largeur, x = " + x + ", largeur = " + recupLargeur());
-        if (y >= recupHauteur())
-            throw new IllegalArgumentException("La coordonnée Y ne peut pas dépasser la hauteur, y = " + y + ", hauteur = " + recupHauteur());
+        if (x >= getLargeur())
+            throw new IllegalArgumentException("La coordonnée X ne peut pas dépasser la largeur, x = " + x + ", largeur = " + getLargeur());
+        if (y >= getHauteur())
+            throw new IllegalArgumentException("La coordonnée Y ne peut pas dépasser la hauteur, y = " + y + ", hauteur = " + getHauteur());
         return x + y * largeur;
     }
 }

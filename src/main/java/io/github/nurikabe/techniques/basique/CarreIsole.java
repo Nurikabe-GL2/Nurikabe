@@ -27,7 +27,7 @@ public class CarreIsole extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int i = 0; i < grille.recupLargeur(); i++) {
+        for (int i = 0; i < grille.getLargeur(); i++) {
             for (int j = 0; j < grille.getHauteur(); j++) {
                 if (grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).recupContenuCase().equals("b")) {
                     List<Cible> liste = new ArrayList<>();

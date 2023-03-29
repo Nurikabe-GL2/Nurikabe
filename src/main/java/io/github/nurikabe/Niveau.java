@@ -76,9 +76,9 @@ public class Niveau implements Serializable {
             int hauteur = lecture.nextInt();
             Grille<String> grilleSol = new Grille<>(largeur, hauteur);
 
-            for (int y = 0; y < grilleSol.recupHauteur(); y++) {
+            for (int y = 0; y < grilleSol.getHauteur(); y++) {
 
-                for (int x = 0; x < grilleSol.recupLargeur(); x++) {
+                for (int x = 0; x < grilleSol.getLargeur(); x++) {
 
                     grilleSol.mettre(x, y, lecture.next());
 
@@ -143,12 +143,12 @@ public class Niveau implements Serializable {
         if (chargerNiveau(cheminNiveau) == 0) {
 
 
-            grille = new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
-            grilleGraphique = new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
+            grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
+            grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
-            for (int y = 0; y < grilleGraphique.recupHauteur(); y++) {
+            for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
 
-                for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
+                for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
                     //Case une_case;
 
                     if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n")) {
@@ -165,11 +165,11 @@ public class Niveau implements Serializable {
                 }
             }
         } else {
-            grilleGraphique = new Grille<>(grilleSolution.recupLargeur(), grilleSolution.recupHauteur());
+            grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
-            for (int y = 0; y < grilleGraphique.recupHauteur(); y++) {
+            for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
 
-                for (int x = 0; x < grilleGraphique.recupLargeur(); x++) {
+                for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
 
 
                     grilleGraphique.mettre(x, y, new CaseGraphique(x, y, 30, 30, this));
@@ -316,12 +316,12 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * Méthode recupLargeur qui renvoie la largeur de la grille
+     * Méthode qui renvoie la largeur de la grille
      *
      * @return la largeur de la grille
      */
-    public int recupLargeur() {
-        return grilleSolution.recupLargeur();
+    public int getLargeur() {
+        return grilleSolution.getLargeur();
     }
 
     /**
@@ -330,7 +330,7 @@ public class Niveau implements Serializable {
      * @return la hauteur de la grille
      */
     public int getHauteur() {
-        return grilleSolution.recupHauteur();
+        return grilleSolution.getHauteur();
     }
 
     /**
@@ -395,8 +395,8 @@ public class Niveau implements Serializable {
      */
     public int verifier() {
         int erreurs = 0;
-        for (int x = 0; x < grille.recupLargeur(); x++) {
-            for (int y = 0; y < grille.recupHauteur(); y++) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
+            for (int y = 0; y < grille.getHauteur(); y++) {
                 String contenuGrille = grille.recup(x, y).recupContenuCase();
                 if (contenuGrille.equals(".")) contenuGrille = "b";
 

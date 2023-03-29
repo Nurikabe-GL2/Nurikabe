@@ -168,7 +168,7 @@ public abstract class Technique {
     }
 
     protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
-        return x >= 0 && y >= 0 && y < grille.getHauteur() && x < grille.recupLargeur();
+        return x >= 0 && y >= 0 && y < grille.getHauteur() && x < grille.getLargeur();
     }
 
     /**

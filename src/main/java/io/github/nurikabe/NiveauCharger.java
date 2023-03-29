@@ -57,11 +57,11 @@ public class NiveauCharger {
             gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
             //grille_solution=new String[largeur][hauteur];
             Grille<String> grilleSolution = Niveau.chargerGrilleSolution(cheminSolution);
-            espaceBoutons = grilleSolution.recupLargeur() * 9;
+            espaceBoutons = grilleSolution.getLargeur() * 9;
 
-            for (int y = 0; y < grilleSolution.recupHauteur(); y++) {
+            for (int y = 0; y < grilleSolution.getHauteur(); y++) {
 
-                for (int x = 0; x < grilleSolution.recupLargeur(); x++) {
+                for (int x = 0; x < grilleSolution.getLargeur(); x++) {
 
                     StackPane p = new StackPane();
                     p.setPrefSize(20, 20);

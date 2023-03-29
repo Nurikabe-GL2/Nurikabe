@@ -23,7 +23,7 @@ public class EviterZoneMur extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int x = 0; x < grille.recupLargeur(); x++) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 if (estCaseBlanche(grille, x, y) && seraUnCarre(grille, x, y)) {
                     return new PositionTechniques(this, new Cible(x, y, "n"));

@@ -25,7 +25,7 @@ public class IleExtensionDepuisUnIndice extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int x = 0; x < grille.recupLargeur(); x++) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 if (grille.recupCase(x, y) instanceof CaseNombre) {
                     List<Cible> coups = new ArrayList<>();

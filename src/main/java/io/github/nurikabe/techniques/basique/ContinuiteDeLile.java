@@ -25,7 +25,7 @@ public class ContinuiteDeLile extends Technique {
      */
     @Override
     public PositionTechniques tester(Niveau grille) {
-        for (int x = 0; x < grille.recupLargeur(); x++) {
+        for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 int cpt = 0;
                 if (grille.recupCase(x, y) instanceof CaseNormale) {
