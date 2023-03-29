@@ -42,10 +42,10 @@ public class MenuPrincipalController extends VBox {
     }
 
     /**
-     * Méthode privée qui est appelée par le bouton quitter
+     * Méthode privée qui est appelée par le bouton quitter.
      * Elle se charge d'afficher quel bouton a été appelé et de fermer la fenêtre
      *
-     * @param event l'évènement qui à été appelé
+     * @param event l'évènement qui a été appelé
      */
     @FXML
     private void onExitAction(ActionEvent event) {
@@ -54,12 +54,10 @@ public class MenuPrincipalController extends VBox {
     }
 
     /**
-     * Méthode privée appelée quand le bouton technique est cliqué
+     * Méthode privée appelée quand le bouton technique est cliqué.
      * Elle s'occupe de gérer le chargement du contrôleur technique et de charger la fenêtre de technique (elle l'affiche)
      *
-     * @param event L'évènement qui a généré l'appel de cette fonction ici le clique
-     *
-     * @throws IOException Le type d'exception que peut générer la méthode
+     * @param event L'évènement qui a généré l'appel de cette fonction ici le clic
      */
     @FXML
     private void onMethodsAction(ActionEvent event) throws IOException {
@@ -71,11 +69,9 @@ public class MenuPrincipalController extends VBox {
 
     /**
      * Méthode privée appelée quand le bouton jouer est cliqué
-     * Cette méthode s'occupe de charger le contrôleur de la sélection de niveau et de charger la scène qui lui est lié, de plus, elle affiche la fenêtre de cette dernière
+     * Cette méthode s'occupe de charger le contrôleur de la sélection de niveau et de charger la scène qui lui est liée, de plus, elle affiche la fenêtre de cette dernière
      *
-     * @param event L'évènement qui a généré l'appel de cette fonction ici le clique
-     *
-     * @throws IOException Le type d'exception que peut générer la méthode
+     * @param event L'évènement qui a généré l'appel de cette fonction ici le clic
      */
     @FXML
     private void onPlayAction(ActionEvent event) throws IOException {
@@ -86,12 +82,10 @@ public class MenuPrincipalController extends VBox {
     }
 
     /**
-     * Méthode privé appelée quand le bouton règle est cliqué
-     * Cette méthode s'occupe de chargé le controller des règles, de charger la scène qui lui est lié et d'affiché sa fenêtre en tant que fenètre actuel
+     * Méthode privée appelée quand le bouton règle est cliqué
+     * Cette méthode s'occupe de chargé le controller des règles, de charger la scène qui lui est liée et d'afficher sa fenêtre en tant que fenêtre actuelle
      *
-     * @param event l'évènement qui a généré l'appel de cette fonction ici le clique
-     *
-     * @throws IOException le type d'exception que peut générer la méthode
+     * @param event l'évènement qui a généré l'appel de cette fonction ici le clic
      */
     @FXML
     private void onRulesAction(ActionEvent event) throws IOException {
@@ -101,12 +95,10 @@ public class MenuPrincipalController extends VBox {
     }
 
     /**
-     * Méthode privé appelée quand le bouton paramètre est cliqué
-     * Cette méthode pour l'instant affiche un message quand cette méthode est appelé
+     * Méthode privée appelée quand le bouton paramètre est cliqué
+     * Cette méthode pour l'instant affiche un message quand cette méthode est appelée
      *
-     * @param event //l'évènement qui a généré l'appel de cette fonction ici le clique
-     *
-     * @throws IOException le type d'éxception que peut générer la méthode
+     * @param event l'évènement qui a généré l'appel de cette fonction ici le clic
      */
     @FXML
     private void onSettingsAction(ActionEvent event) {
@@ -114,7 +106,7 @@ public class MenuPrincipalController extends VBox {
     }
 
     /**
-     * Méthode privé appelé quand le menu principal est chargé
+     * Méthode privée appelée quand le menu principal est chargé
      * elle s'occupe d'afficher un message quand le menu principal est chargé
      */
     @FXML

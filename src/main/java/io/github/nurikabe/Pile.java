@@ -6,7 +6,6 @@
 package io.github.nurikabe;
 
 import java.io.Serializable;
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
@@ -41,26 +40,5 @@ public class Pile implements Serializable {
      */
     public Coup depiler() {
         return this.pile.pop();
-    }
-
-    /**
-     * Méthode echangePile pour échanger un coup entre 2 piles et renvoie le coup en question
-     * La pile appelée aura son premier coup retiré pour l'insérer dans la pile passée en paramètre
-     *
-     * @param autrePile la pile où empiler le coup
-     *
-     * @return le coup à échanger
-     *
-     * @throws EmptyStackException si la pile appelée est vide
-     */
-    public Coup echangePile(Pile autrePile) throws EmptyStackException {
-        Coup coup = new Coup(-1, -1);
-        try {
-            coup = this.depiler();
-            autrePile.empiler(coup);
-        } catch (Exception e) {
-            System.out.println("Erreur lors du dépilement sur une pile, cette dernière est peut-être vide");
-        }
-        return coup;
     }
 }

@@ -42,11 +42,9 @@ public enum ModeDeJeu {
     /**
      * Méthode fromToggle renvoyant le mode de jeu
      *
-     * @param toggle
-     *
      * @return le mode de jeu
      *
-     * @throws IllegalArgumentException exception renvoyé par la méthode en cas d'id incorrect
+     * @throws IllegalArgumentException exception renvoyée par la méthode en cas d'id incorrect
      */
     public static ModeDeJeu fromToggle(Toggle toggle) throws IllegalArgumentException {
         final String toggleId = ((Node) toggle).getId();

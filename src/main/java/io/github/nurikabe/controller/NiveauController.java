@@ -27,14 +27,15 @@ import java.util.Map;
  */
 public class NiveauController extends VBox {
     /**
-     * Variable d'instance privé qui stocke le stage actuel
+     * Variable d'instance privée qui stocke le stage actuel
      */
     private final Stage stage;
 
     /**
-     * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
+     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
+
     private final Niveau niveau;
 
     @FXML private GridPane gridPane;
@@ -72,11 +73,11 @@ public class NiveauController extends VBox {
         loader.load();
 
         if (modeJeu.equals("CLASSIQUE") || modeJeu.equals("AVENTURE")) {
-
             timerAndLabelParent.getChildren().clear();
             niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, null, null);
-
-        } else niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
+        } else {
+            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
+        }
 
         stage.setScene(new Scene(this));
     }
