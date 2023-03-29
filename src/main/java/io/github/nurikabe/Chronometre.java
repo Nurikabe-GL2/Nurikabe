@@ -104,9 +104,7 @@ public class Chronometre implements Serializable {
      */
     @Override
     public String toString() {
-
         convertirTempsEcoule();
         return minutesStr + ":" + secondesStr;
-
     }
 }

@@ -4,33 +4,29 @@ import java.io.Serializable;
 
 
 /**
- * classe Score servant à représenter le score du jeu
+ * Classe Score servant à représenter le score du jeu
  */
 public class Score implements Serializable {
+    private int score;
 
     /**
-     * score : entier initialisé à 1500
-     */
-    private int score = 1500;
-
-    /**
-     * constructeur du score
+     * Constructeur du score
      *
-     * @param score variable pour affecter le score de début
+     * @param score Le score de début
      */
     public Score(int score) {
         this.score = score;
     }
 
     /**
-     * méthode pour réinitialiser le score
+     * Réinitialise le score
      */
     public void resetAll() {
         score = 1500;
     }
 
     /**
-     * retirer un nombre de points au score
+     * Retire un nombre de points au score
      *
      * @param nb nombre de points à retirer
      */
@@ -38,22 +34,11 @@ public class Score implements Serializable {
         if (score > 0) score -= nb;
     }
 
-    /**
-     * récuperer le score
-     *
-     * @return le score
-     */
     public int getScore() {
         return score;
     }
 
-    /**
-     * setter pour le score
-     *
-     * @param s score à mettre
-     */
     public void setScore(int s) {
         score = s;
     }
-
 }

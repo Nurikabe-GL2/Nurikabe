@@ -19,7 +19,7 @@ public class NiveauCharger {
      * sauv pour la grille sauvegardée
      * niveau pour la gridpane miniature (la grille qui sera affichée en petit)
      */
-    private final int complete;
+    private final boolean complete;
     private final String sauv;
     private final String cheminSolution;
     private final GridPane niveau;
@@ -51,7 +51,6 @@ public class NiveauCharger {
 
     private GridPane chargerNiveauGrilleMiniature() {
         try {
-
             GridPane gridpane = new GridPane();
             gridpane.getStylesheets().add("/css/Plateau.css");
             gridpane.setStyle("-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;");
@@ -64,7 +63,7 @@ public class NiveauCharger {
 
                     StackPane p = new StackPane();
                     p.setPrefSize(20, 20);
-                    if (complete == 0) {
+                    if (!complete) {
                         if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n"))
                             p.getStyleClass().add("caseblanche");
                     } else if (grilleSolution.recup(x, y).equals("n")) {
@@ -95,55 +94,41 @@ public class NiveauCharger {
     }
 
     /**
-     * savoir si un niveau est complété ou non
+     * Vérifie si un niveau est complété ou non
      *
      * @param nom nom du niveau à vérifier avec son chemin complet
      *
-     * @return 1 si ce dernier est complété, 0 sinon
+     * @return {@code true} si ce dernier est complété
      */
-    public int niveauComplete(String nom) {
+    public boolean niveauComplete(String nom) {
         try {
             if (NiveauCharger.fichierExiste(nom) == 1) {
                 try (Scanner lire = new Scanner(new FileInputStream(nom))) {
                     String res = lire.nextLine();
                     if (res.equals("NIVEAU_COMPLETE")) {
                         System.out.println("niveau complete!");
-                        return 1;
+                        return true;
                     }
                 }
-                return 0;
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
-        return 0;
+        return false;
     }
 
-    /**
-     * getter pour l'espace des boutons
-     *
-     * @return un entier contenant l'espace à insérer entre les boutons
-     */
+    //TODO Très sus cette valeur
     public int getEspaceBoutons() {
         return espaceBoutons;
     }
 
-    /**
-     * getter pour la gridpane miniature
-     *
-     * @return un objet de type GridPane
-     */
     public GridPane getGridpane() {
         return niveau;
     }
 
-    /**
-     * savoir si le niveau est complété ou non en vérifiant que complete soit égal à 1
-     *
-     * @return Booleen
-     */
     public boolean isComplete() {
-        return (complete == 1);
+        return complete;
     }
 }

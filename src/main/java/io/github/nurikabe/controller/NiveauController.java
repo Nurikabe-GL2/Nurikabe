@@ -75,9 +75,9 @@ public class NiveauController extends VBox {
 
         if (modeJeu == ModeDeJeu.CLASSIQUE || modeJeu == ModeDeJeu.AVENTURE) {
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, null, null);
+            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, null, null);
         } else {
-            niveau = new Niveau(stage, cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
+            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
         }
 
         stage.setScene(new Scene(this));

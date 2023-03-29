@@ -16,12 +16,12 @@ public class Coup implements Serializable {
     /**
      * Variable d'instance représentant la coordonnée x d'un coup joué
      */
-    int x;
+    private final int x;
 
     /**
      * Variable d'instance représentant la coordonnée y d'un coup joué
      */
-    int y;
+    private final int y;
 
     /**
      * Constructeur de la classe Coup
@@ -50,23 +50,5 @@ public class Coup implements Serializable {
      */
     public int recupY() {
         return y;
-    }
-
-    /**
-     * Méthode definirX qui permet de définir la coordonnée x
-     *
-     * @param nouveauX la coordonnée x
-     */
-    void definirX(int nouveauX) {
-        this.x = nouveauX;
-    }
-
-    /**
-     * Méthode definirY qui permet de définir la coordonnée y
-     *
-     * @param nouveauY la coordonnée y
-     */
-    void definirY(int nouveauY) {
-        this.y = nouveauY;
     }
 }
