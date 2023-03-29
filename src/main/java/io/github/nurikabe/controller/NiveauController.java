@@ -37,32 +37,23 @@ public class NiveauController extends VBox {
     private final Scene scenePrecedente;
     private final Niveau niveau;
 
-    @FXML
-    private GridPane gridPane;
+    @FXML private GridPane gridPane;
 
-    @FXML
-    private Button buttonUndo, buttonRedo;
+    @FXML private Button buttonUndo, buttonRedo;
 
-    @FXML
-    private HBox timerAndLabelParent;
+    @FXML private HBox timerAndLabelParent;
 
-    @FXML
-    private Label labelErreurs;
+    @FXML private Label labelErreurs;
 
-    @FXML
-    private Label timerLabel;
+    @FXML private Label timerLabel;
 
-    @FXML
-    private Button buttonAide;
+    @FXML private Button buttonAide;
 
-    @FXML
-    private Label scoreLabel;
+    @FXML private Label scoreLabel;
 
-    @FXML
-    private TabPane tabPane;
+    @FXML private TabPane tabPane;
 
-    @FXML
-    private VBox techniquesBox;
+    @FXML private VBox techniquesBox;
 
     /**
      * Le constructeur de la classe TechniquesController

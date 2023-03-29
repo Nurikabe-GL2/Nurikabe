@@ -10,15 +10,13 @@ import javafx.stage.Stage;
  * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
  */
 public class TechniquesController extends VBox {
-
-
     /**
-     * Variable d'instance privé qui stocke le stage actuel
+     * Variable d'instance privée qui stocke le stage actuel
      */
     private final Stage stage;
 
     /**
-     * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
+     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
 
@@ -34,10 +32,10 @@ public class TechniquesController extends VBox {
     }
 
     /**
-     * Méthode qui est appelé quand on clique sur la grille du niveau1
-     * elle appele le controller du plateau qui va chargé la grille
+     * Méthode qui est appelée quand on clique sur la grille du niveau1
+     * elle appelle le controller du plateau qui va charger la grille
      *
-     * @param event l'évènement qui a activé la méthode ici le clique
+     * @param event l'évènement qui a activé la méthode, ici le clic
      */
     @FXML
     private void onBackAction(ActionEvent event) {

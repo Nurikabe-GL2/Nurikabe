@@ -32,43 +32,44 @@ public class SelectionNiveauxController extends VBox {
      */
     private static final Logger LOGGER = Logging.getLogger();
 
-    /*
-     * Variable d'instance privé qui stocke le stage actuel
+    /**
+     * Représente la fenêtre actuelle
      */
     private final Stage stage;
 
     /**
-     * variable d'instance privé qui implémente la scène précédente, elle est utilisé par la fonction qui gère le bouton retour
+     * Représente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
-    /**
-     * variable d'instance privé qui représente le mode jeu courant
-     */
-    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
-    /**
-     * variable d'instance privé qui représente la difficulté courante
-     */
-    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
-    /**
-     * Variable d'instance privé qui représente le mode de jeu
-     */
-    @FXML
-    private ToggleGroup gameModeGroup;
-    /**
-     * Variable d'instance privé qui représente la difficulté de jeu
-     */
-    @FXML
-    private ToggleGroup difficultyGroup;
-    /**
-     * Variable d'instance privé qui représente les tuiles de niveau
-     */
-    @FXML
-    private TilePane puzzlesTilePane;
-    @FXML
-    private ToggleButton easyToggle, mediumToggle, hardToggle;
 
     /**
-     * Le contructeur de la classe SelectionNiveauxController
+     * Représente le mode jeu courant
+     */
+    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
+
+    /**
+     * Représente la difficulté courante
+     */
+    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
+
+    /**
+     * Représente le sélecteur de mode de jeu
+     */
+    @FXML private ToggleGroup gameModeGroup;
+
+    /**
+     * Représente le sélecteur de difficulté de jeu
+     */
+    @FXML private ToggleGroup difficultyGroup;
+
+    /**
+     * Variable d'instance privée qui représente les tuiles de niveau
+     */
+    @FXML private TilePane puzzlesTilePane;
+    @FXML private ToggleButton easyToggle, mediumToggle, hardToggle;
+
+    /**
+     * Le constructeur de la classe SelectionNiveauxController
      *
      * @param stage         la scène actuel
      * @param previousScene la scène précédente
