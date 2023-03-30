@@ -61,7 +61,12 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
 
+    private Hypothese hypo;
+
     private boolean etatPartie = false;
+
+    private boolean estEnModeHypothese = false;
+
     private Chronometre chrono;
 
     private final Label scoreLabel;
@@ -97,6 +102,7 @@ public class Niveau implements Serializable {
         this.scoreLabel = sc;
         initialiser();
         afficherScore();
+        hypo=new Hypothese(this);
     }
 
     /*
@@ -307,13 +313,54 @@ public class Niveau implements Serializable {
     }
 
     public void undo() {
-        coup(pileUndo, pileRedo, 2);
+         coup(pileUndo, pileRedo, 2);
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
     }
+    /**
+     * mettre à jour la grillle graphique
+     */
+    public void majGrilles(){
+        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
+            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+                grilleGraphique.recup(x, y).mettreAJour();
+            }
+        }
+    }
 
+    public boolean estEnModeHypothese(){
+        return estEnModeHypothese;
+    }
+
+    public void desactiverModeHypothese(){
+        estEnModeHypothese=false;
+    }
+
+    public void activerModeHypothese(){
+        estEnModeHypothese=true;
+    }
+
+    /**
+     * méthode appelée pour mettre en mode hypothèse le niveau
+     */
+    public void mettreEnModeHypothese(){
+        if(estEnModeHypothese){   
+            hypo.annuler();
+        }    
+        else {
+            hypo.activer();
+        }
+    }
+
+    public void actionHypothese(){
+        hypo.incrementerActions();
+    }
+
+    public void confirmerHypothese(){
+        hypo.confirmer();
+    }
     /**
      * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
      *
