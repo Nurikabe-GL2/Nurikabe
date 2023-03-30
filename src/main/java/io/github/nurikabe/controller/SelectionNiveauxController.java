@@ -19,10 +19,8 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Classe public représentant le controller de la sélection de niveau
@@ -145,11 +143,7 @@ public class SelectionNiveauxController extends VBox {
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
 
-        //TODO introspection des niveaux
-        final Path facile1 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_01.txt");
-        final Path facile2 = IOUtils.ROOT_PATH.resolve("niveaux").resolve("facile_02.txt");
-        puzzlesTilePane.getChildren().addAll(Stream.of(facile1, facile2)
-                .map(FichierSolution::chargerGrilleSolution)
+        puzzlesTilePane.getChildren().setAll(Niveaux.getNiveaux(difficulte).stream()
                 .map(g -> {
                     try {
                         return Utils.loadFxml(new NiveauSelectionableController(this, stage, g, ModeDeJeu.CLASSIQUE), "_NiveauSelectionable");
