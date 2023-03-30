@@ -13,16 +13,24 @@ import java.util.Arrays;
 public class MetadonneesSauvegarde {
     private static final String NIVEAU_COMPLETE = "NIVEAU_COMPLETE";
 
-    private final FichierSolution grilleSolution;
+    private final FichierSolution solution;
     private final ModeDeJeu modeDeJeu;
 
     private final Path cheminSauvegarde;
 
-    public MetadonneesSauvegarde(FichierSolution grilleSolution, ModeDeJeu modeDeJeu) {
-        this.grilleSolution = grilleSolution;
+    public MetadonneesSauvegarde(FichierSolution solution, ModeDeJeu modeDeJeu) {
+        this.solution = solution;
         this.modeDeJeu = modeDeJeu;
 
-        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.recupNomMode(), IOUtils.replaceExtension(grilleSolution.getCheminNiveau(), "bin").getFileName().toString());
+        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.recupNomMode(), IOUtils.replaceExtension(solution.getCheminNiveau(), "bin").getFileName().toString());
+    }
+
+    public FichierSolution getSolution() {
+        return solution;
+    }
+
+    public ModeDeJeu getModeDeJeu() {
+        return modeDeJeu;
     }
 
     public boolean contiensSauvegarde() {

@@ -82,14 +82,14 @@ public class Niveau implements Serializable {
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(FichierSolution solution, ModeDeJeu modeDeJeu, SelectionNiveauxController select, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
-        this.metadonneesSauvegarde = solution.getMetadonneesSauvegarde(modeDeJeu);
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
+        this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
         this.gridPane = gridPane;
         this.timerLabel = timerLabel;
         this.scoreLabel = scoreLabel;
 
-        this.grilleSolution = solution.getGrille();
+        this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
 
         initialiser();
         afficherScore();

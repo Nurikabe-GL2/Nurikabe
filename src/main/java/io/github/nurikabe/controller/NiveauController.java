@@ -1,6 +1,6 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.FichierSolution;
+import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
 import io.github.nurikabe.Niveau;
 import io.github.nurikabe.Utils;
@@ -65,7 +65,7 @@ public class NiveauController extends VBox {
      * @param stage           la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, FichierSolution solution, ModeDeJeu modeJeu, SelectionNiveauxController select) throws Exception {
+    public NiveauController(Stage stage, Scene scenePrecedente, MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
         this.select = select;
@@ -76,11 +76,11 @@ public class NiveauController extends VBox {
         loader.setRoot(this);
         loader.load();
 
-        if (modeJeu == ModeDeJeu.CLASSIQUE || modeJeu == ModeDeJeu.AVENTURE) {
+        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CLASSIQUE || metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.AVENTURE) {
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(solution, modeJeu, select, gridPane, null, null);
+            niveau = new Niveau(metadonneesSauvegarde, select, gridPane, null, null);
         } else {
-            niveau = new Niveau(solution, modeJeu, select, gridPane, timerLabel, scoreLabel);
+            niveau = new Niveau(metadonneesSauvegarde, select, gridPane, timerLabel, scoreLabel);
         }
 
         stage.setScene(new Scene(this));

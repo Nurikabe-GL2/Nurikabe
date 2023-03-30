@@ -208,21 +208,20 @@ public class SelectionNiveauxController extends VBox {
         puzzlesTilePane.getStyleClass().setAll("modeAventure");
         puzzlesTilePane.getChildren().clear();
 
-        final List<FichierSolution> niveaux = Niveaux.getNiveaux(Difficulte.MOYEN);
-        for (int i = 0, niveauxSize = niveaux.size(); i < niveauxSize; i++) {
-            final FichierSolution solution = niveaux.get(i);
-            final MetadonneesSauvegarde sauvegarde = solution.getMetadonneesSauvegarde(ModeDeJeu.AVENTURE);
+        final var metadonneesSauvegardes = Niveaux.getNiveaux(Difficulte.MOYEN).stream().map(f -> f.getMetadonneesSauvegarde(ModeDeJeu.AVENTURE)).toList();
+        for (int i = 0, sauvegardesSize = metadonneesSauvegardes.size(); i < sauvegardesSize; i++) {
+            final MetadonneesSauvegarde metadonneesSauvegarde = metadonneesSauvegardes.get(i);
 
             final Button button = new Button();
-            if (sauvegarde.estComplete()) {
+            if (metadonneesSauvegarde.estComplete()) {
                 button.getStyleClass().add("complete");
                 button.setText("Complété");
-            } else if (i == 0 || niveaux.get(niveauxSize - 1).getMetadonneesSauvegarde(ModeDeJeu.AVENTURE).estComplete()) {
+            } else if (i == 0 || metadonneesSauvegardes.get(sauvegardesSize - 1).estComplete()) {
                 //Le niveau est déverrouillé si c'est le premier, ou alors que le précédent est complet
                 button.setText("Jouer");
                 button.setOnMouseClicked(event -> {
                     try {
-                        new NiveauController(stage, stage.getScene(), solution, ModeDeJeu.AVENTURE, this);
+                        new NiveauController(stage, stage.getScene(), metadonneesSauvegarde, this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
