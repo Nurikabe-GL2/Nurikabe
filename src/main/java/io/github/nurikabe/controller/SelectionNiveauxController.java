@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -143,6 +142,8 @@ public class SelectionNiveauxController extends VBox {
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
 
+        puzzlesTilePane.getStyleClass().setAll("modeClassique");
+
         puzzlesTilePane.getChildren().setAll(Niveaux.getNiveaux(difficulte).stream()
                 .map(g -> {
                     try {
@@ -203,45 +204,36 @@ public class SelectionNiveauxController extends VBox {
         easyToggle.setDisable(true);
         mediumToggle.setDisable(true);
         hardToggle.setDisable(true);
+
+        puzzlesTilePane.getStyleClass().setAll("modeAventure");
         puzzlesTilePane.getChildren().clear();
 
-        HBox conteneurBoutons = new HBox(30);
-        VBox conteneurHbox = new VBox(30);
-        int nivCourant = 0;
-        for (int i = 1, count = 0; i < 21; i++, count++) {
-            NiveauCharger n = new NiveauCharger(niveauToString(Difficulte.MOYEN, i), gameModeProperty.get());
-            if (count == 6) {
-                conteneurHbox.getChildren().add(conteneurBoutons);
-                conteneurBoutons = new HBox(30);
-                count = 0;
-            }
-            Button bouton;
+        final List<FichierSolution> niveaux = Niveaux.getNiveaux(Difficulte.MOYEN);
+        for (int i = 0, niveauxSize = niveaux.size(); i < niveauxSize; i++) {
+            final FichierSolution solution = niveaux.get(i);
+            final MetadonneesSauvegarde sauvegarde = solution.getMetadonneesSauvegarde(ModeDeJeu.AVENTURE);
 
-            if (n.isComplete()) {
-                bouton = new Button("COMPLETE ");
-                bouton.setStyle("-fx-background-color: BLACK");
-            } else {
-                if (nivCourant == 0) {
-                    bouton = new Button("NIVEAU " + i);
-                    nivCourant = i;
-                    bouton.setStyle("-fx-background-color: WHITE");
-                } else {
-                    bouton = new Button("BLOQUE ");
-                    bouton.setStyle("-fx-background-color: GREY");
-                }
-            }
-            bouton.setPrefSize(100, 100);
-            if (nivCourant == i) {
-                bouton.setOnMouseClicked(event -> {
-                    jouer("src/main/resources/niveaux/" + niveauToString(Difficulte.MOYEN, Integer.parseInt(bouton.getText().substring(7))));
-                    refreshLevels();
+            final Button button = new Button();
+            if (sauvegarde.estComplete()) {
+                button.getStyleClass().add("complete");
+                button.setText("Complété");
+            } else if (i == 0 || niveaux.get(niveauxSize - 1).getMetadonneesSauvegarde(ModeDeJeu.AVENTURE).estComplete()) {
+                //Le niveau est déverrouillé si c'est le premier, ou alors que le précédent est complet
+                button.setText("Jouer");
+                button.setOnMouseClicked(event -> {
+                    try {
+                        new NiveauController(stage, stage.getScene(), solution, ModeDeJeu.AVENTURE, this);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
+            } else {
+                button.setDisable(true);
+                button.setText("Bloqué");
             }
-            conteneurBoutons.getChildren().add(bouton);
-        }
 
-        puzzlesTilePane.getChildren().add(conteneurHbox);
-        stage.show();
+            puzzlesTilePane.getChildren().add(button);
+        }
     }
 
     private void chargerModeContreLaMontre() {

@@ -31,3 +31,22 @@ ToggleButton:selected {
 .niveauSelectionable:hover {
     -fx-background-color: rgba(225, 225, 225, 0.2);
 }
+
+#puzzlesTilePane.modeClassique {
+    -fx-hgap: 2px;
+    -fx-vgap: 5px;
+}
+
+#puzzlesTilePane.modeAventure {
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
+}
+
+#puzzlesTilePane.modeAventure > Button {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+}
+
+#puzzlesTilePane.modeAventure > Button.complete {
+    -fx-background-color: limegreen;
+}
