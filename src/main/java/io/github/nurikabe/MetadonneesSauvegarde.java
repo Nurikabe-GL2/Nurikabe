@@ -92,4 +92,11 @@ public class MetadonneesSauvegarde {
             throw new UncheckedIOException(e);
         }
     }
+
+    /**
+     * Détermine si la sauvegarde existe, donc, si le niveau a été entamé.
+     */
+    public boolean existe() {
+        return Files.exists(cheminSauvegarde);
+    }
 }

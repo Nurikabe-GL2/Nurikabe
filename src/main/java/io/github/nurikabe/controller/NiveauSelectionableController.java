@@ -5,12 +5,16 @@ import io.github.nurikabe.Grille;
 import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 /**
  * Contrôleur pour le composant affichant un niveau.
@@ -25,19 +29,28 @@ public class NiveauSelectionableController extends VBox {
     private final FichierSolution solution;
     private final ModeDeJeu modeDeJeu;
 
+    private final MetadonneesSauvegarde metadonneesSauvegarde;
+    private final boolean estComplete;
+
     public NiveauSelectionableController(SelectionNiveauxController selectionNiveauxController, Stage stage, FichierSolution solution, ModeDeJeu modeDeJeu) {
         this.selectionNiveauxController = selectionNiveauxController;
         this.stage = stage;
         this.solution = solution;
         this.modeDeJeu = modeDeJeu;
+
+        metadonneesSauvegarde = solution.getMetadonneesSauvegarde(modeDeJeu);
+        estComplete = metadonneesSauvegarde.estComplete();
     }
 
     @FXML
     private void initialize() {
-        final MetadonneesSauvegarde metadonneesSauvegarde = solution.getMetadonneesSauvegarde(modeDeJeu);
-        final boolean estComplete = metadonneesSauvegarde.estComplete();
-
-        label.setText(solution.getNomNiveau());
+        if (estComplete) {
+            label.setText(solution.getNomNiveau() + " (complété)");
+        } else if (metadonneesSauvegarde.existe()) {
+            label.setText(solution.getNomNiveau() + " (commencé)");
+        } else {
+            label.setText(solution.getNomNiveau());
+        }
 
         //Grille miniature
         final Grille<String> grilleSolution = solution.getGrille();
@@ -69,6 +82,19 @@ public class NiveauSelectionableController extends VBox {
 
     @FXML
     private void onClicNiveau(MouseEvent event) throws Exception {
-        new NiveauController(stage, stage.getScene(), solution, modeDeJeu, selectionNiveauxController);
+        if (estComplete) {
+            final Optional<ButtonType> optButtonType = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Voulez vous recommencer ce niveau ? Cela supprimera la sauvegarde actuelle",
+                    ButtonType.YES, ButtonType.NO).showAndWait();
+
+            if (optButtonType.isPresent()) {
+                if (optButtonType.get() == ButtonType.YES) {
+                    metadonneesSauvegarde.supprimerSauvegarde();
+                    new NiveauController(stage, stage.getScene(), solution, modeDeJeu, selectionNiveauxController);
+                }
+            }
+        } else {
+            new NiveauController(stage, stage.getScene(), solution, modeDeJeu, selectionNiveauxController);
+        }
     }
 }
