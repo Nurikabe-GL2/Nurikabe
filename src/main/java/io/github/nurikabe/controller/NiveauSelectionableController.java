@@ -27,7 +27,6 @@ public class NiveauSelectionableController extends VBox {
     private final SelectionNiveauxController selectionNiveauxController;
     private final Stage stage;
     private final FichierSolution solution;
-    private final ModeDeJeu modeDeJeu;
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final boolean estComplete;
@@ -36,7 +35,6 @@ public class NiveauSelectionableController extends VBox {
         this.selectionNiveauxController = selectionNiveauxController;
         this.stage = stage;
         this.solution = solution;
-        this.modeDeJeu = modeDeJeu;
 
         metadonneesSauvegarde = solution.getMetadonneesSauvegarde(modeDeJeu);
         estComplete = metadonneesSauvegarde.estComplete();

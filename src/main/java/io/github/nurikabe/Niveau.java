@@ -11,10 +11,7 @@ import io.github.nurikabe.controller.SelectionNiveauxController;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Scanner;
 
 
 /**
@@ -63,21 +60,6 @@ public class Niveau implements Serializable {
     private final Label scoreLabel;
 
     private Score score;
-
-    public static Grille<String> chargerGrilleSolution(String cheminGrille) throws IOException {
-        try (Scanner lecture = new Scanner(new FileInputStream(cheminGrille))) {
-            int largeur = lecture.nextInt();
-            int hauteur = lecture.nextInt();
-            Grille<String> grilleSol = new Grille<>(largeur, hauteur);
-
-            for (int y = 0; y < grilleSol.getHauteur(); y++) {
-                for (int x = 0; x < grilleSol.getLargeur(); x++) {
-                    grilleSol.mettre(x, y, lecture.next());
-                }
-            }
-            return grilleSol;
-        }
-    }
 
     /**
      * Constructeur de la classe Niveau
