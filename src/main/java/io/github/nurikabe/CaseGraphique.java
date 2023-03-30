@@ -74,7 +74,6 @@ public class CaseGraphique {
             panneau.getStyleClass().add("caseblanche");
         else if (type == -1)
             panneau.getStyleClass().add(0, "casenoire");
-        
         else if (type == -2) {
             panneau.getStyleClass().add("caseblanche");
             mettreCercle();
@@ -99,7 +98,7 @@ public class CaseGraphique {
      * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
      */
     public void actionClic() {
-        if(grille.estEnModeHypothese())grille.actionHypothese();
+        if (grille.estEnModeHypothese()) grille.actionHypothese();
         // Si la case contient un point
         if (type == -2) {
             panneau.getChildren().remove(0);
@@ -118,7 +117,7 @@ public class CaseGraphique {
         // Si la case est blanche
         else if (type == 0) {
             panneau.getStyleClass().remove(0);
-            if(grille.estEnModeHypothese())panneau.getStyleClass().add(0, "casenoireBleue");
+            if (grille.estEnModeHypothese()) panneau.getStyleClass().add(0, "casenoireBleue");
             else panneau.getStyleClass().add(0, "casenoire");
             type = -1;
         }
@@ -147,7 +146,7 @@ public class CaseGraphique {
     private void mettreCercle() {
         // Couleur = 0 pour gris OU couleur = 1 pour noir
         Circle cercle = new Circle(10, 10, 7);
-        if(grille.estEnModeHypothese())cercle.setFill(Color.BLUE);
+        if (grille.estEnModeHypothese()) cercle.setFill(Color.BLUE);
         else cercle.setFill(Color.BLACK);
         panneau.getStyleClass().remove(0);
         panneau.getChildren().add(cercle);

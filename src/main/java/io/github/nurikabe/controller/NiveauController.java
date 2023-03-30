@@ -124,39 +124,42 @@ public class NiveauController extends VBox {
     private void onRedoAction(ActionEvent event) {
         niveau.redo();
     }
+
     /**
      * méthode appelée lorsqu'on appuie sur le bouton hypothèse
      * on l'active si il n'est pas activé et on le désactive si il l'est,
      * on met à jour le label du bouton en fonction de l'état du mode hypothèse
+     *
      * @param event
      */
     @FXML
-    private void onHypotheseAction(ActionEvent event){
-        if(hypo){
+    private void onHypotheseAction(ActionEvent event) {
+        if (hypo) {
             boutonHypothese.setText("Hypothèse");
             boutonHypotheseValider.setDisable(true);
-            hypo=false;
-        }
-        else {
+            hypo = false;
+        } else {
             boutonHypotheseValider.setDisable(false);
             boutonHypothese.setText("Annuler");
-            hypo=true;
+            hypo = true;
         }
         niveau.mettreEnModeHypothese();
     }
+
     /**
      * méthode appelée lorsqu'on appuie sur le bouton valider
      * appelle la méthode de confirmation de l'hypothèse dans le niveau
      * désactive le bouton valider et remet le bon label sur le bouton hypothèse
+     *
      * @param event
      */
     @FXML
-    private void onValiderHypotheseAction(ActionEvent event){
+    private void onValiderHypotheseAction(ActionEvent event) {
 
         niveau.confirmerHypothese();
         boutonHypothese.setText("Hypothèse");
         boutonHypotheseValider.setDisable(true);
-        hypo=false;
+        hypo = false;
 
     }
 
