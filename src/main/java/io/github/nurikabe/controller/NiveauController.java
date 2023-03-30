@@ -37,6 +37,7 @@ public class NiveauController extends VBox {
      * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
+    private final SelectionNiveauxController select;
 
     private final Niveau niveau;
 
@@ -67,6 +68,7 @@ public class NiveauController extends VBox {
     public NiveauController(Stage stage, Scene scenePrecedente, FichierSolution solution, ModeDeJeu modeJeu, SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
+        this.select = select;
 
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
@@ -106,6 +108,7 @@ public class NiveauController extends VBox {
      */
     @FXML
     private void onBackAction(ActionEvent event) {
+        select.refreshLevels();
         stage.setScene(scenePrecedente);
     }
 
