@@ -27,3 +27,7 @@ ToggleButton:selected {
 .case-solution.case-noire {
     -fx-background-color: black;
 }
+
+.niveauSelectionable:hover {
+    -fx-background-color: rgba(225, 225, 225, 0.2);
+}

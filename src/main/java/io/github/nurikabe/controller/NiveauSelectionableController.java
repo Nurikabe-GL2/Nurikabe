@@ -4,10 +4,9 @@ import io.github.nurikabe.FichierSolution;
 import io.github.nurikabe.Grille;
 import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,7 +19,6 @@ import javafx.stage.Stage;
 public class NiveauSelectionableController extends VBox {
     @FXML private GridPane gridPane;
     @FXML private Label label;
-    @FXML private Button boutonJouer;
 
     private final SelectionNiveauxController selectionNiveauxController;
     private final Stage stage;
@@ -40,7 +38,6 @@ public class NiveauSelectionableController extends VBox {
         final boolean estComplete = metadonneesSauvegarde.estComplete();
 
         label.setText(solution.getNomNiveau());
-        boutonJouer.setDisable(estComplete);
 
         //Grille miniature
         final Grille<String> grilleSolution = solution.getGrille();
@@ -71,7 +68,7 @@ public class NiveauSelectionableController extends VBox {
     }
 
     @FXML
-    private void onJouerAction(ActionEvent event) throws Exception {
+    private void onClicNiveau(MouseEvent event) throws Exception {
         new NiveauController(stage, stage.getScene(), solution, modeDeJeu, selectionNiveauxController);
     }
 }
