@@ -325,7 +325,7 @@ public class Niveau implements Serializable {
     public void majGrilles(){
         for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
             for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                grilleGraphique.recup(x, y).mettre_a_jour();
+                grilleGraphique.recup(x, y).mettreAJour();
             }
         }
     }
@@ -355,7 +355,7 @@ public class Niveau implements Serializable {
     }
 
     public void actionHypothese(){
-        hypo.incrementer_actions();
+        hypo.incrementerActions();
     }
 
     public void confirmerHypothese(){

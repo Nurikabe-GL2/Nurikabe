@@ -1,18 +1,11 @@
 /**
- * Fichier Niveau.java représentant les niveaux
+ * Fichier Hypothese.java représentant une hypothèse
  */
 
 // Package GitHub
 package io.github.nurikabe;
 
 // Importation des librairies javaFX
-
-import io.github.nurikabe.controller.SelectionNiveauxController;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-
-import java.io.*;
-import java.util.Scanner;
 
 
 /**
@@ -30,22 +23,24 @@ public class Hypothese {
     /**
      * confirmer l'hypothèse en cours on remet les actions à 0, on désactive le mode hypothèse et on met à jour des grilles
      */
-    public void confirmer(){
-        raz_actions();
+    public void confirmer() {
+        razActions();
         niv.desactiverModeHypothese();
         niv.majGrilles();
     }
+
     /**
      * incrémenter le nombre d'actions
      */
-    public void incrementer_actions(){
-        nombre_Undo_toDo++;
+    public void incrementerActions() {
+        nombreUndoToDo++;
     }
+
     /**
      * remettre à 0 les actions
      */
-    public void raz_actions(){
-        nombre_Undo_toDo=0;
+    public void razActions() {
+        nombreUndoToDo = 0;
     }
 
     /**
@@ -53,12 +48,12 @@ public class Hypothese {
      * effectuer autant de undo qu'il y a d'actions (remettre la grille à son état avant celui du mode hypothèse)
      */
     public void annuler(){
-        System.out.println("nombre undo à faire : "+nombre_Undo_toDo);
+        System.out.println("nombre undo à faire : " + nombreUndoToDo);
         niv.desactiverModeHypothese();
-       for(int i=0;i<nombre_Undo_toDo;i++){
+        for (int i = 0; i < nombreUndoToDo; i++) {
             niv.undo();
         }
-        raz_actions();
+        razActions();
         niv.majGrilles();
 
     }
