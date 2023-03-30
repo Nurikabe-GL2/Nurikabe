@@ -19,7 +19,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représantant le panneau de la case
      */
-    final StackPane panneau = new StackPane();
+    private final StackPane panneau = new StackPane();
 
     /**
      * Variable d'instance représentant la grille de la case
@@ -39,7 +39,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représentant le type de la case
      */
-    int type;
+    private int type;
 
     /**
      * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
