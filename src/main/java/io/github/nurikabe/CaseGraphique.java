@@ -19,7 +19,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représantant le panneau de la case
      */
-    protected final StackPane panneau = new StackPane();
+    private final StackPane panneau = new StackPane();
 
     /**
      * Variable d'instance représentant la grille de la case
@@ -39,7 +39,7 @@ public class CaseGraphique {
     /**
      * Variable d'instance représentant le type de la case
      */
-    protected int type;
+    private int type;
 
     /**
      * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
@@ -89,7 +89,7 @@ public class CaseGraphique {
      * methode appelée à la fin du mode hypothèse pour remettre les cases en noir si besoin
      * executer 3 fois la méthode actionClic pour remettre la couleur de base de la case
      */
-    public void mettre_a_jour(){
+    public void mettreAJour() {
         actionClic();
         actionClic();
         actionClic();

@@ -20,9 +20,9 @@ import java.util.Scanner;
  */
 public class Hypothese {
     /*nombre de undo à faire si hypothèse annulée */
-    private int nombre_Undo_toDo=0;
+    private int nombreUndoToDo=0;
     /*niveau courant de l'hypothèse */
-    Niveau niv;
+    private final Niveau niv;
     
     public Hypothese(Niveau niv){
         this.niv=niv;
@@ -49,7 +49,7 @@ public class Hypothese {
     }
 
     /**
-     * annuler l'hypothèse en cours
+     * Annule l'hypothèse en cours
      * effectuer autant de undo qu'il y a d'actions (remettre la grille à son état avant celui du mode hypothèse)
      */
     public void annuler(){
