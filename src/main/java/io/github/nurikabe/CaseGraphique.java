@@ -61,12 +61,10 @@ public class CaseGraphique {
 
         if (this.type <= 0) {
             panneau.setOnMouseClicked(e -> {
-                if (!grille.recupEtatPartie()) {
-                    actionClic();
-                    grille.recupUndo().empiler(new Coup(x, y));
-                    grille.sauvegarderNiveau();
-                    grille.victoire();
-                }
+                actionClic();
+                grille.recupUndo().empiler(new Coup(x, y));
+                grille.sauvegarderNiveau();
+                grille.victoire();
             });
         }
 

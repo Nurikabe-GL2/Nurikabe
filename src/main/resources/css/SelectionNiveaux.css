@@ -9,7 +9,7 @@
     -fx-text-fill: white;
 }
 
-.gamemodeButton, .difficultyButton {
+.gamemodeButton, .difficultyButton, .levelButton {
     -fx-background-color: #4882bd;
     -fx-text-fill: white;
     -fx-font-size: 14px;
@@ -18,4 +18,35 @@
 ToggleButton:selected {
     -fx-background-color: #455685 !important;
     -fx-font-weight: bold;
+}
+
+.case-solution {
+    -fx-border-color: black;
+}
+
+.case-solution.case-noire {
+    -fx-background-color: black;
+}
+
+.niveauSelectionable:hover {
+    -fx-background-color: rgba(225, 225, 225, 0.2);
+}
+
+#puzzlesTilePane.modeClassique {
+    -fx-hgap: 2px;
+    -fx-vgap: 5px;
+}
+
+#puzzlesTilePane.modeAventure {
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
+}
+
+#puzzlesTilePane.modeAventure > Button {
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
+}
+
+#puzzlesTilePane.modeAventure > Button.complete {
+    -fx-background-color: limegreen;
 }

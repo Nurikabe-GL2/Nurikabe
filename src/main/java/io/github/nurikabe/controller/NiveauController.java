@@ -1,5 +1,6 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
 import io.github.nurikabe.Niveau;
 import io.github.nurikabe.Utils;
@@ -38,6 +39,7 @@ public class NiveauController extends VBox {
      * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
+    private final SelectionNiveauxController select;
 
     private final Niveau niveau;
 
@@ -69,9 +71,10 @@ public class NiveauController extends VBox {
      * @param stage           la scène courante
      * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, String cheminNiveau, ModeDeJeu modeJeu, SelectionNiveauxController select) throws Exception {
+    public NiveauController(Stage stage, Scene scenePrecedente, MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
+        this.select = select;
 
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
@@ -79,15 +82,20 @@ public class NiveauController extends VBox {
         loader.setRoot(this);
         loader.load();
 
-        if (modeJeu == ModeDeJeu.CLASSIQUE || modeJeu == ModeDeJeu.AVENTURE) {
+        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CLASSIQUE || metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.AVENTURE) {
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, null, null);
+            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, null, null);
         } else {
-            niveau = new Niveau(cheminNiveau, modeJeu, select, gridPane, timerLabel, scoreLabel);
+            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
         }
 
         boutonHypotheseValider.setDisable(true);
         stage.setScene(new Scene(this));
+    }
+
+    public void ecranPrecedent() {
+        select.refreshLevels();
+        stage.setScene(scenePrecedente);
     }
 
     @FXML
@@ -112,7 +120,7 @@ public class NiveauController extends VBox {
      */
     @FXML
     private void onBackAction(ActionEvent event) {
-        stage.setScene(scenePrecedente);
+        ecranPrecedent();
     }
 
     @FXML

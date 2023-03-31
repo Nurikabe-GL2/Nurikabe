@@ -7,11 +7,14 @@ package io.github.nurikabe;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Classe IOUtils implémentant les outils de gestion des flux d'entrées-sorties
@@ -50,5 +53,20 @@ public class IOUtils {
     public static String getFileNameNoExtensions(@NotNull Path path) {
         final var nomFichier = path.getFileName().toString();
         return nomFichier.substring(0, nomFichier.lastIndexOf('.'));
+    }
+
+    @NotNull
+    public static Path replaceExtension(@NotNull Path path, String newExtension) {
+        return path.resolveSibling(getFileNameNoExtensions(path) + "." + newExtension);
+    }
+
+    @NotNull
+    public static BufferedOutputStream newBufferedOutputStream(@NotNull Path path) throws IOException {
+        return new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
+    }
+
+    @NotNull
+    public static BufferedInputStream newBufferedInputStream(@NotNull Path path) throws IOException {
+        return new BufferedInputStream(Files.newInputStream(path));
     }
 }

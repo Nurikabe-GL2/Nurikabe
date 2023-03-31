@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<fx:root alignment="CENTER" type="VBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#onClicNiveau" spacing="5.0"
+          styleClass="niveauSelectionable">
+        <GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity"
+                  style="-fx-border-color: #51c264; -fx-border-width: 2.5; -fx-background-color: #FFFFFF;"/>
+        <Label fx:id="label" text="Facile : Puzzle 1 (6x6)"/>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+    </VBox>
+</fx:root>
