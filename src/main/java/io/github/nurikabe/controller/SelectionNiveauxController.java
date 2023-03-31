@@ -126,13 +126,13 @@ public class SelectionNiveauxController extends VBox {
         LOGGER.info("Difficulties: {}", difficulties);
 
         switch (gameModeProperty.get()) {
-            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(difficulties).get(0));
+            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(difficulties).get(0), ModeDeJeu.CLASSIQUE);
             case AVENTURE -> chargerModeAventure();
             default -> chargerModeContreLaMontre();
         }
     }
 
-    private void chargerModeClassique(Difficulte difficulte) {
+    private void chargerModeClassique(Difficulte difficulte, ModeDeJeu modeDeJeu) {
         easyToggle.setDisable(false);
         mediumToggle.setDisable(false);
         hardToggle.setDisable(false);
@@ -142,7 +142,7 @@ public class SelectionNiveauxController extends VBox {
         puzzlesTilePane.getChildren().setAll(Niveaux.getNiveaux(difficulte).stream()
                 .map(g -> {
                     try {
-                        return Utils.loadFxml(new NiveauSelectionableController(this, stage, g, ModeDeJeu.CLASSIQUE), "_NiveauSelectionable");
+                        return Utils.loadFxml(new NiveauSelectionableController(this, stage, g, modeDeJeu), "_NiveauSelectionable");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -187,7 +187,7 @@ public class SelectionNiveauxController extends VBox {
     }
 
     private void chargerModeContreLaMontre() {
-        chargerModeClassique(Difficulte.FACILE);
+        chargerModeClassique(Difficulte.FACILE, ModeDeJeu.CONTRE_LA_MONTRE);
         easyToggle.setDisable(true);
         mediumToggle.setDisable(true);
         hardToggle.setDisable(true);
