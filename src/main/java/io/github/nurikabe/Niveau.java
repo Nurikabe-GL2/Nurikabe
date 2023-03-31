@@ -64,6 +64,8 @@ public class Niveau implements Serializable {
 
     private Score score;
 
+    private Parametres params;
+
     /**
      * Constructeur de la classe Niveau
      */
@@ -93,6 +95,8 @@ public class Niveau implements Serializable {
         this.pileRedo = new Pile();
         gridPane.getStylesheets().add("/css/Plateau.css");
         chargerGrille();
+        this.params = Parametres.getParams();
+        System.out.println(params.toString());
         if (score == null) score = new Score(1500);
         if (chrono == null) chrono = new Chronometre();
         majChronometre();

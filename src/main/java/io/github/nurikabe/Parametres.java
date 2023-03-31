@@ -1,6 +1,7 @@
 package io.github.nurikabe;
 
 import java.io.*;
+import java.nio.file.Path;
 
 public class Parametres implements Serializable{
     private boolean remplirCases;
@@ -8,13 +9,14 @@ public class Parametres implements Serializable{
     private boolean afficheErreurs;
     private boolean completeTaille1;
     private boolean completeCaseAdj;
-    private static String cheminSauvegarde = "./parametres.ser";
+    private static Path cheminSauvegarde = Path.of("sauvegarde", "parametres", "parametres.ser");
+    //Path.of("sauvegarde", modeDeJeu.recupNomMode(), IOUtils.replaceExtension(solution.getCheminNiveau(), "bin").getFileName().toString());
 
     public Parametres(){
         this.setDefaultParams();
     }
     
-    public static String getCheminSauvegarde(){
+    public static Path getCheminSauvegarde(){
         return cheminSauvegarde;
     }
 
@@ -58,14 +60,10 @@ public class Parametres implements Serializable{
         this.completeCaseAdj = completeCaseAdj;
     }
     
-    public Parametres getParams(){
+    public static Parametres getParams(){
         Parametres params = new Parametres();
-        try {
-            FileInputStream fileIn = new FileInputStream(cheminSauvegarde);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            params = (Parametres) in.readObject();
-            in.close();
-            fileIn.close();
+        try(ObjectInputStream stream = new ObjectInputStream(IOUtils.newBufferedInputStream(cheminSauvegarde))) {
+            params = (Parametres) stream.readObject();
             return params;
         } catch (IOException i) {
             i.printStackTrace();

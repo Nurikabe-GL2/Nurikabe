@@ -1,17 +1,17 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.IOUtils;
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Parametres;
 import java.io.*;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 import org.slf4j.Logger;
 
@@ -35,7 +35,7 @@ public class ParametresController extends VBox {
 
     private Parametres parametres;
 
-    private static String cheminSauvegarde = Parametres.getCheminSauvegarde();
+    private static Path cheminSauvegarde = Parametres.getCheminSauvegarde();
     
     public ParametresController(Stage stage, Scene scenePrecedente) {
         this.stage = stage;
@@ -46,18 +46,15 @@ public class ParametresController extends VBox {
     /**
      * Serialisation de parametres
      */
-    public void saveParams(){
+    public void saveParams() throws IOException{
         LOGGER.info("Sauvegarde...");
-        try {
-            FileOutputStream fileOut = new FileOutputStream(cheminSauvegarde);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(this.parametres);
-            out.close();
-            fileOut.close();
+        Files.createDirectories(cheminSauvegarde.getParent()); //Création du dossier s'il n'existe pas
+        try (ObjectOutputStream stream = new ObjectOutputStream(IOUtils.newBufferedOutputStream(cheminSauvegarde))) {
+            stream.writeObject(this.parametres);
             LOGGER.info("Sauvegarde reussie");
-         } catch (IOException err) {
+        } catch (IOException err) {
             err.printStackTrace();
-         }
+        }
     }
 
 
@@ -66,34 +63,32 @@ public class ParametresController extends VBox {
      */
     public void chargerParams(){
         LOGGER.info("Chargement...");
-        try {
-            FileInputStream fileIn = new FileInputStream(cheminSauvegarde);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.parametres = (Parametres) in.readObject();
-            in.close();
-            fileIn.close();
+        try (ObjectInputStream stream = new ObjectInputStream(IOUtils.newBufferedInputStream(cheminSauvegarde))) {
+            this.parametres = (Parametres) stream.readObject();
             LOGGER.info("Chargement réussi.");
             LOGGER.info(this.parametres.toString());
         } catch (IOException i) {
             i.printStackTrace();
             System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
             this.parametres.setDefaultParams();
-            this.saveParams();
+            try{
+                saveParams();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
             this.chargerParams();
-            return;
-        } catch (ClassNotFoundException c) {
+        }catch (ClassNotFoundException c) { //Impossible
             System.out.println("Pas de fichier sauvegardé, chargement des paramètres par défaut");
             c.printStackTrace();
             this.parametres.setDefaultParams();
-            return;
-        } 
+        }
         //Remplissage ou non des cochables en conséquence
         this.cochableRemplirCases.setSelected(this.parametres.getRemplirCases());
         this.cochableCheminFerme.setSelected(this.parametres.getNumeroteChemin());
         this.cochableAfficherErreur.setSelected(this.parametres.getAfficheErreurs());
         this.cochableCompleteTaille1.setSelected(this.parametres.getCompleteTaille1());
         this.cochableCompleteAdjacence.setSelected(this.parametres.getCompleteCaseAdj());
-         
+        
          
          
     }
@@ -143,7 +138,11 @@ public class ParametresController extends VBox {
     @FXML
     private void onBackAction(ActionEvent event) {
         LOGGER.info("Bouton retour actionné");
-        saveParams();
+        try{
+            saveParams();
+        }catch (IOException i){
+            i.printStackTrace();
+        }
         stage.setScene(scenePrecedente);
     }
 }
