@@ -142,17 +142,32 @@
                   <Pane fx:id="child4" VBox.vgrow="ALWAYS" />
                   <VBox alignment="TOP_CENTER" fillWidth="false" spacing="5.0">
                      <children>
-                        <Button fx:id="boutonHypotheseValider" mnemonicParsing="false" onAction="#onValiderHypotheseAction" prefHeight="25.0" prefWidth="59.0" styleClass="gameButton" text="Valider" />
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <HBox fx:id="conteneurBoutonsHypothese" alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="boutonHypotheseAnnuler" mnemonicParsing="false"
+                                            onAction="#onAnnulerHypotheseAction" prefHeight="25.0" prefWidth="59.0"
+                                            styleClass="gameButton" text="Annuler"/>
+                                    <Label text="  "/>
+                                    <Button fx:id="boutonHypotheseValider" mnemonicParsing="false"
+                                            onAction="#onValiderHypotheseAction" prefHeight="25.0" prefWidth="59.0"
+                                            styleClass="gameButton" text="Valider"/>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
                         <HBox fx:id="timerAndLabelParent" alignment="CENTER" spacing="10.0">
                            <children>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true"
+                                               preserveRatio="true">
                                        <image>
-                                          <Image url="@../img/timer.png" />
+                                          <Image url="@../img/timer.png"/>
                                        </image>
                                     </ImageView>
-                                    <Label fx:id="timerLabel" text="00:00" />
+                                    <Label fx:id="timerLabel" text="00:00"/>
                                  </children>
                               </HBox>
                               <Label fx:id="scoreLabel" text="Score: 1500" />

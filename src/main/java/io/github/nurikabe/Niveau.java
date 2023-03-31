@@ -282,28 +282,21 @@ public class Niveau implements Serializable {
     }
 
     public void activerModeHypothese(){
-        estEnModeHypothese=true;
+        estEnModeHypothese = true;
     }
 
-    /**
-     * méthode appelée pour mettre en mode hypothèse le niveau
-     */
-    public void mettreEnModeHypothese(){
-        if(estEnModeHypothese){
-            hypo.annuler();
-        }
-        else {
-            hypo.activer();
-        }
-    }
-
-    public void actionHypothese(){
+    public void actionHypothese() {
         hypo.incrementerActions();
     }
 
-    public void confirmerHypothese(){
+    public void confirmerHypothese() {
         hypo.confirmer();
     }
+
+    public void annulerHypothese() {
+        hypo.annuler();
+    }
+
     /**
      * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
      *
