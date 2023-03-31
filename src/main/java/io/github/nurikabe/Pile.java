@@ -41,4 +41,12 @@ public class Pile implements Serializable {
     public Coup depiler() {
         return this.pile.pop();
     }
+
+    public boolean estVide() {
+        return pile.isEmpty();
+    }
+
+    public void vider() {
+        pile.clear();
+    }
 }

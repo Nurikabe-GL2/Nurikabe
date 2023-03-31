@@ -55,7 +55,7 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
 
-    private final Hypothese hypo;
+    private Hypothese hypo;
 
     private boolean estEnModeHypothese = false;
     private Chronometre chrono;
@@ -75,10 +75,6 @@ public class Niveau implements Serializable {
         this.scoreLabel = scoreLabel;
 
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
-
-        initialiser();
-        afficherScore();
-        hypo=new Hypothese(this);
     }
 
     /*
@@ -87,7 +83,7 @@ public class Niveau implements Serializable {
      * et sa sauvegarde s'il en existe une (la grille du niveau existante, les piles undo/redo etc...)
      * on charge le chronomètre et le score (qui seront affichés si nous sommes en mode ContreLaMontre)
      */
-    private void initialiser() throws Exception {
+    public void initialiser() throws Exception {
         this.gridPane.getChildren().clear();
         this.pileUndo = new Pile();
         this.pileRedo = new Pile();
@@ -97,6 +93,8 @@ public class Niveau implements Serializable {
         if (chrono == null) chrono = new Chronometre();
         majChronometre();
         afficherScore();
+        hypo = new Hypothese(this);
+        controller.rafraichir();
     }
 
     /*
@@ -268,11 +266,13 @@ public class Niveau implements Serializable {
     }
 
     public void undo() {
-         coup(pileUndo, pileRedo, 2);
+        coup(pileUndo, pileRedo, 2);
+        controller.rafraichir();
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
+        controller.rafraichir();
     }
     /**
      * mettre à jour la grillle graphique
@@ -389,5 +389,9 @@ public class Niveau implements Serializable {
 
     public Score getScore() {
         return score;
+    }
+
+    public NiveauController getController() {
+        return controller;
     }
 }

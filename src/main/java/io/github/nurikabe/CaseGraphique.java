@@ -63,6 +63,8 @@ public class CaseGraphique {
             panneau.setOnMouseClicked(e -> {
                 actionClic();
                 grille.recupUndo().empiler(new Coup(x, y));
+                grille.recupRedo().vider();
+                grille.getController().rafraichir();
                 grille.sauvegarderNiveau();
                 grille.victoire();
             });

@@ -89,6 +89,8 @@ public class NiveauController extends VBox {
             niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
         }
 
+        niveau.initialiser();
+
         boutonHypotheseValider.setDisable(true);
         stage.setScene(new Scene(this));
     }
@@ -96,6 +98,12 @@ public class NiveauController extends VBox {
     public void ecranPrecedent() {
         select.refreshLevels();
         stage.setScene(scenePrecedente);
+    }
+
+    public void rafraichir() {
+        buttonUndo.setDisable(niveau.recupUndo().estVide());
+        buttonRedo.setDisable(niveau.recupRedo().estVide());
+        //TODO maj bouton hypothese
     }
 
     @FXML
