@@ -7,6 +7,7 @@ import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -119,6 +120,13 @@ public class NiveauController extends VBox {
             final var controller = Utils.loadFxml(new CategorieTechniqueController(nomCategorie, techniques), "_CategorieTechnique");
             techniquesBox.getChildren().add(controller);
         }
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                timerLabel.setText(niveau.getChrono().toString());
+            }
+        }.start();
     }
 
     /**
