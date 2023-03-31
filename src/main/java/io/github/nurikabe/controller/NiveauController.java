@@ -33,6 +33,8 @@ public class NiveauController extends VBox {
      */
     private final Stage stage;
 
+    private boolean hypo = false;
+
     /**
      * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
@@ -44,6 +46,10 @@ public class NiveauController extends VBox {
     @FXML private GridPane gridPane;
 
     @FXML private Button buttonUndo, buttonRedo;
+
+    @FXML private Button boutonHypotheseValider;
+
+    @FXML private Button boutonHypothese;
 
     @FXML private HBox timerAndLabelParent;
 
@@ -83,6 +89,7 @@ public class NiveauController extends VBox {
             niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
         }
 
+        boutonHypotheseValider.setDisable(true);
         stage.setScene(new Scene(this));
     }
 
@@ -125,7 +132,41 @@ public class NiveauController extends VBox {
     private void onRedoAction(ActionEvent event) {
         niveau.redo();
     }
+    /**
+     * méthode appelée lorsqu'on appuie sur le bouton hypothèse
+     * on l'active si il n'est pas activé et on le désactive si il l'est,
+     * on met à jour le label du bouton en fonction de l'état du mode hypothèse
+     * @param event
+     */
+    @FXML
+    private void onHypotheseAction(ActionEvent event){
+        if(hypo){
+            boutonHypothese.setText("Hypothèse");
+            boutonHypotheseValider.setDisable(true);
+            hypo=false;
+        }
+        else {
+            boutonHypotheseValider.setDisable(false);
+            boutonHypothese.setText("Annuler");
+            hypo=true;
+        }
+        niveau.mettreEnModeHypothese();
+    }
+    /**
+     * méthode appelée lorsqu'on appuie sur le bouton valider
+     * appelle la méthode de confirmation de l'hypothèse dans le niveau
+     * désactive le bouton valider et remet le bon label sur le bouton hypothèse
+     * @param event
+     */
+    @FXML
+    private void onValiderHypotheseAction(ActionEvent event){
 
+        niveau.confirmerHypothese();
+        boutonHypothese.setText("Hypothèse");
+        boutonHypotheseValider.setDisable(true);
+        hypo=false;
+
+    }
 
     /**
      * Méthode qui est appelée en cliquant sur le bouton aide
