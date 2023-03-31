@@ -3,6 +3,7 @@ package io.github.nurikabe;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
+import java.util.Comparator;
 import java.util.List;
 
 public class Niveaux {
@@ -12,6 +13,7 @@ public class Niveaux {
         try (final var fichiers = Files.walk(IOUtils.ROOT_PATH.resolve("niveaux"))) {
             NIVEAUX = fichiers
                     .filter(Files::isRegularFile)
+                    .sorted(Comparator.comparing(IOUtils::getFileNameNoExtensions))
                     .map(FichierSolution::chargerGrilleSolution)
                     .toList();
         } catch (IOException e) {
