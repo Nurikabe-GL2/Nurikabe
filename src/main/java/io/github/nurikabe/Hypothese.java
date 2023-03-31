@@ -7,14 +7,6 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 
-import io.github.nurikabe.controller.SelectionNiveauxController;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-
-import java.io.*;
-import java.util.Scanner;
-
-
 /**
  * Classe Niveau pour représenter un niveau
  */
@@ -61,11 +53,5 @@ public class Hypothese {
         raz_actions();
         niv.majGrilles();
 
-    }
-    /**
-     * activer mode hypothèse
-     */
-    public void activer(){
-        niv.activerModeHypothese();
     }
 }

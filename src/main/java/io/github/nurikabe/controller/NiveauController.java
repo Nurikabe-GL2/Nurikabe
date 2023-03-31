@@ -52,7 +52,7 @@ public class NiveauController extends VBox {
     private Button buttonUndo, buttonRedo;
 
     @FXML
-    private Button boutonHypotheseValider;
+    private Button boutonHypotheseValider, boutonHypotheseAnnuler;
 
     @FXML
     private Button boutonHypothese;
@@ -99,7 +99,6 @@ public class NiveauController extends VBox {
 
         niveau.initialiser();
 
-        boutonHypotheseValider.setDisable(true);
         stage.setScene(new Scene(this));
     }
 
@@ -111,7 +110,7 @@ public class NiveauController extends VBox {
     public void rafraichir() {
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
-        //TODO maj bouton hypothese
+        activerDesactiverBoutonsHypo();
     }
 
     @FXML
@@ -167,18 +166,10 @@ public class NiveauController extends VBox {
      * @param event
      */
     @FXML
-    private void onHypotheseAction(ActionEvent event){
-        if(hypo){
-            boutonHypothese.setText("Hypothèse");
-            boutonHypotheseValider.setDisable(true);
-            hypo=false;
-        }
-        else {
-            boutonHypotheseValider.setDisable(false);
-            boutonHypothese.setText("Annuler");
-            hypo=true;
-        }
-        niveau.mettreEnModeHypothese();
+    private void onHypotheseAction(ActionEvent event) {
+        hypo = true;
+        niveau.activerModeHypothese();
+        activerDesactiverBoutonsHypo();
     }
     /**
      * méthode appelée lorsqu'on appuie sur le bouton valider
@@ -187,13 +178,27 @@ public class NiveauController extends VBox {
      * @param event
      */
     @FXML
-    private void onValiderHypotheseAction(ActionEvent event){
+    private void onValiderHypotheseAction(ActionEvent event) {
 
         niveau.confirmerHypothese();
-        boutonHypothese.setText("Hypothèse");
-        boutonHypotheseValider.setDisable(true);
-        hypo=false;
+        hypo = false;
+        activerDesactiverBoutonsHypo();
+    }
 
+    @FXML
+    private void onAnnulerHypotheseAction(ActionEvent event) {
+
+        niveau.annulerHypothese();
+        hypo = false;
+        activerDesactiverBoutonsHypo();
+    }
+
+    /**
+     * méthode appelée pour activer / désactiver les boutons valider et annuler du mode hypothèse
+     */
+    private void activerDesactiverBoutonsHypo() {
+        boutonHypotheseAnnuler.setVisible(hypo);
+        boutonHypotheseValider.setVisible(hypo);
     }
 
     /**
