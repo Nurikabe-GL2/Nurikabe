@@ -124,7 +124,9 @@ public class NiveauController extends VBox {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                timerLabel.setText(niveau.getChrono().toString());
+                final var chrono = niveau.getChrono();
+                if (chrono != null)
+                    timerLabel.setText(chrono.toString());
             }
         }.start();
     }

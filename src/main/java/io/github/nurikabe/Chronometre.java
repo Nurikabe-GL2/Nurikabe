@@ -1,6 +1,7 @@
 package io.github.nurikabe;
 
 import java.io.Serializable;
+import java.time.Duration;
 
 
 /**
@@ -16,9 +17,7 @@ public class Chronometre implements Serializable {
      */
     private long debut;
     private long fin;
-    private int minutes = 0, secondes = 0;
     private int tempsSupp = 0;
-    private String minutesStr = "00", secondesStr = "00";
 
     /*
      * constructeur Chronometre, on appelle les méthodes de début et fin pour initialiser les variables fin et début
@@ -72,39 +71,16 @@ public class Chronometre implements Serializable {
      */
     private int getTempsEcoule() {
         fin();
-        // System.out.println(fin-debut);
         return (int) (fin - debut) + tempsSupp;
-    }
-
-    /*
-     * méthode pour convertir le temps écoulé en String
-     * on commence par calculer les secondes puis les minutes (le calcul est fait à partir de millisecondes)
-     * La méthode currentTimeMillis renvoie le temps courant en millisecondes
-     */
-    private void convertirTempsEcoule() {
-        int tempsEcoule = getTempsEcoule();
-        if (tempsEcoule >= 60000) {
-            minutes = tempsEcoule / 60000;
-            tempsEcoule -= minutes * 60000;
-        }
-        secondes = tempsEcoule / 1000;
-
-        if (secondes < 10) secondesStr = "0" + secondes;
-        else secondesStr = secondes + "";
-
-        if (minutes < 10) minutesStr = "0" + minutes;
-        else minutesStr = minutes + "";
-
     }
 
     /**
      * Redéfinition de la méthode toString pour afficher le chronomètre
-     * Cette méthode fait appel à la méthode convertirTempsEcoule
-     * comme ça lors de l'affichage du chronomètre, ce dernier s'actualisera automatiquement
      */
     @Override
     public String toString() {
-        convertirTempsEcoule();
-        return minutesStr + ":" + secondesStr;
+        final Duration duration = Duration.ofMillis(getTempsEcoule());
+        // https://stackoverflow.com/a/275715
+        return "%02d:%02d:%02d".formatted(duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
     }
 }
