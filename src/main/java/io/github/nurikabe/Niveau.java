@@ -55,9 +55,7 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
 
-    private Hypothese hypo;
-
-    private boolean estComplet = false;
+    private final Hypothese hypo;
 
     private boolean estEnModeHypothese = false;
     private Chronometre chrono;
@@ -208,7 +206,6 @@ public class Niveau implements Serializable {
         final int erreurs = verifier();
         if (erreurs == 0) {
             metadonneesSauvegarde.marquerComplet();
-            estComplet = true;
 
             new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
             controller.ecranPrecedent();
@@ -333,10 +330,6 @@ public class Niveau implements Serializable {
                 grilleGraphique.recup(coupPris.recupX(), coupPris.recupY()).actionClic();
         }
         aPush.empiler(coupPris);
-    }
-
-    public boolean recupEtatPartie() {
-        return estComplet;
     }
 
     /**
