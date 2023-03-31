@@ -1,12 +1,10 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.MetadonneesSauvegarde;
-import io.github.nurikabe.ModeDeJeu;
-import io.github.nurikabe.Niveau;
-import io.github.nurikabe.Utils;
+import io.github.nurikabe.*;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,19 +37,28 @@ public class NiveauController extends VBox {
      * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
      */
     private final Scene scenePrecedente;
+    private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final SelectionNiveauxController select;
 
     private final Niveau niveau;
 
-    @FXML private GridPane gridPane;
+    @FXML
+    private Label labelTitre;
 
-    @FXML private Button buttonUndo, buttonRedo;
+    @FXML
+    private GridPane gridPane;
 
-    @FXML private Button boutonHypotheseValider;
+    @FXML
+    private Button buttonUndo, buttonRedo;
 
-    @FXML private Button boutonHypothese;
+    @FXML
+    private Button boutonHypotheseValider;
 
-    @FXML private HBox timerAndLabelParent;
+    @FXML
+    private Button boutonHypothese;
+
+    @FXML
+    private HBox timerAndLabelParent;
 
     @FXML private Label labelErreurs;
 
@@ -74,6 +81,7 @@ public class NiveauController extends VBox {
     public NiveauController(Stage stage, Scene scenePrecedente, MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
+        this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
 
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
@@ -89,6 +97,8 @@ public class NiveauController extends VBox {
             niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
         }
 
+        niveau.initialiser();
+
         boutonHypotheseValider.setDisable(true);
         stage.setScene(new Scene(this));
     }
@@ -98,8 +108,17 @@ public class NiveauController extends VBox {
         stage.setScene(scenePrecedente);
     }
 
+    public void rafraichir() {
+        buttonUndo.setDisable(niveau.recupUndo().estVide());
+        buttonRedo.setDisable(niveau.recupRedo().estVide());
+        //TODO maj bouton hypothese
+    }
+
     @FXML
     private void initialize() throws IOException {
+        final FichierSolution solution = metadonneesSauvegarde.getSolution();
+        labelTitre.setText(metadonneesSauvegarde.getModeDeJeu().getDescriptionMode() + " : " + solution.getNomNiveau());
+
         final Map<String, List<Technique>> categoriesTechniques = new LinkedHashMap<>();
         for (Technique technique : Techniques.TECHNIQUES) {
             categoriesTechniques.computeIfAbsent(technique.getCategorie(), s -> new ArrayList<>()).add(technique);
@@ -111,6 +130,15 @@ public class NiveauController extends VBox {
             final var controller = Utils.loadFxml(new CategorieTechniqueController(nomCategorie, techniques), "_CategorieTechnique");
             techniquesBox.getChildren().add(controller);
         }
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                final var chrono = niveau.getChrono();
+                if (chrono != null)
+                    timerLabel.setText(chrono.toString());
+            }
+        }.start();
     }
 
     /**

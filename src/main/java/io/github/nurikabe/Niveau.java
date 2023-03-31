@@ -55,7 +55,7 @@ public class Niveau implements Serializable {
      */
     private Pile pileRedo;
 
-    private final Hypothese hypo;
+    private Hypothese hypo;
 
     private boolean estEnModeHypothese = false;
     private Chronometre chrono;
@@ -75,10 +75,6 @@ public class Niveau implements Serializable {
         this.scoreLabel = scoreLabel;
 
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
-
-        initialiser();
-        afficherScore();
-        hypo=new Hypothese(this);
     }
 
     /*
@@ -87,7 +83,7 @@ public class Niveau implements Serializable {
      * et sa sauvegarde s'il en existe une (la grille du niveau existante, les piles undo/redo etc...)
      * on charge le chronomètre et le score (qui seront affichés si nous sommes en mode ContreLaMontre)
      */
-    private void initialiser() throws Exception {
+    public void initialiser() throws Exception {
         this.gridPane.getChildren().clear();
         this.pileUndo = new Pile();
         this.pileRedo = new Pile();
@@ -95,8 +91,9 @@ public class Niveau implements Serializable {
         chargerGrille();
         if (score == null) score = new Score(1500);
         if (chrono == null) chrono = new Chronometre();
-        majChronometre();
         afficherScore();
+        hypo = new Hypothese(this);
+        controller.rafraichir();
     }
 
     /*
@@ -154,15 +151,6 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * Méthode pour mettre à jour le chronomètre.
-     * Si le label pour le chronomètre n'est pas nul, on y met le chrono (appel à la méthode toString())
-     */
-    public void majChronometre() {
-        if (timerLabel != null) timerLabel.setText(chrono.toString());
-        System.out.println("moved");
-    }
-
-    /**
      * Methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
      */
     public void afficherScore() {
@@ -201,8 +189,6 @@ public class Niveau implements Serializable {
      * Comme ça lors du chargement des niveaux sur l'interface cela indiquera les niveaux déjà complétés
      */
     public void victoire() {
-        majChronometre();
-
         final int erreurs = verifier();
         if (erreurs == 0) {
             metadonneesSauvegarde.marquerComplet();
@@ -268,11 +254,13 @@ public class Niveau implements Serializable {
     }
 
     public void undo() {
-         coup(pileUndo, pileRedo, 2);
+        coup(pileUndo, pileRedo, 2);
+        controller.rafraichir();
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
+        controller.rafraichir();
     }
     /**
      * mettre à jour la grillle graphique
@@ -389,5 +377,9 @@ public class Niveau implements Serializable {
 
     public Score getScore() {
         return score;
+    }
+
+    public NiveauController getController() {
+        return controller;
     }
 }
