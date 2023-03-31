@@ -78,12 +78,17 @@ public class NiveauController extends VBox {
 
         if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CLASSIQUE || metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.AVENTURE) {
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(metadonneesSauvegarde, select, gridPane, null, null);
+            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, null, null);
         } else {
-            niveau = new Niveau(metadonneesSauvegarde, select, gridPane, timerLabel, scoreLabel);
+            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
         }
 
         stage.setScene(new Scene(this));
+    }
+
+    public void ecranPrecedent() {
+        select.refreshLevels();
+        stage.setScene(scenePrecedente);
     }
 
     @FXML
@@ -108,8 +113,7 @@ public class NiveauController extends VBox {
      */
     @FXML
     private void onBackAction(ActionEvent event) {
-        select.refreshLevels();
-        stage.setScene(scenePrecedente);
+        ecranPrecedent();
     }
 
     @FXML

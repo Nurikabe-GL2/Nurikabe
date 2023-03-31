@@ -7,7 +7,8 @@ package io.github.nurikabe;
 
 // Importation des librairies javaFX
 
-import io.github.nurikabe.controller.SelectionNiveauxController;
+import io.github.nurikabe.controller.NiveauController;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
@@ -18,7 +19,7 @@ import java.io.Serializable;
  * Classe Niveau pour représenter un niveau
  */
 public class Niveau implements Serializable {
-    private final SelectionNiveauxController select;
+    private final NiveauController controller;
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
 
@@ -64,9 +65,9 @@ public class Niveau implements Serializable {
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, NiveauController controller, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
-        this.select = select;
+        this.controller = controller;
         this.gridPane = gridPane;
         this.timerLabel = timerLabel;
         this.scoreLabel = scoreLabel;
@@ -204,8 +205,8 @@ public class Niveau implements Serializable {
             metadonneesSauvegarde.marquerComplet();
             estComplet = true;
 
-            System.out.println("PARTIE GAGNEE !!!!");
-            select.refreshLevels();
+            new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
+            controller.ecranPrecedent();
         }
     }
 
