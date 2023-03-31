@@ -167,7 +167,7 @@ public class SelectionNiveauxController extends VBox {
             if (metadonneesSauvegarde.estComplete()) {
                 button.getStyleClass().add("complete");
                 button.setText("Complété");
-            } else if (i == 0 || metadonneesSauvegardes.get(sauvegardesSize - 1).estComplete()) {
+            } else if (i == 0 || metadonneesSauvegardes.get(i - 1).estComplete()) {
                 //Le niveau est déverrouillé si c'est le premier, ou alors que le précédent est complet
                 button.setText(metadonneesSauvegarde.existe() ? "Continuer" : "Jouer");
                 button.setOnMouseClicked(event -> {
