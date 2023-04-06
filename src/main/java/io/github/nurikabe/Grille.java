@@ -1,11 +1,4 @@
-/**
- * Fichier Grille.java pour représenter les grilles du jeu
- */
-
-// Package GitHub
 package io.github.nurikabe;
-
-// Importation des librairies javaFX
 
 import org.jetbrains.annotations.NotNull;
 

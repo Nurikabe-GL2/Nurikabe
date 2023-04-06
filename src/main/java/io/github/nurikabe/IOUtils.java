@@ -1,8 +1,3 @@
-/**
- * Fichier IOUtils.java
- */
-
-// Package GitHub
 package io.github.nurikabe;
 
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +50,14 @@ public class IOUtils {
         return nomFichier.substring(0, nomFichier.lastIndexOf('.'));
     }
 
+    /**
+     * Remplace l'extension dans ce chemin de fichier
+     *
+     * @param path         Le chemin de fichier
+     * @param newExtension La nouvelle extension, sans le {@code .}
+     *
+     * @return Le nouveau chemin de fichier avec l'extension
+     */
     @NotNull
     public static Path replaceExtension(@NotNull Path path, String newExtension) {
         return path.resolveSibling(getFileNameNoExtensions(path) + "." + newExtension);

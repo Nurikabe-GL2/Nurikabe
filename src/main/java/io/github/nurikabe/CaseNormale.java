@@ -1,8 +1,3 @@
-/**
- * Fichier CaseNormale.java héritant du fichier Case.java pour représenter les cases blanches ou noires
- */
-
-// Package GitHub
 package io.github.nurikabe;
 
 /**
@@ -25,7 +20,7 @@ public class CaseNormale extends Case {
      * @return le contenu de la case
      */
     @Override
-    public String recupContenuCase() {
+    public String getContenuCase() {
         if (type == 0)
             return "b";
         else if (type == -1)

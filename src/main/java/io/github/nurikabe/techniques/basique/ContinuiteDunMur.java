@@ -19,7 +19,7 @@ public class ContinuiteDunMur extends Technique {
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                if (grille.recupCase(x, y).recupContenuCase().equals("b")) {
+                if (grille.recupCase(x, y).getContenuCase().equals("b")) {
                     int cpt = 0;
 
                     //test si la case de gauche de la case courante est valide et que c'est une case noire

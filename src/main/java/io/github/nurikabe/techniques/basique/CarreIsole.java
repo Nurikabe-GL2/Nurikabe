@@ -25,7 +25,7 @@ public class CarreIsole extends Technique {
     public PositionTechniques tester(Niveau grille) {
         for (int i = 0; i < grille.getLargeur(); i++) {
             for (int j = 0; j < grille.getHauteur(); j++) {
-                if (grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).recupContenuCase().equals("b")) {
+                if (grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).getContenuCase().equals("b")) {
                     List<Cible> liste = new ArrayList<>();
 
                     //test si la case de gauche de la case courante est valide ou que c'est une case noire

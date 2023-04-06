@@ -1,11 +1,4 @@
-/**
- * Fichier FXUtils.java
- */
-
-// Package GitHub
 package io.github.nurikabe;
-
-// Importation des librairies javaFX
 
 import javafx.scene.Node;
 import javafx.scene.control.Toggle;
@@ -13,9 +6,14 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Classe FXUtils
+ * Classe utilitaire pour JavaFX
  */
 public class FXUtils {
+    /**
+     * Fait en sorte à ce que ce {@link ToggleGroup} ne puisse sélectionner que 1 choix à la fois.
+     *
+     * @param group Le groupe à modifier
+     */
     public static void singleItemToggleGroup(ToggleGroup group) {
         for (Toggle toggle : group.getToggles()) {
             ((Node) toggle).addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {

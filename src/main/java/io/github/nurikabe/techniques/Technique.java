@@ -91,14 +91,14 @@ public abstract class Technique {
         if (!estCoordonneeValide(grille, x, y))
             return false;
         final Case uneCase = grille.recupCase(x, y);
-        return uneCase.recupContenuCase().equals("b");
+        return uneCase.getContenuCase().equals("b");
     }
 
     protected boolean estCaseNoire(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
         final Case uneCase = grille.recupCase(x, y);
-        return uneCase.recupContenuCase().equals("n");
+        return uneCase.getContenuCase().equals("n");
     }
 
     /**

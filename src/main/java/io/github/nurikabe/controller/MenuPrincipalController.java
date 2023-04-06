@@ -1,8 +1,3 @@
-/**
- * Fichier MenuPrincipalController.java
- */
-
-// Package GitHub
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Logging;
