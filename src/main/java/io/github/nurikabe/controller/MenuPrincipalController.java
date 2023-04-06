@@ -101,8 +101,13 @@ public class MenuPrincipalController extends VBox {
      * @param event l'évènement qui a généré l'appel de cette fonction ici le clic
      */
     @FXML
-    private void onSettingsAction(ActionEvent event) {
+    private void onSettingsAction(ActionEvent event) throws IOException {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
+        final ParametresController controller = Utils.loadFxml(
+                new ParametresController(stage, stage.getScene()),
+                "Parametres"
+        );
+        stage.setScene(new Scene(controller));
     }
 
     /**
