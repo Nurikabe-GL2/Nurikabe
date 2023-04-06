@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe représentant la technique de jeux pour 2 cases de nombres séparées par une case blanche
+ * Tous les indices doivent être séparés les uns des autres par des murs.
+ * Par conséquent, lorsque deux indices se trouvent sur la même ligne ou colonne et sont séparés par une case,
+ * la case intermédiaire doit être un mur.
  */
 public class IndicesSeparerParCaseBlanche extends Technique {
     @Override
@@ -18,13 +20,6 @@ public class IndicesSeparerParCaseBlanche extends Technique {
         return "demarrage_2";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle teste toute les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {

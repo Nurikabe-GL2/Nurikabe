@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe représentant le technique de jeux pour une case Blanche isolé
+ * Après avoir résolu les premières étapes en utilisant les techniques de départ décrites ci-dessus,
+ * le puzzle du diagramme de gauche ci-dessous comporte deux carrés ? en rouge.
+ * Comme ces carrés sont entourés de murs horizontalement et verticalement,
+ * ils ne peuvent pas appartenir à une île et doivent donc être ombrés pour faire partie du mur.
  */
 public class CarreIsole extends Technique {
     @Override
@@ -18,13 +21,6 @@ public class CarreIsole extends Technique {
         return "basique_1";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle teste toutes les cases et vérifie que la technique est applicable, si oui elle ajoute la case sur laquelle appliqué la technique à la liste
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int i = 0; i < grille.getLargeur(); i++) {

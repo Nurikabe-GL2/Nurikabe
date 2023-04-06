@@ -9,20 +9,17 @@ import io.github.nurikabe.techniques.Technique;
 import java.util.ArrayList;
 import java.util.List;
 
-//classe représentant la technique de continuité de l'ile, elle vérifie si une case vérifie la technique Éviter une zone de mur 2x2 et test s'il y a une case blanche entre cette dernière et une ile
+/**
+ * La case marquée d'un point rouge dans le schéma de gauche ci-dessous doit faire partie d'un îlot pour éviter une surface de mur de 2x2.
+ * Cela signifie que la case située à sa gauche doit également faire partie de la même île et est donc également marquée d'un point.
+ * L'île de 3 est maintenant terminée et nous pouvons l'entourer d'un mur.
+ */
 public class ContinuiteDeLile extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_7";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle vérifie si une case vérifie la technique Éviter une zone de mur 2x2 et test s'il y a une case blanche entre cette dernière et une ile
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {

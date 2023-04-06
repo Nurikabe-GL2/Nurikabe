@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe public représentant les différentes techniques
+ * Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux.
  */
 public class IleDeUn extends Technique {
     @Override
@@ -17,12 +17,6 @@ public class IleDeUn extends Technique {
         return "demarrage_1";
     }
 
-    /**
-     * La technique recherche les cases de nombres avec le chiffre un,
-     * Et retourne la position du dit un
-     *
-     * @return la position du 1
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {

@@ -1,24 +1,11 @@
 package io.github.nurikabe.techniques;
 
-public class Cible {
-    private final int x, y;
-    private final String type;
-
-    public Cible(int x, int y, String type) {
-        this.x = x;
-        this.y = y;
-        this.type = type;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public String getType() {
-        return type;
-    }
+/**
+ * Représente une coordonnée ciblée par une technique
+ *
+ * @param x    La coordonnée X de la cible
+ * @param y    La coordonnée Y de la cible
+ * @param type Le type de case à appliquer à cette position, peut être un {@code .}, {@code b} ou {@code n}
+ */
+public record Cible(int x, int y, String type) {
 }

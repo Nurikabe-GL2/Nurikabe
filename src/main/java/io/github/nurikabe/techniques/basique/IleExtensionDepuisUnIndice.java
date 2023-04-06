@@ -9,7 +9,11 @@ import io.github.nurikabe.techniques.Technique;
 import java.util.ArrayList;
 import java.util.List;
 
-//classe représentant la technique qui teste si une ile est extensible uniquement dans 1 direction
+/**
+ * Dans de nombreux cas, la façon dont une île peut être agrandie directement à partir d'un indice est claire.
+ * Dans le schéma ci-dessous, l'île du 3 ne peut être agrandie que vers le haut et l'île du 7 ne peut être agrandie que vers la gauche.
+ * Nous allons marquer ces carrés avec des points pour montrer qu'ils font partie des îles respectives et ne peuvent pas faire partie d'un mur.
+ */
 public class IleExtensionDepuisUnIndice extends Technique {
     @Override
     protected String getIdentifiant() {

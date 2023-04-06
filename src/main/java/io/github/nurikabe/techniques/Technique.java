@@ -49,7 +49,8 @@ public abstract class Technique {
     }
 
     /**
-     * Teste si la technique est applicable, si elle l'est, la position de la technique est retournée, sinon, {@code null} est retourné.
+     * Teste si la technique est applicable, si elle l'est,
+     * la position de la technique est retournée, sinon, {@code null} est retourné.
      *
      * @return La position de la technique si applicable, {@code null} sinon.
      */
@@ -98,13 +99,6 @@ public abstract class Technique {
             return false;
         final Case uneCase = grille.recupCase(x, y);
         return uneCase.recupContenuCase().equals("n");
-    }
-
-    protected boolean estPasCaseNoire(Niveau grille, int x, int y) {
-        if (!estCoordonneeValide(grille, x, y))
-            return false;
-        final Case uneCase = grille.recupCase(x, y);
-        return !uneCase.recupContenuCase().equals("n");
     }
 
     /**
