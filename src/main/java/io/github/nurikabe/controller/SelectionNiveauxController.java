@@ -5,7 +5,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 
@@ -25,11 +23,8 @@ import java.util.List;
  * Contrôleur représentant l'affichage des niveaux et la sélection de ceux-ci.
  * <br>Le mode classique, aventure et contre-la-montre sont gérés.
  */
-public class SelectionNiveauxController extends VBox {
+public class SelectionNiveauxController extends FenetreController {
     private static final Logger LOGGER = Logging.getLogger();
-
-    private final Stage stage;
-    private final Scene scenePrecedente;
 
     private final ObjectProperty<ModeDeJeu> proprieteModeDeJeu = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
 
@@ -51,15 +46,8 @@ public class SelectionNiveauxController extends VBox {
     @FXML private TilePane puzzlesTilePane;
     @FXML private ToggleButton easyToggle, mediumToggle, hardToggle;
 
-    /**
-     * Le constructeur de la classe SelectionNiveauxController
-     *
-     * @param stage         la scène actuel
-     * @param previousScene la scène précédente
-     */
-    public SelectionNiveauxController(Stage stage, Scene previousScene) {
-        this.stage = stage;
-        this.scenePrecedente = previousScene;
+    public SelectionNiveauxController(Stage stage, Scene scenePrecedente) {
+        super(stage, scenePrecedente);
     }
 
     /**
@@ -172,16 +160,5 @@ public class SelectionNiveauxController extends VBox {
         hardToggle.setDisable(true);
 
         stage.show();
-    }
-
-    /**
-     * Méthode privée qui est appelé quand le bouton retour est cliqué
-     * il s'occupe de revenir en arrière en chargeant la scène précédente
-     *
-     * @param event l'événement qui a activé la méthode, ici le clic
-     */
-    @FXML
-    private void onBackAction(ActionEvent event) {
-        stage.setScene(scenePrecedente);
     }
 }

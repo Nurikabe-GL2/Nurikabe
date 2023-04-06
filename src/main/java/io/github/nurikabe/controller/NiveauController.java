@@ -33,10 +33,7 @@ import java.util.Map;
  *     <li>Le bouton de remise à zero</li>
  * </ul>
  */
-public class NiveauController extends VBox {
-    private final Stage stage;
-
-    private final Scene scenePrecedente;
+public class NiveauController extends FenetreController {
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final SelectionNiveauxController select;
 
@@ -46,8 +43,6 @@ public class NiveauController extends VBox {
      * Représente si le mode hypothèse est actif ou non
      */
     private boolean hypo = false;
-
-    @FXML private Label labelTitre;
 
     @FXML private GridPane gridPane;
 
@@ -81,8 +76,8 @@ public class NiveauController extends VBox {
                             Scene scenePrecedente,
                             MetadonneesSauvegarde metadonneesSauvegarde,
                             SelectionNiveauxController select) throws Exception {
-        this.stage = stage;
-        this.scenePrecedente = scenePrecedente;
+        super(stage, scenePrecedente);
+
         this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
 
@@ -107,9 +102,10 @@ public class NiveauController extends VBox {
     /**
      * Affiche l'écran précédent et réactualise les niveaux
      */
+    @Override
     public void ecranPrecedent() {
         select.refreshLevels();
-        stage.setScene(scenePrecedente);
+        super.ecranPrecedent();
     }
 
     /**
@@ -147,16 +143,6 @@ public class NiveauController extends VBox {
                     timerLabel.setText(chrono.toString());
             }
         }.start();
-    }
-
-    /**
-     * Méthode qui est appelée en cliquant sur le bouton retour
-     *
-     * @param event l'évènement qui a activé la méthode ici le clic
-     */
-    @FXML
-    private void onBackAction(ActionEvent event) {
-        ecranPrecedent();
     }
 
     @FXML

@@ -6,32 +6,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 
-public class ParametresController extends VBox {
+/**
+ * Contrôleur représentant les différents paramètres modifiables.
+ */
+public class ParametresController extends FenetreController {
     private static final Logger LOGGER = Logging.getLogger();
 
-    private final Stage stage;
-    private final Scene scenePrecedente;
-
-    @FXML
-    private CheckBox cochableRemplirCases;
-    @FXML
-    private CheckBox cochableCheminFerme;
-    @FXML
-    private CheckBox cochableAfficherErreur;
-    @FXML
-    private CheckBox cochableCompleteTaille1;
-    @FXML
-    private CheckBox cochableCompleteAdjacence;
+    @FXML private CheckBox cochableRemplirCases;
+    @FXML private CheckBox cochableCheminFerme;
+    @FXML private CheckBox cochableAfficherErreur;
+    @FXML private CheckBox cochableCompleteTaille1;
+    @FXML private CheckBox cochableCompleteAdjacence;
 
     private final Parametres parametres = Parametres.getParametres();
 
     public ParametresController(Stage stage, Scene scenePrecedente) {
-        this.stage = stage;
-        this.scenePrecedente = scenePrecedente;
+        super(stage, scenePrecedente);
     }
 
     @FXML
@@ -75,17 +68,5 @@ public class ParametresController extends VBox {
         this.cochableAfficherErreur.setSelected(parametres.getAfficheErreurs());
         this.cochableCompleteTaille1.setSelected(parametres.getCompleteTaille1());
         this.cochableCompleteAdjacence.setSelected(parametres.getCompleteCaseAdj());
-    }
-
-    /**
-     * Méthode privé qui est appelée par le bouton quitter
-     * Elle se charge d'afficher quel bouton à été appelé et de fermer la fenêtre
-     *
-     * @param event l'évènement qui à été appelé cette fonction
-     */
-    @FXML
-    private void onBackAction(ActionEvent event) {
-        LOGGER.info("Bouton retour actionné");
-        stage.setScene(scenePrecedente);
     }
 }
