@@ -1,4 +1,7 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
+
+import io.github.nurikabe.Difficulte;
+import io.github.nurikabe.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -6,6 +9,9 @@ import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Classe contenant les solutions pour tous les niveaux.
+ */
 public class Niveaux {
     private static final List<FichierSolution> NIVEAUX;
 

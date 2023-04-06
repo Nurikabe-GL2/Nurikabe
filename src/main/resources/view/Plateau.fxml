@@ -119,9 +119,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="labelErreurs" prefHeight="19.0" prefWidth="72.0" text="0 erreurs" textFill="WHITE">
+                        <Label fx:id="labelErreurs" text="0 erreurs" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="14.0"/>
                            </font>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />

@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <fx:root prefHeight="500.0" prefWidth="800.0" type="VBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
@@ -28,7 +20,7 @@
             <VBox alignment="TOP_CENTER">
                <children>
                   <Label id="mainLabel" alignment="CENTER" text="Paramètres du Nurikabe" />
-                  <Label id="noticeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="312.0" text="Les paramètres sont sauvegardés automatiquement" />
+                  <Label id="noticeLabel" alignment="CENTER" text="Les paramètres sont sauvegardés automatiquement"/>
                </children>
             </VBox>
             <GridPane alignment="TOP_CENTER" hgap="5.0" vgap="8.0">

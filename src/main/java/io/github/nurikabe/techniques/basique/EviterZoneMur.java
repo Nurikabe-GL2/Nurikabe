@@ -1,12 +1,13 @@
 package io.github.nurikabe.techniques.basique;
 
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 
 /**
- * Classe représentant la technique du nurikabe, cette dernière implémente une méthode de la technique du même nom qui vérifie si une case blanche à 3 murs autour d'elle
+ * Selon les règles, il n'est pas permis d'avoir des murs de 2x2 ou plus.
+ * Par conséquent, le carré surligné ci-dessous ne peut pas faire partie du mur et est marqué d'un point indiquant qu'il appartient à l'une des îles.
  */
 public class EviterZoneMur extends Technique {
     @Override
@@ -14,13 +15,6 @@ public class EviterZoneMur extends Technique {
         return "basique_9";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle vérifie qu'une case blanche à au moins 3 murs autour d'elle et si c'est le cas elle renvoie une liste avec la position de cette case
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {

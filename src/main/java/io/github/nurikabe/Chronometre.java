@@ -3,10 +3,9 @@ package io.github.nurikabe;
 import java.io.Serializable;
 import java.time.Duration;
 
-
 /**
- * CLasse Chronometre
- * classe contenant les données du temps d'une partie en cours (ne sera affiché que lors d'une partie en mode Course Contre la montre)
+ * Classe Chronometre contenant les données du temps d'une partie en cours.
+ * <br>Celui-ci ne sera affiché que lors d'une partie en mode contre-la-montre
  */
 public class Chronometre implements Serializable {
 
@@ -19,9 +18,6 @@ public class Chronometre implements Serializable {
     private long fin;
     private int tempsSupp = 0;
 
-    /*
-     * constructeur Chronometre, on appelle les méthodes de début et fin pour initialiser les variables fin et début
-     */
     public Chronometre() {
         debut();
         fin();

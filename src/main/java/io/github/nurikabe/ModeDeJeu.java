@@ -1,32 +1,18 @@
-/**
- * Fichier ModesDeJeu.java représentant les trois modes de jeu proposés : classique, aventure et contre-la-montre
- */
-
-// Package GitHub
 package io.github.nurikabe;
-
-// Importation des librairies javaFX
 
 import javafx.scene.Node;
 import javafx.scene.control.Toggle;
 
 /**
- * Énumération public représentant le mode de jeu
+ * Énumération représentant les trois modes de jeu proposés : classique, aventure et contre-la-montre
  */
 public enum ModeDeJeu {
     CLASSIQUE("classique", "Classique", "classicToggle"), //Ne pas modifier les ID de mode
     AVENTURE("aventure", "Aventure", "adventureToggle"),
     CONTRE_LA_MONTRE("montre", "Contre la montre", "timeToggle");
 
-    /**
-     * Variable d'instance représentant le nom du mode de jeu
-     */
     private final String nomMode;
-
     private final String descriptionMode;
-    /**
-     * Variable d'instance représentant d'id du mode de jeu
-     */
     private final String idMode;
 
     /**
@@ -58,22 +44,8 @@ public enum ModeDeJeu {
         throw new IllegalArgumentException("Mot de jeu inconnu pour l'ID suivant : " + toggleId);
     }
 
-    /**
-     * Méthode recupNomMode qui permet de récupérer le nom du mode de jeu
-     *
-     * @return le nom du mode de jeu sous forme de chaine de caractère
-     */
-    public String recupNomMode() {
+    public String getNomMode() {
         return nomMode;
-    }
-
-    /**
-     * Méthode recupIdMode qui permet de récupérer l'id du mode de jeu
-     *
-     * @return l'id du mode de jeu sous forme de chaine de caractère
-     */
-    public String recupIdMode() {
-        return idMode;
     }
 
     public String getDescriptionMode() {

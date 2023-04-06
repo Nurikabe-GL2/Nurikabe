@@ -1,15 +1,10 @@
-/**
- * Fichier Logging.java
- */
-
-// Package GitHub
 package io.github.nurikabe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Classe Logging
+ * Classe utilitaire pour la journalisation
  */
 public class Logging {
     private static final StackWalker WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);

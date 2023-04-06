@@ -1,11 +1,11 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.Case;
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Niveau;
-import io.github.nurikabe.Utils;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.donnees.DonneesTechnique;
 import io.github.nurikabe.techniques.donnees.DonneesTechniques;
+import io.github.nurikabe.utils.Utils;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,7 +49,8 @@ public abstract class Technique {
     }
 
     /**
-     * Teste si la technique est applicable, si elle l'est, la position de la technique est retournée, sinon, {@code null} est retourné.
+     * Teste si la technique est applicable, si elle l'est,
+     * la position de la technique est retournée, sinon, {@code null} est retourné.
      *
      * @return La position de la technique si applicable, {@code null} sinon.
      */
@@ -90,21 +91,14 @@ public abstract class Technique {
         if (!estCoordonneeValide(grille, x, y))
             return false;
         final Case uneCase = grille.recupCase(x, y);
-        return uneCase.recupContenuCase().equals("b");
+        return uneCase.getContenuCase().equals("b");
     }
 
     protected boolean estCaseNoire(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
         final Case uneCase = grille.recupCase(x, y);
-        return uneCase.recupContenuCase().equals("n");
-    }
-
-    protected boolean estPasCaseNoire(Niveau grille, int x, int y) {
-        if (!estCoordonneeValide(grille, x, y))
-            return false;
-        final Case uneCase = grille.recupCase(x, y);
-        return !uneCase.recupContenuCase().equals("n");
+        return uneCase.getContenuCase().equals("n");
     }
 
     /**
@@ -186,6 +180,10 @@ public abstract class Technique {
             cibles.add(new Cible(x, y, type));
     }
 
+    /**
+     * Interface fonctionnelle de prédicat pour les techniques
+     */
+    @FunctionalInterface
     protected interface Cond {
         boolean test(Niveau grille, int x, int y);
     }

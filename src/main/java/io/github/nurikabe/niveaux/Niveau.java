@@ -1,12 +1,10 @@
-/**
- * Fichier Niveau.java représentant les niveaux
- */
+package io.github.nurikabe.niveaux;
 
-// Package GitHub
-package io.github.nurikabe;
-
-// Importation des librairies javaFX
-
+import io.github.nurikabe.*;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseGraphique;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.cases.CaseNormale;
 import io.github.nurikabe.controller.NiveauController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -131,9 +129,9 @@ public class Niveau implements Serializable {
         for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
             for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
                 grilleGraphique.mettre(x, y, new CaseGraphique(x, y, this));
-                GridPane.setRowIndex(grilleGraphique.recup(x, y).recupPanneau(), y);
-                GridPane.setColumnIndex(grilleGraphique.recup(x, y).recupPanneau(), x);
-                gridPane.getChildren().addAll(grilleGraphique.recup(x, y).recupPanneau());
+                GridPane.setRowIndex(grilleGraphique.recup(x, y).getStackPane(), y);
+                GridPane.setColumnIndex(grilleGraphique.recup(x, y).getStackPane(), x);
+                gridPane.getChildren().addAll(grilleGraphique.recup(x, y).getStackPane());
             }
         }
     }
@@ -219,7 +217,7 @@ public class Niveau implements Serializable {
      * @return l'état de la case sous forme de chaine de caractère
      */
     public String etatCase(int x, int y) {
-        return grille.recup(x, y).recupContenuCase();
+        return grille.recup(x, y).getContenuCase();
     }
 
     /**
@@ -306,9 +304,9 @@ public class Niveau implements Serializable {
      */
     private void coup(Pile aPop, Pile aPush, int nbClics) {
         Coup coupPris = aPop.depiler();
-        if (coupPris.recupX() != -1) {
+        if (coupPris.x() != -1) {
             for (int i = 0; i < nbClics; i++)
-                grilleGraphique.recup(coupPris.recupX(), coupPris.recupY()).actionClic();
+                grilleGraphique.recup(coupPris.x(), coupPris.y()).actionClic();
         }
         aPush.empiler(coupPris);
     }
@@ -331,7 +329,7 @@ public class Niveau implements Serializable {
         int erreurs = 0;
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                String contenuGrille = grille.recup(x, y).recupContenuCase();
+                String contenuGrille = grille.recup(x, y).getContenuCase();
                 if (contenuGrille.equals(".")) contenuGrille = "b";
 
                 final String contenuSolution = grilleSolution.recup(x, y);

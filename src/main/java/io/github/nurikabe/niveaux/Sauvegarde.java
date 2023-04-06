@@ -1,11 +1,10 @@
-/**
- * Fichier Sauvegarde.java pour sauvegarder la grille de jeu et les piles d'undo redo
- */
+package io.github.nurikabe.niveaux;
 
-// Package GitHub
-package io.github.nurikabe;
-
-// Importation des librairies javaFX
+import io.github.nurikabe.Chronometre;
+import io.github.nurikabe.Grille;
+import io.github.nurikabe.Pile;
+import io.github.nurikabe.Score;
+import io.github.nurikabe.cases.Case;
 
 import java.io.Serializable;
 

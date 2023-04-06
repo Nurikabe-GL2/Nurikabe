@@ -1,57 +1,55 @@
-/**
- * Fichier Hypothese.java représentant les niveaux
- */
-
-// Package GitHub
 package io.github.nurikabe;
 
-// Importation des librairies javaFX
+import io.github.nurikabe.niveaux.Niveau;
 
 /**
  * Classe Niveau pour représenter un niveau
  */
 public class Hypothese {
-    /*nombre de undo à faire si hypothèse annulée */
-    private int nombreUndoToDo=0;
-    /*niveau courant de l'hypothèse */
     private final Niveau niv;
-    
-    public Hypothese(Niveau niv){
-        this.niv=niv;
-    } 
+
     /**
-     * confirmer l'hypothèse en cours on remet les actions à 0, on désactive le mode hypothèse et on met à jour des grilles
+     * Nombre d'undo à faire si hypothèse annulée
      */
-    public void confirmer(){
-        raz_actions();
+    private int nombreUndoToDo = 0;
+
+    public Hypothese(Niveau niv) {
+        this.niv = niv;
+    }
+
+    /**
+     * Confirme l'hypothèse et met à jour la grille.
+     */
+    public void confirmer() {
+        razActions();
         niv.desactiverModeHypothese();
         niv.majGrilles();
     }
+
     /**
-     * incrémenter le nombre d'actions
+     * Augmente le nombre d'undo à effectuer en cas d'annulation.
      */
-    public void incrementerActions(){
+    public void incrementerActions() {
         nombreUndoToDo++;
     }
+
     /**
-     * remettre à 0 les actions
+     * Remet à zero le nombre d'undo à effectuer.
      */
-    public void raz_actions(){
-        nombreUndoToDo=0;
+    public void razActions() {
+        nombreUndoToDo = 0;
     }
 
     /**
-     * annule l'hypothèse en cours
-     * effectuer autant de undo qu'il y a d'actions (remettre la grille à son état avant celui du mode hypothèse)
+     * Annule l'hypothèse en cours en effectuant le nombre d'undo enregistré.
      */
-    public void annuler(){
-        System.out.println("nombre undo à faire : "+nombreUndoToDo);
+    public void annuler() {
+        System.out.println("nombre undo à faire : " + nombreUndoToDo);
         niv.desactiverModeHypothese();
-       for(int i=0;i<nombreUndoToDo;i++){
+        for (int i = 0; i < nombreUndoToDo; i++) {
             niv.undo();
         }
-        raz_actions();
+        razActions();
         niv.majGrilles();
-
     }
 }

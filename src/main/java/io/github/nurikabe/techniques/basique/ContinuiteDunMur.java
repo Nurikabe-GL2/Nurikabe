@@ -1,29 +1,25 @@
 package io.github.nurikabe.techniques.basique;
 
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 
-//classe représentant la technique qui dit qu'il faut joindre deux murs si une case blanche est entre eux
+/**
+ * Dans le puzzle ci-dessous, si le carré ? en rouge fait partie d'une île, le mur du haut sera cloisonné.
+ * Par conséquent, pour maintenir la continuité du mur selon les règles du Nurikabe, ce carré doit faire partie d'un mur.
+ */
 public class ContinuiteDunMur extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_3";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle vérifie qu'une case blanche possède éxactement 2 murs autour d'elle (sans les diagonales) et si c'est le cas elle renvoie une liste avec la position de cette case
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                if (grille.recupCase(x, y).recupContenuCase().equals("b")) {
+                if (grille.recupCase(x, y).getContenuCase().equals("b")) {
                     int cpt = 0;
 
                     //test si la case de gauche de la case courante est valide et que c'est une case noire

@@ -1,11 +1,16 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.*;
+import io.github.nurikabe.Difficulte;
+import io.github.nurikabe.Logging;
+import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
+import io.github.nurikabe.niveaux.Niveaux;
+import io.github.nurikabe.utils.FXUtils;
+import io.github.nurikabe.utils.Utils;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 
@@ -22,34 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe public représentant le controller de la sélection de niveau
+ * Contrôleur représentant l'affichage des niveaux et la sélection de ceux-ci.
+ * <br>Le mode classique, aventure et contre-la-montre sont gérés.
  */
-public class SelectionNiveauxController extends VBox {
-
-    /**
-     * Initialisation du logger pour générer des messages durant l'exécution suite à des évènements.
-     */
+public class SelectionNiveauxController extends FenetreController {
     private static final Logger LOGGER = Logging.getLogger();
 
-    /**
-     * Représente la fenêtre actuelle
-     */
-    private final Stage stage;
+    private final ObjectProperty<ModeDeJeu> proprieteModeDeJeu = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
 
-    /**
-     * Représente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
-     */
-    private final Scene scenePrecedente;
-
-    /**
-     * Représente le mode jeu courant
-     */
-    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
-
-    /**
-     * Représente la difficulté courante
-     */
-    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
+    private final ObservableSet<Difficulte> proprieteDifficulte = FXCollections.observableSet(Difficulte.FACILE);
 
     /**
      * Représente le sélecteur de mode de jeu
@@ -67,15 +52,8 @@ public class SelectionNiveauxController extends VBox {
     @FXML private TilePane puzzlesTilePane;
     @FXML private ToggleButton easyToggle, mediumToggle, hardToggle;
 
-    /**
-     * Le constructeur de la classe SelectionNiveauxController
-     *
-     * @param stage         la scène actuel
-     * @param previousScene la scène précédente
-     */
-    public SelectionNiveauxController(Stage stage, Scene previousScene) {
-        this.stage = stage;
-        this.scenePrecedente = previousScene;
+    public SelectionNiveauxController(Stage stage, Scene scenePrecedente) {
+        super(stage, scenePrecedente);
     }
 
     /**
@@ -88,8 +66,8 @@ public class SelectionNiveauxController extends VBox {
         FXUtils.singleItemToggleGroup(gameModeGroup);
         FXUtils.singleItemToggleGroup(difficultyGroup);
 
-        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
-        gameModeProperty.addListener(x -> refreshLevels());
+        proprieteModeDeJeu.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
+        proprieteModeDeJeu.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
 
@@ -102,11 +80,6 @@ public class SelectionNiveauxController extends VBox {
         refreshLevels();
     }
 
-    /**
-     * Méthode privée qui s'occupe de mettre à jour la difficulté
-     *
-     * @param newToggle le nœud comportant la difficulté choisis
-     */
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
             case "easyToggle" -> List.of(Difficulte.FACILE);
@@ -114,19 +87,19 @@ public class SelectionNiveauxController extends VBox {
             case "hardToggle" -> List.of(Difficulte.DIFFICILE);
             default -> throw new IllegalStateException("Unexpected value: " + newToggle.getId());
         };
-        difficulties.clear();
-        difficulties.addAll(newDifficulties);
+        proprieteDifficulte.clear();
+        proprieteDifficulte.addAll(newDifficulties);
     }
 
     /**
-     * Méthode privée qui se charge de rafraichir les niveaux en fonction de la difficulté et du mode de jeu choisis
+     * Rafraichis l'affichage des niveaux en fonction de la difficulté et du mode de jeu.
      */
     public void refreshLevels() {
-        LOGGER.info("Mode: {}", gameModeProperty.get());
-        LOGGER.info("Difficulties: {}", difficulties);
+        LOGGER.info("Mode: {}", proprieteModeDeJeu.get());
+        LOGGER.info("Difficulties: {}", proprieteDifficulte);
 
-        switch (gameModeProperty.get()) {
-            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(difficulties).get(0), ModeDeJeu.CLASSIQUE);
+        switch (proprieteModeDeJeu.get()) {
+            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(proprieteDifficulte).get(0), ModeDeJeu.CLASSIQUE);
             case AVENTURE -> chargerModeAventure();
             default -> chargerModeContreLaMontre();
         }
@@ -193,17 +166,5 @@ public class SelectionNiveauxController extends VBox {
         hardToggle.setDisable(true);
 
         stage.show();
-    }
-
-
-    /**
-     * Méthode privée qui est appelé quand le bouton retour est cliqué
-     * il s'occupe de revenir en arrière en chargeant la scène précédente
-     *
-     * @param event l'événement qui a activé la méthode, ici le clic
-     */
-    @FXML
-    private void onBackAction(ActionEvent event) {
-        stage.setScene(scenePrecedente);
     }
 }

@@ -1,7 +1,7 @@
 package io.github.nurikabe.techniques.basique;
 
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
@@ -9,20 +9,16 @@ import io.github.nurikabe.techniques.Technique;
 import java.util.ArrayList;
 import java.util.List;
 
-//classe représentant la technique qui teste si une ile est extensible uniquement dans 2 directions
+/**
+ * Dans certains cas, un îlot de 2 ou le dernier carré d'un îlot plus grand ne peut être agrandi que dans deux directions perpendiculaires.
+ * Dans ce cas, quelle que soit la direction dans laquelle l’extension de l'îlot aura lieu, le carré diagonal doit faire partie d'un mur comme indiqué dans le diagramme de droite ci-dessous.
+ */
 public class IleExtensibleDansDeuxDirections extends Technique {
     @Override
     protected String getIdentifiant() {
         return "basique_5";
     }
 
-    /**
-     * Méthode de parcours de la grille, elle vérifie qu'une ile est extensible dans éxactement 2 directions et si c'est le cas elle renvoie une liste avec la position de cette case
-     *
-     * @param grille la grille en question
-     *
-     * @return une Position technique ou null
-     */
     @Override
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {
@@ -42,11 +38,11 @@ public class IleExtensibleDansDeuxDirections extends Technique {
                     if (coups.size() == 2) {
                         //On évite le cas où les 2 cases blanches sont parallèles,
                         // puisque la technique voudra mettre une case en diagonale
-                        if (coups.get(0).getX() == coups.get(1).getX() || coups.get(0).getY() == coups.get(1).getY())
+                        if (coups.get(0).x() == coups.get(1).x() || coups.get(0).y() == coups.get(1).y())
                             continue;
 
-                        if (!estCaseNoire(grille, coups.get(0).getX(), coups.get(1).getY())) {
-                            return new PositionTechniques(this, new Cible(coups.get(0).getX(), coups.get(1).getY(), "n"));
+                        if (!estCaseNoire(grille, coups.get(0).x(), coups.get(1).y())) {
+                            return new PositionTechniques(this, new Cible(coups.get(0).x(), coups.get(1).y(), "n"));
                         }
                     }
                 }

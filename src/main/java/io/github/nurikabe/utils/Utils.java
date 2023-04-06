@@ -1,11 +1,4 @@
-/**
- * Fichier Utils.java
- */
-
-// Package GitHub
-package io.github.nurikabe;
-
-// Importation des librairies javaFX
+package io.github.nurikabe.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +9,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Classe Utils
+ * Classe utilitaire générale
  */
 public class Utils {
     /**

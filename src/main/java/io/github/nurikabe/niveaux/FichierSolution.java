@@ -1,4 +1,8 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
+
+import io.github.nurikabe.Grille;
+import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -6,6 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Classe représentant un fichier de niveau Nurikabe.
+ * <br>Permet de charger les informations de sauvegarde ainsi que récupérer la grille solution.
+ */
 public class FichierSolution {
     private final Path cheminNiveau;
     private final Grille<String> grille;

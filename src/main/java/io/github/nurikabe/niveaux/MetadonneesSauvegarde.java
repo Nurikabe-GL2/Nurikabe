@@ -1,4 +1,7 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
+
+import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,6 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 
+/**
+ * Classes représentant l'état de la sauvegarde pour un niveau et un mode de jeu donné.
+ */
 public class MetadonneesSauvegarde {
     private static final String NIVEAU_COMPLETE = "NIVEAU_COMPLETE";
 
@@ -22,7 +28,7 @@ public class MetadonneesSauvegarde {
         this.solution = solution;
         this.modeDeJeu = modeDeJeu;
 
-        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.recupNomMode(), IOUtils.replaceExtension(solution.getCheminNiveau(), "bin").getFileName().toString());
+        this.cheminSauvegarde = Path.of("sauvegarde", modeDeJeu.getNomMode(), IOUtils.replaceExtension(solution.getCheminNiveau(), "bin").getFileName().toString());
     }
 
     public FichierSolution getSolution() {

@@ -1,9 +1,9 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.FichierSolution;
 import io.github.nurikabe.Grille;
-import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.niveaux.FichierSolution;
+import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -31,7 +31,10 @@ public class NiveauSelectionableController extends VBox {
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final boolean estComplete;
 
-    public NiveauSelectionableController(SelectionNiveauxController selectionNiveauxController, Stage stage, FichierSolution solution, ModeDeJeu modeDeJeu) {
+    public NiveauSelectionableController(SelectionNiveauxController selectionNiveauxController,
+                                         Stage stage,
+                                         FichierSolution solution,
+                                         ModeDeJeu modeDeJeu) {
         this.selectionNiveauxController = selectionNiveauxController;
         this.stage = stage;
         this.solution = solution;

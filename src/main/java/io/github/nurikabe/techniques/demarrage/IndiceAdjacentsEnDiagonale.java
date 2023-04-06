@@ -1,6 +1,6 @@
 package io.github.nurikabe.techniques.demarrage;
 
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
@@ -8,6 +8,10 @@ import io.github.nurikabe.techniques.Technique;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Similaire à la technique précédente, quand deux indices sont adjacents en diagonales,
+ * il faut mettre des murs à toutes les cases touchants les deux indices.
+ */
 public class IndiceAdjacentsEnDiagonale extends Technique {
     @Override
     protected String getIdentifiant() {

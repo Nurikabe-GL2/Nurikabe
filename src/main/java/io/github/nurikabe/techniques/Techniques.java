@@ -1,7 +1,7 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.Logging;
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.avancee.*;
 import io.github.nurikabe.techniques.basique.*;
 import io.github.nurikabe.techniques.demarrage.IleDeUn;
@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
+/**
+ * Classe contenant les différentes techniques.
+ */
 public class Techniques {
     //L'ordre des techniques est important pour savoir laquelle est prioritaire.
     // Les techniques prioritaires sont les moins compliquées
@@ -44,21 +47,21 @@ public class Techniques {
             if (positionTechniques != null) {
                 //Vérifier si les cibles sont conformes à la solution
                 for (Cible cible : positionTechniques.getCibles()) {
-                    String typeCible = cible.getType();
+                    String typeCible = cible.type();
                     if (typeCible.equals(".")) typeCible = "b";
 
-                    final String typeSolution = niveau.getGrilleSolution().recup(cible.getX(), cible.getY());
+                    final String typeSolution = niveau.getGrilleSolution().recup(cible.x(), cible.y());
                     if (!typeSolution.equals(typeCible)) {
-                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY(), typeSolution);
+                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.type(), cible.x(), cible.y(), typeSolution);
                     }
                 }
 
                 //Vérifier si les cibles ne sont pas déjà mises
                 for (Cible cible : positionTechniques.getCibles()) {
-                    final String typeCible = cible.getType();
-                    final String typeActuel = niveau.etatCase(cible.getX(), cible.getY());
+                    final String typeCible = cible.type();
+                    final String typeActuel = niveau.etatCase(cible.x(), cible.y());
                     if (typeActuel.equals(typeCible)) {
-                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.getType(), cible.getX(), cible.getY());
+                        LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.type(), cible.x(), cible.y());
                     }
                 }
 

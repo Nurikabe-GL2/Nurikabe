@@ -1,58 +1,25 @@
-/**
- * Fichier CaseGraphique.java contenant la classe Case pour représenter une case de la grille Nurikabe
- */
+package io.github.nurikabe.cases;
 
-// Package GitHub
-package io.github.nurikabe;
-
-// Importation des librairies javaFX
-
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 /**
- * Classe CaseGraphique
+ * Classe représentant une case de la grille, sur l'interface.
  */
 public class CaseGraphique {
-    /**
-     * Variable d'instance représantant le panneau de la case
-     */
     private final StackPane panneau = new StackPane();
 
-    /**
-     * Variable d'instance représentant la grille de la case
-     */
     private final Niveau grille;
+    private final int x, y;
 
-    /**
-     * Variable d'instance représentant la coordonnée x de la case
-     */
-    private final int x;
-
-    /**
-     * Variable d'instance représentant la coordonnée y de la case
-     */
-    private final int y;
-
-    /**
-     * Variable d'instance représentant le type de la case
-     */
     private int type;
 
-    /**
-     * Constructeur de la classe CaseGraphique. On passe les coordonées de la case, ses dimensions et le niveau
-     * de la case. On va y ajouter un stackpane avec un handler sur la case :
-     * lorsqu'on clique sur une case on modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
-     * victoire pour voir si on a gagné la partie
-     *
-     * @param x      la coordonnée x de la case
-     * @param y      la coordonnée y de la case
-     * @param grille la grille de la case
-     */
     public CaseGraphique(int x, int y, Niveau grille) {
-        this.type = grille.recupCase(x, y).recupType();
+        this.type = grille.recupCase(x, y).getType();
         this.grille = grille;
         this.x = x;
         this.y = y;
@@ -61,6 +28,8 @@ public class CaseGraphique {
 
         if (this.type <= 0) {
             panneau.setOnMouseClicked(e -> {
+                // modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
+                // victoire pour voir si on a gagné la partie
                 actionClic();
                 grille.recupUndo().empiler(new Coup(x, y));
                 grille.recupRedo().vider();
@@ -70,16 +39,15 @@ public class CaseGraphique {
             });
         }
 
-        if (this.type == 0)
+        if (type == 0)
             panneau.getStyleClass().add("caseblanche");
         else if (type == -1)
             panneau.getStyleClass().add(0, "casenoire");
-        
         else if (type == -2) {
             panneau.getStyleClass().add("caseblanche");
             mettreCercle();
         } else {
-            Text nb = new Text(grille.recupCase(x, y).recupContenuCase());
+            Text nb = new Text(grille.recupCase(x, y).getContenuCase());
             panneau.getChildren().add(nb);
             panneau.getStyleClass().add("caseblanche");
         }
@@ -89,7 +57,7 @@ public class CaseGraphique {
      * methode appelée à la fin du mode hypothèse pour remettre les cases en noir si besoin
      * executer 3 fois la méthode actionClic pour remettre la couleur de base de la case
      */
-    public void mettreAJour(){
+    public void mettreAJour() {
         actionClic();
         actionClic();
         actionClic();
@@ -99,26 +67,20 @@ public class CaseGraphique {
      * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
      */
     public void actionClic() {
-        if(grille.estEnModeHypothese())grille.actionHypothese();
-        // Si la case contient un point
-        if (type == -2) {
+        if (grille.estEnModeHypothese()) grille.actionHypothese();
+
+        if (type == -2) { // Si la case contient un point
             panneau.getChildren().remove(0);
             panneau.getStyleClass().remove(0);
             panneau.getStyleClass().add(0, "caseblanche");
             type = 0;
-        }
-
-        // Si la case est noire
-        else if (type == -1) {
+        } else if (type == -1) { // Si la case est noire
             mettreCercle();
             type = -2;
             grille.victoire();
-        }
-
-        // Si la case est blanche
-        else if (type == 0) {
+        } else if (type == 0) { // Si la case est blanche
             panneau.getStyleClass().remove(0);
-            if(grille.estEnModeHypothese())panneau.getStyleClass().add(0, "casenoireBleue");
+            if (grille.estEnModeHypothese()) panneau.getStyleClass().add(0, "casenoireBleue");
             else panneau.getStyleClass().add(0, "casenoire");
             type = -1;
         }
@@ -132,12 +94,7 @@ public class CaseGraphique {
         grille.recupCase(x, y).mettreEtat(this.type);
     }
 
-    /**
-     * Méthode recupPanneau renvoyant le panneau de la case
-     *
-     * @return le panneau de la case
-     */
-    public StackPane recupPanneau() {
+    public StackPane getStackPane() {
         return panneau;
     }
 
@@ -147,7 +104,7 @@ public class CaseGraphique {
     private void mettreCercle() {
         // Couleur = 0 pour gris OU couleur = 1 pour noir
         Circle cercle = new Circle(10, 10, 7);
-        if(grille.estEnModeHypothese())cercle.setFill(Color.BLUE);
+        if (grille.estEnModeHypothese()) cercle.setFill(Color.BLUE);
         else cercle.setFill(Color.BLACK);
         panneau.getStyleClass().remove(0);
         panneau.getChildren().add(cercle);
