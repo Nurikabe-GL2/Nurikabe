@@ -105,7 +105,8 @@ public class MenuPrincipalController extends VBox {
         LOGGER.info("Bouton {} actionné", ((Button) event.getTarget()).getText());
         final ParametresController controller = Utils.loadFxml(
                 new ParametresController(stage, stage.getScene()),
-                "Parametres");
+                "Parametres"
+        );
         stage.setScene(new Scene(controller));
     }
 
