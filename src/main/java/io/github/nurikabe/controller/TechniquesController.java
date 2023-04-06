@@ -1,5 +1,6 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.techniques.Techniques;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -7,7 +8,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
+ * Contrôleur représentant l'affichage des techniques.
+ *
+ * @see Techniques
  */
 public class TechniquesController extends VBox {
     /**

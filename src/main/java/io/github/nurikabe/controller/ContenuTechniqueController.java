@@ -6,6 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+/**
+ * Contrôleur représentant une technique à afficher.
+ *
+ * @see Technique
+ */
 public class ContenuTechniqueController extends VBox {
     private final Technique technique;
 

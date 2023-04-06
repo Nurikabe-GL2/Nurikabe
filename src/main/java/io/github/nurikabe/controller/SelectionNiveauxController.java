@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe public représentant le controller de la sélection de niveau
+ * Contrôleur représentant l'affichage des niveaux et la sélection de ceux-ci.
+ * <br>Le mode classique, aventure et contre-la-montre sont gérés.
  */
 public class SelectionNiveauxController extends VBox {
 
@@ -119,7 +120,7 @@ public class SelectionNiveauxController extends VBox {
     }
 
     /**
-     * Méthode privée qui se charge de rafraichir les niveaux en fonction de la difficulté et du mode de jeu choisis
+     * Rafraichis l'affichage des niveaux en fonction de la difficulté et du mode de jeu.
      */
     public void refreshLevels() {
         LOGGER.info("Mode: {}", gameModeProperty.get());

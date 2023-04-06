@@ -12,6 +12,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Contrôleur représentant une {@link PositionTechniques technique applicable} (aide) à afficher.
+ */
 public class ContenuAideController extends ScrollPane {
     private final Niveau niveau;
     private final PositionTechniques positionTechniques;

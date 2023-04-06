@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Classe privé représentant le controller des règles et héritant de VBox qui est la racine du menu principal
+ * Contrôleur représentant les règles à afficher.
  */
 public class ReglesController extends VBox {
 

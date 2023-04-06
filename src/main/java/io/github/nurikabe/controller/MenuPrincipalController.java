@@ -18,10 +18,17 @@ import org.slf4j.Logger;
 import java.io.IOException;
 
 /**
- * La classe MenuPrincipalController publique implémente le controller du menu principal, elle hérite de la super classe VBox qui est la racine du menu principal
+ * Contrôleur représentant le menu principal du Nurikabe.
+ * <br>Il comprend les actions pour :
+ * <ul>
+ *     <li>Jouer</li>
+ *     <li>Afficher les règles</li>
+ *     <li>Afficher les techniques</li>
+ *     <li>Modifier les paramètres</li>
+ *     <li>Quitter</li>
+ * </ul>
  */
 public class MenuPrincipalController extends VBox {
-
     /**
      * Initialisation du logger pour générer des messages durant l'exécution suite à des évènements
      */

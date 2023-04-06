@@ -23,7 +23,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class public représentant le controller des techniques héritant de la classe VBox, la racine du menu principal
+ * Contrôleur représentant le plateau du Nurikabe.
+ * Il comprend :
+ * <ul>
+ *     <li>Les boutons undo/redo</li>
+ *     <li>Les boutons hypothèses (créer, valider, annuler)</li>
+ *     <li>Le bouton d'aide</li>
+ *     <li>Le bouton de vérification</li>
+ *     <li>Le bouton de remise à zero</li>
+ * </ul>
  */
 public class NiveauController extends VBox {
     /**
@@ -31,6 +39,9 @@ public class NiveauController extends VBox {
      */
     private final Stage stage;
 
+    /**
+     * Représente si le mode hypothèse est actif ou non
+     */
     private boolean hypo = false;
 
     /**
@@ -75,10 +86,15 @@ public class NiveauController extends VBox {
     /**
      * Le constructeur de la classe TechniquesController
      *
-     * @param stage           la scène courante
-     * @param scenePrecedente la scène précédente, qui sera utilisé par le bouton retour
+     * @param stage                 la scène courante
+     * @param scenePrecedente       la scène précédente, qui sera utilisé par le bouton retour
+     * @param metadonneesSauvegarde Les données concernant l'état de la sauvegarde
+     * @param select                Le contrôleur de selection des niveaux
      */
-    public NiveauController(Stage stage, Scene scenePrecedente, MetadonneesSauvegarde metadonneesSauvegarde, SelectionNiveauxController select) throws Exception {
+    public NiveauController(Stage stage,
+                            Scene scenePrecedente,
+                            MetadonneesSauvegarde metadonneesSauvegarde,
+                            SelectionNiveauxController select) throws Exception {
         this.stage = stage;
         this.scenePrecedente = scenePrecedente;
         this.metadonneesSauvegarde = metadonneesSauvegarde;
@@ -102,15 +118,22 @@ public class NiveauController extends VBox {
         stage.setScene(new Scene(this));
     }
 
+    /**
+     * Affiche l'écran précédent et réactualise les niveaux
+     */
     public void ecranPrecedent() {
         select.refreshLevels();
         stage.setScene(scenePrecedente);
     }
 
+    /**
+     * Rafraichis l'état des boutons undo/redo/hypothèse
+     */
     public void rafraichir() {
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
-        activerDesactiverBoutonsHypo();
+        boutonHypotheseAnnuler.setVisible(hypo);
+        boutonHypotheseValider.setVisible(hypo);
     }
 
     @FXML
@@ -159,46 +182,23 @@ public class NiveauController extends VBox {
     private void onRedoAction(ActionEvent event) {
         niveau.redo();
     }
-    /**
-     * méthode appelée lorsqu'on appuie sur le bouton hypothèse
-     * on l'active si il n'est pas activé et on le désactive si il l'est,
-     * on met à jour le label du bouton en fonction de l'état du mode hypothèse
-     * @param event
-     */
+
     @FXML
     private void onHypotheseAction(ActionEvent event) {
         hypo = true;
         niveau.activerModeHypothese();
-        activerDesactiverBoutonsHypo();
     }
-    /**
-     * méthode appelée lorsqu'on appuie sur le bouton valider
-     * appelle la méthode de confirmation de l'hypothèse dans le niveau
-     * désactive le bouton valider et remet le bon label sur le bouton hypothèse
-     * @param event
-     */
+
     @FXML
     private void onValiderHypotheseAction(ActionEvent event) {
-
         niveau.confirmerHypothese();
         hypo = false;
-        activerDesactiverBoutonsHypo();
     }
 
     @FXML
     private void onAnnulerHypotheseAction(ActionEvent event) {
-
         niveau.annulerHypothese();
         hypo = false;
-        activerDesactiverBoutonsHypo();
-    }
-
-    /**
-     * méthode appelée pour activer / désactiver les boutons valider et annuler du mode hypothèse
-     */
-    private void activerDesactiverBoutonsHypo() {
-        boutonHypotheseAnnuler.setVisible(hypo);
-        boutonHypotheseValider.setVisible(hypo);
     }
 
     /**
