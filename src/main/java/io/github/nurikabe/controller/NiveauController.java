@@ -34,42 +34,28 @@ import java.util.Map;
  * </ul>
  */
 public class NiveauController extends VBox {
-    /**
-     * Variable d'instance privée qui stocke le stage actuel
-     */
     private final Stage stage;
 
-    /**
-     * Représente si le mode hypothèse est actif ou non
-     */
-    private boolean hypo = false;
-
-    /**
-     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
-     */
     private final Scene scenePrecedente;
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final SelectionNiveauxController select;
 
     private final Niveau niveau;
 
-    @FXML
-    private Label labelTitre;
+    /**
+     * Représente si le mode hypothèse est actif ou non
+     */
+    private boolean hypo = false;
 
-    @FXML
-    private GridPane gridPane;
+    @FXML private Label labelTitre;
 
-    @FXML
-    private Button buttonUndo, buttonRedo;
+    @FXML private GridPane gridPane;
 
-    @FXML
-    private Button boutonHypotheseValider, boutonHypotheseAnnuler;
+    @FXML private Button buttonUndo, buttonRedo;
 
-    @FXML
-    private Button boutonHypothese;
+    @FXML private Button boutonHypothese, boutonHypotheseValider, boutonHypotheseAnnuler;
 
-    @FXML
-    private HBox timerAndLabelParent;
+    @FXML private HBox timerAndLabelParent;
 
     @FXML private Label labelErreurs;
 

@@ -10,15 +10,7 @@ import javafx.stage.Stage;
  * Contrôleur représentant les règles à afficher.
  */
 public class ReglesController extends VBox {
-
-    /**
-     * Variable d'instance privée qui stocke le stage actuel
-     */
     private final Stage stage;
-
-    /**
-     * Variable d'instance privée qui implémente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
-     */
     private final Scene scenePrecedente;
 
     /**

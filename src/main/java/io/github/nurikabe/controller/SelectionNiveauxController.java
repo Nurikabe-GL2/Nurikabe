@@ -26,31 +26,14 @@ import java.util.List;
  * <br>Le mode classique, aventure et contre-la-montre sont gérés.
  */
 public class SelectionNiveauxController extends VBox {
-
-    /**
-     * Initialisation du logger pour générer des messages durant l'exécution suite à des évènements.
-     */
     private static final Logger LOGGER = Logging.getLogger();
 
-    /**
-     * Représente la fenêtre actuelle
-     */
     private final Stage stage;
-
-    /**
-     * Représente la scène précédente, elle est utilisée par la fonction qui gère le bouton retour
-     */
     private final Scene scenePrecedente;
 
-    /**
-     * Représente le mode jeu courant
-     */
-    private final ObjectProperty<ModeDeJeu> gameModeProperty = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
+    private final ObjectProperty<ModeDeJeu> proprieteModeDeJeu = new SimpleObjectProperty<>(ModeDeJeu.AVENTURE);
 
-    /**
-     * Représente la difficulté courante
-     */
-    private final ObservableSet<Difficulte> difficulties = FXCollections.observableSet(Difficulte.FACILE);
+    private final ObservableSet<Difficulte> proprieteDifficulte = FXCollections.observableSet(Difficulte.FACILE);
 
     /**
      * Représente le sélecteur de mode de jeu
@@ -89,8 +72,8 @@ public class SelectionNiveauxController extends VBox {
         FXUtils.singleItemToggleGroup(gameModeGroup);
         FXUtils.singleItemToggleGroup(difficultyGroup);
 
-        gameModeProperty.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
-        gameModeProperty.addListener(x -> refreshLevels());
+        proprieteModeDeJeu.bind(gameModeGroup.selectedToggleProperty().map(ModeDeJeu::fromToggle));
+        proprieteModeDeJeu.addListener(x -> refreshLevels());
 
         difficultyGroup.selectedToggleProperty().addListener((x, y, newToggle) -> {
 
@@ -103,11 +86,6 @@ public class SelectionNiveauxController extends VBox {
         refreshLevels();
     }
 
-    /**
-     * Méthode privée qui s'occupe de mettre à jour la difficulté
-     *
-     * @param newToggle le nœud comportant la difficulté choisis
-     */
     private void setNewDifficulties(Node newToggle) {
         final var newDifficulties = switch (newToggle.getId()) {
             case "easyToggle" -> List.of(Difficulte.FACILE);
@@ -115,19 +93,19 @@ public class SelectionNiveauxController extends VBox {
             case "hardToggle" -> List.of(Difficulte.DIFFICILE);
             default -> throw new IllegalStateException("Unexpected value: " + newToggle.getId());
         };
-        difficulties.clear();
-        difficulties.addAll(newDifficulties);
+        proprieteDifficulte.clear();
+        proprieteDifficulte.addAll(newDifficulties);
     }
 
     /**
      * Rafraichis l'affichage des niveaux en fonction de la difficulté et du mode de jeu.
      */
     public void refreshLevels() {
-        LOGGER.info("Mode: {}", gameModeProperty.get());
-        LOGGER.info("Difficulties: {}", difficulties);
+        LOGGER.info("Mode: {}", proprieteModeDeJeu.get());
+        LOGGER.info("Difficulties: {}", proprieteDifficulte);
 
-        switch (gameModeProperty.get()) {
-            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(difficulties).get(0), ModeDeJeu.CLASSIQUE);
+        switch (proprieteModeDeJeu.get()) {
+            case CLASSIQUE -> chargerModeClassique(new ArrayList<>(proprieteDifficulte).get(0), ModeDeJeu.CLASSIQUE);
             case AVENTURE -> chargerModeAventure();
             default -> chargerModeContreLaMontre();
         }
@@ -195,7 +173,6 @@ public class SelectionNiveauxController extends VBox {
 
         stage.show();
     }
-
 
     /**
      * Méthode privée qui est appelé quand le bouton retour est cliqué
