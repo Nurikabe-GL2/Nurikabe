@@ -1,8 +1,8 @@
 package io.github.nurikabe.techniques.donnees;
 
 import com.google.gson.Gson;
-import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.utils.Utils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

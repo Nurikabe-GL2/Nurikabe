@@ -1,6 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;

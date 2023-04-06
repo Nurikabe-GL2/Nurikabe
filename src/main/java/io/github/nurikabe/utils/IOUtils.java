@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.utils;
 
 import org.jetbrains.annotations.NotNull;
 

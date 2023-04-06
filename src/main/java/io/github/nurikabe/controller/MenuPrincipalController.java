@@ -1,7 +1,7 @@
 package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Logging;
-import io.github.nurikabe.Utils;
+import io.github.nurikabe.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

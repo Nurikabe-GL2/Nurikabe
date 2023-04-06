@@ -1,8 +1,8 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.Utils;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

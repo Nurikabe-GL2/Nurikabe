@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.cases;
 
 /**
  * La classe CaseNombre hérite de la classe abstraite Case et représente les cases qui contiennent un nombre

@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.utils;
 
 import javafx.scene.Node;
 import javafx.scene.control.Toggle;

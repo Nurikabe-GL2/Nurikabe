@@ -1,11 +1,11 @@
 package io.github.nurikabe.techniques;
 
-import io.github.nurikabe.Case;
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Niveau;
-import io.github.nurikabe.Utils;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.donnees.DonneesTechnique;
 import io.github.nurikabe.techniques.donnees.DonneesTechniques;
+import io.github.nurikabe.utils.Utils;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.Nullable;
 

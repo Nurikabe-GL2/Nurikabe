@@ -1,4 +1,8 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
+
+import io.github.nurikabe.Grille;
+import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

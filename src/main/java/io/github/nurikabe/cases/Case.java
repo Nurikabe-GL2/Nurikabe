@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.cases;
 
 import java.io.Serializable;
 

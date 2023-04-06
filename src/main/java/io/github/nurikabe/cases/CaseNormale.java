@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.cases;
 
 /**
  * La classe CaseNormale hérite de la classe abstraite Case et représente les cases qui sont noires ou blanches

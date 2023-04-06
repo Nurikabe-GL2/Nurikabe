@@ -1,5 +1,10 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
 
+import io.github.nurikabe.*;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseGraphique;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.cases.CaseNormale;
 import io.github.nurikabe.controller.NiveauController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

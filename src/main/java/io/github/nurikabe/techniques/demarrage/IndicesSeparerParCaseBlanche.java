@@ -1,7 +1,7 @@
 package io.github.nurikabe.techniques.demarrage;
 
-import io.github.nurikabe.CaseNombre;
-import io.github.nurikabe.Niveau;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;

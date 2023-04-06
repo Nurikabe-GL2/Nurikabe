@@ -1,9 +1,13 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.*;
+import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.niveaux.FichierSolution;
+import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
+import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,6 +1,7 @@
 package io.github.nurikabe;
 
 import io.github.nurikabe.controller.MenuPrincipalController;
+import io.github.nurikabe.utils.Utils;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

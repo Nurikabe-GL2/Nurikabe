@@ -1,5 +1,7 @@
-package io.github.nurikabe;
+package io.github.nurikabe.cases;
 
+import io.github.nurikabe.Coup;
+import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

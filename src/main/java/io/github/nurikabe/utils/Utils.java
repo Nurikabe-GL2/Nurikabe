@@ -1,4 +1,4 @@
-package io.github.nurikabe;
+package io.github.nurikabe.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,5 +1,7 @@
 package io.github.nurikabe;
 
+import io.github.nurikabe.niveaux.Niveau;
+
 /**
  * Classe Niveau pour représenter un niveau
  */

@@ -1,4 +1,10 @@
-package io.github.nurikabe;
+package io.github.nurikabe.niveaux;
+
+import io.github.nurikabe.Chronometre;
+import io.github.nurikabe.Grille;
+import io.github.nurikabe.Pile;
+import io.github.nurikabe.Score;
+import io.github.nurikabe.cases.Case;
 
 import java.io.Serializable;
 

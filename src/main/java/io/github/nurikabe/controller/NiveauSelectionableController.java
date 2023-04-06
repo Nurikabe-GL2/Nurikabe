@@ -1,9 +1,9 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.FichierSolution;
 import io.github.nurikabe.Grille;
-import io.github.nurikabe.MetadonneesSauvegarde;
 import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.niveaux.FichierSolution;
+import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
