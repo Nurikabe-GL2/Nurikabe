@@ -1,5 +1,10 @@
 package io.github.nurikabe.techniques.donnees;
 
+/**
+ * Représente les informations d'une technique.
+ *
+ * @see DonneesTechniques
+ */
 public class DonneesTechnique {
     private final String categorie, nom, description, condition, cheminImage;
 

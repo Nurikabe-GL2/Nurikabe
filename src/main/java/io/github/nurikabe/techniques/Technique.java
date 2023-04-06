@@ -180,6 +180,10 @@ public abstract class Technique {
             cibles.add(new Cible(x, y, type));
     }
 
+    /**
+     * Interface fonctionnelle de prédicat pour les techniques
+     */
+    @FunctionalInterface
     protected interface Cond {
         boolean test(Niveau grille, int x, int y);
     }

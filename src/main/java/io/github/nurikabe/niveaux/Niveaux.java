@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Classe contenant les solutions pour tous les niveaux.
+ */
 public class Niveaux {
     private static final List<FichierSolution> NIVEAUX;
 

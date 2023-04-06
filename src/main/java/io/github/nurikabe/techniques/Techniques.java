@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
+/**
+ * Classe contenant les différentes techniques.
+ */
 public class Techniques {
     //L'ordre des techniques est important pour savoir laquelle est prioritaire.
     // Les techniques prioritaires sont les moins compliquées

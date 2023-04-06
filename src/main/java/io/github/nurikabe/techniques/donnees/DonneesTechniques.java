@@ -10,6 +10,11 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
+/**
+ * Classe contenant un mapping entre un ID de technique et les {@link DonneesTechnique informations d'une technique}.
+ *
+ * @see DonneesTechnique
+ */
 public class DonneesTechniques extends HashMap<String, DonneesTechnique> {
     private static DonneesTechniques instance;
 

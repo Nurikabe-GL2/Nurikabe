@@ -6,6 +6,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Singleton contenant les paramètres du Nurikabe
+ */
 public class Parametres implements Serializable {
     private static final Path CHEMIN_PARAMETRES = Path.of("sauvegarde", "parametres.ser");
     private static Parametres instance;
