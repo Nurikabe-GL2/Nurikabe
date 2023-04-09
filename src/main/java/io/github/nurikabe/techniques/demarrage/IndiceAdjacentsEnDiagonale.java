@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.demarrage;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
@@ -27,17 +28,17 @@ public class IndiceAdjacentsEnDiagonale extends Technique {
 
                     //Verifier la presence d'une case diagonale
                     if (estUnNombre(grille, x + 1, y + 1)) {
-                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
-                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
+                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, Case.Type.NOIR);
+                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, Case.Type.NOIR);
                     } else if (estUnNombre(grille, x + 1, y - 1)) {
-                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
-                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
+                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, Case.Type.NOIR);
+                        insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, Case.Type.NOIR);
                     } else if (estUnNombre(grille, x - 1, y + 1)) {
-                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
-                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
+                        insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, Case.Type.NOIR);
+                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, Case.Type.NOIR);
                     } else if (estUnNombre(grille, x - 1, y - 1)) {
-                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
-                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
+                        insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, Case.Type.NOIR);
+                        insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, Case.Type.NOIR);
                     }
 
                     if (!coups.isEmpty())

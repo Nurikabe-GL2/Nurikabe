@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.demarrage;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
@@ -28,13 +29,13 @@ public class IndicesSeparerParCaseBlanche extends Technique {
                     List<Cible> liste = new ArrayList<>();
 
                     if (estCaseNombre(grille, x - 2, y) && estCaseBlanche(grille, x - 1, y))
-                        liste.add(new Cible(x - 1, y, "n"));
+                        liste.add(new Cible(x - 1, y, Case.Type.NOIR));
                     if (estCaseNombre(grille, x + 2, y) && estCaseBlanche(grille, x + 1, y))
-                        liste.add(new Cible(x + 1, y, "n"));
+                        liste.add(new Cible(x + 1, y, Case.Type.NOIR));
                     if (estCaseNombre(grille, x, y - 2) && estCaseBlanche(grille, x, y - 1))
-                        liste.add(new Cible(x, y - 1, "n"));
+                        liste.add(new Cible(x, y - 1, Case.Type.NOIR));
                     if (estCaseNombre(grille, x, y + 2) && estCaseBlanche(grille, x, y + 1))
-                        liste.add(new Cible(x, y + 1, "n"));
+                        liste.add(new Cible(x, y + 1, Case.Type.NOIR));
                     if (!liste.isEmpty())
                         return new PositionTechniques(this, liste);
                 }

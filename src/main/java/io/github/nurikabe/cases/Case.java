@@ -10,7 +10,22 @@ public abstract class Case implements Serializable {
         NOMBRE,
         BLANC,
         NOIR,
-        POINT
+        POINT;
+
+        public static Type depuisTexte(String texte) {
+            return switch (texte) {
+                case "b" -> BLANC;
+                case "n" -> NOIR;
+                case "." -> POINT;
+                default -> {
+                    try {
+                        yield NOMBRE;
+                    } catch (NumberFormatException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            };
+        }
     }
 
     private final int x, y;

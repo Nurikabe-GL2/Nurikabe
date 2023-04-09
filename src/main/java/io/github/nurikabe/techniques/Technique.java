@@ -1,7 +1,6 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.cases.Case;
-import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.donnees.DonneesTechnique;
 import io.github.nurikabe.techniques.donnees.DonneesTechniques;
@@ -84,21 +83,19 @@ public abstract class Technique {
     protected boolean estCaseNombre(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
-        return (grille.recupCase(x, y) instanceof CaseNombre);
+        return grille.recupCase(x, y).getType() == Case.Type.NOMBRE;
     }
 
     protected boolean estCaseBlanche(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
-        final Case uneCase = grille.recupCase(x, y);
-        return uneCase.getContenuCase().equals("b");
+        return grille.recupCase(x, y).getType() == Case.Type.BLANC;
     }
 
     protected boolean estCaseNoire(Niveau grille, int x, int y) {
         if (!estCoordonneeValide(grille, x, y))
             return false;
-        final Case uneCase = grille.recupCase(x, y);
-        return uneCase.getContenuCase().equals("n");
+        return grille.recupCase(x, y).getType() == Case.Type.NOIR;
     }
 
     /**
@@ -175,7 +172,7 @@ public abstract class Technique {
      * @param cond   La condition à remplir
      * @param type   Le type de case à insérer dans les cibles
      */
-    protected void insertionCond(List<Cible> cibles, Niveau grille, int x, int y, Cond cond, String type) {
+    protected void insertionCond(List<Cible> cibles, Niveau grille, int x, int y, Cond cond, Case.Type type) {
         if (cond.test(grille, x, y))
             cibles.add(new Cible(x, y, type));
     }

@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
@@ -36,10 +37,10 @@ public class IleExtensionDepuisUnIndice extends Technique {
 
                     //Test si les cases autour sont des cases blanches,
                     // il ne nous faut exactement 1 case blanche pour que la technique soit valide
-                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, ".");
-                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, ".");
-                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, ".");
-                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, ".");
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, Case.Type.POINT);
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, Case.Type.POINT);
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, Case.Type.POINT);
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, Case.Type.POINT);
 
                     if (coups.size() == 1) {
                         return new PositionTechniques(this, coups);

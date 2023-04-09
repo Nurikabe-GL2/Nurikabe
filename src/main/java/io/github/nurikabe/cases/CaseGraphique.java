@@ -109,13 +109,13 @@ public class CaseGraphique extends StackPane {
      *
      * @param type Le type de la case qui devrait être insérée
      */
-    public void surbrillance(String type) {
+    public void surbrillance(Type type) {
         if (this.type == Type.NOMBRE)
             throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");
 
         switch (type) {
-            case "." -> getStyleClass().add("cible-point");
-            case "n" -> getStyleClass().add("cible-noir");
+            case POINT -> getStyleClass().add("cible-point");
+            case NOIR -> getStyleClass().add("cible-noir");
             default -> throw new IllegalArgumentException("Type de case en surbrillance invalide: " + type);
         }
     }
