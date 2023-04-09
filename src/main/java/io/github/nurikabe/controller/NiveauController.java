@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -144,6 +146,16 @@ public class NiveauController extends FenetreController {
                     timerLabel.setText(chrono.toString());
             }
         }.start();
+
+        addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            if (event.isControlDown()) {
+                if (event.getCode() == KeyCode.Z) {
+                    niveau.undo();
+                } else if (event.getCode() == KeyCode.Y) {
+                    niveau.redo();
+                }
+            }
+        });
     }
 
     @FXML
