@@ -1,10 +1,7 @@
 package io.github.nurikabe.niveaux;
 
 import io.github.nurikabe.*;
-import io.github.nurikabe.cases.Case;
-import io.github.nurikabe.cases.CaseGraphique;
-import io.github.nurikabe.cases.CaseNombre;
-import io.github.nurikabe.cases.CaseNormale;
+import io.github.nurikabe.cases.*;
 import io.github.nurikabe.controller.NiveauController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -61,6 +58,8 @@ public class Niveau implements Serializable {
     private final Label scoreLabel;
 
     private Score score;
+
+    private final IndiceCases indiceCases = new IndiceCases(this);
 
     /**
      * Constructeur de la classe Niveau
@@ -134,6 +133,8 @@ public class Niveau implements Serializable {
                 gridPane.getChildren().addAll(grilleGraphique.recup(x, y).getStackPane());
             }
         }
+
+        indiceCases.calculerIndices();
     }
 
     /*
@@ -372,5 +373,9 @@ public class Niveau implements Serializable {
 
     public NiveauController getController() {
         return controller;
+    }
+
+    public void calculerIndices() {
+        indiceCases.calculerIndices();
     }
 }

@@ -13,10 +13,9 @@ public abstract class Case implements Serializable {
      */
     protected int type;
 
-    /**
-     * Représente le numéro virtuel de la case, -1 s'il n'est pas affiché
-     */
-    int valeurChemin;
+    private transient int indice;
+
+    private transient CaseGraphique caseGraphique;
 
     /**
      * Constructeur de la classe Case
@@ -29,7 +28,6 @@ public abstract class Case implements Serializable {
         this.x = x;
         this.y = y;
         this.type = type;
-        this.valeurChemin = -1;
     }
 
     public int getType() {
@@ -42,6 +40,22 @@ public abstract class Case implements Serializable {
 
     public int getY() {
         return y;
+    }
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
+    public void setCaseGraphique(CaseGraphique caseGraphique) {
+        this.caseGraphique = caseGraphique;
+    }
+
+    public CaseGraphique getCaseGraphique() {
+        return caseGraphique;
     }
 
     @Override
@@ -57,12 +71,4 @@ public abstract class Case implements Serializable {
     public abstract String getContenuCase();
 
     public abstract void mettreEtat(int type);
-
-    public int getValeurChemin() {
-        return valeurChemin;
-    }
-
-    public void setValeurChemin(int valeurChemin) {
-        this.valeurChemin = valeurChemin;
-    }
 }
