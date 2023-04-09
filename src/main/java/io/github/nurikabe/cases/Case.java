@@ -42,6 +42,9 @@ public abstract class Case implements Serializable {
         return y;
     }
 
+    /**
+     * @return le numéro de l'indice ou {@code -1} si l'indice n'est pas applicable
+     */
     public int getIndice() {
         return indice;
     }
