@@ -36,7 +36,7 @@ public class Niveau implements Serializable {
     /**
      * Variable d'instance grilleSolution représentant la solution de la grille
      */
-    private final Grille<String> grilleSolution;
+    private final Grille<CaseSolution> grilleSolution;
 
     /**
      * Variable d'instance panneauGrille représentant le panneau de la grille graphique
@@ -102,7 +102,7 @@ public class Niveau implements Serializable {
     /*
      * Récuperer la grille contenant la solution du niveau
      */
-    public Grille<String> getGrilleSolution() {
+    public Grille<CaseSolution> getGrilleSolution() {
         return grilleSolution;
     }
 
@@ -119,10 +119,10 @@ public class Niveau implements Serializable {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 for (int x = 0; x < grille.getLargeur(); x++) {
                     final Case uneCase;
-                    if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n")) {
+                    if (grilleSolution.recup(x, y).getType() == Case.Type.BLANC || grilleSolution.recup(x, y).getType() == Case.Type.NOIR) {
                         uneCase = new CaseNormale(x, y);
                     } else {
-                        uneCase = new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y)));
+                        uneCase = new CaseNombre(x, y, grilleSolution.recup(x, y).getNombre());
                     }
                     grille.mettre(x, y, uneCase);
                 }
@@ -337,11 +337,11 @@ public class Niveau implements Serializable {
         int erreurs = 0;
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                String contenuGrille = grille.recup(x, y).getContenuCase();
-                if (contenuGrille.equals(".")) contenuGrille = "b";
+                var contenuGrille = grille.recup(x, y).getType();
+                if (contenuGrille == Case.Type.POINT) contenuGrille = Case.Type.BLANC;
 
-                final String contenuSolution = grilleSolution.recup(x, y);
-                if (!contenuGrille.equals(contenuSolution)) {
+                final var contenuSolution = grilleSolution.recup(x, y).getType();
+                if (contenuGrille != contenuSolution) {
                     erreurs++;
                 }
             }

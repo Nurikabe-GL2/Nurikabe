@@ -51,8 +51,8 @@ public class Techniques {
                     var typeCible = cible.type();
                     if (typeCible == Case.Type.POINT) typeCible = Case.Type.BLANC;
 
-                    final var typeSolution = Case.Type.depuisTexte(niveau.getGrilleSolution().recup(cible.x(), cible.y()));
-                    if (!typeSolution.equals(typeCible)) {
+                    final var typeSolution = niveau.getGrilleSolution().recup(cible.x(), cible.y()).getType();
+                    if (typeSolution != typeCible) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.type(), cible.x(), cible.y(), typeSolution);
                     }
                 }
