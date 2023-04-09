@@ -35,7 +35,6 @@ public class CaseGraphique extends StackPane {
                 grille.recupRedo().vider();
                 grille.getController().rafraichir();
                 grille.sauvegarderNiveau();
-                grille.victoire();
             });
         }
 
