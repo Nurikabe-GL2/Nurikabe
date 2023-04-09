@@ -115,7 +115,7 @@ public class Niveau implements Serializable {
                 for (int x = 0; x < grille.getLargeur(); x++) {
                     final Case uneCase;
                     if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n")) {
-                        uneCase = new CaseNormale(x, y, 0);
+                        uneCase = new CaseNormale(x, y);
                     } else {
                         uneCase = new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y)));
                     }

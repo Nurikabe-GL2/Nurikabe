@@ -10,8 +10,8 @@ public class CaseNormale extends Case {
      * @param x la coordonnée x de la case
      * @param y la coordonnée y de la case
      */
-    public CaseNormale(int x, int y, int valeurChemin) {
-        super(x, y, 0, valeurChemin);
+    public CaseNormale(int x, int y) {
+        super(x, y, 0);
     }
 
     /**
@@ -37,15 +37,5 @@ public class CaseNormale extends Case {
      */
     public void mettreEtat(int type) {
         this.type = type;
-    }
-
-    @Override
-    public int recupeValeurChemin() {
-        return valeurChemin;
-    }
-
-    @Override
-    public void mettreValeurChemin(int valeurChemin) {
-        this.valeurChemin = valeurChemin;
     }
 }
