@@ -78,7 +78,7 @@ public class Niveau implements Serializable {
         gridPane.getStylesheets().add("/css/Plateau.css");
         score = new Score(1500);
         chrono = new Chronometre();
-        hypo = new Hypothese(this);
+        hypo = new Hypothese();
         chargerGrille();
         controller.rafraichir();
     }
@@ -162,6 +162,7 @@ public class Niveau implements Serializable {
         pileRedo = sauvegarde.recupPileRedo();
         chrono = sauvegarde.recupChrono();
         score = sauvegarde.getScore();
+        hypo = sauvegarde.getHypothese();
 
         return true;
     }
@@ -249,14 +250,16 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * Met à jour la grille graphique
+     * Met à jour la grille graphique et remet les cases comme n'étant pas affectée par le mode hypothèse
      */
-    public void majGrille() {
+    public void onFinModeHypothese() {
         for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
             for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+                grille.recup(x, y).setAffecteParHypothese(false);
                 grilleGraphique.recup(x, y).mettreAJour();
             }
         }
+        sauvegarderNiveau();
     }
 
     public boolean estEnModeHypothese(){
@@ -275,13 +278,13 @@ public class Niveau implements Serializable {
     public void confirmerHypothese() {
         hypo.confirmer();
         controller.rafraichir();
-        majGrille();
+        onFinModeHypothese();
     }
 
     public void annulerHypothese() {
-        hypo.annuler();
+        hypo.annuler(this);
         controller.rafraichir();
-        majGrille();
+        onFinModeHypothese();
     }
 
     /**
@@ -365,5 +368,9 @@ public class Niveau implements Serializable {
 
     public void calculerIndices() {
         indiceCases.calculerIndices();
+    }
+
+    public Hypothese getHypothese() {
+        return hypo;
     }
 }

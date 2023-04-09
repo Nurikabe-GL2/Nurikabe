@@ -51,7 +51,7 @@ public class CaseGraphique extends StackPane {
                 getChildren().clear();
                 setClassesCss("caseblanche");
             }
-            case NOIR -> setClassesCss(grille.estEnModeHypothese() ? "casenoireBleue" : "casenoire");
+            case NOIR -> setClassesCss(aCase.estAffecteParHypothese() ? "casenoireBleue" : "casenoire");
             case POINT -> {
                 if (aCase.getIndice() > 0) {
                     Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
@@ -75,6 +75,7 @@ public class CaseGraphique extends StackPane {
      */
     public void actionClic() {
         if (grille.estEnModeHypothese()) grille.actionHypothese();
+        aCase.setAffecteParHypothese(grille.estEnModeHypothese());
 
         this.type = switch (type) {
             case POINT -> Type.BLANC;

@@ -104,6 +104,7 @@ public class NiveauController extends FenetreController {
         scoreLabel.setText("Score: " + niveau.getScore().getScore());
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
+        boutonHypothese.setDisable(niveau.estEnModeHypothese());
         boutonHypotheseAnnuler.setVisible(niveau.estEnModeHypothese());
         boutonHypotheseValider.setVisible(niveau.estEnModeHypothese());
     }

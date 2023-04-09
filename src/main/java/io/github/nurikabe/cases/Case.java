@@ -35,6 +35,12 @@ public abstract class Case implements Serializable {
      */
     protected Type type;
 
+    /**
+     * Si cette case a été modifiée pendant une hypothèse
+     * <br>Cela est utile quand un niveau est rechargé pour différencier les cases après hypothèse des cases avant hypothèse
+     */
+    private boolean affecteParHypothese;
+
     private transient int indice;
 
     private transient CaseGraphique caseGraphique;
@@ -57,6 +63,14 @@ public abstract class Case implements Serializable {
     }
 
     public abstract void setType(Type type);
+
+    public void setAffecteParHypothese(boolean affecteParHypothese) {
+        this.affecteParHypothese = affecteParHypothese;
+    }
+
+    public boolean estAffecteParHypothese() {
+        return affecteParHypothese;
+    }
 
     public int getX() {
         return x;

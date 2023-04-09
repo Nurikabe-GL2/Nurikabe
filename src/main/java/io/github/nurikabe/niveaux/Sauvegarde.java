@@ -1,9 +1,6 @@
 package io.github.nurikabe.niveaux;
 
-import io.github.nurikabe.Chronometre;
-import io.github.nurikabe.Grille;
-import io.github.nurikabe.Pile;
-import io.github.nurikabe.Score;
+import io.github.nurikabe.*;
 import io.github.nurikabe.cases.Case;
 
 import java.io.Serializable;
@@ -17,14 +14,7 @@ public class Sauvegarde implements Serializable {
     private final Chronometre chrono;
     private final Pile pileRedo;
     private final Score score;
-
-    public Sauvegarde() {
-        this.pileUndo = null;
-        this.pileRedo = null;
-        this.grille = null;
-        this.chrono = null;
-        this.score = null;
-    }
+    private final Hypothese hypothese;
 
     public Sauvegarde(Niveau niveau) {
         this.pileUndo = niveau.recupUndo();
@@ -32,6 +22,7 @@ public class Sauvegarde implements Serializable {
         this.grille = niveau.getGrille();
         this.chrono = niveau.getChrono();
         this.score = niveau.getScore();
+        this.hypothese = niveau.getHypothese();
     }
 
     public Chronometre recupChrono() {
@@ -53,5 +44,9 @@ public class Sauvegarde implements Serializable {
 
     public Pile recupPileRedo() {
         return pileRedo;
+    }
+
+    public Hypothese getHypothese() {
+        return hypothese;
     }
 }
