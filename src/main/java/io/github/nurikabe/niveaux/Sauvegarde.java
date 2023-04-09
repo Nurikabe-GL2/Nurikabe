@@ -26,7 +26,6 @@ public class Sauvegarde implements Serializable {
     }
 
     public Chronometre recupChrono() {
-        chrono.reset();
         return chrono;
     }
 
