@@ -43,11 +43,6 @@ public class NiveauController extends FenetreController {
 
     private final Niveau niveau;
 
-    /**
-     * Représente si le mode hypothèse est actif ou non
-     */
-    private boolean hypo = false;
-
     @FXML private GridPane gridPane;
 
     @FXML private Button buttonUndo, buttonRedo;
@@ -109,8 +104,8 @@ public class NiveauController extends FenetreController {
         scoreLabel.setText("Score: " + niveau.getScore().getScore());
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
-        boutonHypotheseAnnuler.setVisible(hypo);
-        boutonHypotheseValider.setVisible(hypo);
+        boutonHypotheseAnnuler.setVisible(niveau.estEnModeHypothese());
+        boutonHypotheseValider.setVisible(niveau.estEnModeHypothese());
     }
 
     @FXML
@@ -162,20 +157,17 @@ public class NiveauController extends FenetreController {
 
     @FXML
     private void onHypotheseAction(ActionEvent event) {
-        hypo = true;
         niveau.activerModeHypothese();
     }
 
     @FXML
     private void onValiderHypotheseAction(ActionEvent event) {
         niveau.confirmerHypothese();
-        hypo = false;
     }
 
     @FXML
     private void onAnnulerHypotheseAction(ActionEvent event) {
         niveau.annulerHypothese();
-        hypo = false;
     }
 
     /**

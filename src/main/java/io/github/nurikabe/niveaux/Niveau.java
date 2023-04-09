@@ -49,7 +49,6 @@ public class Niveau implements Serializable {
 
     private Hypothese hypo;
 
-    private boolean estEnModeHypothese = false;
     private Chronometre chrono;
     private Score score;
 
@@ -79,8 +78,8 @@ public class Niveau implements Serializable {
         gridPane.getStylesheets().add("/css/Plateau.css");
         score = new Score(1500);
         chrono = new Chronometre();
-        chargerGrille();
         hypo = new Hypothese(this);
+        chargerGrille();
         controller.rafraichir();
     }
 
@@ -250,9 +249,9 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * mettre à jour la grillle graphique
+     * Met à jour la grille graphique
      */
-    public void majGrilles(){
+    public void majGrille() {
         for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
             for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
                 grilleGraphique.recup(x, y).mettreAJour();
@@ -261,15 +260,12 @@ public class Niveau implements Serializable {
     }
 
     public boolean estEnModeHypothese(){
-        return estEnModeHypothese;
+        return hypo.estActif();
     }
 
-    public void desactiverModeHypothese(){
-        estEnModeHypothese=false;
-    }
-
-    public void activerModeHypothese(){
-        estEnModeHypothese = true;
+    public void activerModeHypothese() {
+        hypo.nouvelleHypothese();
+        controller.rafraichir();
     }
 
     public void actionHypothese() {
@@ -278,10 +274,14 @@ public class Niveau implements Serializable {
 
     public void confirmerHypothese() {
         hypo.confirmer();
+        controller.rafraichir();
+        majGrille();
     }
 
     public void annulerHypothese() {
         hypo.annuler();
+        controller.rafraichir();
+        majGrille();
     }
 
     /**

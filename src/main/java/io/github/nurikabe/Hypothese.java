@@ -8,6 +8,8 @@ import io.github.nurikabe.niveaux.Niveau;
 public class Hypothese {
     private final Niveau niv;
 
+    private boolean actif = false;
+
     /**
      * Nombre d'undo à faire si hypothèse annulée
      */
@@ -17,13 +19,20 @@ public class Hypothese {
         this.niv = niv;
     }
 
+    public boolean estActif() {
+        return actif;
+    }
+
+    public void nouvelleHypothese() {
+        actif = true;
+    }
+
     /**
      * Confirme l'hypothèse et met à jour la grille.
      */
     public void confirmer() {
+        actif = false;
         razActions();
-        niv.desactiverModeHypothese();
-        niv.majGrilles();
     }
 
     /**
@@ -34,22 +43,18 @@ public class Hypothese {
     }
 
     /**
-     * Remet à zero le nombre d'undo à effectuer.
-     */
-    public void razActions() {
-        nombreUndoToDo = 0;
-    }
-
-    /**
      * Annule l'hypothèse en cours en effectuant le nombre d'undo enregistré.
      */
     public void annuler() {
-        System.out.println("nombre undo à faire : " + nombreUndoToDo);
-        niv.desactiverModeHypothese();
-        for (int i = 0; i < nombreUndoToDo; i++) {
-            niv.undo();
-        }
+        actif = false;
+        for (int i = 0; i < nombreUndoToDo; i++) niv.undo();
         razActions();
-        niv.majGrilles();
+    }
+
+    /**
+     * Remet à zero le nombre d'undo à effectuer.
+     */
+    private void razActions() {
+        nombreUndoToDo = 0;
     }
 }
