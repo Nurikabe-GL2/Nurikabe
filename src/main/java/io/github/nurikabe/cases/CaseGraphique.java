@@ -156,7 +156,7 @@ public class CaseGraphique {
     }
 
     /**
-     * vérifie si la case est de type case nombre et si elle est dans la grille
+     * Vérifie si la case est de type case nombre et si elle est dans la grille
      * 
      * @param grille
      * @param x
@@ -170,7 +170,7 @@ public class CaseGraphique {
     }
 
     /**
-     * vérifie si la case est de type case normal et si elle est dans la grille
+     * Vérifie si la case est de type case normal et si elle est dans la grille
      * 
      * @param grille
      * @param x
@@ -201,7 +201,6 @@ public class CaseGraphique {
     protected void decrementChiffreChemin() {
         if (maxChemin > -1) {
             maxChemin--;
-            System.out.println(maxChemin);
         }
     }
 
