@@ -7,15 +7,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 
 import java.io.Serializable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 
 /**
  * Classe Niveau pour représenter un niveau
  */
 public class Niveau implements Serializable {
+    private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
     private final NiveauController controller;
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
+    private final ScheduledFuture<?> saveFuture;
 
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
@@ -63,6 +69,16 @@ public class Niveau implements Serializable {
         this.gridPane = gridPane;
 
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
+
+        //Sauvegarder le temps toutes les secondes seulement en mode contre-la-montre
+        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CONTRE_LA_MONTRE)
+            saveFuture = EXECUTOR.scheduleWithFixedDelay(this::sauvegarderNiveau, 1, 1, TimeUnit.SECONDS);
+        else saveFuture = null;
+    }
+
+    public void quitter() {
+        if (saveFuture != null)
+            saveFuture.cancel(false);
     }
 
     /*

@@ -93,6 +93,7 @@ public class NiveauController extends FenetreController {
      */
     @Override
     public void ecranPrecedent() {
+        niveau.quitter();
         select.refreshLevels();
         super.ecranPrecedent();
     }
