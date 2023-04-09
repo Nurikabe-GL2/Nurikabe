@@ -35,6 +35,10 @@ public class CaseGraphique extends StackPane {
                 grille.recupRedo().vider();
                 grille.getController().rafraichir();
                 grille.sauvegarderNiveau();
+
+                //Verification victoire après l'insertion d'une case noire
+                if (type == Type.NOIR)
+                    grille.victoire();
             });
         }
 
@@ -79,10 +83,6 @@ public class CaseGraphique extends StackPane {
             default -> throw new IllegalArgumentException("Type non cliquable: " + type);
         };
         aCase.setType(type);
-
-        //Verification victoire après l'insertion d'une case noire
-        if (type == Type.NOIR)
-            grille.victoire();
 
         //Suppression des aides si la case est remplie avec le bon type
         if (type == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
