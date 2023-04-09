@@ -2,6 +2,7 @@ package io.github.nurikabe.cases;
 
 import io.github.nurikabe.Coup;
 import io.github.nurikabe.niveaux.Niveau;
+import io.github.nurikabe.Parametres;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -17,6 +18,11 @@ public class CaseGraphique {
     private final int x, y;
 
     private int type;
+
+    /**
+     * Variable permettant de stocker la valeur du chemin le plus long
+     */
+    int maxChemin = 0;
 
     public CaseGraphique(int x, int y, Niveau grille) {
         this.type = grille.recupCase(x, y).getType();
@@ -74,15 +80,24 @@ public class CaseGraphique {
             panneau.getStyleClass().remove(0);
             panneau.getStyleClass().add(0, "caseblanche");
             type = 0;
+            grille.recupCase(x, y).mettreValeurChemin(maxChemin = 0);
+
         } else if (type == -1) { // Si la case est noire
-            mettreCercle();
-            type = -2;
-            grille.victoire();
+            if (Parametres.getParametres().getNumeroteChemin()){
+                cheminChiffre(grille);
+            }
+            else {
+                mettreCercle();
+                type = -2;
+                grille.victoire();
+            }
+
         } else if (type == 0) { // Si la case est blanche
             panneau.getStyleClass().remove(0);
             if (grille.estEnModeHypothese()) panneau.getStyleClass().add(0, "casenoireBleue");
             else panneau.getStyleClass().add(0, "casenoire");
             type = -1;
+            grille.recupCase(x, y).mettreValeurChemin(maxChemin = 0);
         }
 
         //Suppression des aides si la case est remplie avec le bon type
@@ -126,5 +141,144 @@ public class CaseGraphique {
             panneau.getStyleClass().add("cible-noir");
         else
             throw new IllegalArgumentException("Type de case en surbrillance invalide: " + type);
+    }
+
+    /**
+     * Vérifie si les coordonnées sont dans la grille
+     * 
+     * @param grille
+     * @param x
+     * @param y
+     * @return true si les coordonnées sont dans la grille
+     */
+    protected boolean estCoordonneeValide(Niveau grille, int x, int y) {
+        return x >= 0 && y >= 0 && y < grille.getHauteur() && x < grille.getLargeur();
+    }
+
+    /**
+     * vérifie si la case est de type case nombre et si elle est dans la grille
+     * 
+     * @param grille
+     * @param x
+     * @param y
+     * @return true si la case est de type case nombre et si elle est dans la grille
+     */
+    protected boolean estCaseNombre(Niveau grille, int x, int y) {
+        if (!estCoordonneeValide(grille, x, y))
+            return false;
+        return (grille.recupCase(x, y) instanceof CaseNombre);
+    }
+
+    /**
+     * vérifie si la case est de type case normal et si elle est dans la grille
+     * 
+     * @param grille
+     * @param x
+     * @param y
+     * @return true si la case est de type case normal et si elle est dans la grille
+     */
+    protected boolean estCaseRondNombre(Niveau grille, int x, int y) {
+        if (!estCoordonneeValide(grille, x, y))
+            return false;
+        return grille.recupCase(x, y) instanceof CaseNormale;
+    }
+
+    /**
+     * Méthode privée pour incrémenter le chiffre du chemin de la case celon le
+     * nombre le plus grand adjacent
+     * 
+     * @param nb
+     */
+    protected void maxChiffreChemin(int nb) {
+        if (nb > maxChemin) {
+            maxChemin = nb;
+        }
+    }
+
+    /**
+     * Méthode privée pour décrémenter le chiffre du chemin de la case
+     */
+    protected void decrementChiffreChemin() {
+        if (maxChemin > -1) {
+            maxChemin--;
+            System.out.println(maxChemin);
+        }
+    }
+
+    /**
+     * Méthode privée pour changer le cercle en chiffre en fonction du nombre de
+     * case adjacentes
+     * 
+     * @param grille
+     */
+    private void cheminChiffre(Niveau grille) {
+
+        // valeur de valeurChemin en String
+        String valeur;
+
+        int chiffreAdjacent = 0;
+
+        if (estCaseRondNombre(grille, x - 1, y)) {
+            chiffreAdjacent = grille.recupCase(x - 1, y).recupeValeurChemin();
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseRondNombre(grille, x + 1, y)) {
+            chiffreAdjacent = grille.recupCase(x + 1, y).recupeValeurChemin();
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseRondNombre(grille, x, y - 1)) {
+            chiffreAdjacent = grille.recupCase(x, y - 1).recupeValeurChemin();
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseRondNombre(grille, x, y + 1)) {
+            chiffreAdjacent = grille.recupCase(x, y + 1).recupeValeurChemin();
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseNombre(grille, x - 1, y)) {
+            valeur = grille.recupCase(x - 1, y).getContenuCase();
+            chiffreAdjacent = Integer.parseInt(valeur);
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseNombre(grille, x + 1, y)) {
+            valeur = grille.recupCase(x + 1, y).getContenuCase();
+            chiffreAdjacent = Integer.parseInt(valeur);
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        if (estCaseNombre(grille, x, y - 1)) {
+            valeur = grille.recupCase(x, y - 1).getContenuCase();
+            chiffreAdjacent = Integer.parseInt(valeur);
+            maxChiffreChemin(chiffreAdjacent);
+        }
+        if (estCaseNombre(grille, x, y + 1)) {
+            valeur = grille.recupCase(x, y + 1).getContenuCase();
+            chiffreAdjacent = Integer.parseInt(valeur);
+            maxChiffreChemin(chiffreAdjacent);
+        }
+
+        decrementChiffreChemin();
+
+        if (maxChemin > -1) {
+            String maxString = Integer.toString(maxChemin);
+            Text nb = new Text(maxString);
+            panneau.getStyleClass().remove(0);
+            panneau.getStyleClass().add(0, "caseblanche");
+            nb.getStyleClass().add("chiffreChemin");
+            panneau.getChildren().add(nb);
+            grille.recupCase(x, y).mettreValeurChemin(maxChemin);
+            type = -2;
+            grille.victoire();
+        }
+
+        else {
+            mettreCercle();
+            type = -2;
+            grille.victoire();
+        }
     }
 }

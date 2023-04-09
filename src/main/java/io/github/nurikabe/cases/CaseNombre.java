@@ -14,7 +14,7 @@ public class CaseNombre extends Case {
      * @param nombre le nombre de la case
      */
     public CaseNombre(int x, int y, int nombre) {
-        super(x, y, 1);
+        super(x, y, 1, 0);
         this.nombre = nombre;
     }
 
@@ -25,5 +25,15 @@ public class CaseNombre extends Case {
 
     @Override
     public void mettreEtat(int type) {
+    }
+
+    @Override
+    public int recupeValeurChemin() {
+        return 0;
+    }
+
+    @Override
+    public void mettreValeurChemin(int valeurChemin) {
+
     }
 }

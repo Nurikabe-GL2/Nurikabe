@@ -14,16 +14,22 @@ public abstract class Case implements Serializable {
     protected int type;
 
     /**
+     * Représente le numéro virtuel de la case
+     */
+    int valeurChemin;
+
+    /**
      * Constructeur de la classe Case
      *
      * @param x    la coordonnée x de la case
      * @param y    la coordonnée y de la case
      * @param type le type de la case
      */
-    public Case(int x, int y, int type) {
+    public Case(int x, int y, int type, int valeurChemin) {
         this.x = x;
         this.y = y;
         this.type = type;
+        this.valeurChemin = valeurChemin;
     }
 
     public int getType() {
@@ -51,4 +57,8 @@ public abstract class Case implements Serializable {
     public abstract String getContenuCase();
 
     public abstract void mettreEtat(int type);
+
+    public abstract int recupeValeurChemin();
+
+    public abstract void mettreValeurChemin(int valeurChemin);
 }
