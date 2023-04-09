@@ -11,7 +11,6 @@ import io.github.nurikabe.utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -84,19 +83,11 @@ public class NiveauController extends FenetreController {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
 
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
-        loader.setController(this);
-        loader.setRoot(this);
-        loader.load();
+        Utils.loadFxml(this, "Plateau");
 
-        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CLASSIQUE || metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.AVENTURE) {
+        if (metadonneesSauvegarde.getModeDeJeu() != ModeDeJeu.CONTRE_LA_MONTRE)
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, null, null);
-        } else {
-            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
-        }
-
+        niveau = new Niveau(metadonneesSauvegarde, this, gridPane);
         niveau.initialiser();
 
         stage.getScene().setRoot(this);
@@ -115,6 +106,7 @@ public class NiveauController extends FenetreController {
      * Rafraichis l'état des boutons undo/redo/hypothèse
      */
     public void rafraichir() {
+        scoreLabel.setText("Score: " + niveau.getScore().getScore());
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
         boutonHypotheseAnnuler.setVisible(hypo);

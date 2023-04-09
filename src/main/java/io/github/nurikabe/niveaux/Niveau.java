@@ -4,7 +4,6 @@ import io.github.nurikabe.*;
 import io.github.nurikabe.cases.*;
 import io.github.nurikabe.controller.NiveauController;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.io.Serializable;
@@ -17,8 +16,6 @@ public class Niveau implements Serializable {
     private final NiveauController controller;
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
-
-    private final Label timerLabel;
 
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
@@ -54,9 +51,6 @@ public class Niveau implements Serializable {
 
     private boolean estEnModeHypothese = false;
     private Chronometre chrono;
-
-    private final Label scoreLabel;
-
     private Score score;
 
     private final IndiceCases indiceCases = new IndiceCases(this);
@@ -64,12 +58,10 @@ public class Niveau implements Serializable {
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, NiveauController controller, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, NiveauController controller, GridPane gridPane) throws Exception {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.controller = controller;
         this.gridPane = gridPane;
-        this.timerLabel = timerLabel;
-        this.scoreLabel = scoreLabel;
 
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
     }
@@ -85,10 +77,9 @@ public class Niveau implements Serializable {
         this.pileUndo = new Pile();
         this.pileRedo = new Pile();
         gridPane.getStylesheets().add("/css/Plateau.css");
+        score = new Score(1500);
+        chrono = new Chronometre();
         chargerGrille();
-        if (score == null) score = new Score(1500);
-        if (chrono == null) chrono = new Chronometre();
-        afficherScore();
         hypo = new Hypothese(this);
         controller.rafraichir();
     }
@@ -151,19 +142,12 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * Methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
-     */
-    public void afficherScore() {
-        if (scoreLabel != null) scoreLabel.setText("Score: " + score.getScore());
-    }
-
-    /**
      * Méthode appelée lors de l'utilisation du bouton aide
      * on sauvegarde le niveau et on retire 100 points au score (pénalité pour l'utilisation de l'aide)
      */
     public void utilisationAide() {
         if (score.getScore() > 0) score.retirerScore(100);
-        afficherScore();
+        controller.rafraichir();
         sauvegarderNiveau();
     }
 
@@ -264,6 +248,7 @@ public class Niveau implements Serializable {
         controller.rafraichir();
         sauvegarderNiveau();
     }
+
     /**
      * mettre à jour la grillle graphique
      */
