@@ -11,7 +11,7 @@ public class CaseNormale extends Case {
      * @param y la coordonnée y de la case
      */
     public CaseNormale(int x, int y) {
-        super(x, y, 0);
+        super(x, y, Type.BLANC);
     }
 
     /**
@@ -21,21 +21,16 @@ public class CaseNormale extends Case {
      */
     @Override
     public String getContenuCase() {
-        if (type == 0)
-            return "b";
-        else if (type == -1)
-            return "n";
-        else
-            return ".";
-
+        return switch (type) {
+            case BLANC -> "b";
+            case NOIR -> "n";
+            case POINT -> ".";
+            default -> throw new IllegalArgumentException("Type invalide: " + type);
+        };
     }
 
-    /**
-     * Méthode redéfinie mettreEtat qui permet de donner le nouvel état à la case
-     *
-     * @param type l'état de la case
-     */
-    public void mettreEtat(int type) {
+    @Override
+    public void setType(Type type) {
         this.type = type;
     }
 }

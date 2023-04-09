@@ -6,12 +6,19 @@ import java.io.Serializable;
  * Classe abstraite représentant une case de la grille Nurikabe
  */
 public abstract class Case implements Serializable {
+    public enum Type {
+        NOMBRE,
+        BLANC,
+        NOIR,
+        POINT
+    }
+
     private final int x, y;
 
     /**
      * Représente le type de la case
      */
-    protected int type;
+    protected Type type;
 
     private transient int indice;
 
@@ -24,15 +31,17 @@ public abstract class Case implements Serializable {
      * @param y    la coordonnée y de la case
      * @param type le type de la case
      */
-    public Case(int x, int y, int type) {
+    public Case(int x, int y, Type type) {
         this.x = x;
         this.y = y;
         this.type = type;
     }
 
-    public int getType() {
+    public Type getType() {
         return type;
     }
+
+    public abstract void setType(Type type);
 
     public int getX() {
         return x;
@@ -67,11 +76,9 @@ public abstract class Case implements Serializable {
     }
 
     /**
-     * Méthode abstraite recupContenuCase qui renvoie le contenu de la case sous forme de chaîne de caractères
+     * Méthode abstraite getContenuCase qui renvoie le contenu de la case sous forme de chaîne de caractères
      *
      * @return le contenu de la case
      */
     public abstract String getContenuCase();
-
-    public abstract void mettreEtat(int type);
 }

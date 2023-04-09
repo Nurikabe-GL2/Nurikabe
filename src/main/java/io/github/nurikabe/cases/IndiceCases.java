@@ -79,7 +79,7 @@ public class IndiceCases {
         if (!estCoordonneeValide(x, y))
             return;
         final Case aCase = grille.recupCase(x, y);
-        if (aCase instanceof CaseNormale && aCase.getType() == -2) {
+        if (aCase.getType() == Case.Type.POINT) {
             consumer.accept(aCase);
         }
     }

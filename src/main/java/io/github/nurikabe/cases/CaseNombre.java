@@ -14,7 +14,7 @@ public class CaseNombre extends Case {
      * @param nombre le nombre de la case
      */
     public CaseNombre(int x, int y, int nombre) {
-        super(x, y, 1);
+        super(x, y, Type.NOMBRE);
         this.nombre = nombre;
     }
 
@@ -24,6 +24,7 @@ public class CaseNombre extends Case {
     }
 
     @Override
-    public void mettreEtat(int type) {
+    public void setType(Type type) {
+        throw new IllegalStateException("Impossible de mettre un état à une case nombre");
     }
 }
