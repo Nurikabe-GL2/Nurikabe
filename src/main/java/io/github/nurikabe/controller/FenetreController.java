@@ -2,7 +2,7 @@ package io.github.nurikabe.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -12,17 +12,17 @@ import javafx.stage.Stage;
  */
 public abstract class FenetreController extends VBox {
     protected final Stage stage;
-    protected final Scene scenePrecedente;
+    protected final Parent controleurPrecedent;
 
     @FXML protected Label labelTitre;
 
-    protected FenetreController(Stage stage, Scene scenePrecedente) {
+    protected FenetreController(Stage stage) {
         this.stage = stage;
-        this.scenePrecedente = scenePrecedente;
+        this.controleurPrecedent = stage.getScene().getRoot();
     }
 
     protected void ecranPrecedent() {
-        stage.setScene(scenePrecedente);
+        stage.getScene().setRoot(controleurPrecedent);
     }
 
     @FXML

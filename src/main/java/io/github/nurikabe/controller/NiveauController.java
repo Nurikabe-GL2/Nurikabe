@@ -12,7 +12,6 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -72,15 +71,13 @@ public class NiveauController extends FenetreController {
      * Le constructeur de la classe TechniquesController
      *
      * @param stage                 la scène courante
-     * @param scenePrecedente       la scène précédente, qui sera utilisé par le bouton retour
      * @param metadonneesSauvegarde Les données concernant l'état de la sauvegarde
      * @param select                Le contrôleur de selection des niveaux
      */
     public NiveauController(Stage stage,
-                            Scene scenePrecedente,
                             MetadonneesSauvegarde metadonneesSauvegarde,
                             SelectionNiveauxController select) throws Exception {
-        super(stage, scenePrecedente);
+        super(stage);
 
         this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
@@ -100,7 +97,7 @@ public class NiveauController extends FenetreController {
 
         niveau.initialiser();
 
-        stage.setScene(new Scene(this));
+        stage.getScene().setRoot(this);
     }
 
     /**

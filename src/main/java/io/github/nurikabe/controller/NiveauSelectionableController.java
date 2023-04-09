@@ -91,11 +91,11 @@ public class NiveauSelectionableController extends VBox {
             if (optButtonType.isPresent()) {
                 if (optButtonType.get() == ButtonType.YES) {
                     metadonneesSauvegarde.supprimerSauvegarde();
-                    new NiveauController(stage, stage.getScene(), metadonneesSauvegarde, selectionNiveauxController);
+                    new NiveauController(stage, metadonneesSauvegarde, selectionNiveauxController);
                 }
             }
         } else {
-            new NiveauController(stage, stage.getScene(), metadonneesSauvegarde, selectionNiveauxController);
+            new NiveauController(stage, metadonneesSauvegarde, selectionNiveauxController);
         }
     }
 }
