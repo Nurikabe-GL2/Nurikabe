@@ -13,6 +13,10 @@ public abstract class Case implements Serializable {
      */
     protected int type;
 
+    private transient int indice;
+
+    private transient CaseGraphique caseGraphique;
+
     /**
      * Constructeur de la classe Case
      *
@@ -36,6 +40,25 @@ public abstract class Case implements Serializable {
 
     public int getY() {
         return y;
+    }
+
+    /**
+     * @return le numéro de l'indice ou {@code -1} si l'indice n'est pas applicable
+     */
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+
+    public void setCaseGraphique(CaseGraphique caseGraphique) {
+        this.caseGraphique = caseGraphique;
+    }
+
+    public CaseGraphique getCaseGraphique() {
+        return caseGraphique;
     }
 
     @Override

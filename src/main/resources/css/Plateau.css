@@ -45,4 +45,9 @@
     -fx-border-color: #b268f3;
     -fx-border-width: 3px;
 }
+
+.chiffreChemin {
+    -fx-font-weight: 800;
+    -fx-fill: limegreen;
+}
   
