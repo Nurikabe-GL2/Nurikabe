@@ -255,11 +255,13 @@ public class Niveau implements Serializable {
     public void undo() {
         coup(pileUndo, pileRedo, 2);
         controller.rafraichir();
+        sauvegarderNiveau();
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
         controller.rafraichir();
+        sauvegarderNiveau();
     }
     /**
      * mettre à jour la grillle graphique

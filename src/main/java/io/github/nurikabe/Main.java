@@ -35,6 +35,7 @@ public class Main {
                 final var controller = Utils.loadFxml(new MenuPrincipalController(stage), "MenuPrincipal");
                 // Le conteneur de nœud racine
                 final Scene scene = new Scene(controller);
+                stage.setMaximized(true);
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {

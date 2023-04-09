@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -52,8 +51,8 @@ public class SelectionNiveauxController extends FenetreController {
     @FXML private TilePane puzzlesTilePane;
     @FXML private ToggleButton easyToggle, mediumToggle, hardToggle;
 
-    public SelectionNiveauxController(Stage stage, Scene scenePrecedente) {
-        super(stage, scenePrecedente);
+    public SelectionNiveauxController(Stage stage) {
+        super(stage);
     }
 
     /**
@@ -145,7 +144,7 @@ public class SelectionNiveauxController extends FenetreController {
                 button.setText(metadonneesSauvegarde.existe() ? "Continuer" : "Jouer");
                 button.setOnMouseClicked(event -> {
                     try {
-                        new NiveauController(stage, stage.getScene(), metadonneesSauvegarde, this);
+                        new NiveauController(stage, metadonneesSauvegarde, this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

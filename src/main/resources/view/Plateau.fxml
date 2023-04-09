@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.*?>
-<fx:root fx:id="higherParent" prefHeight="500.0" prefWidth="800.0" type="VBox" xmlns="http://javafx.com/javafx/11.0.1"
+<fx:root fx:id="higherParent" prefHeight="500.0" prefWidth="800.0" type="VBox" xmlns="http://javafx.com/javafx/19"
          xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="titleBar" alignment="CENTER_LEFT" spacing="10.0" stylesheets="@../css/TitleBar.css">
@@ -74,23 +74,31 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <Button fx:id="buttonUndo" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onUndoAction" styleClass="gameButton">
+                        <Button fx:id="buttonUndo" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+                                onAction="#onUndoAction" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/undo.png" />
+                                    <Image url="@../img/undo.png"/>
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Undo (CTRL + Z)"/>
+                           </tooltip>
                         </Button>
-                        <Button fx:id="buttonRedo" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onRedoAction" styleClass="gameButton">
+                        <Button fx:id="buttonRedo" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false"
+                                onAction="#onRedoAction" styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/redo.png" />
+                                    <Image url="@../img/redo.png"/>
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Redo (CTRL + Y)"/>
+                           </tooltip>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onAideAction" styleClass="gameButton" text="Aide">
                            <graphic>
@@ -125,14 +133,18 @@
                            </font>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onResetAction" styleClass="gameButton">
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onResetAction"
+                                styleClass="gameButton">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/restart.png" />
+                                    <Image url="@../img/restart.png"/>
                                  </image>
                               </ImageView>
                            </graphic>
+                           <tooltip>
+                              <Tooltip text="Réinitialiser"/>
+                           </tooltip>
                         </Button>
                      </children>
                      <padding>
