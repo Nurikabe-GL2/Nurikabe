@@ -1,7 +1,6 @@
 package io.github.nurikabe.cases;
 
 import io.github.nurikabe.Coup;
-import io.github.nurikabe.Parametres;
 import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -16,7 +15,7 @@ public class CaseGraphique {
 
     private final Niveau grille;
     private final int x, y;
-
+    private final Case aCase;
     private int type;
 
     /**
@@ -25,7 +24,8 @@ public class CaseGraphique {
     int maxChemin = 0;
 
     public CaseGraphique(int x, int y, Niveau grille) {
-        this.type = grille.recupCase(x, y).getType();
+        this.aCase = grille.recupCase(x, y);
+        this.type = aCase.getType();
         this.grille = grille;
         this.x = x;
         this.y = y;
@@ -45,28 +45,30 @@ public class CaseGraphique {
             });
         }
 
-        if (type == 0)
-            panneau.getStyleClass().add("caseblanche");
-        else if (type == -1)
-            panneau.getStyleClass().add(0, "casenoire");
-        else if (type == -2) {
-            panneau.getStyleClass().add("caseblanche");
-            mettreCercle();
-        } else {
-            Text nb = new Text(grille.recupCase(x, y).getContenuCase());
-            panneau.getChildren().add(nb);
-            panneau.getStyleClass().add("caseblanche");
-        }
+        mettreAJour();
     }
 
-    /**
-     * methode appelée à la fin du mode hypothèse pour remettre les cases en noir si besoin
-     * executer 3 fois la méthode actionClic pour remettre la couleur de base de la case
-     */
     public void mettreAJour() {
-        actionClic();
-        actionClic();
-        actionClic();
+        if (type == 0) { //blanc
+            panneau.getChildren().clear();
+            panneau.getStyleClass().setAll("caseblanche");
+        } else if (type == -1) { //noir
+            if (grille.estEnModeHypothese()) panneau.getStyleClass().setAll("casenoireBleue");
+            else panneau.getStyleClass().setAll("casenoire");
+        } else if (type == -2) { //point
+            if (aCase.getIndice() > 0) {
+                Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
+                indiceChemin.getStyleClass().add("chiffreChemin");
+                panneau.getStyleClass().setAll("caseblanche");
+                panneau.getChildren().setAll(indiceChemin);
+            } else {
+                mettreCercle();
+            }
+        } else if (type == 1) { //Nombre
+            Text nb = new Text(aCase.getContenuCase());
+            panneau.getChildren().setAll(nb);
+            panneau.getStyleClass().setAll("caseblanche");
+        }
     }
 
     /**
@@ -76,28 +78,12 @@ public class CaseGraphique {
         if (grille.estEnModeHypothese()) grille.actionHypothese();
 
         if (type == -2) { // Si la case contient un point
-            panneau.getChildren().remove(0);
-            panneau.getStyleClass().remove(0);
-            panneau.getStyleClass().add(0, "caseblanche");
             type = 0;
-            grille.recupCase(x, y).setValeurChemin(maxChemin = 0);
-
         } else if (type == -1) { // Si la case est noire
-            if (Parametres.getParametres().getNumeroteChemin()){
-                cheminChiffre(grille);
-            }
-            else {
-                mettreCercle();
-                type = -2;
-                grille.victoire();
-            }
-
+            type = -2;
+            grille.victoire();
         } else if (type == 0) { // Si la case est blanche
-            panneau.getStyleClass().remove(0);
-            if (grille.estEnModeHypothese()) panneau.getStyleClass().add(0, "casenoireBleue");
-            else panneau.getStyleClass().add(0, "casenoire");
             type = -1;
-            grille.recupCase(x, y).setValeurChemin(maxChemin = 0);
         }
 
         //Suppression des aides si la case est remplie avec le bon type
@@ -106,7 +92,9 @@ public class CaseGraphique {
         //Noir
         if (type == -1) panneau.getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
-        grille.recupCase(x, y).mettreEtat(this.type);
+        aCase.mettreEtat(type);
+
+        mettreAJour();
     }
 
     public StackPane getStackPane() {
@@ -121,9 +109,8 @@ public class CaseGraphique {
         Circle cercle = new Circle(10, 10, 7);
         if (grille.estEnModeHypothese()) cercle.setFill(Color.BLUE);
         else cercle.setFill(Color.BLACK);
-        panneau.getStyleClass().remove(0);
-        panneau.getChildren().add(cercle);
-        panneau.getStyleClass().add(0, "caseblanche");
+        panneau.getChildren().setAll(cercle);
+        panneau.getStyleClass().setAll("caseblanche");
     }
 
     /**
