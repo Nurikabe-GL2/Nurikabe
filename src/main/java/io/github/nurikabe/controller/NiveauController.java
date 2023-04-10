@@ -25,10 +25,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Contrôleur représentant le plateau du Nurikabe.
@@ -261,7 +258,15 @@ public class NiveauController extends FenetreController implements ObservateurNi
      */
     @FXML
     private void onResetAction(ActionEvent event) {
-        niveau.reset();
+        final Optional<ButtonType> optButtonType = new Alert(Alert.AlertType.CONFIRMATION,
+                "Voulez vous recommencer ce niveau ? Cela supprimera la sauvegarde actuelle",
+                ButtonType.YES, ButtonType.NO).showAndWait();
+
+        if (optButtonType.isPresent()) {
+            if (optButtonType.get() == ButtonType.YES) {
+                niveau.reset();
+            }
+        }
     }
 
     @Override
