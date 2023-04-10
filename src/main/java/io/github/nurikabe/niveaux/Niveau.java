@@ -6,7 +6,6 @@ import io.github.nurikabe.controller.NiveauController;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 
-import java.io.Serializable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -16,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Classe Niveau pour représenter un niveau
  */
-public class Niveau implements Serializable {
+public class Niveau {
     private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
     private final NiveauController controller;
 
