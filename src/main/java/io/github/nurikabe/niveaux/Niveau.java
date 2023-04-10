@@ -17,7 +17,11 @@ import java.util.concurrent.TimeUnit;
  * Classe Niveau pour représenter un niveau
  */
 public class Niveau {
-    private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
+    private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(r -> {
+        final Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        return thread;
+    });
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final ScheduledFuture<?> saveFuture;
