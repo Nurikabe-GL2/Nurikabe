@@ -4,6 +4,7 @@ import io.github.nurikabe.ModeDeJeu;
 import io.github.nurikabe.niveaux.FichierSolution;
 import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import io.github.nurikabe.niveaux.Niveau;
+import io.github.nurikabe.niveaux.ObservateurNiveau;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
@@ -37,7 +38,7 @@ import java.util.Map;
  *     <li>Le bouton de remise à zero</li>
  * </ul>
  */
-public class NiveauController extends FenetreController {
+public class NiveauController extends FenetreController implements ObservateurNiveau {
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final SelectionNiveauxController select;
 
@@ -82,8 +83,11 @@ public class NiveauController extends FenetreController {
 
         if (metadonneesSauvegarde.getModeDeJeu() != ModeDeJeu.CONTRE_LA_MONTRE)
             timerAndLabelParent.getChildren().clear();
-        niveau = new Niveau(metadonneesSauvegarde, this, gridPane);
+        niveau = new Niveau(metadonneesSauvegarde, gridPane);
+        niveau.ajouterObservateur(this);
         niveau.initialiser();
+
+        rafraichir();
 
         stage.getScene().setRoot(this);
     }
@@ -92,7 +96,7 @@ public class NiveauController extends FenetreController {
      * Affiche l'écran précédent et réactualise les niveaux
      */
     @Override
-    public void ecranPrecedent() {
+    protected void ecranPrecedent() {
         niveau.quitter();
         select.refreshLevels();
         super.ecranPrecedent();
@@ -220,5 +224,16 @@ public class NiveauController extends FenetreController {
     @FXML
     private void onResetAction(ActionEvent event) {
         niveau.reset();
+    }
+
+    @Override
+    public void onChangement() {
+        rafraichir();
+    }
+
+    @Override
+    public void onVictoire() {
+        new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
+        ecranPrecedent();
     }
 }

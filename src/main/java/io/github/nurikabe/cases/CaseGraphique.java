@@ -33,7 +33,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
                 actionClic();
                 grille.recupUndo().empiler(new Coup(x, y));
                 grille.recupRedo().vider();
-                grille.getController().rafraichir();
+                grille.notifierChangement();
                 grille.sauvegarderNiveau();
 
                 //Verification victoire après l'insertion d'une case noire

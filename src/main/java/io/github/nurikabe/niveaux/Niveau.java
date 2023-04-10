@@ -2,10 +2,10 @@ package io.github.nurikabe.niveaux;
 
 import io.github.nurikabe.*;
 import io.github.nurikabe.cases.*;
-import io.github.nurikabe.controller.NiveauController;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class Niveau {
     private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor();
-    private final NiveauController controller;
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final ScheduledFuture<?> saveFuture;
@@ -59,12 +58,13 @@ public class Niveau {
 
     private final IndiceCases indiceCases = new IndiceCases(this);
 
+    private final List<ObservateurNiveau> observateursNiveau = new ArrayList<>();
+
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, NiveauController controller, GridPane gridPane) throws Exception {
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, GridPane gridPane) throws Exception {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
-        this.controller = controller;
         this.gridPane = gridPane;
 
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
@@ -73,6 +73,10 @@ public class Niveau {
         if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CONTRE_LA_MONTRE)
             saveFuture = EXECUTOR.scheduleWithFixedDelay(this::sauvegarderNiveau, 1, 1, TimeUnit.SECONDS);
         else saveFuture = null;
+    }
+
+    public void ajouterObservateur(ObservateurNiveau observateurNiveau) {
+        observateursNiveau.add(observateurNiveau);
     }
 
     public void quitter() {
@@ -95,7 +99,6 @@ public class Niveau {
         chrono = new Chronometre();
         hypo = new Hypothese();
         chargerGrille();
-        controller.rafraichir();
     }
 
     /*
@@ -161,8 +164,20 @@ public class Niveau {
      */
     public void utilisationAide() {
         if (score.getScore() > 0) score.retirerScore(100);
-        controller.rafraichir();
+        notifierChangement();
         sauvegarderNiveau();
+    }
+
+    public void notifierChangement() {
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onChangement();
+        }
+    }
+
+    private void notifierVictoire() {
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onVictoire();
+        }
     }
 
     /**
@@ -192,8 +207,7 @@ public class Niveau {
         if (erreurs == 0) {
             metadonneesSauvegarde.marquerComplet();
 
-            new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
-            controller.ecranPrecedent();
+            notifierVictoire();
         }
     }
 
@@ -254,13 +268,13 @@ public class Niveau {
 
     public void undo() {
         coup(pileUndo, pileRedo, 2);
-        controller.rafraichir();
+        notifierChangement();
         sauvegarderNiveau();
     }
 
     public void redo() {
         coup(pileRedo, pileUndo, 1);
-        controller.rafraichir();
+        notifierChangement();
         sauvegarderNiveau();
     }
 
@@ -283,7 +297,7 @@ public class Niveau {
 
     public void activerModeHypothese() {
         hypo.nouvelleHypothese();
-        controller.rafraichir();
+        notifierChangement();
     }
 
     public void actionHypothese() {
@@ -292,13 +306,13 @@ public class Niveau {
 
     public void confirmerHypothese() {
         hypo.confirmer();
-        controller.rafraichir();
+        notifierChangement();
         onFinModeHypothese();
     }
 
     public void annulerHypothese() {
         hypo.annuler(this);
-        controller.rafraichir();
+        notifierChangement();
         onFinModeHypothese();
     }
 
@@ -375,10 +389,6 @@ public class Niveau {
 
     public Score getScore() {
         return score;
-    }
-
-    public NiveauController getController() {
-        return controller;
     }
 
     public void calculerIndices() {
