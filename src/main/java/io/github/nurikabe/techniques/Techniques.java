@@ -1,6 +1,7 @@
 package io.github.nurikabe.techniques;
 
 import io.github.nurikabe.Logging;
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.avancee.*;
 import io.github.nurikabe.techniques.basique.*;
@@ -47,19 +48,19 @@ public class Techniques {
             if (positionTechniques != null) {
                 //Vérifier si les cibles sont conformes à la solution
                 for (Cible cible : positionTechniques.getCibles()) {
-                    String typeCible = cible.type();
-                    if (typeCible.equals(".")) typeCible = "b";
+                    var typeCible = cible.type();
+                    if (typeCible == Case.Type.POINT) typeCible = Case.Type.BLANC;
 
-                    final String typeSolution = niveau.getGrilleSolution().recup(cible.x(), cible.y());
-                    if (!typeSolution.equals(typeCible)) {
+                    final var typeSolution = niveau.getGrilleSolution().recup(cible.x(), cible.y()).getType();
+                    if (typeSolution != typeCible) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.type(), cible.x(), cible.y(), typeSolution);
                     }
                 }
 
                 //Vérifier si les cibles ne sont pas déjà mises
                 for (Cible cible : positionTechniques.getCibles()) {
-                    final String typeCible = cible.type();
-                    final String typeActuel = niveau.etatCase(cible.x(), cible.y());
+                    final var typeCible = cible.type();
+                    final var typeActuel = niveau.recupCase(cible.x(), cible.y()).getType();
                     if (typeActuel.equals(typeCible)) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais est déjà sur la grille", technique.getIdentifiant(), cible.type(), cible.x(), cible.y());
                     }

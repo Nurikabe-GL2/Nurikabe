@@ -1,6 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
-import io.github.nurikabe.cases.CaseNormale;
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
@@ -25,7 +25,7 @@ public class CarreIsole extends Technique {
     public PositionTechniques tester(Niveau grille) {
         for (int i = 0; i < grille.getLargeur(); i++) {
             for (int j = 0; j < grille.getHauteur(); j++) {
-                if (grille.recupCase(i, j) instanceof CaseNormale && grille.recupCase(i, j).getContenuCase().equals("b")) {
+                if (grille.recupCase(i, j).getType() == Case.Type.BLANC) {
                     List<Cible> liste = new ArrayList<>();
 
                     //test si la case de gauche de la case courante est valide ou que c'est une case noire
@@ -36,7 +36,7 @@ public class CarreIsole extends Technique {
                             if (estCaseNoire(grille, i, j - 1)) {
                                 //test si la case en bas de la case courante est valide ou que c'est une case noire
                                 if (estCaseNoire(grille, i, j + 1))
-                                    liste.add(new Cible(i, j, "n"));
+                                    liste.add(new Cible(i, j, Case.Type.NOIR));
                             }
 
                             if (!liste.isEmpty())

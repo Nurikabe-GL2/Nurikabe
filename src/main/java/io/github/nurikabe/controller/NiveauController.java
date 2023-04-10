@@ -1,9 +1,13 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.Grille;
 import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.cases.CaseGraphique;
+import io.github.nurikabe.cases.IndiceCases;
 import io.github.nurikabe.niveaux.FichierSolution;
 import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import io.github.nurikabe.niveaux.Niveau;
+import io.github.nurikabe.niveaux.ObservateurNiveau;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
@@ -11,7 +15,6 @@ import io.github.nurikabe.utils.Utils;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,10 +25,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Contrôleur représentant le plateau du Nurikabe.
@@ -38,16 +38,17 @@ import java.util.Map;
  *     <li>Le bouton de remise à zero</li>
  * </ul>
  */
-public class NiveauController extends FenetreController {
+public class NiveauController extends FenetreController implements ObservateurNiveau {
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final SelectionNiveauxController select;
 
     private final Niveau niveau;
+    private final IndiceCases indiceCases;
 
     /**
-     * Représente si le mode hypothèse est actif ou non
+     * Variable d'instance grilleGraphique qui représente la grille graphique
      */
-    private boolean hypo = false;
+    private Grille<CaseGraphique> grilleGraphique;
 
     @FXML private GridPane gridPane;
 
@@ -84,29 +85,48 @@ public class NiveauController extends FenetreController {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
         this.select = select;
 
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Plateau.fxml"));
-        loader.setController(this);
-        loader.setRoot(this);
-        loader.load();
+        Utils.loadFxml(this, "Plateau");
 
-        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CLASSIQUE || metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.AVENTURE) {
+        if (metadonneesSauvegarde.getModeDeJeu() != ModeDeJeu.CONTRE_LA_MONTRE)
             timerAndLabelParent.getChildren().clear();
-            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, null, null);
-        } else {
-            niveau = new Niveau(metadonneesSauvegarde, this, gridPane, timerLabel, scoreLabel);
-        }
-
+        niveau = new Niveau(metadonneesSauvegarde);
+        indiceCases = new IndiceCases(niveau);
+        niveau.ajouterObservateur(this);
         niveau.initialiser();
 
+        rafraichir();
+
         stage.getScene().setRoot(this);
+    }
+
+    @Override
+    public void onInitialiser() {
+        gridPane.getChildren().clear();
+
+        //Création de la grille graphique
+        grilleGraphique = new Grille<>(niveau.getLargeur(), niveau.getHauteur());
+        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
+            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+                final CaseGraphique caseGraphique = new CaseGraphique(x, y, niveau, this);
+                grilleGraphique.mettre(x, y, caseGraphique);
+
+                GridPane.setRowIndex(caseGraphique, y);
+                GridPane.setColumnIndex(caseGraphique, x);
+                gridPane.getChildren().add(caseGraphique);
+            }
+        }
+
+        indiceCases.calculerIndices();
+
+        rafraichir();
     }
 
     /**
      * Affiche l'écran précédent et réactualise les niveaux
      */
     @Override
-    public void ecranPrecedent() {
+    protected void ecranPrecedent() {
+        niveau.quitter();
         select.refreshLevels();
         super.ecranPrecedent();
     }
@@ -115,10 +135,20 @@ public class NiveauController extends FenetreController {
      * Rafraichis l'état des boutons undo/redo/hypothèse
      */
     public void rafraichir() {
+        scoreLabel.setText("Score: " + niveau.getScore().getScore());
         buttonUndo.setDisable(niveau.recupUndo().estVide());
         buttonRedo.setDisable(niveau.recupRedo().estVide());
-        boutonHypotheseAnnuler.setVisible(hypo);
-        boutonHypotheseValider.setVisible(hypo);
+        boutonHypothese.setDisable(niveau.estEnModeHypothese());
+        boutonHypotheseAnnuler.setVisible(niveau.estEnModeHypothese());
+        boutonHypotheseValider.setVisible(niveau.estEnModeHypothese());
+    }
+
+    public void calculerIndices() {
+        indiceCases.calculerIndices();
+    }
+
+    public Grille<CaseGraphique> getGrilleGraphique() {
+        return grilleGraphique;
     }
 
     @FXML
@@ -170,20 +200,17 @@ public class NiveauController extends FenetreController {
 
     @FXML
     private void onHypotheseAction(ActionEvent event) {
-        hypo = true;
         niveau.activerModeHypothese();
     }
 
     @FXML
     private void onValiderHypotheseAction(ActionEvent event) {
         niveau.confirmerHypothese();
-        hypo = false;
     }
 
     @FXML
     private void onAnnulerHypotheseAction(ActionEvent event) {
         niveau.annulerHypothese();
-        hypo = false;
     }
 
     /**
@@ -199,7 +226,7 @@ public class NiveauController extends FenetreController {
 
             if (positionTechniques != null) {
                 final Tab tab = new Tab("Aide");
-                tab.setContent(Utils.loadFxml(new ContenuAideController(niveau, positionTechniques), "_ContenuAide"));
+                tab.setContent(Utils.loadFxml(new ContenuAideController(this, positionTechniques), "_ContenuAide"));
 
                 //Remplacement de l'onglet d'aide
                 tabPane.getTabs().removeIf(t -> t.getText().equals("Aide"));
@@ -233,6 +260,25 @@ public class NiveauController extends FenetreController {
      */
     @FXML
     private void onResetAction(ActionEvent event) {
-        niveau.reset();
+        final Optional<ButtonType> optButtonType = new Alert(Alert.AlertType.CONFIRMATION,
+                "Voulez vous recommencer ce niveau ? Cela supprimera la sauvegarde actuelle",
+                ButtonType.YES, ButtonType.NO).showAndWait();
+
+        if (optButtonType.isPresent()) {
+            if (optButtonType.get() == ButtonType.YES) {
+                niveau.reset();
+            }
+        }
+    }
+
+    @Override
+    public void onChangement() {
+        rafraichir();
+    }
+
+    @Override
+    public void onVictoire() {
+        new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
+        ecranPrecedent();
     }
 }

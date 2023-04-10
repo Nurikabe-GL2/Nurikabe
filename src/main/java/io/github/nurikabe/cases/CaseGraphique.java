@@ -1,7 +1,9 @@
 package io.github.nurikabe.cases;
 
-import io.github.nurikabe.Coup;
+import io.github.nurikabe.cases.Case.Type;
+import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -10,106 +12,78 @@ import javafx.scene.text.Text;
 /**
  * Classe représentant une case de la grille, sur l'interface.
  */
-public class CaseGraphique {
-    private final StackPane panneau = new StackPane();
-
+public class CaseGraphique extends StackPane implements ObservateurCase {
     private final Niveau grille;
-    private final int x, y;
     private final Case aCase;
-    private int type;
+    private final NiveauController niveauController;
 
-    public CaseGraphique(int x, int y, Niveau grille) {
+    public CaseGraphique(int x, int y, Niveau grille, NiveauController niveauController) {
+        this.niveauController = niveauController;
         this.aCase = grille.recupCase(x, y);
-        this.type = aCase.getType();
         this.grille = grille;
-        this.x = x;
-        this.y = y;
 
-        aCase.setCaseGraphique(this);
+        aCase.ajouterObservateur(this);
 
-        panneau.setPrefSize(30, 30);
+        setPrefSize(30, 30);
 
-        if (this.type <= 0) {
-            panneau.setOnMouseClicked(e -> {
-                // modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
-                // victoire pour voir si on a gagné la partie
-                actionClic();
-                grille.recupUndo().empiler(new Coup(x, y));
-                grille.recupRedo().vider();
-                grille.getController().rafraichir();
-                grille.sauvegarderNiveau();
-                grille.victoire();
-            });
+        if (getType() != Type.NOMBRE) {
+            setOnMouseClicked(e -> actionClic());
         }
 
         mettreAJour();
     }
 
+    public Type getType() {
+        return aCase.type;
+    }
+
     public void mettreAJour() {
-        if (type == 0) { //blanc
-            panneau.getChildren().clear();
-            panneau.getStyleClass().setAll("caseblanche");
-        } else if (type == -1) { //noir
-            if (grille.estEnModeHypothese()) panneau.getStyleClass().setAll("casenoireBleue");
-            else panneau.getStyleClass().setAll("casenoire");
-        } else if (type == -2) { //point
-            if (aCase.getIndice() > 0) {
-                Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
-                indiceChemin.getStyleClass().add("chiffreChemin");
-                panneau.getStyleClass().setAll("caseblanche");
-                panneau.getChildren().setAll(indiceChemin);
-            } else {
-                mettreCercle();
+        switch (getType()) {
+            case BLANC -> {
+                getChildren().clear();
+                setClassesCss("caseblanche");
             }
-        } else if (type == 1) { //Nombre
-            Text nb = new Text(aCase.getContenuCase());
-            panneau.getChildren().setAll(nb);
-            panneau.getStyleClass().setAll("caseblanche");
+            case NOIR -> setClassesCss(aCase.estAffecteParHypothese() ? "casenoireBleue" : "casenoire");
+            case POINT -> {
+                if (aCase.getIndice() > 0) {
+                    Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
+                    indiceChemin.getStyleClass().add("chiffreChemin");
+                    setClassesCss("caseblanche");
+                    setNodes(indiceChemin);
+                } else {
+                    mettreCercle();
+                }
+            }
+            case NOMBRE -> {
+                Text nb = new Text(aCase.getContenuCase());
+                setNodes(nb);
+                setClassesCss("caseblanche");
+            }
         }
     }
 
     /**
-     * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
+     * Méthode actionClic gérant la réaction de la case au clic,
+     * elle s'occupe de changer l'état de la case de façon cyclique et de retirer l'aide s'il y en avait une
      */
-    public void actionClic() {
-        if (grille.estEnModeHypothese()) grille.actionHypothese();
-
-        if (type == -2) { // Si la case contient un point
-            type = 0;
-        } else if (type == -1) { // Si la case est noire
-            type = -2;
-            grille.victoire();
-        } else if (type == 0) { // Si la case est blanche
-            type = -1;
-        }
+    private void actionClic() {
+        aCase.onClic();
 
         //Suppression des aides si la case est remplie avec le bon type
-        //Point
-        if (type == -2) panneau.getStyleClass().removeIf(s -> s.equals("cible-point"));
-        //Noir
-        if (type == -1) panneau.getStyleClass().removeIf(s -> s.equals("cible-noir"));
+        if (getType() == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
+        if (getType() == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
-        aCase.mettreEtat(type);
-
-        grille.calculerIndices();
-
-        mettreAJour();
-    }
-
-    public StackPane getStackPane() {
-        return panneau;
+        niveauController.calculerIndices();
     }
 
     /**
      * Méthode privée pour mettre un cercle dans la case quand la case se trouve dans l'état point
      */
     private void mettreCercle() {
-        // Couleur = 0 pour gris OU couleur = 1 pour noir
         Circle cercle = new Circle(10, 10, 7);
-        if (grille.estEnModeHypothese()) cercle.setFill(Color.BLUE);
-        else cercle.setFill(Color.BLACK);
-        panneau.getChildren().setAll(cercle);
-        panneau.getStyleClass().setAll("caseblanche");
+        cercle.setFill(grille.estEnModeHypothese() ? Color.BLUE : Color.BLACK);
+        setNodes(cercle);
+        setClassesCss("caseblanche");
     }
 
     /**
@@ -117,15 +91,27 @@ public class CaseGraphique {
      *
      * @param type Le type de la case qui devrait être insérée
      */
-    public void surbrillance(String type) {
-        if (this.type == 1) //askip c'est une case nombre
+    public void surbrillance(Type type) {
+        if (getType() == Type.NOMBRE)
             throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");
 
-        if (type.equals(".")) //askip c'est une case point
-            panneau.getStyleClass().add("cible-point");
-        else if (type.equals("n"))
-            panneau.getStyleClass().add("cible-noir");
-        else
-            throw new IllegalArgumentException("Type de case en surbrillance invalide: " + type);
+        switch (type) {
+            case POINT -> getStyleClass().add("cible-point");
+            case NOIR -> getStyleClass().add("cible-noir");
+            default -> throw new IllegalArgumentException("Type de case en surbrillance invalide: " + type);
+        }
+    }
+
+    private void setClassesCss(String... classes) {
+        getStyleClass().setAll(classes);
+    }
+
+    private void setNodes(Node... nodes) {
+        getChildren().setAll(nodes);
+    }
+
+    @Override
+    public void onChangement() {
+        mettreAJour();
     }
 }

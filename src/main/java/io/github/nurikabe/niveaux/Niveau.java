@@ -1,24 +1,30 @@
 package io.github.nurikabe.niveaux;
 
 import io.github.nurikabe.*;
-import io.github.nurikabe.cases.*;
-import io.github.nurikabe.controller.NiveauController;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.cases.CaseNormale;
+import io.github.nurikabe.cases.CaseSolution;
 
-import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Classe Niveau pour représenter un niveau
  */
-public class Niveau implements Serializable {
-    private final NiveauController controller;
+public class Niveau {
+    private static final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(r -> {
+        final Thread thread = new Thread(r);
+        thread.setDaemon(true);
+        return thread;
+    });
 
     private final MetadonneesSauvegarde metadonneesSauvegarde;
-
-    private final Label timerLabel;
+    private final ScheduledFuture<?> saveFuture;
 
     /**
      * Variable d'instance grille qui représente le contenu de la grille sous forme d'une ArrayList
@@ -26,19 +32,9 @@ public class Niveau implements Serializable {
     private Grille<Case> grille;
 
     /**
-     * Variable d'instance grilleGraphique qui représente la grille graphique
-     */
-    private Grille<CaseGraphique> grilleGraphique;
-
-    /**
      * Variable d'instance grilleSolution représentant la solution de la grille
      */
-    private final Grille<String> grilleSolution;
-
-    /**
-     * Variable d'instance panneauGrille représentant le panneau de la grille graphique
-     */
-    private final GridPane gridPane;
+    private final Grille<CaseSolution> grilleSolution;
 
     /**
      * Variable d'instance pileUndo représentant la pile servant au bouton Undo
@@ -52,26 +48,31 @@ public class Niveau implements Serializable {
 
     private Hypothese hypo;
 
-    private boolean estEnModeHypothese = false;
     private Chronometre chrono;
-
-    private final Label scoreLabel;
-
     private Score score;
 
-    private final IndiceCases indiceCases = new IndiceCases(this);
+    private final List<ObservateurNiveau> observateursNiveau = new ArrayList<>();
 
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, NiveauController controller, GridPane gridPane, Label timerLabel, Label scoreLabel) throws Exception {
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde) throws Exception {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
-        this.controller = controller;
-        this.gridPane = gridPane;
-        this.timerLabel = timerLabel;
-        this.scoreLabel = scoreLabel;
-
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
+
+        //Sauvegarder le temps toutes les secondes seulement en mode contre-la-montre
+        if (metadonneesSauvegarde.getModeDeJeu() == ModeDeJeu.CONTRE_LA_MONTRE)
+            saveFuture = EXECUTOR.scheduleWithFixedDelay(this::sauvegarderNiveau, 1, 1, TimeUnit.SECONDS);
+        else saveFuture = null;
+    }
+
+    public void ajouterObservateur(ObservateurNiveau observateurNiveau) {
+        observateursNiveau.add(observateurNiveau);
+    }
+
+    public void quitter() {
+        if (saveFuture != null)
+            saveFuture.cancel(false);
     }
 
     /*
@@ -81,22 +82,22 @@ public class Niveau implements Serializable {
      * on charge le chronomètre et le score (qui seront affichés si nous sommes en mode ContreLaMontre)
      */
     public void initialiser() throws Exception {
-        this.gridPane.getChildren().clear();
-        this.pileUndo = new Pile();
-        this.pileRedo = new Pile();
-        gridPane.getStylesheets().add("/css/Plateau.css");
+        pileUndo = new Pile();
+        pileRedo = new Pile();
+        score = new Score(1500);
+        chrono = new Chronometre();
+        hypo = new Hypothese();
         chargerGrille();
-        if (score == null) score = new Score(1500);
-        if (chrono == null) chrono = new Chronometre();
-        afficherScore();
-        hypo = new Hypothese(this);
-        controller.rafraichir();
+
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onInitialiser();
+        }
     }
 
     /*
      * Récuperer la grille contenant la solution du niveau
      */
-    public Grille<String> getGrilleSolution() {
+    public Grille<CaseSolution> getGrilleSolution() {
         return grilleSolution;
     }
 
@@ -113,28 +114,21 @@ public class Niveau implements Serializable {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 for (int x = 0; x < grille.getLargeur(); x++) {
                     final Case uneCase;
-                    if (grilleSolution.recup(x, y).equals("b") || grilleSolution.recup(x, y).equals("n")) {
+                    if (grilleSolution.recup(x, y).getType() == Case.Type.BLANC || grilleSolution.recup(x, y).getType() == Case.Type.NOIR) {
                         uneCase = new CaseNormale(x, y);
                     } else {
-                        uneCase = new CaseNombre(x, y, Integer.parseInt(grilleSolution.recup(x, y)));
+                        uneCase = new CaseNombre(x, y, grilleSolution.recup(x, y).getNombre());
                     }
                     grille.mettre(x, y, uneCase);
                 }
             }
         }
 
-        //Création de la grille graphique
-        grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
-        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                grilleGraphique.mettre(x, y, new CaseGraphique(x, y, this));
-                GridPane.setRowIndex(grilleGraphique.recup(x, y).getStackPane(), y);
-                GridPane.setColumnIndex(grilleGraphique.recup(x, y).getStackPane(), x);
-                gridPane.getChildren().addAll(grilleGraphique.recup(x, y).getStackPane());
+        for (int y = 0; y < grille.getHauteur(); y++) {
+            for (int x = 0; x < grille.getLargeur(); x++) {
+                grille.recup(x, y).setNiveau(this);
             }
         }
-
-        indiceCases.calculerIndices();
     }
 
     /*
@@ -150,20 +144,25 @@ public class Niveau implements Serializable {
     }
 
     /**
-     * Methode appelée lors de l'affichage du score (même principe que pour le chronomètre)
-     */
-    public void afficherScore() {
-        if (scoreLabel != null) scoreLabel.setText("Score: " + score.getScore());
-    }
-
-    /**
      * Méthode appelée lors de l'utilisation du bouton aide
      * on sauvegarde le niveau et on retire 100 points au score (pénalité pour l'utilisation de l'aide)
      */
     public void utilisationAide() {
         if (score.getScore() > 0) score.retirerScore(100);
-        afficherScore();
+        notifierChangement();
         sauvegarderNiveau();
+    }
+
+    public void notifierChangement() {
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onChangement();
+        }
+    }
+
+    private void notifierVictoire() {
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onVictoire();
+        }
     }
 
     /**
@@ -178,6 +177,7 @@ public class Niveau implements Serializable {
         pileRedo = sauvegarde.recupPileRedo();
         chrono = sauvegarde.recupChrono();
         score = sauvegarde.getScore();
+        hypo = sauvegarde.getHypothese();
 
         return true;
     }
@@ -192,8 +192,7 @@ public class Niveau implements Serializable {
         if (erreurs == 0) {
             metadonneesSauvegarde.marquerComplet();
 
-            new Alert(Alert.AlertType.INFORMATION, "Vous avez gagné !").showAndWait();
-            controller.ecranPrecedent();
+            notifierVictoire();
         }
     }
 
@@ -239,51 +238,42 @@ public class Niveau implements Serializable {
         return grilleSolution.getHauteur();
     }
 
-    /**
-     * Méthode qui renvoie la grille graphique (grille contenant la GridPane du jeu)
-     *
-     * @return l'état de la partie sous forme d'entier
-     */
-    public Grille<CaseGraphique> getGrilleGraphique() {
-        return grilleGraphique;
-    }
-
     public Grille<Case> getGrille() {
         return grille;
     }
 
     public void undo() {
-        coup(pileUndo, pileRedo, 2);
-        controller.rafraichir();
-        sauvegarderNiveau();
+        final Coup coup = pileUndo.depiler();
+        recupCase(coup.x(), coup.y()).etatPrecedent();
+        pileRedo.empiler(coup);
+
+        notifierChangement();
     }
 
     public void redo() {
-        coup(pileRedo, pileUndo, 1);
-        controller.rafraichir();
-        sauvegarderNiveau();
+        final Coup coup = pileRedo.depiler();
+        recupCase(coup.x(), coup.y()).etatSuivant();
+        pileUndo.empiler(coup);
+
+        notifierChangement();
     }
-    /**
-     * mettre à jour la grillle graphique
-     */
-    public void majGrilles(){
-        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                grilleGraphique.recup(x, y).mettreAJour();
+
+    public void onFinModeHypothese() {
+        for (int y = 0; y < getHauteur(); y++) {
+            for (int x = 0; x < getLargeur(); x++) {
+                grille.recup(x, y).setAffecteParHypothese(false);
             }
         }
+        sauvegarderNiveau();
     }
 
     public boolean estEnModeHypothese(){
-        return estEnModeHypothese;
+        return hypo.estActif();
     }
 
-    public void desactiverModeHypothese(){
-        estEnModeHypothese=false;
-    }
-
-    public void activerModeHypothese(){
-        estEnModeHypothese = true;
+    public void activerModeHypothese() {
+        hypo.nouvelleHypothese();
+        notifierChangement();
     }
 
     public void actionHypothese() {
@@ -292,10 +282,14 @@ public class Niveau implements Serializable {
 
     public void confirmerHypothese() {
         hypo.confirmer();
+        notifierChangement();
+        onFinModeHypothese();
     }
 
     public void annulerHypothese() {
-        hypo.annuler();
+        hypo.annuler(this);
+        notifierChangement();
+        onFinModeHypothese();
     }
 
     /**
@@ -309,7 +303,7 @@ public class Niveau implements Serializable {
         Coup coupPris = aPop.depiler();
         if (coupPris.x() != -1) {
             for (int i = 0; i < nbClics; i++)
-                grilleGraphique.recup(coupPris.x(), coupPris.y()).actionClic();
+                grille.recup(coupPris.x(), coupPris.y()); //TODO action clic
         }
         aPush.empiler(coupPris);
     }
@@ -332,11 +326,11 @@ public class Niveau implements Serializable {
         int erreurs = 0;
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                String contenuGrille = grille.recup(x, y).getContenuCase();
-                if (contenuGrille.equals(".")) contenuGrille = "b";
+                var contenuGrille = grille.recup(x, y).getType();
+                if (contenuGrille == Case.Type.POINT) contenuGrille = Case.Type.BLANC;
 
-                final String contenuSolution = grilleSolution.recup(x, y);
-                if (!contenuGrille.equals(contenuSolution)) {
+                final var contenuSolution = grilleSolution.recup(x, y).getType();
+                if (contenuGrille != contenuSolution) {
                     erreurs++;
                 }
             }
@@ -373,11 +367,7 @@ public class Niveau implements Serializable {
         return score;
     }
 
-    public NiveauController getController() {
-        return controller;
-    }
-
-    public void calculerIndices() {
-        indiceCases.calculerIndices();
+    public Hypothese getHypothese() {
+        return hypo;
     }
 }

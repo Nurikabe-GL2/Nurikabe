@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
@@ -30,10 +31,10 @@ public class IleExtensibleDansDeuxDirections extends Technique {
                     // il ne nous faut exactement 2 case blanche pour que la technique soit valide.
                     // Puisque les parallèles sont interdites, la 1ère et 3ème ligne, ou la 2ème et 4ème ligne seront exécutées,
                     // et indiquerons les coordonnées de la diagonale.
-                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, "n");
-                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, "n");
+                    insertionCond(coups, grille, x - 1, y, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(coups, grille, x + 1, y, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(coups, grille, x, y - 1, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(coups, grille, x, y + 1, this::estCaseBlanche, Case.Type.NOIR);
 
                     if (coups.size() == 2) {
                         //On évite le cas où les 2 cases blanches sont parallèles,
@@ -42,7 +43,7 @@ public class IleExtensibleDansDeuxDirections extends Technique {
                             continue;
 
                         if (!estCaseNoire(grille, coups.get(0).x(), coups.get(1).y())) {
-                            return new PositionTechniques(this, new Cible(coups.get(0).x(), coups.get(1).y(), "n"));
+                            return new PositionTechniques(this, new Cible(coups.get(0).x(), coups.get(1).y(), Case.Type.NOIR));
                         }
                     }
                 }

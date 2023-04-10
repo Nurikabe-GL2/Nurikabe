@@ -14,7 +14,7 @@ public class CaseNombre extends Case {
      * @param nombre le nombre de la case
      */
     public CaseNombre(int x, int y, int nombre) {
-        super(x, y, 1);
+        super(x, y, Type.NOMBRE);
         this.nombre = nombre;
     }
 
@@ -24,6 +24,17 @@ public class CaseNombre extends Case {
     }
 
     @Override
-    public void mettreEtat(int type) {
+    public void etatSuivant() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
+    }
+
+    @Override
+    public void etatPrecedent() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
+    }
+
+    @Override
+    public void onClic() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
     }
 }

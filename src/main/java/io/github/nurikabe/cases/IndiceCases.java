@@ -45,13 +45,13 @@ public class IndiceCases {
             }
 
             for (Case aCase : cases) {
-                aCase.getCaseGraphique().mettreAJour();
+                aCase.notifierObservateurs();
             }
 
             anciennesCases.removeAll(cases); //Ne pas réinitialiser les cases ayant été recalculées
             for (Case ancienneCase : anciennesCases) {
                 ancienneCase.setIndice(-1);
-                ancienneCase.getCaseGraphique().mettreAJour();
+                ancienneCase.notifierObservateurs();
             }
 
             anciennesCases = cases;
@@ -79,7 +79,7 @@ public class IndiceCases {
         if (!estCoordonneeValide(x, y))
             return;
         final Case aCase = grille.recupCase(x, y);
-        if (aCase instanceof CaseNormale && aCase.getType() == -2) {
+        if (aCase.getType() == Case.Type.POINT) {
             consumer.accept(aCase);
         }
     }

@@ -1,6 +1,6 @@
 package io.github.nurikabe;
 
-import java.io.Serializable;
+import java.io.*;
 import java.time.Duration;
 
 /**
@@ -8,66 +8,35 @@ import java.time.Duration;
  * <br>Celui-ci ne sera affiché que lors d'une partie en mode contre-la-montre
  */
 public class Chronometre implements Serializable {
-
     /**
      * Debut et fin : représentent le temps (long) avec la méthode currentTimeMillis() de la classe System
      * ensuite les autres variables servent à convertir le temps en seconde et minutes puis à l'afficher
      * avec des chaines de caractères
      */
-    private long debut;
-    private long fin;
-    private int tempsSupp = 0;
-
-    public Chronometre() {
-        debut();
-        fin();
-    }
-
-    /*
-     * Méthode appelée pour relancer le chronomètre courant à zero
-     */
-    public void reset() {
-        debut();
-        fin();
-    }
+    private long debut = System.currentTimeMillis();
 
     /*
      * méthode appelée lors de la réinitialisation d'un niveau
      */
     public void resetAll() {
-        debut();
-        fin();
-        tempsSupp = 0;
-    }
-
-    /*
-     * méthode appelée pour sauvegarder un niveau (on garde le temps écoulé dans une variable)
-     */
-    public void sauvegarder() {
-        tempsSupp = getTempsEcoule();
-        reset();
-    }
-
-    /*
-     * méthode pour actualiser la variable début
-     */
-    public void debut() {
         debut = System.currentTimeMillis();
-    }
-
-    /*
-     * méthode pour actualiser la variable fin
-     */
-    public void fin() {
-        fin = System.currentTimeMillis();
     }
 
     /*
      * méthode pour récupérer le temps écoulé (debut-fin) + le temps écoulé sauvegardé
      */
     private int getTempsEcoule() {
-        fin();
-        return (int) (fin - debut) + tempsSupp;
+        return (int) (System.currentTimeMillis() - debut);
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.writeInt(getTempsEcoule());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        debut = System.currentTimeMillis() - stream.readInt();
     }
 
     /**

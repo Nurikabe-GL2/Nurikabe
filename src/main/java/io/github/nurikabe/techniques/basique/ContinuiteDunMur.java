@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
@@ -19,7 +20,7 @@ public class ContinuiteDunMur extends Technique {
     public PositionTechniques tester(Niveau grille) {
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
-                if (grille.recupCase(x, y).getContenuCase().equals("b")) {
+                if (grille.recupCase(x, y).getType() == Case.Type.BLANC) {
                     int cpt = 0;
 
                     //test si la case de gauche de la case courante est valide et que c'est une case noire
@@ -41,7 +42,7 @@ public class ContinuiteDunMur extends Technique {
                     //si elle possède exactement 2 murs comme voisins et que cela ne formera pas un carré,
                     // alors la technique est valide pour cette case
                     if (cpt >= 2 && !seraUnCarre(grille, x, y)) {
-                        return new PositionTechniques(this, new Cible(x, y, "n"));
+                        return new PositionTechniques(this, new Cible(x, y, Case.Type.NOIR));
                     }
                 }
             }

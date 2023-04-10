@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.demarrage;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
@@ -24,10 +25,10 @@ public class IleDeUn extends Technique {
                 if (grille.etatCase(x, y).equals("1")) {
                     List<Cible> cibles = new ArrayList<>();
 
-                    insertionCond(cibles, grille, x - 1, y, this::estCaseBlanche, "n");
-                    insertionCond(cibles, grille, x + 1, y, this::estCaseBlanche, "n");
-                    insertionCond(cibles, grille, x, y - 1, this::estCaseBlanche, "n");
-                    insertionCond(cibles, grille, x, y + 1, this::estCaseBlanche, "n");
+                    insertionCond(cibles, grille, x - 1, y, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(cibles, grille, x + 1, y, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(cibles, grille, x, y - 1, this::estCaseBlanche, Case.Type.NOIR);
+                    insertionCond(cibles, grille, x, y + 1, this::estCaseBlanche, Case.Type.NOIR);
 
                     if (!cibles.isEmpty())
                         return new PositionTechniques(this, cibles);

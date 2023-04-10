@@ -1,5 +1,6 @@
 package io.github.nurikabe.techniques.basique;
 
+import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
@@ -20,7 +21,7 @@ public class EviterZoneMur extends Technique {
         for (int x = 0; x < grille.getLargeur(); x++) {
             for (int y = 0; y < grille.getHauteur(); y++) {
                 if (estCaseBlanche(grille, x, y) && seraUnCarre(grille, x, y)) {
-                    return new PositionTechniques(this, new Cible(x, y, "n"));
+                    return new PositionTechniques(this, new Cible(x, y, Case.Type.NOIR));
                 }
             }
 

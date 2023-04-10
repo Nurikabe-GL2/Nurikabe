@@ -2,6 +2,8 @@ package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Grille;
 import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseSolution;
 import io.github.nurikabe.niveaux.FichierSolution;
 import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import javafx.fxml.FXML;
@@ -54,22 +56,21 @@ public class NiveauSelectionableController extends VBox {
         }
 
         //Grille miniature
-        final Grille<String> grilleSolution = solution.getGrille();
+        final Grille<CaseSolution> grilleSolution = solution.getGrille();
         for (int y = 0; y < grilleSolution.getHauteur(); y++) {
             for (int x = 0; x < grilleSolution.getLargeur(); x++) {
                 final StackPane p = new StackPane();
                 p.setPrefSize(20, 20);
                 p.getStyleClass().add("case-solution");
 
-                final String contenuCase = grilleSolution.recup(x, y);
-
-                if (contenuCase.equals("n")) {
+                final var caseSolution = grilleSolution.recup(x, y);
+                if (caseSolution.getType() == Case.Type.NOIR) {
                     //Affichage des cases noires si le niveau est complété
                     if (estComplete) {
                         p.getStyleClass().add("case-noire");
                     }
-                } else if (!contenuCase.equals("b")) { //Numero
-                    final Label label = new Label(contenuCase);
+                } else if (caseSolution.getType() == Case.Type.NOMBRE) {
+                    final Label label = new Label(caseSolution.getContenuCase());
                     label.setStyle("-fx-text-fill: black");
                     p.getChildren().add(label);
                 }

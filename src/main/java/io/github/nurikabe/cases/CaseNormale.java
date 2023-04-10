@@ -1,5 +1,7 @@
 package io.github.nurikabe.cases;
 
+import io.github.nurikabe.Coup;
+
 /**
  * La classe CaseNormale hérite de la classe abstraite Case et représente les cases qui sont noires ou blanches
  */
@@ -11,7 +13,7 @@ public class CaseNormale extends Case {
      * @param y la coordonnée y de la case
      */
     public CaseNormale(int x, int y) {
-        super(x, y, 0);
+        super(x, y, Type.BLANC);
     }
 
     /**
@@ -21,21 +23,53 @@ public class CaseNormale extends Case {
      */
     @Override
     public String getContenuCase() {
-        if (type == 0)
-            return "b";
-        else if (type == -1)
-            return "n";
-        else
-            return ".";
-
+        return switch (type) {
+            case BLANC -> "b";
+            case NOIR -> "n";
+            case POINT -> ".";
+            default -> throw new IllegalArgumentException("Type invalide: " + type);
+        };
     }
 
-    /**
-     * Méthode redéfinie mettreEtat qui permet de donner le nouvel état à la case
-     *
-     * @param type l'état de la case
-     */
-    public void mettreEtat(int type) {
-        this.type = type;
+    @Override
+    public void etatSuivant() {
+        this.type = switch (type) {
+            case POINT -> Type.BLANC;
+            case NOIR -> Type.POINT;
+            case BLANC -> Type.NOIR;
+            default -> throw new IllegalArgumentException("Type non cliquable: " + type);
+        };
+
+        notifierObservateurs();
+        niveau.sauvegarderNiveau();
+    }
+
+    @Override
+    public void etatPrecedent() {
+        this.type = switch (type) {
+            case POINT -> Type.NOIR;
+            case NOIR -> Type.BLANC;
+            case BLANC -> Type.POINT;
+            default -> throw new IllegalArgumentException("Type non cliquable: " + type);
+        };
+
+        notifierObservateurs();
+        niveau.sauvegarderNiveau();
+    }
+
+    @Override
+    public void onClic() {
+        if (niveau.estEnModeHypothese()) niveau.actionHypothese();
+        setAffecteParHypothese(niveau.estEnModeHypothese());
+        etatSuivant();
+
+        niveau.recupUndo().empiler(new Coup(x, y));
+        niveau.recupRedo().vider();
+        niveau.notifierChangement();
+        niveau.sauvegarderNiveau();
+
+        //Verification victoire après l'insertion d'une case noire
+        if (type == Type.NOIR)
+            niveau.victoire();
     }
 }
