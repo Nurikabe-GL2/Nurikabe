@@ -117,6 +117,8 @@ public class NiveauController extends FenetreController implements ObservateurNi
         }
 
         indiceCases.calculerIndices();
+
+        rafraichir();
     }
 
     /**
