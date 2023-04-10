@@ -1,6 +1,11 @@
 package io.github.nurikabe.cases;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe abstraite représentant une case de la grille Nurikabe
@@ -43,7 +48,7 @@ public abstract class Case implements Serializable {
 
     private transient int indice;
 
-    private transient CaseGraphique caseGraphique;
+    private transient List<ObservateurCase> observateursCase;
 
     /**
      * Constructeur de la classe Case
@@ -56,6 +61,8 @@ public abstract class Case implements Serializable {
         this.x = x;
         this.y = y;
         this.type = type;
+
+        initialiser();
     }
 
     public Type getType() {
@@ -91,12 +98,14 @@ public abstract class Case implements Serializable {
         this.indice = indice;
     }
 
-    public void setCaseGraphique(CaseGraphique caseGraphique) {
-        this.caseGraphique = caseGraphique;
+    public void ajouterObservateur(ObservateurCase observateurCase) {
+        observateursCase.add(observateurCase);
     }
 
-    public CaseGraphique getCaseGraphique() {
-        return caseGraphique;
+    public void notifierObservateurs() {
+        for (ObservateurCase observateurCase : observateursCase) {
+            observateurCase.onChangement();
+        }
     }
 
     @Override
@@ -110,4 +119,17 @@ public abstract class Case implements Serializable {
      * @return le contenu de la case
      */
     public abstract String getContenuCase();
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        initialiser();
+    }
+
+    /**
+     * Initialise les champs non initialisés par la sérialisation
+     */
+    private void initialiser() {
+        observateursCase = new ArrayList<>();
+    }
 }

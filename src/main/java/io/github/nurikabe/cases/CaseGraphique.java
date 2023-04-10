@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 /**
  * Classe représentant une case de la grille, sur l'interface.
  */
-public class CaseGraphique extends StackPane {
+public class CaseGraphique extends StackPane implements ObservateurCase {
     private final Niveau grille;
     private final Case aCase;
     private Type type;
@@ -22,7 +22,7 @@ public class CaseGraphique extends StackPane {
         this.type = aCase.getType();
         this.grille = grille;
 
-        aCase.setCaseGraphique(this);
+        aCase.ajouterObservateur(this);
 
         setPrefSize(30, 30);
 
@@ -126,5 +126,10 @@ public class CaseGraphique extends StackPane {
 
     private void setNodes(Node... nodes) {
         getChildren().setAll(nodes);
+    }
+
+    @Override
+    public void onChangement() {
+        mettreAJour();
     }
 }
