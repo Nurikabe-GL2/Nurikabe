@@ -119,6 +119,12 @@ public class Niveau {
                 }
             }
         }
+
+        for (int y = 0; y < grille.getHauteur(); y++) {
+            for (int x = 0; x < grille.getLargeur(); x++) {
+                grille.recup(x, y).setNiveau(this);
+            }
+        }
     }
 
     /*
@@ -233,15 +239,19 @@ public class Niveau {
     }
 
     public void undo() {
-        coup(pileUndo, pileRedo, 2);
+        final Coup coup = pileUndo.depiler();
+        recupCase(coup.x(), coup.y()).etatPrecedent();
+        pileRedo.empiler(coup);
+
         notifierChangement();
-        sauvegarderNiveau();
     }
 
     public void redo() {
-        coup(pileRedo, pileUndo, 1);
+        final Coup coup = pileRedo.depiler();
+        recupCase(coup.x(), coup.y()).etatSuivant();
+        pileUndo.empiler(coup);
+
         notifierChangement();
-        sauvegarderNiveau();
     }
 
     public void onFinModeHypothese() {

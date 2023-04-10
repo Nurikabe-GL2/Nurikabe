@@ -24,7 +24,17 @@ public class CaseNombre extends Case {
     }
 
     @Override
-    public void setType(Type type) {
-        throw new IllegalStateException("Impossible de mettre un état à une case nombre");
+    public void etatSuivant() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
+    }
+
+    @Override
+    public void etatPrecedent() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
+    }
+
+    @Override
+    public void onClic() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
     }
 }

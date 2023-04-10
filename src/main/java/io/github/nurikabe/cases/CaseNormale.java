@@ -1,5 +1,7 @@
 package io.github.nurikabe.cases;
 
+import io.github.nurikabe.Coup;
+
 /**
  * La classe CaseNormale hérite de la classe abstraite Case et représente les cases qui sont noires ou blanches
  */
@@ -30,7 +32,44 @@ public class CaseNormale extends Case {
     }
 
     @Override
-    public void setType(Type type) {
-        this.type = type;
+    public void etatSuivant() {
+        this.type = switch (type) {
+            case POINT -> Type.BLANC;
+            case NOIR -> Type.POINT;
+            case BLANC -> Type.NOIR;
+            default -> throw new IllegalArgumentException("Type non cliquable: " + type);
+        };
+
+        notifierObservateurs();
+        niveau.sauvegarderNiveau();
+    }
+
+    @Override
+    public void etatPrecedent() {
+        this.type = switch (type) {
+            case POINT -> Type.NOIR;
+            case NOIR -> Type.BLANC;
+            case BLANC -> Type.POINT;
+            default -> throw new IllegalArgumentException("Type non cliquable: " + type);
+        };
+
+        notifierObservateurs();
+        niveau.sauvegarderNiveau();
+    }
+
+    @Override
+    public void onClic() {
+        if (niveau.estEnModeHypothese()) niveau.actionHypothese();
+        setAffecteParHypothese(niveau.estEnModeHypothese());
+        etatSuivant();
+
+        niveau.recupUndo().empiler(new Coup(x, y));
+        niveau.recupRedo().vider();
+        niveau.notifierChangement();
+        niveau.sauvegarderNiveau();
+
+        //Verification victoire après l'insertion d'une case noire
+        if (type == Type.NOIR)
+            niveau.victoire();
     }
 }

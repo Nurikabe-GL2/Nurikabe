@@ -1,5 +1,7 @@
 package io.github.nurikabe.cases;
 
+import io.github.nurikabe.niveaux.Niveau;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
@@ -33,12 +35,14 @@ public abstract class Case implements Serializable {
         }
     }
 
-    private final int x, y;
+    protected final int x, y;
 
     /**
      * Représente le type de la case
      */
     protected Type type;
+
+    protected transient Niveau niveau;
 
     /**
      * Si cette case a été modifiée pendant une hypothèse
@@ -65,11 +69,30 @@ public abstract class Case implements Serializable {
         initialiser();
     }
 
+    // Puisque la sérialisation ne peut pas initialiser le niveau
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
     public Type getType() {
         return type;
     }
 
-    public abstract void setType(Type type);
+    /**
+     * Change l'état de la case à l'état suivant, puis sauvegarde
+     */
+    public abstract void etatSuivant();
+
+    /**
+     * Change l'état de la case à l'état précédent, puis sauvegarde
+     */
+    public abstract void etatPrecedent();
+
+    /**
+     * Change l'état de la case à l'état suivant, enregistrer le coup dans la pile undo,
+     * sauvegarde, puis vérifie si le niveau est terminé
+     */
+    public abstract void onClic();
 
     public void setAffecteParHypothese(boolean affecteParHypothese) {
         this.affecteParHypothese = affecteParHypothese;

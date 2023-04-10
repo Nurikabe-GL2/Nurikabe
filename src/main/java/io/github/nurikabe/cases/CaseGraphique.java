@@ -1,6 +1,5 @@
 package io.github.nurikabe.cases;
 
-import io.github.nurikabe.Coup;
 import io.github.nurikabe.cases.Case.Type;
 import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
@@ -17,39 +16,29 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
     private final Niveau grille;
     private final Case aCase;
     private final NiveauController niveauController;
-    private Type type;
 
     public CaseGraphique(int x, int y, Niveau grille, NiveauController niveauController) {
         this.niveauController = niveauController;
         this.aCase = grille.recupCase(x, y);
-        this.type = aCase.getType();
         this.grille = grille;
 
         aCase.ajouterObservateur(this);
 
         setPrefSize(30, 30);
 
-        if (this.type != Type.NOMBRE) {
-            setOnMouseClicked(e -> {
-                // modifie le contenu graphque de la case, on sauvegarde le niveau, on lance la méthode
-                // victoire pour voir si on a gagné la partie
-                actionClic();
-                grille.recupUndo().empiler(new Coup(x, y));
-                grille.recupRedo().vider();
-                grille.notifierChangement();
-                grille.sauvegarderNiveau();
-
-                //Verification victoire après l'insertion d'une case noire
-                if (type == Type.NOIR)
-                    grille.victoire();
-            });
+        if (getType() != Type.NOMBRE) {
+            setOnMouseClicked(e -> actionClic());
         }
 
         mettreAJour();
     }
 
+    public Type getType() {
+        return aCase.type;
+    }
+
     public void mettreAJour() {
-        switch (type) {
+        switch (getType()) {
             case BLANC -> {
                 getChildren().clear();
                 setClassesCss("caseblanche");
@@ -74,27 +63,17 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
     }
 
     /**
-     * Méthode actionClic gérant la réaction de la case au clic, elle s'occupe de changer l'état de la case de façon cyclique et vérifie si la grille est terminée
+     * Méthode actionClic gérant la réaction de la case au clic,
+     * elle s'occupe de changer l'état de la case de façon cyclique et de retirer l'aide s'il y en avait une
      */
-    public void actionClic() {
-        if (grille.estEnModeHypothese()) grille.actionHypothese();
-        aCase.setAffecteParHypothese(grille.estEnModeHypothese());
-
-        this.type = switch (type) {
-            case POINT -> Type.BLANC;
-            case NOIR -> Type.POINT;
-            case BLANC -> Type.NOIR;
-            default -> throw new IllegalArgumentException("Type non cliquable: " + type);
-        };
-        aCase.setType(type);
+    private void actionClic() {
+        aCase.onClic();
 
         //Suppression des aides si la case est remplie avec le bon type
-        if (type == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
-        if (type == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
+        if (getType() == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
+        if (getType() == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
         niveauController.calculerIndices();
-
-        mettreAJour();
     }
 
     /**
@@ -113,7 +92,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
      * @param type Le type de la case qui devrait être insérée
      */
     public void surbrillance(Type type) {
-        if (this.type == Type.NOMBRE)
+        if (getType() == Type.NOMBRE)
             throw new IllegalStateException("Ne peut pas mettre une case nombre en surbrillance.");
 
         switch (type) {
