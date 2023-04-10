@@ -1,6 +1,5 @@
 package io.github.nurikabe.controller;
 
-import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.techniques.Cible;
 import io.github.nurikabe.techniques.PositionTechniques;
 import io.github.nurikabe.techniques.Technique;
@@ -16,15 +15,15 @@ import org.jetbrains.annotations.NotNull;
  * Contrôleur représentant une {@link PositionTechniques technique applicable} (aide) à afficher.
  */
 public class ContenuAideController extends ScrollPane {
-    private final Niveau niveau;
+    private final NiveauController niveauController;
     private final PositionTechniques positionTechniques;
 
     @FXML private ImageView image;
     @FXML private Label labelCategorie, labelDescription, labelNom;
     @FXML private Button boutonPositionAide;
 
-    public ContenuAideController(Niveau niveau, @NotNull PositionTechniques positionTechniques) {
-        this.niveau = niveau;
+    public ContenuAideController(NiveauController niveauController, @NotNull PositionTechniques positionTechniques) {
+        this.niveauController = niveauController;
         this.positionTechniques = positionTechniques;
     }
 
@@ -42,7 +41,7 @@ public class ContenuAideController extends ScrollPane {
     @FXML
     private void onPositionAideAction(ActionEvent event) {
         for (Cible cible : positionTechniques.getCibles()) {
-            niveau.getGrilleGraphique().recup(cible.x(), cible.y()).surbrillance(cible.type());
+            niveauController.getGrilleGraphique().recup(cible.x(), cible.y()).surbrillance(cible.type());
         }
     }
 }

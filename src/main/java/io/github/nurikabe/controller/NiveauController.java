@@ -1,6 +1,9 @@
 package io.github.nurikabe.controller;
 
+import io.github.nurikabe.Grille;
 import io.github.nurikabe.ModeDeJeu;
+import io.github.nurikabe.cases.CaseGraphique;
+import io.github.nurikabe.cases.IndiceCases;
 import io.github.nurikabe.niveaux.FichierSolution;
 import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import io.github.nurikabe.niveaux.Niveau;
@@ -43,6 +46,12 @@ public class NiveauController extends FenetreController implements ObservateurNi
     private final SelectionNiveauxController select;
 
     private final Niveau niveau;
+    private final IndiceCases indiceCases;
+
+    /**
+     * Variable d'instance grilleGraphique qui représente la grille graphique
+     */
+    private Grille<CaseGraphique> grilleGraphique;
 
     @FXML private GridPane gridPane;
 
@@ -83,13 +92,34 @@ public class NiveauController extends FenetreController implements ObservateurNi
 
         if (metadonneesSauvegarde.getModeDeJeu() != ModeDeJeu.CONTRE_LA_MONTRE)
             timerAndLabelParent.getChildren().clear();
-        niveau = new Niveau(metadonneesSauvegarde, gridPane);
+        niveau = new Niveau(metadonneesSauvegarde);
+        indiceCases = new IndiceCases(niveau);
         niveau.ajouterObservateur(this);
         niveau.initialiser();
 
         rafraichir();
 
         stage.getScene().setRoot(this);
+    }
+
+    @Override
+    public void onInitialiser() {
+        gridPane.getChildren().clear();
+
+        //Création de la grille graphique
+        grilleGraphique = new Grille<>(niveau.getLargeur(), niveau.getHauteur());
+        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
+            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+                final CaseGraphique caseGraphique = new CaseGraphique(x, y, niveau, this);
+                grilleGraphique.mettre(x, y, caseGraphique);
+
+                GridPane.setRowIndex(caseGraphique, y);
+                GridPane.setColumnIndex(caseGraphique, x);
+                gridPane.getChildren().add(caseGraphique);
+            }
+        }
+
+        indiceCases.calculerIndices();
     }
 
     /**
@@ -112,6 +142,14 @@ public class NiveauController extends FenetreController implements ObservateurNi
         boutonHypothese.setDisable(niveau.estEnModeHypothese());
         boutonHypotheseAnnuler.setVisible(niveau.estEnModeHypothese());
         boutonHypotheseValider.setVisible(niveau.estEnModeHypothese());
+    }
+
+    public void calculerIndices() {
+        indiceCases.calculerIndices();
+    }
+
+    public Grille<CaseGraphique> getGrilleGraphique() {
+        return grilleGraphique;
     }
 
     @FXML
@@ -189,7 +227,7 @@ public class NiveauController extends FenetreController implements ObservateurNi
 
             if (positionTechniques != null) {
                 final Tab tab = new Tab("Aide");
-                tab.setContent(Utils.loadFxml(new ContenuAideController(niveau, positionTechniques), "_ContenuAide"));
+                tab.setContent(Utils.loadFxml(new ContenuAideController(this, positionTechniques), "_ContenuAide"));
 
                 //Remplacement de l'onglet d'aide
                 tabPane.getTabs().removeIf(t -> t.getText().equals("Aide"));

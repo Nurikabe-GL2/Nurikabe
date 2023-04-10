@@ -1,8 +1,10 @@
 package io.github.nurikabe.niveaux;
 
 import io.github.nurikabe.*;
-import io.github.nurikabe.cases.*;
-import javafx.scene.layout.GridPane;
+import io.github.nurikabe.cases.Case;
+import io.github.nurikabe.cases.CaseNombre;
+import io.github.nurikabe.cases.CaseNormale;
+import io.github.nurikabe.cases.CaseSolution;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
 
 /**
  * Classe Niveau pour représenter un niveau
@@ -27,19 +28,9 @@ public class Niveau {
     private Grille<Case> grille;
 
     /**
-     * Variable d'instance grilleGraphique qui représente la grille graphique
-     */
-    private Grille<CaseGraphique> grilleGraphique;
-
-    /**
      * Variable d'instance grilleSolution représentant la solution de la grille
      */
     private final Grille<CaseSolution> grilleSolution;
-
-    /**
-     * Variable d'instance panneauGrille représentant le panneau de la grille graphique
-     */
-    private final GridPane gridPane;
 
     /**
      * Variable d'instance pileUndo représentant la pile servant au bouton Undo
@@ -56,17 +47,13 @@ public class Niveau {
     private Chronometre chrono;
     private Score score;
 
-    private final IndiceCases indiceCases = new IndiceCases(this);
-
     private final List<ObservateurNiveau> observateursNiveau = new ArrayList<>();
 
     /**
      * Constructeur de la classe Niveau
      */
-    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde, GridPane gridPane) throws Exception {
+    public Niveau(MetadonneesSauvegarde metadonneesSauvegarde) throws Exception {
         this.metadonneesSauvegarde = metadonneesSauvegarde;
-        this.gridPane = gridPane;
-
         this.grilleSolution = metadonneesSauvegarde.getSolution().getGrille();
 
         //Sauvegarder le temps toutes les secondes seulement en mode contre-la-montre
@@ -91,14 +78,16 @@ public class Niveau {
      * on charge le chronomètre et le score (qui seront affichés si nous sommes en mode ContreLaMontre)
      */
     public void initialiser() throws Exception {
-        this.gridPane.getChildren().clear();
-        this.pileUndo = new Pile();
-        this.pileRedo = new Pile();
-        gridPane.getStylesheets().add("/css/Plateau.css");
+        pileUndo = new Pile();
+        pileRedo = new Pile();
         score = new Score(1500);
         chrono = new Chronometre();
         hypo = new Hypothese();
         chargerGrille();
+
+        for (ObservateurNiveau observateurNiveau : observateursNiveau) {
+            observateurNiveau.onInitialiser();
+        }
     }
 
     /*
@@ -130,20 +119,6 @@ public class Niveau {
                 }
             }
         }
-
-        //Création de la grille graphique
-        grilleGraphique = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
-        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
-                grilleGraphique.mettre(x, y, new CaseGraphique(x, y, this));
-                final CaseGraphique caseGraphique = grilleGraphique.recup(x, y);
-                GridPane.setRowIndex(caseGraphique, y);
-                GridPane.setColumnIndex(caseGraphique, x);
-                gridPane.getChildren().addAll(caseGraphique);
-            }
-        }
-
-        indiceCases.calculerIndices();
     }
 
     /*
@@ -253,15 +228,6 @@ public class Niveau {
         return grilleSolution.getHauteur();
     }
 
-    /**
-     * Méthode qui renvoie la grille graphique (grille contenant la GridPane du jeu)
-     *
-     * @return l'état de la partie sous forme d'entier
-     */
-    public Grille<CaseGraphique> getGrilleGraphique() {
-        return grilleGraphique;
-    }
-
     public Grille<Case> getGrille() {
         return grille;
     }
@@ -278,14 +244,10 @@ public class Niveau {
         sauvegarderNiveau();
     }
 
-    /**
-     * Met à jour la grille graphique et remet les cases comme n'étant pas affectée par le mode hypothèse
-     */
     public void onFinModeHypothese() {
-        for (int y = 0; y < grilleGraphique.getHauteur(); y++) {
-            for (int x = 0; x < grilleGraphique.getLargeur(); x++) {
+        for (int y = 0; y < getHauteur(); y++) {
+            for (int x = 0; x < getLargeur(); x++) {
                 grille.recup(x, y).setAffecteParHypothese(false);
-                grilleGraphique.recup(x, y).mettreAJour();
             }
         }
         sauvegarderNiveau();
@@ -327,7 +289,7 @@ public class Niveau {
         Coup coupPris = aPop.depiler();
         if (coupPris.x() != -1) {
             for (int i = 0; i < nbClics; i++)
-                grilleGraphique.recup(coupPris.x(), coupPris.y()).actionClic();
+                grille.recup(coupPris.x(), coupPris.y()); //TODO action clic
         }
         aPush.empiler(coupPris);
     }
@@ -389,10 +351,6 @@ public class Niveau {
 
     public Score getScore() {
         return score;
-    }
-
-    public void calculerIndices() {
-        indiceCases.calculerIndices();
     }
 
     public Hypothese getHypothese() {

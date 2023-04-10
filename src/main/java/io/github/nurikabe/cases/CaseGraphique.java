@@ -2,6 +2,7 @@ package io.github.nurikabe.cases;
 
 import io.github.nurikabe.Coup;
 import io.github.nurikabe.cases.Case.Type;
+import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -15,9 +16,11 @@ import javafx.scene.text.Text;
 public class CaseGraphique extends StackPane implements ObservateurCase {
     private final Niveau grille;
     private final Case aCase;
+    private final NiveauController niveauController;
     private Type type;
 
-    public CaseGraphique(int x, int y, Niveau grille) {
+    public CaseGraphique(int x, int y, Niveau grille, NiveauController niveauController) {
+        this.niveauController = niveauController;
         this.aCase = grille.recupCase(x, y);
         this.type = aCase.getType();
         this.grille = grille;
@@ -89,7 +92,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
         if (type == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
         if (type == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
-        grille.calculerIndices();
+        niveauController.calculerIndices();
 
         mettreAJour();
     }

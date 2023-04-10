@@ -73,6 +73,7 @@ public abstract class Case implements Serializable {
 
     public void setAffecteParHypothese(boolean affecteParHypothese) {
         this.affecteParHypothese = affecteParHypothese;
+        notifierObservateurs();
     }
 
     public boolean estAffecteParHypothese() {
