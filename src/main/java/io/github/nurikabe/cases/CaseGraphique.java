@@ -6,6 +6,7 @@ import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -29,7 +30,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
         setPrefSize(30, 30);
 
         if (getType() != Type.NOMBRE) {
-            setOnMouseClicked(e -> actionClic());
+            setOnMouseClicked(this::actionClic);
         }
 
         mettreAJour();
@@ -77,8 +78,14 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
      * Méthode actionClic gérant la réaction de la case au clic,
      * elle s'occupe de changer l'état de la case de façon cyclique et de retirer l'aide s'il y en avait une
      */
-    private void actionClic() {
-        aCase.onClic();
+    private void actionClic(MouseEvent e) {
+        switch (e.getButton()) {
+            case PRIMARY -> aCase.onClic();
+            case SECONDARY -> aCase.onClicPrecedent();
+            default -> {
+                return;
+            }
+        }
 
         //Suppression des aides si la case est remplie avec le bon type
         if (getType() == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));

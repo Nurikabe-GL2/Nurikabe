@@ -37,4 +37,9 @@ public class CaseNombre extends Case {
     public void onClic() {
         throw new IllegalStateException("Impossible d'utiliser une case nombre");
     }
+
+    @Override
+    public void onClicPrecedent() {
+        throw new IllegalStateException("Impossible d'utiliser une case nombre");
+    }
 }

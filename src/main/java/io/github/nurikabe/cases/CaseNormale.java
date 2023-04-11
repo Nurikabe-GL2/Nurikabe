@@ -60,9 +60,20 @@ public class CaseNormale extends Case {
 
     @Override
     public void onClic() {
+        onClic(false);
+    }
+
+    @Override
+    public void onClicPrecedent() {
+        onClic(true);
+    }
+
+    private void onClic(boolean precedent) {
         if (niveau.estEnModeHypothese()) niveau.actionHypothese();
         setAffecteParHypothese(niveau.estEnModeHypothese());
-        etatSuivant();
+
+        if (precedent) etatPrecedent();
+        else etatSuivant();
 
         niveau.recupUndo().empiler(new Coup(x, y));
         niveau.recupRedo().vider();
