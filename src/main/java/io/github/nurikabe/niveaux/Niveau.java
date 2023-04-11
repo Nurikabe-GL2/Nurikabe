@@ -5,6 +5,10 @@ import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.cases.CaseNormale;
 import io.github.nurikabe.cases.CaseSolution;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.techniques.demarrage.IleDeUn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +111,8 @@ public class Niveau {
      * s'il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
      */
     private void chargerGrille() throws Exception {
-        if (!chargerSauvegarde()) {
+        final boolean aChargeSauvegarde = chargerSauvegarde();
+        if (!aChargeSauvegarde) {
             //Pas de sauvegarde, création de la grille
             grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
@@ -131,6 +136,19 @@ public class Niveau {
         for (int y = 0; y < grille.getHauteur(); y++) {
             for (int x = 0; x < grille.getLargeur(); x++) {
                 grille.recup(x, y).setNiveau(this);
+            }
+        }
+
+        //Utilisation des techniques basiques dans le cas d'une nouvelle partie
+        if (!aChargeSauvegarde) {
+            if (Parametres.getParametres().doitCompleterIleDeUn()) {
+                PositionTechniques positionTechniques;
+                //Utilisation de la technique "ile de 1" jusqu'à ce qu'il n'y en ait plus
+                while ((positionTechniques = Techniques.trouverTechnique(this)) != null && positionTechniques.getTechnique() instanceof IleDeUn) {
+                    for (Cible cible : positionTechniques.getCibles()) {
+                        recupCase(cible.x(), cible.y()).etatSuivant();
+                    }
+                }
             }
         }
     }
