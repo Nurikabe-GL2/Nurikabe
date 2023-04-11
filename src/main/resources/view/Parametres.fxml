@@ -46,7 +46,9 @@
                   <CheckBox id="cochableRemplirCases" fx:id="cochableRemplirCases" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onRemplirCasesAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Separator GridPane.columnSpan="2" GridPane.rowIndex="2" />
                   <Label styleClass="parameterCategoryLabel" text="Aides visuelles" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <Label styleClass="parameterLabel" text="Numérotation dans les chemins fermés :" GridPane.rowIndex="4" />
+                   <Label styleClass="parameterLabel"
+                          text="Numérotation des cases points&#10;en partant des cases nombres" textAlignment="RIGHT"
+                          GridPane.rowIndex="4"/>
                   <CheckBox id="cochableCheminFerme" fx:id="cochableCheminFerme" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onCheminFermeAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label styleClass="parameterLabel" text="Afficher les cases erronées :" GridPane.rowIndex="5" />
                   <CheckBox id="cochableAfficherErreur" fx:id="cochableAfficherErreur" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onAfficherErreurAction" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -55,7 +57,7 @@
                   <Label styleClass="parameterLabel" text="Îles de 1 :" GridPane.rowIndex="8" />
                   <CheckBox id="cochableCompleteTaille1" fx:id="cochableCompleteTaille1" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onCompleteTaille1Action" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Label styleClass="parameterLabel" text="Cases adjacentes :" GridPane.rowIndex="9" />
-                  <CheckBox id="cochableCompleteAdjacence" fx:id="cochableCompleteAdjacence" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onCompleteAdjacenceAction" GridPane.columnIndex="1" GridPane.rowIndex="9" />   
+                  <CheckBox id="cochableCompleteAdjacence" fx:id="cochableCompleteAdjacence" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#onCompleteAdjacenceAction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                </children>
             </GridPane>
          </children>
