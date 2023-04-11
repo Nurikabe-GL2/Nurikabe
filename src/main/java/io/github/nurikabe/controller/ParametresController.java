@@ -14,11 +14,11 @@ import org.slf4j.Logger;
 public class ParametresController extends FenetreController {
     private static final Logger LOGGER = Logging.getLogger();
 
-    @FXML private CheckBox cochableRemplirCases;
-    @FXML private CheckBox cochableCheminFerme;
-    @FXML private CheckBox cochableAfficherErreur;
-    @FXML private CheckBox cochableCompleteTaille1;
-    @FXML private CheckBox cochableCompleteAdjacence;
+    @FXML private CheckBox cochableRemplirCasesNoires;
+    @FXML private CheckBox cochableNumeroterChemin;
+    @FXML private CheckBox cochableAfficherErreurs;
+    @FXML private CheckBox cochableCompleterIleDeUn;
+    @FXML private CheckBox cochableCompleterCasesAdjacentes;
 
     private final Parametres parametres = Parametres.getParametres();
 
@@ -27,45 +27,44 @@ public class ParametresController extends FenetreController {
     }
 
     @FXML
-    private void onRemplirCasesAction(ActionEvent event) {
-        this.parametres.setRemplirCases(cochableRemplirCases.isSelected());
-        LOGGER.info("Bouton remplissage actionné: {}", this.parametres.getRemplirCases());
+    private void onRemplirCasesNoiresAction(ActionEvent event) {
+        this.parametres.setRemplirCasesNoires(cochableRemplirCasesNoires.isSelected());
+        LOGGER.info("Bouton remplissage actionné: {}", this.parametres.doitRemplirCasesNoires());
     }
 
     @FXML
-    private void onCheminFermeAction(ActionEvent event) {
-        this.parametres.setNumeroteChemin(cochableCheminFerme.isSelected());
-        LOGGER.info("Bouton numerotation chemin actionné: {}", (this.parametres.getNumeroteChemin()));
+    private void onNumeroterCheminAction(ActionEvent event) {
+        this.parametres.setNumeroterChemin(cochableNumeroterChemin.isSelected());
+        LOGGER.info("Bouton numerotation chemin actionné: {}", (this.parametres.doitNumeroterChemin()));
     }
 
     @FXML
-    private void onAfficherErreurAction(ActionEvent event) {
-        this.parametres.setAfficheErreurs(cochableAfficherErreur.isSelected());
-        LOGGER.info("Bouton afficher erreurs actionné: {}", (this.parametres.getAfficheErreurs()));
+    private void onAfficherErreursAction(ActionEvent event) {
+        this.parametres.setAfficherErreurs(cochableAfficherErreurs.isSelected());
+        LOGGER.info("Bouton afficher erreurs actionné: {}", (this.parametres.doitAfficherErreurs()));
     }
 
     @FXML
-    private void onCompleteTaille1Action(ActionEvent event) {
-        this.parametres.setCompleteTaille1(cochableCompleteTaille1.isSelected());
-        LOGGER.info("Bouton completeter iles taille 1 actionné: {}", (this.parametres.getCompleteTaille1()));
+    private void onCompleterIleDeUnAction(ActionEvent event) {
+        this.parametres.setCompleterIleDeUn(cochableCompleterIleDeUn.isSelected());
+        LOGGER.info("Bouton completeter iles taille 1 actionné: {}", (this.parametres.doitCompleterIleDeUn()));
     }
 
     @FXML
-    private void onCompleteAdjacenceAction(ActionEvent event) {
-        this.parametres.setCompleteCaseAdj(cochableCompleteAdjacence.isSelected());
-        LOGGER.info("Bouton completer cases adjacentes actionné: {}", (this.parametres.getCompleteCaseAdj()));
+    private void onCompleterCasesAdjacentesAction(ActionEvent event) {
+        this.parametres.setCompleterCasesAdjacentes(cochableCompleterCasesAdjacentes.isSelected());
+        LOGGER.info("Bouton completer cases adjacentes actionné: {}", (this.parametres.doitCompleterCasesAdjacentes()));
     }
 
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
         LOGGER.info("Menu Paramètres chargé");
-        LOGGER.info("Chargement...");
 
         //Remplissage ou non des cochables en conséquence
-        this.cochableRemplirCases.setSelected(parametres.getRemplirCases());
-        this.cochableCheminFerme.setSelected(parametres.getNumeroteChemin());
-        this.cochableAfficherErreur.setSelected(parametres.getAfficheErreurs());
-        this.cochableCompleteTaille1.setSelected(parametres.getCompleteTaille1());
-        this.cochableCompleteAdjacence.setSelected(parametres.getCompleteCaseAdj());
+        this.cochableRemplirCasesNoires.setSelected(parametres.doitRemplirCasesNoires());
+        this.cochableNumeroterChemin.setSelected(parametres.doitNumeroterChemin());
+        this.cochableAfficherErreurs.setSelected(parametres.doitAfficherErreurs());
+        this.cochableCompleterIleDeUn.setSelected(parametres.doitCompleterIleDeUn());
+        this.cochableCompleterCasesAdjacentes.setSelected(parametres.doitCompleterCasesAdjacentes());
     }
 }

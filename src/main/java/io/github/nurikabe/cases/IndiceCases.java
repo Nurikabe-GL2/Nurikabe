@@ -18,7 +18,7 @@ public class IndiceCases {
     }
 
     public void calculerIndices() {
-        if (Parametres.getParametres().getNumeroteChemin()) {
+        if (Parametres.getParametres().doitNumeroterChemin()) {
             // Application d'une recherche en *largeur*, en prenant chaque case nombre comme point de départ
             final List<Case> cases = new ArrayList<>();
             final Deque<Case> aVisiter = new LinkedList<>();

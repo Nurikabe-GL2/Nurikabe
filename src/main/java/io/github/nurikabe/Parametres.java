@@ -13,58 +13,58 @@ public class Parametres implements Serializable {
     private static final Path CHEMIN_PARAMETRES = Path.of("sauvegarde", "parametres.ser");
     private static Parametres instance;
 
-    private boolean remplirCases = false;
-    private boolean numeroteChemin = true;
-    private boolean afficheErreurs = true;
-    private boolean completeTaille1 = false;
-    private boolean completeCaseAdj = false;
+    private boolean remplirCasesNoires = false;
+    private boolean numeroterChemin = true;
+    private boolean afficherErreurs = true;
+    private boolean completerIleDeUn = false;
+    private boolean completerCasesAdjacentes = false;
 
-    public boolean getRemplirCases() {
-        return this.remplirCases;
+    public boolean doitRemplirCasesNoires() {
+        return this.remplirCasesNoires;
     }
 
-    public boolean getNumeroteChemin() {
-        return this.numeroteChemin;
+    public boolean doitNumeroterChemin() {
+        return this.numeroterChemin;
     }
 
-    public boolean getAfficheErreurs() {
-        return this.afficheErreurs;
+    public boolean doitAfficherErreurs() {
+        return this.afficherErreurs;
     }
 
-    public boolean getCompleteTaille1() {
-        return this.completeTaille1;
+    public boolean doitCompleterIleDeUn() {
+        return this.completerIleDeUn;
     }
 
-    public boolean getCompleteCaseAdj() {
-        return this.completeCaseAdj;
+    public boolean doitCompleterCasesAdjacentes() {
+        return this.completerCasesAdjacentes;
     }
 
-    public void setRemplirCases(boolean remplirCases) {
-        this.remplirCases = remplirCases;
+    public void setRemplirCasesNoires(boolean remplirCasesNoires) {
+        this.remplirCasesNoires = remplirCasesNoires;
         sauvegarder();
     }
 
-    public void setNumeroteChemin(boolean numeroteChemin) {
-        this.numeroteChemin = numeroteChemin;
+    public void setNumeroterChemin(boolean numeroterChemin) {
+        this.numeroterChemin = numeroterChemin;
         sauvegarder();
     }
 
-    public void setAfficheErreurs(boolean afficheErreurs) {
-        this.afficheErreurs = afficheErreurs;
+    public void setAfficherErreurs(boolean afficherErreurs) {
+        this.afficherErreurs = afficherErreurs;
         sauvegarder();
     }
 
-    public void setCompleteTaille1(boolean completeTaille1) {
-        this.completeTaille1 = completeTaille1;
+    public void setCompleterIleDeUn(boolean completerIleDeUn) {
+        this.completerIleDeUn = completerIleDeUn;
         sauvegarder();
     }
 
-    public void setCompleteCaseAdj(boolean completeCaseAdj) {
-        this.completeCaseAdj = completeCaseAdj;
+    public void setCompleterCasesAdjacentes(boolean completerCasesAdjacentes) {
+        this.completerCasesAdjacentes = completerCasesAdjacentes;
         sauvegarder();
     }
 
-    public void sauvegarder() {
+    private void sauvegarder() {
         try {
             Files.createDirectories(CHEMIN_PARAMETRES.getParent()); //Création du dossier s'il n'existe pas
             try (ObjectOutputStream stream = new ObjectOutputStream(IOUtils.newBufferedOutputStream(CHEMIN_PARAMETRES))) {
@@ -93,10 +93,10 @@ public class Parametres implements Serializable {
 
     @Override
     public String toString() {
-        return "Objet parametres -> \n Remplissage: " + getRemplirCases() +
-                "\n Numerotage des chemins: " + getNumeroteChemin() +
-                "\n Affichage des erreurs: " + getAfficheErreurs() +
-                "\n Completer les iles de taille 1: " + getCompleteTaille1() +
-                "\n Completion cases adjacentes: " + getCompleteCaseAdj();
+        return "Objet parametres -> \n Remplissage: " + doitRemplirCasesNoires() +
+                "\n Numerotage des chemins: " + doitNumeroterChemin() +
+                "\n Affichage des erreurs: " + doitAfficherErreurs() +
+                "\n Completer les iles de taille 1: " + doitCompleterIleDeUn() +
+                "\n Completion cases adjacentes: " + doitCompleterCasesAdjacentes();
     }
 }
