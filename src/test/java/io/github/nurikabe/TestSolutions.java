@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSolutions {
+    /**
+     * Teste si on a 20 niveaux par niveau de difficulté
+     */
     @Test
     public void chargementSolutions() {
         assertEquals(20, Niveaux.getNiveaux(Difficulte.FACILE).size());
@@ -16,6 +19,9 @@ public class TestSolutions {
         assertEquals(20, Niveaux.getNiveaux(Difficulte.DIFFICILE).size());
     }
 
+    /**
+     * Teste la lecture d'un fichier solution (nom, taille et lecture de la 2ème ligne)
+     */
     @Test
     public void lectureSolution() {
         final FichierSolution solution = Niveaux.getNiveaux(Difficulte.FACILE).get(0);
