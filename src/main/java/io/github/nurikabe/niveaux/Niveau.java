@@ -111,14 +111,18 @@ public class Niveau {
             //Pas de sauvegarde, création de la grille
             grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
+            final Case.Type typeCaseDepart = Parametres.getParametres().doitRemplirCasesNoires()
+                    ? Case.Type.NOIR
+                    : Case.Type.BLANC;
             for (int y = 0; y < grille.getHauteur(); y++) {
                 for (int x = 0; x < grille.getLargeur(); x++) {
-                    final Case uneCase;
-                    if (grilleSolution.recup(x, y).getType() == Case.Type.BLANC || grilleSolution.recup(x, y).getType() == Case.Type.NOIR) {
-                        uneCase = new CaseNormale(x, y);
-                    } else {
-                        uneCase = new CaseNombre(x, y, grilleSolution.recup(x, y).getNombre());
-                    }
+                    final CaseSolution caseSolution = grilleSolution.recup(x, y);
+                    final Case uneCase = switch (caseSolution.getType()) {
+                        case BLANC, NOIR -> new CaseNormale(x, y, typeCaseDepart);
+                        case NOMBRE -> new CaseNombre(x, y, caseSolution.getNombre());
+                        default ->
+                                throw new IllegalArgumentException("Type de case solution inattendu: " + caseSolution.getType());
+                    };
                     grille.mettre(x, y, uneCase);
                 }
             }

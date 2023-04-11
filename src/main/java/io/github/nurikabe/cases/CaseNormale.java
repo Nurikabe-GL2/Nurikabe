@@ -9,11 +9,12 @@ public class CaseNormale extends Case {
     /**
      * Constructeur de la classe CaseNormale
      *
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
+     * @param x    la coordonnée x de la case
+     * @param y    la coordonnée y de la case
+     * @param type Le type de la case, blanc ou noir
      */
-    public CaseNormale(int x, int y) {
-        super(x, y, Type.BLANC);
+    public CaseNormale(int x, int y, Type type) {
+        super(x, y, type);
     }
 
     /**
