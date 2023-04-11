@@ -2,7 +2,6 @@ package io.github.nurikabe.controller;
 
 import io.github.nurikabe.Logging;
 import io.github.nurikabe.Parametres;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
@@ -26,45 +25,22 @@ public class ParametresController extends FenetreController {
         super(stage);
     }
 
-    @FXML
-    private void onRemplirCasesNoiresAction(ActionEvent event) {
-        this.parametres.setRemplirCasesNoires(cochableRemplirCasesNoires.isSelected());
-        LOGGER.info("Bouton remplissage actionné: {}", this.parametres.doitRemplirCasesNoires());
-    }
-
-    @FXML
-    private void onNumeroterCheminAction(ActionEvent event) {
-        this.parametres.setNumeroterChemin(cochableNumeroterChemin.isSelected());
-        LOGGER.info("Bouton numerotation chemin actionné: {}", (this.parametres.doitNumeroterChemin()));
-    }
-
-    @FXML
-    private void onAfficherErreursAction(ActionEvent event) {
-        this.parametres.setAfficherErreurs(cochableAfficherErreurs.isSelected());
-        LOGGER.info("Bouton afficher erreurs actionné: {}", (this.parametres.doitAfficherErreurs()));
-    }
-
-    @FXML
-    private void onCompleterIleDeUnAction(ActionEvent event) {
-        this.parametres.setCompleterIleDeUn(cochableCompleterIleDeUn.isSelected());
-        LOGGER.info("Bouton completeter iles taille 1 actionné: {}", (this.parametres.doitCompleterIleDeUn()));
-    }
-
-    @FXML
-    private void onCompleterCasesAdjacentesAction(ActionEvent event) {
-        this.parametres.setCompleterCasesAdjacentes(cochableCompleterCasesAdjacentes.isSelected());
-        LOGGER.info("Bouton completer cases adjacentes actionné: {}", (this.parametres.doitCompleterCasesAdjacentes()));
-    }
-
     @FXML // Execute quand le fichier FXML est chargé
     private void initialize() {
         LOGGER.info("Menu Paramètres chargé");
 
-        //Remplissage ou non des cochables en conséquence
-        this.cochableRemplirCasesNoires.setSelected(parametres.doitRemplirCasesNoires());
-        this.cochableNumeroterChemin.setSelected(parametres.doitNumeroterChemin());
-        this.cochableAfficherErreurs.setSelected(parametres.doitAfficherErreurs());
-        this.cochableCompleterIleDeUn.setSelected(parametres.doitCompleterIleDeUn());
-        this.cochableCompleterCasesAdjacentes.setSelected(parametres.doitCompleterCasesAdjacentes());
+        //Les changements sur les CheckBox seront reflétés sur les paramètres
+        //La propriété à droite doit être celle des paramètres,
+        // car c'est celle qui doit être appliquée quand on crée le contrôleur
+        cochableRemplirCasesNoires.selectedProperty().bindBidirectional(parametres.remplirCasesNoiresProperty());
+        cochableNumeroterChemin.selectedProperty().bindBidirectional(parametres.numeroterCheminProperty());
+        cochableAfficherErreurs.selectedProperty().bindBidirectional(parametres.afficherErreursProperty());
+        cochableCompleterIleDeUn.selectedProperty().bindBidirectional(parametres.completerIleDeUnProperty());
+        cochableCompleterCasesAdjacentes.selectedProperty().bindBidirectional(parametres.completerCasesAdjacentesProperty());
+
+        //Affichage du message d'incompatibilité si les cases noires sont utilisées
+        cochableAfficherErreurs.getGraphic().visibleProperty().bind(cochableRemplirCasesNoires.selectedProperty().and(cochableAfficherErreurs.selectedProperty()));
+        cochableCompleterIleDeUn.getGraphic().visibleProperty().bind(cochableRemplirCasesNoires.selectedProperty().and(cochableCompleterIleDeUn.selectedProperty()));
+        cochableCompleterCasesAdjacentes.getGraphic().visibleProperty().bind(cochableRemplirCasesNoires.selectedProperty().and(cochableCompleterCasesAdjacentes.selectedProperty()));
     }
 }

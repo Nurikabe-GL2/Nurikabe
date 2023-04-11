@@ -26,3 +26,8 @@ ToggleButton {
     -fx-text-fill: white;
     -fx-font-size: 14px;
 }
+
+.incompatibleLabel {
+    -fx-text-fill: red;
+    -fx-font-size: 13px;
+}
