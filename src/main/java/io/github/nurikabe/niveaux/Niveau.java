@@ -277,6 +277,8 @@ public class Niveau {
     }
 
     public void undo() {
+        if (pileUndo.estVide()) return;
+
         final Coup coup = pileUndo.depiler();
         recupCase(coup.x(), coup.y()).etatPrecedent();
         pileRedo.empiler(coup);
@@ -285,6 +287,8 @@ public class Niveau {
     }
 
     public void redo() {
+        if (pileRedo.estVide()) return;
+
         final Coup coup = pileRedo.depiler();
         recupCase(coup.x(), coup.y()).etatSuivant();
         pileUndo.empiler(coup);
