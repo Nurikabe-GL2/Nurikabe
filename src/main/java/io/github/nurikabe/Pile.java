@@ -34,4 +34,8 @@ public class Pile implements Serializable {
     public void vider() {
         pile.clear();
     }
+
+    public int taille() {
+        return pile.size();
+    }
 }

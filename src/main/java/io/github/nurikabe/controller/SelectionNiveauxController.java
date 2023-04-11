@@ -141,7 +141,7 @@ public class SelectionNiveauxController extends FenetreController {
                 button.setText("Complété");
             } else if (i == 0 || metadonneesSauvegardes.get(i - 1).estComplete()) {
                 //Le niveau est déverrouillé si c'est le premier, ou alors que le précédent est complet
-                button.setText(metadonneesSauvegarde.existe() ? "Continuer" : "Jouer");
+                button.setText(metadonneesSauvegarde.contiensSauvegarde() ? "Continuer" : "Jouer");
                 button.setOnMouseClicked(event -> {
                     try {
                         new NiveauController(stage, metadonneesSauvegarde, this);

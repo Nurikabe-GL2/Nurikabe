@@ -106,7 +106,7 @@ public class Niveau {
      * On commence par charger la solution du niveau, puis on tente de charger sa sauvegarde
      * s'il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
      */
-    public void chargerGrille() throws Exception {
+    private void chargerGrille() throws Exception {
         if (!chargerSauvegarde()) {
             //Pas de sauvegarde, création de la grille
             grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
@@ -258,7 +258,7 @@ public class Niveau {
         notifierChangement();
     }
 
-    public void onFinModeHypothese() {
+    private void onFinModeHypothese() {
         for (int y = 0; y < getHauteur(); y++) {
             for (int x = 0; x < getLargeur(); x++) {
                 grille.recup(x, y).setAffecteParHypothese(false);

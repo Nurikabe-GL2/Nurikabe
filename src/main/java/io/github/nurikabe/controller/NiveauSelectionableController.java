@@ -49,7 +49,7 @@ public class NiveauSelectionableController extends VBox {
     private void initialize() {
         if (estComplete) {
             label.setText(solution.getNomNiveau() + " (complété)");
-        } else if (metadonneesSauvegarde.existe()) {
+        } else if (metadonneesSauvegarde.contiensSauvegarde()) {
             label.setText(solution.getNomNiveau() + " (commencé)");
         } else {
             label.setText(solution.getNomNiveau());
