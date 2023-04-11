@@ -43,6 +43,7 @@ public class Techniques {
 
     @Nullable
     public static PositionTechniques trouverTechnique(Niveau niveau) {
+        boucleTechniques:
         for (Technique technique : TECHNIQUES) {
             final PositionTechniques positionTechniques = technique.tester(niveau);
             if (positionTechniques != null) {
@@ -54,6 +55,7 @@ public class Techniques {
                     final var typeSolution = niveau.getGrilleSolution().recup(cible.x(), cible.y()).getType();
                     if (typeSolution != typeCible) {
                         LOGGER.warn("La technique '{}' a proposé la mise en place d'une case '{}' à {}x{}, mais la solution est {}", technique.getIdentifiant(), cible.type(), cible.x(), cible.y(), typeSolution);
+                        continue boucleTechniques;
                     }
                 }
 
