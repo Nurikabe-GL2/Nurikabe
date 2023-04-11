@@ -5,6 +5,11 @@ import io.github.nurikabe.niveaux.FichierSolution;
 import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.niveaux.Niveaux;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.techniques.demarrage.IleDeUn;
+import io.github.nurikabe.techniques.demarrage.IndiceAdjacentsEnDiagonale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -196,5 +201,35 @@ public class TestNiveau {
         final int verifVide = niveau.verifier();
         niveau.recupCase(0, 0).onClic(); //Ajout case incorrecte
         assertEquals(verifVide + 1, niveau.verifier());
+    }
+
+    /**
+     * Test des techniques, pour le premier niveau cela couvrira les 2 îles de 1, et les cases adjacentes en diagonale
+     */
+    @Test
+    public void techniques() {
+        PositionTechniques positionTechniques = Techniques.trouverTechnique(niveau);
+        assertNotNull(positionTechniques);
+        assertInstanceOf(IleDeUn.class, positionTechniques.getTechnique());
+
+        for (Cible cible : positionTechniques.getCibles()) {
+            niveau.recupCase(cible.x(), cible.y()).onClic();
+        }
+
+        positionTechniques = Techniques.trouverTechnique(niveau);
+        assertNotNull(positionTechniques);
+        assertInstanceOf(IleDeUn.class, positionTechniques.getTechnique());
+
+        for (Cible cible : positionTechniques.getCibles()) {
+            niveau.recupCase(cible.x(), cible.y()).onClic();
+        }
+
+        positionTechniques = Techniques.trouverTechnique(niveau);
+        assertNotNull(positionTechniques);
+        assertInstanceOf(IndiceAdjacentsEnDiagonale.class, positionTechniques.getTechnique());
+
+        for (Cible cible : positionTechniques.getCibles()) {
+            niveau.recupCase(cible.x(), cible.y()).onClic();
+        }
     }
 }
