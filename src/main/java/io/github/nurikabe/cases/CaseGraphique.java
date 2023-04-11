@@ -1,9 +1,11 @@
 package io.github.nurikabe.cases;
 
+import io.github.nurikabe.Parametres;
 import io.github.nurikabe.cases.Case.Type;
 import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -58,6 +60,15 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
                 Text nb = new Text(aCase.getContenuCase());
                 setNodes(nb);
                 setClassesCss("caseblanche");
+            }
+        }
+
+        if (Parametres.getParametres().doitAfficherErreurs()) {
+            //Cases *noires* erronées
+            if (getType() == Type.NOIR && getType() != grille.getGrilleSolution().recup(aCase.getX(), aCase.getY()).getType()) {
+                final Label labelErronnee = new Label("!");
+                labelErronnee.getStyleClass().add("labelCaseErronee");
+                getChildren().add(labelErronnee);
             }
         }
     }
