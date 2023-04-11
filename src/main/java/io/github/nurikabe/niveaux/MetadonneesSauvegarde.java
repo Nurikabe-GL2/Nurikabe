@@ -39,6 +39,9 @@ public class MetadonneesSauvegarde {
         return modeDeJeu;
     }
 
+    /**
+     * Détermine si la sauvegarde existe, donc, si le niveau a été entamé.
+     */
     public boolean contiensSauvegarde() {
         return Files.exists(cheminSauvegarde);
     }
@@ -105,12 +108,5 @@ public class MetadonneesSauvegarde {
         } catch (IOException e) { //Il y a vraiment un problème si cela arrive
             throw new UncheckedIOException(e);
         }
-    }
-
-    /**
-     * Détermine si la sauvegarde existe, donc, si le niveau a été entamé.
-     */
-    public boolean existe() {
-        return Files.exists(cheminSauvegarde);
     }
 }
