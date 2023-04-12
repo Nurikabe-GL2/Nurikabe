@@ -11,7 +11,7 @@ import io.github.nurikabe.techniques.demarrage.IndicesSeparerParCaseBlanche;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Classe contenant les différentes techniques.
@@ -39,7 +39,17 @@ public class Techniques {
             new Avancee4(),
             new Avancee5()
     );
+    public static final Map<String, List<Technique>> CATEGORIES_TECHNIQUES;
     private static final Logger LOGGER = Logging.getLogger();
+
+    static {
+        final Map<String, List<Technique>> categoriesTechniques = new LinkedHashMap<>();
+        for (Technique technique : Techniques.TECHNIQUES) {
+            categoriesTechniques.computeIfAbsent(technique.getCategorie(), s -> new ArrayList<>()).add(technique);
+        }
+
+        CATEGORIES_TECHNIQUES = Collections.unmodifiableMap(categoriesTechniques);
+    }
 
     @Nullable
     public static PositionTechniques trouverTechnique(Niveau niveau) {
