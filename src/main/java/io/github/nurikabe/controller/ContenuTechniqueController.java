@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 public class ContenuTechniqueController extends VBox {
     private final Technique technique;
 
-    @FXML private Label labelNom, labelDescription;
+    @FXML private Label labelNom, labelDescription, labelCondition;
     @FXML private ImageView image;
 
     public ContenuTechniqueController(Technique technique) {
@@ -25,6 +25,7 @@ public class ContenuTechniqueController extends VBox {
     private void initialize() {
         labelNom.setText(technique.getNom());
         labelDescription.setText(technique.getDescription());
+        labelCondition.setText(technique.getCondition());
         image.setImage(technique.getImage());
     }
 }

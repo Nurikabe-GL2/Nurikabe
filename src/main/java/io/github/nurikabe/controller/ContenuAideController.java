@@ -19,7 +19,7 @@ public class ContenuAideController extends ScrollPane {
     private final PositionTechniques positionTechniques;
 
     @FXML private ImageView image;
-    @FXML private Label labelCategorie, labelDescription, labelNom;
+    @FXML private Label labelCategorie, labelDescription, labelCondition, labelNom;
     @FXML private Button boutonPositionAide;
 
     public ContenuAideController(NiveauController niveauController, @NotNull PositionTechniques positionTechniques) {
@@ -33,6 +33,7 @@ public class ContenuAideController extends ScrollPane {
         labelCategorie.setText(technique.getCategorie());
         labelNom.setText(technique.getNom());
         labelDescription.setText(technique.getDescription());
+        labelCondition.setText(technique.getCondition());
         image.setImage(technique.getImage());
 
         boutonPositionAide.setDisable(positionTechniques.getCibles().isEmpty());
