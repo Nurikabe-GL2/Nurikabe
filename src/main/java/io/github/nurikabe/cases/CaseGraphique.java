@@ -69,7 +69,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
             if (getType() == Type.NOIR && getType() != grille.getGrilleSolution().recup(aCase.getX(), aCase.getY()).getType()) {
                 final Label labelErronnee = new Label("!");
                 labelErronnee.getStyleClass().add("labelCaseErronee");
-                getChildren().add(labelErronnee);
+                setNodes(labelErronnee);
             }
         }
     }
