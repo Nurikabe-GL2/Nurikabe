@@ -20,7 +20,7 @@ public class Parametres implements Serializable {
 
     private BooleanProperty remplirCasesNoires = new SimpleBooleanProperty(false);
     private BooleanProperty numeroterChemin = new SimpleBooleanProperty(true);
-    private BooleanProperty afficherErreurs = new SimpleBooleanProperty(true);
+    private BooleanProperty afficherErreurs = new SimpleBooleanProperty(false);
     private BooleanProperty completerIleDeUn = new SimpleBooleanProperty(false);
     private BooleanProperty completerCasesAdjacentes = new SimpleBooleanProperty(false);
 
