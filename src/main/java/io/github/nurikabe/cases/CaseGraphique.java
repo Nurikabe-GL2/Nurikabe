@@ -48,13 +48,14 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
             case BLANC -> setClassesCss("caseblanche");
             case NOIR -> setClassesCss(aCase.estAffecteParHypothese() ? "casenoireBleue" : "casenoire");
             case POINT -> {
+                setClassesCss("caseblanche");
                 if (aCase.getIndice() > 0) {
                     Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
                     indiceChemin.getStyleClass().add("chiffreChemin");
-                    setClassesCss("caseblanche");
                     setNodes(indiceChemin);
                 } else {
-                    mettreCercle();
+                    Circle point = new Circle(10, 10, 7, grille.estEnModeHypothese() ? Color.BLUE : Color.BLACK);
+                    setNodes(point);
                 }
             }
             case NOMBRE -> {
@@ -92,16 +93,6 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
         if (getType() == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
         niveauController.calculerIndices();
-    }
-
-    /**
-     * Méthode privée pour mettre un cercle dans la case quand la case se trouve dans l'état point
-     */
-    private void mettreCercle() {
-        Circle cercle = new Circle(10, 10, 7);
-        cercle.setFill(grille.estEnModeHypothese() ? Color.BLUE : Color.BLACK);
-        setNodes(cercle);
-        setClassesCss("caseblanche");
     }
 
     /**
