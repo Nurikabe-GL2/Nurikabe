@@ -280,7 +280,8 @@ public class Niveau {
         if (pileUndo.estVide()) return;
 
         final Coup coup = pileUndo.depiler();
-        recupCase(coup.x(), coup.y()).etatPrecedent();
+        if (coup.etaitPrecedent()) recupCase(coup.x(), coup.y()).etatSuivant();
+        else recupCase(coup.x(), coup.y()).etatPrecedent();
         pileRedo.empiler(coup);
 
         notifierChangement();
@@ -290,7 +291,8 @@ public class Niveau {
         if (pileRedo.estVide()) return;
 
         final Coup coup = pileRedo.depiler();
-        recupCase(coup.x(), coup.y()).etatSuivant();
+        if (coup.etaitPrecedent()) recupCase(coup.x(), coup.y()).etatPrecedent();
+        else recupCase(coup.x(), coup.y()).etatSuivant();
         pileUndo.empiler(coup);
 
         notifierChangement();
@@ -328,22 +330,6 @@ public class Niveau {
         hypo.annuler(this);
         notifierChangement();
         onFinModeHypothese();
-    }
-
-    /**
-     * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
-     *
-     * @param aPop    la pile qui possède le coup à jouer, c'est elle qui sera pop
-     * @param aPush   la pile qui recevra le nouveau coup, c'est elle qui sera push
-     * @param nbClics le nombre de clics à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
-     */
-    private void coup(Pile aPop, Pile aPush, int nbClics) {
-        Coup coupPris = aPop.depiler();
-        if (coupPris.x() != -1) {
-            for (int i = 0; i < nbClics; i++)
-                grille.recup(coupPris.x(), coupPris.y()); //TODO action clic
-        }
-        aPush.empiler(coupPris);
     }
 
     /**

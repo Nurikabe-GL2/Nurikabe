@@ -75,7 +75,7 @@ public class CaseNormale extends Case {
         if (precedent) etatPrecedent();
         else etatSuivant();
 
-        niveau.recupUndo().empiler(new Coup(x, y));
+        niveau.recupUndo().empiler(new Coup(x, y, precedent));
         niveau.recupRedo().vider();
         niveau.notifierChangement();
         niveau.sauvegarderNiveau();
