@@ -37,8 +37,4 @@ public class Score implements Serializable {
     public int getScore() {
         return score;
     }
-
-    public void setScore(int s) {
-        score = s;
-    }
 }
