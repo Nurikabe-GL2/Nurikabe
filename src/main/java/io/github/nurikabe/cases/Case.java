@@ -94,6 +94,12 @@ public abstract class Case implements Serializable {
      */
     public abstract void onClic();
 
+    /**
+     * Change l'état de la case à l'état précedent, enregistrer le coup dans la pile undo,
+     * sauvegarde, puis vérifie si le niveau est terminé
+     */
+    public abstract void onClicPrecedent();
+
     public void setAffecteParHypothese(boolean affecteParHypothese) {
         this.affecteParHypothese = affecteParHypothese;
         notifierObservateurs();

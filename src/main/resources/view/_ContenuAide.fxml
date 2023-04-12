@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import java.lang.String?>
 <fx:root id="aidePane" fx:id="aidePane" fitToWidth="true" stylesheets="@../css/_ContenuAide.css" type="ScrollPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" spacing="10.0">
@@ -23,12 +22,27 @@
             </Label>
             <VBox>
                <children>
-                  <Label fx:id="labelCategorie" maxWidth="1.7976931348623157E308" styleClass="tipCategory" text="Techniques de base" textAlignment="CENTER" wrapText="true" />
-                  <Label fx:id="labelNom" maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" textAlignment="CENTER" wrapText="true" />
-                  <Label fx:id="labelDescription" styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
+                  <Label fx:id="labelCategorie" maxWidth="1.7976931348623157E308" styleClass="tipCategory"
+                         text="Techniques de base" textAlignment="CENTER" wrapText="true"/>
+                  <Label fx:id="labelNom" maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1"
+                         textAlignment="CENTER" wrapText="true"/>
+                  <Label fx:id="labelDescription" styleClass="tipLabel"
+                         text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux."
+                         wrapText="true"/>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Condition d'activation : " wrapText="true">
+                           <styleClass>
+                              <String fx:value="tipLabel"/>
+                              <String fx:value="tipActivationPrefixLabel"/>
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="labelCondition" styleClass="tipLabel" text="Avoir une île de 1." wrapText="true"/>
+                     </children>
+                  </HBox>
                   <ImageView fx:id="image" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/techniques_demarrage/1_ile_de_un.png" />
+                        <Image url="@../img/techniques_demarrage/1_ile_de_un.png"/>
                      </image>
                   </ImageView>
                </children>

@@ -5,6 +5,12 @@ import io.github.nurikabe.cases.Case;
 import io.github.nurikabe.cases.CaseNombre;
 import io.github.nurikabe.cases.CaseNormale;
 import io.github.nurikabe.cases.CaseSolution;
+import io.github.nurikabe.techniques.Cible;
+import io.github.nurikabe.techniques.PositionTechniques;
+import io.github.nurikabe.techniques.Technique;
+import io.github.nurikabe.techniques.Techniques;
+import io.github.nurikabe.techniques.demarrage.IleDeUn;
+import io.github.nurikabe.techniques.demarrage.IndiceAdjacentsEnDiagonale;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,7 @@ public class Niveau {
         return thread;
     });
 
+    private final Parametres parametres = Parametres.getParametres();
     private final MetadonneesSauvegarde metadonneesSauvegarde;
     private final ScheduledFuture<?> saveFuture;
 
@@ -107,18 +114,23 @@ public class Niveau {
      * s'il n'en existe pas on le charge directement en mettant les cases à 0 (vides)
      */
     private void chargerGrille() throws Exception {
-        if (!chargerSauvegarde()) {
+        final boolean aChargeSauvegarde = chargerSauvegarde();
+        if (!aChargeSauvegarde) {
             //Pas de sauvegarde, création de la grille
             grille = new Grille<>(grilleSolution.getLargeur(), grilleSolution.getHauteur());
 
+            final Case.Type typeCaseDepart = parametres.doitRemplirCasesNoires()
+                    ? Case.Type.NOIR
+                    : Case.Type.BLANC;
             for (int y = 0; y < grille.getHauteur(); y++) {
                 for (int x = 0; x < grille.getLargeur(); x++) {
-                    final Case uneCase;
-                    if (grilleSolution.recup(x, y).getType() == Case.Type.BLANC || grilleSolution.recup(x, y).getType() == Case.Type.NOIR) {
-                        uneCase = new CaseNormale(x, y);
-                    } else {
-                        uneCase = new CaseNombre(x, y, grilleSolution.recup(x, y).getNombre());
-                    }
+                    final CaseSolution caseSolution = grilleSolution.recup(x, y);
+                    final Case uneCase = switch (caseSolution.getType()) {
+                        case BLANC, NOIR -> new CaseNormale(x, y, typeCaseDepart);
+                        case NOMBRE -> new CaseNombre(x, y, caseSolution.getNombre());
+                        default ->
+                                throw new IllegalArgumentException("Type de case solution inattendu: " + caseSolution.getType());
+                    };
                     grille.mettre(x, y, uneCase);
                 }
             }
@@ -127,6 +139,28 @@ public class Niveau {
         for (int y = 0; y < grille.getHauteur(); y++) {
             for (int x = 0; x < grille.getLargeur(); x++) {
                 grille.recup(x, y).setNiveau(this);
+            }
+        }
+
+        //Utilisation des techniques basiques dans le cas d'une nouvelle partie
+        if (!aChargeSauvegarde) {
+            if (parametres.doitCompleterIleDeUn()) {
+                //Utilisation de la technique "ile de 1" jusqu'à ce qu'il n'y en ait plus
+                utiliserTechnique(IleDeUn.class);
+            }
+
+            if (parametres.doitCompleterCasesAdjacentes()) {
+                //Utilisation de la technique "Indice adjacents en diagonale" jusqu'à ce qu'il n'y en ait plus
+                utiliserTechnique(IndiceAdjacentsEnDiagonale.class);
+            }
+        }
+    }
+
+    private <T extends Technique> void utiliserTechnique(Class<T> typeTechnique) {
+        PositionTechniques positionTechniques;
+        while ((positionTechniques = Techniques.trouverTechnique(this)) != null && typeTechnique.isInstance(positionTechniques.getTechnique())) {
+            for (Cible cible : positionTechniques.getCibles()) {
+                recupCase(cible.x(), cible.y()).etatSuivant();
             }
         }
     }
@@ -243,16 +277,22 @@ public class Niveau {
     }
 
     public void undo() {
+        if (pileUndo.estVide()) return;
+
         final Coup coup = pileUndo.depiler();
-        recupCase(coup.x(), coup.y()).etatPrecedent();
+        if (coup.etaitPrecedent()) recupCase(coup.x(), coup.y()).etatSuivant();
+        else recupCase(coup.x(), coup.y()).etatPrecedent();
         pileRedo.empiler(coup);
 
         notifierChangement();
     }
 
     public void redo() {
+        if (pileRedo.estVide()) return;
+
         final Coup coup = pileRedo.depiler();
-        recupCase(coup.x(), coup.y()).etatSuivant();
+        if (coup.etaitPrecedent()) recupCase(coup.x(), coup.y()).etatPrecedent();
+        else recupCase(coup.x(), coup.y()).etatSuivant();
         pileUndo.empiler(coup);
 
         notifierChangement();
@@ -290,22 +330,6 @@ public class Niveau {
         hypo.annuler(this);
         notifierChangement();
         onFinModeHypothese();
-    }
-
-    /**
-     * Méthode coup appelée par les handlers de Undo et Redo pour pop un coup le joué et le mettre dans la pile correcte
-     *
-     * @param aPop    la pile qui possède le coup à jouer, c'est elle qui sera pop
-     * @param aPush   la pile qui recevra le nouveau coup, c'est elle qui sera push
-     * @param nbClics le nombre de clics à faire pour revenir au coup (si c'est un coup précédent alors 2 sinon 1)
-     */
-    private void coup(Pile aPop, Pile aPush, int nbClics) {
-        Coup coupPris = aPop.depiler();
-        if (coupPris.x() != -1) {
-            for (int i = 0; i < nbClics; i++)
-                grille.recup(coupPris.x(), coupPris.y()); //TODO action clic
-        }
-        aPush.empiler(coupPris);
     }
 
     /**

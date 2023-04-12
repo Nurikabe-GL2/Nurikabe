@@ -9,7 +9,6 @@ import io.github.nurikabe.niveaux.MetadonneesSauvegarde;
 import io.github.nurikabe.niveaux.Niveau;
 import io.github.nurikabe.niveaux.ObservateurNiveau;
 import io.github.nurikabe.techniques.PositionTechniques;
-import io.github.nurikabe.techniques.Technique;
 import io.github.nurikabe.techniques.Techniques;
 import io.github.nurikabe.utils.Utils;
 import javafx.animation.AnimationTimer;
@@ -25,7 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * Contrôleur représentant le plateau du Nurikabe.
@@ -156,17 +155,7 @@ public class NiveauController extends FenetreController implements ObservateurNi
         final FichierSolution solution = metadonneesSauvegarde.getSolution();
         labelTitre.setText(metadonneesSauvegarde.getModeDeJeu().getDescriptionMode() + " : " + solution.getNomNiveau());
 
-        final Map<String, List<Technique>> categoriesTechniques = new LinkedHashMap<>();
-        for (Technique technique : Techniques.TECHNIQUES) {
-            categoriesTechniques.computeIfAbsent(technique.getCategorie(), s -> new ArrayList<>()).add(technique);
-        }
-
-        for (var entry : categoriesTechniques.entrySet()) {
-            final var nomCategorie = entry.getKey();
-            final var techniques = entry.getValue();
-            final var controller = Utils.loadFxml(new CategorieTechniqueController(nomCategorie, techniques), "_CategorieTechnique");
-            techniquesBox.getChildren().add(controller);
-        }
+        TechniquesController.insererCategoriesTechniques(techniquesBox);
 
         new AnimationTimer() {
             @Override

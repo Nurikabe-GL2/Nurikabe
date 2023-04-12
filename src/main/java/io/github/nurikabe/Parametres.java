@@ -1,6 +1,8 @@
 package io.github.nurikabe;
 
 import io.github.nurikabe.utils.IOUtils;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -8,63 +10,69 @@ import java.nio.file.Path;
 
 /**
  * Singleton contenant les paramètres du Nurikabe
+ * <p>
+ * Les propriétés sont les valeurs réelles alors que les getters peuvent retourner des valeurs différentes des propriétés,
+ * en fonction d'une autre propriété.
  */
 public class Parametres implements Serializable {
-    private static final Path CHEMIN_PARAMETRES = Path.of("sauvegarde", "parametres.ser");
+    private static final Path CHEMIN_PARAMETRES = Path.of("sauvegarde", "parametres.bin");
     private static Parametres instance;
 
-    private boolean remplirCases = false;
-    private boolean numeroteChemin = true;
-    private boolean afficheErreurs = true;
-    private boolean completeTaille1 = false;
-    private boolean completeCaseAdj = false;
+    private BooleanProperty remplirCasesNoires = new SimpleBooleanProperty(false);
+    private BooleanProperty numeroterChemin = new SimpleBooleanProperty(true);
+    private BooleanProperty afficherErreurs = new SimpleBooleanProperty(true);
+    private BooleanProperty completerIleDeUn = new SimpleBooleanProperty(false);
+    private BooleanProperty completerCasesAdjacentes = new SimpleBooleanProperty(false);
 
-    public boolean getRemplirCases() {
-        return this.remplirCases;
+    public Parametres() {
+        remplirCasesNoires.addListener(x -> sauvegarder());
+        numeroterChemin.addListener(x -> sauvegarder());
+        afficherErreurs.addListener(x -> sauvegarder());
+        completerIleDeUn.addListener(x -> sauvegarder());
+        completerCasesAdjacentes.addListener(x -> sauvegarder());
     }
 
-    public boolean getNumeroteChemin() {
-        return this.numeroteChemin;
+    public BooleanProperty remplirCasesNoiresProperty() {
+        return remplirCasesNoires;
     }
 
-    public boolean getAfficheErreurs() {
-        return this.afficheErreurs;
+    public boolean doitRemplirCasesNoires() {
+        return remplirCasesNoiresProperty().get();
     }
 
-    public boolean getCompleteTaille1() {
-        return this.completeTaille1;
+    public BooleanProperty numeroterCheminProperty() {
+        return numeroterChemin;
     }
 
-    public boolean getCompleteCaseAdj() {
-        return this.completeCaseAdj;
+    public boolean doitNumeroterChemin() {
+        return numeroterCheminProperty().get();
     }
 
-    public void setRemplirCases(boolean remplirCases) {
-        this.remplirCases = remplirCases;
-        sauvegarder();
+    public BooleanProperty afficherErreursProperty() {
+        return afficherErreurs;
     }
 
-    public void setNumeroteChemin(boolean numeroteChemin) {
-        this.numeroteChemin = numeroteChemin;
-        sauvegarder();
+    public boolean doitAfficherErreurs() {
+        return !doitRemplirCasesNoires() && afficherErreursProperty().get();
     }
 
-    public void setAfficheErreurs(boolean afficheErreurs) {
-        this.afficheErreurs = afficheErreurs;
-        sauvegarder();
+    public BooleanProperty completerIleDeUnProperty() {
+        return completerIleDeUn;
     }
 
-    public void setCompleteTaille1(boolean completeTaille1) {
-        this.completeTaille1 = completeTaille1;
-        sauvegarder();
+    public boolean doitCompleterIleDeUn() {
+        return !doitRemplirCasesNoires() && completerIleDeUnProperty().get();
     }
 
-    public void setCompleteCaseAdj(boolean completeCaseAdj) {
-        this.completeCaseAdj = completeCaseAdj;
-        sauvegarder();
+    public BooleanProperty completerCasesAdjacentesProperty() {
+        return completerCasesAdjacentes;
     }
 
-    public void sauvegarder() {
+    public boolean doitCompleterCasesAdjacentes() {
+        return !doitRemplirCasesNoires() && completerCasesAdjacentesProperty().get();
+    }
+
+    private void sauvegarder() {
         try {
             Files.createDirectories(CHEMIN_PARAMETRES.getParent()); //Création du dossier s'il n'existe pas
             try (ObjectOutputStream stream = new ObjectOutputStream(IOUtils.newBufferedOutputStream(CHEMIN_PARAMETRES))) {
@@ -93,10 +101,28 @@ public class Parametres implements Serializable {
 
     @Override
     public String toString() {
-        return "Objet parametres -> \n Remplissage: " + getRemplirCases() +
-                "\n Numerotage des chemins: " + getNumeroteChemin() +
-                "\n Affichage des erreurs: " + getAfficheErreurs() +
-                "\n Completer les iles de taille 1: " + getCompleteTaille1() +
-                "\n Completion cases adjacentes: " + getCompleteCaseAdj();
+        return "Objet parametres -> \n Remplissage: " + doitRemplirCasesNoires() +
+                "\n Numerotage des chemins: " + doitNumeroterChemin() +
+                "\n Affichage des erreurs: " + doitAfficherErreurs() +
+                "\n Completer les iles de taille 1: " + doitCompleterIleDeUn() +
+                "\n Completion cases adjacentes: " + doitCompleterCasesAdjacentes();
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.writeBoolean(remplirCasesNoires.get());
+        stream.writeBoolean(numeroterChemin.get());
+        stream.writeBoolean(afficherErreurs.get());
+        stream.writeBoolean(completerIleDeUn.get());
+        stream.writeBoolean(completerCasesAdjacentes.get());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream stream) throws IOException {
+        remplirCasesNoires = new SimpleBooleanProperty(stream.readBoolean());
+        numeroterChemin = new SimpleBooleanProperty(stream.readBoolean());
+        afficherErreurs = new SimpleBooleanProperty(stream.readBoolean());
+        completerIleDeUn = new SimpleBooleanProperty(stream.readBoolean());
+        completerCasesAdjacentes = new SimpleBooleanProperty(stream.readBoolean());
     }
 }

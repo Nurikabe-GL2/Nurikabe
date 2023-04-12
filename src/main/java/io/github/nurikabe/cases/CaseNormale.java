@@ -9,11 +9,12 @@ public class CaseNormale extends Case {
     /**
      * Constructeur de la classe CaseNormale
      *
-     * @param x la coordonnée x de la case
-     * @param y la coordonnée y de la case
+     * @param x    la coordonnée x de la case
+     * @param y    la coordonnée y de la case
+     * @param type Le type de la case, blanc ou noir
      */
-    public CaseNormale(int x, int y) {
-        super(x, y, Type.BLANC);
+    public CaseNormale(int x, int y, Type type) {
+        super(x, y, type);
     }
 
     /**
@@ -59,17 +60,27 @@ public class CaseNormale extends Case {
 
     @Override
     public void onClic() {
+        onClic(false);
+    }
+
+    @Override
+    public void onClicPrecedent() {
+        onClic(true);
+    }
+
+    private void onClic(boolean precedent) {
         if (niveau.estEnModeHypothese()) niveau.actionHypothese();
         setAffecteParHypothese(niveau.estEnModeHypothese());
-        etatSuivant();
 
-        niveau.recupUndo().empiler(new Coup(x, y));
+        if (precedent) etatPrecedent();
+        else etatSuivant();
+
+        niveau.recupUndo().empiler(new Coup(x, y, precedent));
         niveau.recupRedo().vider();
         niveau.notifierChangement();
         niveau.sauvegarderNiveau();
 
-        //Verification victoire après l'insertion d'une case noire
-        if (type == Type.NOIR)
-            niveau.victoire();
+        //Verification victoire
+        niveau.victoire();
     }
 }

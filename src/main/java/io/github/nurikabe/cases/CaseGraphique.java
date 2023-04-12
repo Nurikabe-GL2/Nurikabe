@@ -1,9 +1,12 @@
 package io.github.nurikabe.cases;
 
+import io.github.nurikabe.Parametres;
 import io.github.nurikabe.cases.Case.Type;
 import io.github.nurikabe.controller.NiveauController;
 import io.github.nurikabe.niveaux.Niveau;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -27,7 +30,7 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
         setPrefSize(30, 30);
 
         if (getType() != Type.NOMBRE) {
-            setOnMouseClicked(e -> actionClic());
+            setOnMouseClicked(this::actionClic);
         }
 
         mettreAJour();
@@ -38,20 +41,21 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
     }
 
     public void mettreAJour() {
+        getChildren().clear();
+        getStyleClass().clear();
+
         switch (getType()) {
-            case BLANC -> {
-                getChildren().clear();
-                setClassesCss("caseblanche");
-            }
+            case BLANC -> setClassesCss("caseblanche");
             case NOIR -> setClassesCss(aCase.estAffecteParHypothese() ? "casenoireBleue" : "casenoire");
             case POINT -> {
+                setClassesCss("caseblanche");
                 if (aCase.getIndice() > 0) {
                     Text indiceChemin = new Text(Integer.toString(aCase.getIndice()));
                     indiceChemin.getStyleClass().add("chiffreChemin");
-                    setClassesCss("caseblanche");
                     setNodes(indiceChemin);
                 } else {
-                    mettreCercle();
+                    Circle point = new Circle(10, 10, 7, grille.estEnModeHypothese() ? Color.BLUE : Color.BLACK);
+                    setNodes(point);
                 }
             }
             case NOMBRE -> {
@@ -60,30 +64,35 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
                 setClassesCss("caseblanche");
             }
         }
+
+        if (Parametres.getParametres().doitAfficherErreurs()) {
+            //Cases *noires* erronées
+            if (getType() == Type.NOIR && getType() != grille.getGrilleSolution().recup(aCase.getX(), aCase.getY()).getType()) {
+                final Label labelErronnee = new Label("!");
+                labelErronnee.getStyleClass().add("labelCaseErronee");
+                setNodes(labelErronnee);
+            }
+        }
     }
 
     /**
      * Méthode actionClic gérant la réaction de la case au clic,
      * elle s'occupe de changer l'état de la case de façon cyclique et de retirer l'aide s'il y en avait une
      */
-    private void actionClic() {
-        aCase.onClic();
+    private void actionClic(MouseEvent e) {
+        switch (e.getButton()) {
+            case PRIMARY -> aCase.onClic();
+            case SECONDARY -> aCase.onClicPrecedent();
+            default -> {
+                return;
+            }
+        }
 
         //Suppression des aides si la case est remplie avec le bon type
         if (getType() == Type.POINT) getStyleClass().removeIf(s -> s.equals("cible-point"));
         if (getType() == Type.NOIR) getStyleClass().removeIf(s -> s.equals("cible-noir"));
 
         niveauController.calculerIndices();
-    }
-
-    /**
-     * Méthode privée pour mettre un cercle dans la case quand la case se trouve dans l'état point
-     */
-    private void mettreCercle() {
-        Circle cercle = new Circle(10, 10, 7);
-        cercle.setFill(grille.estEnModeHypothese() ? Color.BLUE : Color.BLACK);
-        setNodes(cercle);
-        setClassesCss("caseblanche");
     }
 
     /**

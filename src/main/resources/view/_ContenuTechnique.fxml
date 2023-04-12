@@ -3,15 +3,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<fx:root type="VBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<?import java.lang.String?>
+<fx:root type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="labelNom" maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1" wrapText="true" />
-      <Label fx:id="labelDescription" styleClass="tipLabel" text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux." wrapText="true" />
+      <Label fx:id="labelNom" maxWidth="1.7976931348623157E308" styleClass="tipTitle" text="1. Île de 1"
+             wrapText="true"/>
+      <Label fx:id="labelDescription" styleClass="tipLabel"
+             text="Comme il s'agit d'une île avec un seul carré, nous pouvons poser des murs adjacents et horizontaux."
+             wrapText="true"/>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <Label text="Condition d'activation : " wrapText="true">
+               <styleClass>
+                  <String fx:value="tipLabel"/>
+                  <String fx:value="tipActivationPrefixLabel"/>
+               </styleClass>
+            </Label>
+            <Label fx:id="labelCondition" styleClass="tipLabel" text="Avoir une île de 1." wrapText="true"/>
+         </children>
+      </HBox>
       <ImageView fx:id="image" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/techniques_demarrage/1_ile_de_un.png" />
+            <Image url="@../img/techniques_demarrage/1_ile_de_un.png"/>
          </image>
       </ImageView>
    </children>

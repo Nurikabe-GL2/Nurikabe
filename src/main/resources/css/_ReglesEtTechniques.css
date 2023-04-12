@@ -23,6 +23,10 @@
     -fx-font-size: 13px;
 }
 
+.tipActivationPrefixLabel {
+    -fx-font-weight: bold;
+}
+
 ScrollPane, ScrollPane .viewport {
     -fx-background-color: #152247;
 }
