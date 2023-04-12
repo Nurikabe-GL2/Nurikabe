@@ -80,8 +80,7 @@ public class CaseNormale extends Case {
         niveau.notifierChangement();
         niveau.sauvegarderNiveau();
 
-        //Verification victoire après l'insertion d'une case noire
-        if (type == Type.NOIR)
-            niveau.victoire();
+        //Verification victoire
+        niveau.victoire();
     }
 }
