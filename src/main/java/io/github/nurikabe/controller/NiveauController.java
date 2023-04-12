@@ -155,12 +155,7 @@ public class NiveauController extends FenetreController implements ObservateurNi
         final FichierSolution solution = metadonneesSauvegarde.getSolution();
         labelTitre.setText(metadonneesSauvegarde.getModeDeJeu().getDescriptionMode() + " : " + solution.getNomNiveau());
 
-        for (var entry : Techniques.CATEGORIES_TECHNIQUES.entrySet()) {
-            final var nomCategorie = entry.getKey();
-            final var techniques = entry.getValue();
-            final var controller = Utils.loadFxml(new CategorieTechniqueController(nomCategorie, techniques), "_CategorieTechnique");
-            techniquesBox.getChildren().add(controller);
-        }
+        TechniquesController.insererCategoriesTechniques(techniquesBox);
 
         new AnimationTimer() {
             @Override
