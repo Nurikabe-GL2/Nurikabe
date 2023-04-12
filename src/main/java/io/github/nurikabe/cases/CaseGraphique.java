@@ -41,11 +41,11 @@ public class CaseGraphique extends StackPane implements ObservateurCase {
     }
 
     public void mettreAJour() {
+        getChildren().clear();
+        getStyleClass().clear();
+
         switch (getType()) {
-            case BLANC -> {
-                getChildren().clear();
-                setClassesCss("caseblanche");
-            }
+            case BLANC -> setClassesCss("caseblanche");
             case NOIR -> setClassesCss(aCase.estAffecteParHypothese() ? "casenoireBleue" : "casenoire");
             case POINT -> {
                 if (aCase.getIndice() > 0) {
