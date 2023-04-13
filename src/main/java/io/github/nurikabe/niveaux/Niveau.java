@@ -224,6 +224,7 @@ public class Niveau {
     public void victoire() {
         final int erreurs = verifier();
         if (erreurs == 0) {
+            saveFuture.cancel(false);
             metadonneesSauvegarde.marquerComplet();
 
             notifierVictoire();
